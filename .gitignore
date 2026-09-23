@@ -1,0 +1,8 @@
+# Local editor and operating-system debris only. Source PDFs/EPUBs are tracked.
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+__pycache__/
+*.py[cod]
