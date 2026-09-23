@@ -13,8 +13,9 @@ existing personal text when updating one.
 
 Identify the local source and existing note. For inbox items, follow the intake
 workflow in AGENTS.md. If the request is intake only, create an unread note and
-stop before a substantive reading. Otherwise follow the requested reading depth;
-start with problem → mechanism → evidence → significance → limitations rather
+proceed to the commit step without a substantive reading. Otherwise follow the
+requested reading depth. Start with problem → mechanism → evidence → significance
+→ limitations rather
 than producing an exhaustive section-by-section summary.
 
 Use local extraction or page rendering. Verify equations, figures, tables, and
@@ -46,5 +47,8 @@ reading dates, and status (`unread`, `reading`, or `read`), keeping partial scop
 explicit. Do not mark an entire paper read after an abstract-only pass. Leave
 unsupported sections empty or omit them rather than inventing content.
 
-Finish with the main insight, its limits, changed paths, reading coverage, and
-useful next questions. Leave the source and note changes uncommitted for review.
+Apply [Automatic commits](../../AGENTS.md#automatic-commits) to the completed task,
+keeping the source, note, and related knowledge updates in one focused commit.
+When called within a larger task, defer the commit to that task's completion.
+Finish with the main insight, its limits, changed paths, reading coverage, useful
+next questions, and the commit hash/subject (or the reason no commit was made).

@@ -52,12 +52,54 @@ Resolve repository paths from this file's directory. Load additional workflows o
 4. Create `note.md` for a paper or `index.md` and `chapters/` for a book from the templates. Set the relative source link to the actual PDF/EPUB filename. A standalone chapter may live under its known parent book; do not imply that the full book is present.
 5. Follow the relevant reading workflow to the requested depth. Intake alone creates a minimal note with status `unread`; it does not imply that the source has been read. Search for relevant existing knowledge and record useful candidate connections/questions without forcing any.
 6. Use available local tools for extraction. Keep generated text/images in a temporary directory outside the repository. Do not replace the original source with extracted text. If a document cannot be read reliably, explain the limitation and ask for the needed input before drawing conclusions.
-7. Report source moves, created/updated notes, reading coverage, and unresolved questions. Leave changes available for review.
+7. Complete the automatic commit workflow below, including intake-only work. Report source moves, created/updated notes, reading coverage, unresolved questions, and the commit result.
 
 ## Git and privacy
 
 - PDFs and EPUBs belong in Git alongside Markdown and must sync with the private repository. Do not ignore source files or add Git LFS unless an actual limitation requires it.
-- Keep work local until the reader asks to sync. Do not automatically stage, commit, push, create a remote, or change repository visibility. The reader approves useful changes through Git.
+- Automatically commit completed repository work locally using the workflow below, unless the reader asks to leave it uncommitted. Push, remote creation, and visibility changes still require the reader's instruction.
 - Do not upload sources to third-party extraction services without explicit instruction. Codex reading uses the configured Codex service; this setup does not promise offline model processing.
 - Check existing changes before editing. Preserve unrelated work. Report new files as well as tracked diffs: `git diff` alone does not show untracked file contents.
 - If the task has a material ambiguity, stop and ask the reader rather than silently selecting a policy.
+
+## Automatic commits
+
+Make one focused local commit after a completed reading, intake, connection, review,
+or repository-maintenance task that changes files. A requested partial reading
+(such as one chapter) is a complete task when its scope is recorded accurately.
+An interrupted task or one awaiting essential clarification stays uncommitted.
+When workflows call one another, commit the combined result once at the end of
+the parent task. Do not create empty commits or commits for each intermediate edit.
+
+1. Before editing, inspect `git status --short`, `git diff`, and `git diff --cached`
+   to distinguish task changes from existing work. Keep track of the exact task
+   paths, including both sides of source moves.
+2. Before committing, review the complete task diff and new file contents. Check
+   source links, reading coverage, attribution, hypothesis labels, and preservation
+   of personal text. For moved sources, verify that their bytes are unchanged.
+   Validate changed skills when the skill validator is available.
+3. Stage only this task's changes with explicit paths, including its source files;
+   do not use broad `git add .`, `git add -A`, or `git commit -a`. Do not absorb
+   unrelated edits. If unrelated changes are already staged, preserve the index
+   and defer the automatic commit. If a file mixes task edits with earlier work,
+   stage only demonstrably separable task hunks; otherwise defer the commit and
+   explain the overlap. Do not reset, stash, discard, or overwrite earlier work
+   to make an automatic commit possible.
+4. Review `git diff --cached --stat`, `git diff --cached`, and
+   `git diff --cached --check`. Confirm that the staged result contains only the
+   intended task and that relevant checks pass. Fix task-owned issues before
+   committing; if a failure cannot be resolved, report it and leave work intact.
+5. Use a concise, descriptive subject naming the actual source, topic, or outcome,
+   preferably under 72 characters. Examples: `read: explain Smith 2024 assumptions`,
+   `ingest: add Thinking in Systems EPUB`, `connect: relate leakage to observability`,
+   `review: revisit unresolved optimization questions`, or
+   `chore: improve reader commit workflow`. Add a body when useful to record scope,
+   important changes, or verification limits. Avoid generic messages such as
+   `update notes`; do not claim a full reading or verified connection prematurely.
+6. Create a new commit using the existing Git identity and configured hooks. Do
+   not amend earlier commits, rewrite history, bypass hooks, or invent an identity.
+   If Git blocks the commit, report the actual reason and retain the work.
+7. Verify the commit and remaining working-tree status. Report its short hash,
+   subject, and any remaining changes, or explain why no commit was created.
+   A commit records work; it does not convert a hypothesis into a fact or imply
+   the reader has endorsed a Codex interpretation.

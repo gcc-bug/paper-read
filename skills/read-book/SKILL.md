@@ -49,5 +49,10 @@ Record reading dates and coverage in the index and changed chapter notes. Keep
 the book status `reading` while substantial unread material remains. A source
 containing only one chapter must be described as an excerpt.
 
-Finish with the chapter insight, how the provisional book model changed, changed
-paths, and the next useful reading step. Leave all changes available for review.
+Apply [Automatic commits](../../AGENTS.md#automatic-commits) to the completed task,
+keeping the source, chapter notes, and index changes together. Commit the requested
+reading scope once, rather than making an intermediate commit for every chapter.
+This also applies to intake-only work; when called within a larger task, let that
+task make the final commit. Finish with the chapter insight, how the provisional
+book model changed, changed paths, the next useful reading step, and the commit
+hash/subject (or the reason no commit was made).

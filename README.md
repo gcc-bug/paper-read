@@ -29,7 +29,9 @@ root; there is no additional `reader/` directory to enter.
 3. Tell Codex your own reactions as you read. For example: “Add this to My thoughts:
    I think this assumption fails when observations are delayed.” Codex leaves
    personal sections blank until you supply or confirm their content.
-4. Inspect the changed notes and sources, then commit the useful changes yourself.
+4. Codex checks the completed work and makes a focused local commit, then reports
+   its hash and summary. Inspect that commit and push when you want to sync.
+   Say “leave changes uncommitted” whenever you prefer to review before committing.
 
 The [repository rules](AGENTS.md) route these requests to the four workflows in
 [skills/](skills/). They work through those local instructions without installing
@@ -77,21 +79,39 @@ history; they explicitly state when those records are incomplete.
 ## Review and sync
 
 Once a private GitHub remote and upstream branch are configured, start a session
-with `git pull --ff-only` when the working tree is ready to update. After reading:
+with `git pull --ff-only` when the working tree is ready to update. Completed
+reading, intake, connection, review, and maintenance tasks automatically produce
+one local commit when they change files. Codex checks the changes, includes the
+relevant PDF/EPUB sources, and uses a message describing the actual work.
+
+Related source, note, concept, and question changes stay together. Workflows used
+inside another task share that task's final commit. Unfinished work remains
+uncommitted, and a task that changes nothing creates no commit. This supersedes
+the manual-commit default in the original implementation brief.
+
+After a completed task, inspect the reported commit (replace `HEAD` with its hash
+to inspect an earlier task):
 
 ```bash
 git status --short
-git diff
+git log -5 --oneline
+git show --stat HEAD
+git show HEAD
 ```
 
-Open new files too: they are untracked and their contents do not appear in an
-ordinary `git diff`. When the changes look useful, stage and inspect them:
+Automatic commits include only the current task. If unrelated edits are already
+staged, or earlier edits cannot be safely separated from the task, Codex leaves
+them intact and explains why it did not commit. Git failures are reported rather
+than bypassed. You can inspect pending work with `git diff` and
+`git diff --cached`; open untracked files separately to see their contents.
+
+For manual review, ask Codex to leave changes uncommitted. When ready, stage the
+specific files you reviewed with `git add -- <paths>`, inspect
+`git diff --cached`, and use `git commit` to record them.
+
+To sync committed work:
 
 ```bash
-git add .
-git diff --cached --stat
-git diff --cached
-git commit -m "Read a paper and update related concepts"
 git push
 ```
 
@@ -101,9 +121,11 @@ For the first sync, create an empty **private** GitHub repository, add its URL w
 `git remote add origin <private-repository-url>`, commit any pending changes, and run
 `git push -u origin HEAD`. Subsequent pushes use `git push`.
 
-Codex does not commit or push automatically. There is no LFS, database, frontend,
-or indexing service in v0.1. If an actual source file encounters GitHub's size
-limits, resolve that specific case before changing the storage approach.
+Local commits do not automatically push or change repository visibility. Saving
+a Codex hypothesis in Git does not mark it as verified or reader-approved.
+There is no LFS, database, frontend, or indexing service in v0.1. If an actual
+source file encounters GitHub's size limits, resolve that specific case before
+changing the storage approach.
 
 Private Git hosting controls repository access. Reading with Codex still uses
 your configured Codex service; this is not an offline inference system. Source
@@ -130,4 +152,4 @@ Check that source bytes are preserved, claims have traceable locations, your
 thoughts remain distinct, and book notes track only the chapters actually read.
 Check that existing concepts are reused, hypotheses are labeled, and questions
 retain their history. Accept a finding of “no useful connection” when appropriate.
-Review both Markdown and binary changes before committing.
+Inspect the resulting commit's Markdown and binary changes before syncing.

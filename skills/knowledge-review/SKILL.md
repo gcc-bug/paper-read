@@ -43,6 +43,10 @@ merges with reasons; when asked to perform a merge, preserve personal text,
 distinct definitions, provenance, and incoming links. Do not automatically erase
 notes or create a large new taxonomy during a review.
 
-End with the most consequential findings and changed paths. Clearly separate
-reader-confirmed changes in understanding from Codex's proposed interpretations,
-and leave repository changes available for inspection.
+Apply [Automatic commits](../../AGENTS.md#automatic-commits) once for the completed
+review, including the journal entry and any related knowledge updates. Defer
+commits from nested connection workflows to this step. A direct answer that
+changes no files needs no commit. End with the most consequential findings,
+changed paths, and commit hash/subject (or why no commit was made). Clearly
+separate reader-confirmed changes in understanding from Codex's proposed
+interpretations even after they have been committed.
