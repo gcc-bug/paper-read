@@ -59,6 +59,10 @@ separated by hyphens; full titles and the original filename stay in the notes.
 Links use normal relative Markdown paths, so no special note-taking app is required.
 Empty folders have `.gitkeep` files so Git preserves the initial structure.
 
+Current topic map: [Superconducting-qubit calibration](maps/superconducting-qubit-calibration.md)
+connects the 0918 experiment explanations, the four-panel IQ readout guide,
+unresolved estimator questions, and supporting reference PDFs.
+
 ## Continue and connect
 
 Useful requests include:
