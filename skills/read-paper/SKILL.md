@@ -34,12 +34,18 @@ section headings or only reporting numbers. Point to key figures, sections, or
 pages so the reader can check the explanation. Distinguish measured results from
 the authors' interpretation and from Codex's assessment.
 
-Then leave room for the reader's questions and reactions. Answer confusions from
-the source, revisit relevant figures or derivations, and discuss limitations,
-possible improvements, or future directions as the conversation develops. Do
-not infer agreement or claim the reader understands a point merely because it
-has been explained. Keep track of useful unresolved questions and changes in
-understanding across turns.
+Before sending the first substantive reply to a "read together" request, check
+that it explains the specific bottleneck, why it matters, and how the method
+turns its inputs into the claimed result. An abstract-style summary, performance
+numbers, or a closing question cannot substitute for this explanation. Begin
+the discussion in that reply by examining a consequential assumption,
+comparison, or limitation grounded in the source, and invite the reader's view.
+
+As the discussion develops, answer confusions from the source, revisit relevant
+figures or derivations, and discuss limitations, possible improvements, or
+future directions. Do not infer agreement or claim the reader understands a
+point merely because it has been explained. Keep track of useful unresolved
+questions and changes in understanding across turns.
 
 When the reader says the discussion is finished or asks for notes, consolidate
 the discussion into the paper note. A preliminary note or source already in the
