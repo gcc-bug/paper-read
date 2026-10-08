@@ -7,7 +7,7 @@ status: reading
 source: "source.pdf"
 original_filename: "2005.12667.pdf"
 provenance: "https://arxiv.org/pdf/2005.12667; retrieved 2026-09-29; downloaded PDF identifies arXiv:2005.12667v1"
-reading_dates: [2026-09-29]
+reading_dates: [2026-09-29, 2026-10-08]
 ---
 
 # Circuit Quantum Electrodynamics
@@ -54,6 +54,14 @@ In the local arXiv v1, footnote 7 on p. 32 prints a **minus** between the two di
 - [Four-panel readout explanation](../../concepts/iq-readout-and-assignment.md): definitions, CDF threshold derivation, and limits of local metric interpretation.
 - [Krantz review](../quantum-engineers-guide-superconducting-qubits/note.md): more introductory controls, coherence, and electronics background.
 - [Reading map](../../maps/superconducting-qubit-calibration.md): official practical references and suggested order.
+
+## 2026-10-08 targeted continuation: measurement chain and dispersive model
+
+Additional selective reading covered Sec. V.A, pp. 25–27, especially Figs. 14 and 16 and their surrounding explanations; revisited Sec. V.C.1, pp. 29–31, Eq. (107), the steady-state response Eq. (110), and Fig. 19. Text extraction was local; p. 29 was rendered and visually checked to verify the dispersive Hamiltonian and state/sign convention. The full paper remains only partially read. Source bytes and bibliographic metadata were preserved.
+
+Source claims: Fig. 14 traces the probe through thermal attenuation, a resonator, amplification, mixing, digitization, and FPGA processing; Sec. V.A explains incoming thermal noise and protection from amplifier noise. Fig. 16 describes mixing with reference signals offset by π/2 to measure quadratures. Eq. (107) yields resonator frequencies $\omega_r-\chi$ for the ground state and $\omega_r+\chi$ for the excited state under its stated approximations. Eq. (110) and Fig. 19 connect these shifts to complex resonator responses.
+
+Codex interpretation: the response convention and chosen observable determine whether a state change looks like a peak or a dip. The [hardware and signals note](../../concepts/superconducting-qubit-hardware-and-signals.md) derives an illustrative linear-readout example and distinguishes it from a resonator transmission notch. This does not identify the topology or estimator behind any particular 0918 trace.
 
 ## Open questions
 

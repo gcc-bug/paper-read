@@ -7,6 +7,7 @@ Notes consolidated on 2026-09-29 from the reader's 0918-data discussion. Explana
 1. [Calibration quantities and physical meaning](../concepts/superconducting-qubit-calibration.md): six experiments, raw columns, excitation, π pulses, peaks versus valleys, T1 versus Ramsey, and numerical rules.
 2. [IQ readout and the four-panel figure](../concepts/iq-readout-and-assignment.md): every axis and reported metric in case 001, preparation versus assignment, histogram counts, threshold selection, and fidelity conventions.
 3. [Unresolved readout provenance](../questions/0918-readout-estimator-provenance.md): what the original plotting/analysis code must establish.
+4. [Hardware, microwave signals, and calibration progression](../concepts/superconducting-qubit-hardware-and-signals.md): device roles, energy levels, drive controls, dispersive readout, anticipating peak/dip polarity, and the iterative sequence.
 
 ## Reading order and references
 
@@ -21,6 +22,10 @@ Notes consolidated on 2026-09-29 from the reader's 0918-data discussion. Explana
 The three documentation pages were inspected on 2026-09-29 and displayed Qiskit Experiments 0.14.2. They are live references, not locally executed examples. The Ramsey introduction has a misleading sentence referring to initialization in |1⟩; the listed SX–delay–RZ–SX circuit and Krantz Fig. 5 establish superposition preparation during the free-evolution interval. Use the circuit, not that isolated sentence.
 
 The two papers received targeted partial reading, not full reviews. Their notes record exact coverage and source-version limitations. These sources establish general physics; none defines the unpublished 0918 plotting code's `stateErr`, `sepErr`, or SNR convention.
+
+## Hardware and signal reading added 2026-10-08
+
+Read Krantz Fig. 1, pp. 4–5, alongside the energy-level explanation; Eqs. (92)–(94), p. 29, alongside frequency/amplitude/time/phase controls; and Fig. 22, p. 45, alongside IQ acquisition. Read Blais Fig. 14, p. 25, for the measurement hardware; Fig. 16, p. 27, for the mixer/reference oscillator; and Eq. (107), p. 29, through Fig. 19, p. 31, for the state-dependent resonator response. These existing PDFs supply the references for the new hardware note; no full-paper reading or recovery of the 0918 wiring is claimed.
 
 ## Related reading already in this repository
 

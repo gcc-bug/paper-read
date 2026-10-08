@@ -6,7 +6,7 @@ aliases: [0918 calibration guide]
 
 # Superconducting-qubit calibration: quantities and physical meaning
 
-Consolidated 2026-09-29. [Reading map and references](../maps/superconducting-qubit-calibration.md) · [Detailed readout figure](iq-readout-and-assignment.md).
+Consolidated 2026-09-29; extended 2026-10-08. [Reading map and references](../maps/superconducting-qubit-calibration.md) · [Detailed readout figure](iq-readout-and-assignment.md) · [Hardware, signals, and calibration progression](superconducting-qubit-hardware-and-signals.md).
 
 ## Codex interpretation
 
@@ -56,6 +56,10 @@ The states have different energies. The transition has one resonant frequency, w
 Qubit-spectroscopy case 001 reports $f_{10}=4.119$ GHz and shows an upward readout feature. Resonator-spectroscopy case 001 shows multiple dips. One transition need not produce two peaks corresponding to two states. Peak/dip polarity depends on the readout observable, resonator response, and background; it is not a universal label for excitation versus relaxation.
 
 Spectroscopy needs a resolvable, reproducible feature and sufficient scan range/resolution. Multiple features, a clipped feature, or excessive broadening complicate parameter identification. A large peak alone does not establish which transition was driven. See Krantz Sec. V.A and Blais Sec. V.C.1/Fig. 19 for state-dependent resonator response; these describe the general mechanism, not a unique diagnosis of each local spectrum.
+
+### 2026-10-08 clarification: anticipating peak or dip
+
+Codex: the measurement convention and reference responses can predict feature polarity once calibrated. The target of an initial qubit-frequency scan is a reproducible state-dependent response, which may point either way. Under a linear scalar-readout model, $y=y_0+(y_1-y_0)P_1$: excitation produces a peak when $y_1>y_0$ and a dip when $y_1<y_0$. Neither sign identifies transition direction by itself. Magnitude and phase can depart from this linear model. A resonator-frequency scan probes a different scattering response, which can show a notch even with strong internal excitation. See [hardware and signal explanation](superconducting-qubit-hardware-and-signals.md#codex-interpretation-can-we-predict-peak-or-dip-before-a-scan) for examples and supporting references.
 
 ## π pulses and amplitude Rabi
 

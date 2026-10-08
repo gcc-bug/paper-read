@@ -7,7 +7,7 @@ status: reading
 source: "source.pdf"
 original_filename: "1904.06560.pdf"
 provenance: "https://arxiv.org/pdf/1904.06560; retrieved 2026-09-29; downloaded PDF identifies arXiv:1904.06560v5"
-reading_dates: [2026-09-29]
+reading_dates: [2026-09-29, 2026-10-08]
 ---
 
 # A Quantum Engineer's Guide to Superconducting Qubits
@@ -46,6 +46,14 @@ Use care with SNR conventions. Page 47 gives a particular width/separation defin
 - [Calibration quantities](../../concepts/superconducting-qubit-calibration.md): basis for excitation/coherence and control-pulse explanations.
 - [IQ readout](../../concepts/iq-readout-and-assignment.md): general explanation of clouds, projections, and overlap limits.
 - [Blais review](../circuit-quantum-electrodynamics/note.md): more detailed dispersive response and explicit fidelity normalization.
+
+## 2026-10-08 targeted continuation: hardware and signal controls
+
+Additional reading covered Sec. II.A, pp. 4–5, particularly Fig. 1 and Eqs. (13)–(16); revisited Sec. IV.D.1, p. 29, Eqs. (92)–(94), and the acquisition discussion/Fig. 22, p. 45. Extraction was local; p. 5 was rendered and visually checked. The complete paper remains only partially read. Source bytes and bibliographic metadata were preserved.
+
+Source claims: Fig. 1 contrasts an LC oscillator's equally spaced levels with a Josephson oscillator's unequal spacing, permitting selection of the lowest two levels. Eq. (16) gives the simplified transmon Hamiltonian. Eqs. (92)–(94) connect drive phase and envelope to rotation axis and angle; adjacent discussion describes combining frequencies to address multiple qubits or resonators. Fig. 22 traces heterodyne detection through ADC sampling to IQ processing.
+
+Codex interpretation: these passages explain why carrier frequency, amplitude, duration, and phase are separate controls, and why recorded IQ is a microwave response rather than the qubit wavefunction. The new [hardware and signals note](../../concepts/superconducting-qubit-hardware-and-signals.md) combines them into a generic setup and iterative calibration sequence. That sequence is explanatory synthesis, not an experimentally recovered ordering of 0918 cases.
 
 ## Open questions
 
