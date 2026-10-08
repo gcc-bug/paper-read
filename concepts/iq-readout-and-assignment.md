@@ -178,7 +178,7 @@ $$
 F_{\mathrm{assign}}=1-\frac{\epsilon_0+\epsilon_1}{2}.
 $$
 
-For the same two errors, $F_m=2F_{\mathrm{assign}}-1$. Accordingly, “88%” under one convention can correspond to “94%” under the other. Always compare definitions before comparing numbers. The downloaded Blais v1 footnote 7 contains an apparent sign typo in its alternative definition; see the [source note](../papers/circuit-quantum-electrodynamics/note.md#source-version-caution). The formulas here follow the explicit probability definitions and Eq. (116), not that typo.
+For the same two errors, $F_m=2F_{\mathrm{assign}}-1$. Accordingly, “88%” under one convention can correspond to “94%” under the other. Always compare definitions before comparing numbers. The downloaded Blais v1 footnote 7 contains an apparent sign typo in its alternative definition; see the [source annotation](../discussions/superconducting-qubit-calibration/references.md#source-version-caution). The formulas here follow the explicit probability definitions and Eq. (116), not that typo.
 
 ## Reader questions
 
@@ -200,6 +200,6 @@ Checked 2026-09-29. Original files remain in the sibling repository; only the fi
 - [CSV](<../../agent_control/data/0918/GMM Readout Clusters/001/00855 - q23%c IQ raw.csv>). SHA-256: `e15d691c57a6dd4e51a444983383fd4b32d356898f20030e9c8f1040090161cd`.
 - [INI](<../../agent_control/data/0918/GMM Readout Clusters/001/00855 - q23%c IQ raw.ini>), especially Dependent 1–4. SHA-256: `cb59b3aa8c32f8467900a97332ffb38dad72bbadf2f89449b810490e8e4396d1`.
 - [Workbook](../../agent_control/data/0918/meta_info_cn_v2.xlsx), `Sheet1!F42` for important values, row 42 for case metadata. SHA-256: `101abc04cb34a6bd497d7739b37cba94242021a86bc9028d0c080aa48908a618`.
-- External physics sources: [Krantz](../papers/quantum-engineers-guide-superconducting-qubits/note.md), [Blais](../papers/circuit-quantum-electrodynamics/note.md), [Qiskit assignment-matrix reference](../maps/superconducting-qubit-calibration.md#reading-order-and-references).
+- External physics sources: [Krantz](../discussions/superconducting-qubit-calibration/references.md#a-quantum-engineers-guide-to-superconducting-qubits), [Blais](../discussions/superconducting-qubit-calibration/references.md#circuit-quantum-electrodynamics), [Qiskit assignment-matrix reference](../discussions/superconducting-qubit-calibration/note.md#reading-order-and-references).
 
 2026-09-29 — Codex consolidation: exact panel color semantics, circle levels, coordinate transforms, and the `stateErr`/`sepErr`/SNR estimators remain unverified. Literature references do not turn these local ambiguities into established facts.

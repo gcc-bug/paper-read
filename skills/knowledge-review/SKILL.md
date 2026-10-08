@@ -15,6 +15,11 @@ or history limit what can be concluded; say so rather than inferring a chronolog
 from file modification times. An empty repository should yield a concise report
 of no reading records, not an invented review.
 
+Include relevant topic discussions, but distinguish reference consultation by
+Codex from papers selected for reader-led reading. Consultation dates and source
+annotations are evidence of what supported a discussion, not evidence that the
+reader read or endorsed those papers.
+
 Read relevant notes and enough linked context to assess:
 
 - Recurring ideas and concepts that have become important.

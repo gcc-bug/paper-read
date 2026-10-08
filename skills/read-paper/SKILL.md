@@ -1,6 +1,6 @@
 ---
 name: read-paper
-description: Read or ingest research papers in this private reader repository, maintain evidence-grounded paper notes, and relate them to existing knowledge. Use for understanding a paper rather than editing its manuscript.
+description: Read papers selected by the reader or ingest them for later reading, maintaining evidence-grounded reading notes. Topic discussions using supporting papers belong to discuss-topic; manuscript editing is outside this workflow.
 ---
 
 # Read a paper
@@ -10,6 +10,15 @@ Read [AGENTS.md](../../AGENTS.md) for authorship, intake, and Git rules. Use
 existing personal text when updating one.
 
 ## Establish scope
+
+First establish whether the paper itself is the reading target. Looking up a
+paper to answer a calibration, dataset, or topic question does not make it a
+standalone reading. For that task use
+[discuss-topic](../discuss-topic/SKILL.md), storing its supporting references
+with the discussion. If a paper already has a reading note, link it rather than
+duplicating its source. Further papers consulted during a paper reading remain
+supporting references: keep them in that paper's `references/` with attributed
+annotations in its note, unless they already have a local source to link.
 
 Identify the local source and existing note. For inbox items, follow the intake
 workflow in AGENTS.md. If the request is intake only, create an unread note and

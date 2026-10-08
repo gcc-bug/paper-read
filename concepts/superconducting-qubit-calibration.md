@@ -177,6 +177,6 @@ The questions about four-panel layout and prepared/assigned states are retained 
 
 - Raw values: [0918 data](../../agent_control/data/0918/) and its `meta_info_cn_v2.xlsx` annotation workbook. These links require the sibling checkout; the notes and downloaded reference PDFs remain readable without it.
 - Implementation: [audit_raw_physics.py](../../agent_control/scripts/audit_raw_physics.py), especially `projection`, `audit_case`, and `POLICY`.
-- Literature: [Krantz note](../papers/quantum-engineers-guide-superconducting-qubits/note.md), [Blais note](../papers/circuit-quantum-electrodynamics/note.md), and [official tutorial links](../maps/superconducting-qubit-calibration.md#reading-order-and-references).
+- Literature: [Krantz reference](../discussions/superconducting-qubit-calibration/references.md#a-quantum-engineers-guide-to-superconducting-qubits), [Blais reference](../discussions/superconducting-qubit-calibration/references.md#circuit-quantum-electrodynamics), and [official tutorial links](../discussions/superconducting-qubit-calibration/note.md#reading-order-and-references).
 
 2026-09-29 — Codex consolidation: preserves the flat T1 exception, distinguishes plotted signal from population, and corrects any earlier implication that `0918` specifies the acquisition date. No reader endorsement of these explanations is inferred.

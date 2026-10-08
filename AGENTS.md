@@ -9,6 +9,7 @@ Before doing the corresponding work, read the repository-local workflow:
 
 | Request | Instructions |
 | --- | --- |
+| Discuss a topic, dataset, or question using supporting references | [discuss-topic](skills/discuss-topic/SKILL.md) |
 | Read a paper or ingest a research paper | [read-paper](skills/read-paper/SKILL.md) |
 | Read a book or chapter, or ingest a book | [read-book](skills/read-book/SKILL.md) |
 | Find relationships between notes | [connect-notes](skills/connect-notes/SKILL.md) |
@@ -35,6 +36,8 @@ Resolve repository paths from this file's directory. Load additional workflows o
 
 ## Notes and navigation
 
+- File sources by their role in the reader's task. `papers/` contains papers selected for reading or explicitly ingested for later reading, with their reading notes. A paper consulted to explain a topic, dataset, or question is a supporting reference, even when Codex reads selected passages closely.
+- Keep a topic discussion in `discussions/<topic>/note.md`, with supporting PDFs/EPUBs in `references/` and source annotations in the discussion note or an optional `references.md`. Preserve bibliographic metadata, provenance, original filenames, consultation dates, and exact coverage. Supporting references do not need paper-reading status or separate paper notes. Reuse an existing source by linking it; create a standalone paper reading only when the reader selects that paper for reading or intake.
 - Search existing notes before creating a concept, connection, or question. Search synonyms and related mechanisms, not only exact titles. Prefer improving an existing note to duplicating it.
 - Extract a concept only when it is reusable outside its source. Explain why a connection matters; keep weak similarities in the source note unless they become useful.
 - Use ordinary relative Markdown links so navigation works locally and on GitHub. Update affected links when moving or renaming a note.
@@ -46,11 +49,11 @@ Resolve repository paths from this file's directory. Load additional workflows o
 
 ## Inbox intake
 
-1. Inspect the item and enough content to identify its type, title, and scope. If paper/book classification or intended handling is materially unclear, stop and ask. Keep unclassified personal text in the inbox until its destination is clear.
-2. Check for an existing source or note. Compare content/checksums when needed. Reuse an existing note for a duplicate; do not delete the incoming copy without instruction. Keep different editions distinguishable.
-3. Move an identified paper to `papers/<slug>/source.<original-extension>` or a book to `books/<slug>/source.<original-extension>`. Preserve the original file bytes. Record the original filename and known provenance in the note. Do not replace an existing destination.
-4. Create `note.md` for a paper or `index.md` and `chapters/` for a book from the templates. Set the relative source link to the actual PDF/EPUB filename. A standalone chapter may live under its known parent book; do not imply that the full book is present.
-5. Follow the relevant reading workflow to the requested depth. Intake alone creates a minimal note with status `unread`; it does not imply that the source has been read. Search for relevant existing knowledge and record useful candidate connections/questions without forcing any.
+1. Inspect the item and enough content to identify its type, title, scope, and role in the request: a reading target or a supporting reference. Use the request context; if classification or intended handling is materially unclear, stop and ask. Keep unclassified personal text in the inbox until its destination is clear.
+2. Check for an existing source, reading note, or reference annotation. Compare content/checksums when needed. Reuse the existing record for a duplicate; do not delete the incoming copy without instruction. Keep different editions distinguishable.
+3. Move a reading target to `papers/<slug>/source.<original-extension>` or `books/<slug>/source.<original-extension>`. Put a discussion's supporting reference in `discussions/<topic>/references/<source-slug>.<original-extension>` instead. Preserve the original file bytes. Record the original filename and known provenance in its annotations. Do not replace an existing destination.
+4. For a reading target, create `note.md` for a paper or `index.md` and `chapters/` for a book from the templates. For supporting references, annotate only the passages used and their role in the discussion; do not create a paper-reading record. Set relative source links to the actual PDF/EPUB filenames. A standalone chapter may live under its known parent book; do not imply that the full book is present.
+5. Follow the workflow appropriate to the source's role and the requested depth. Intake alone creates a minimal note with status `unread` for a reading target; adding a supporting reference records its consultation coverage instead. Neither implies that the full source has been read. Search for relevant existing knowledge and record useful candidate connections/questions without forcing any.
 6. Use available local tools for extraction. Keep generated text/images in a temporary directory outside the repository. Do not replace the original source with extracted text. If a document cannot be read reliably, explain the limitation and ask for the needed input before drawing conclusions.
 7. Complete the automatic commit workflow below, including intake-only work. Report source moves, created/updated notes, reading coverage, unresolved questions, and the commit result.
 
@@ -64,7 +67,7 @@ Resolve repository paths from this file's directory. Load additional workflows o
 
 ## Automatic commits
 
-Make one focused local commit after a completed reading, intake, connection, review,
+Make one focused local commit after a completed reading, discussion, intake, connection, review,
 or repository-maintenance task that changes files. A requested partial reading
 (such as one chapter) is a complete task when its scope is recorded accurately.
 An interrupted task or one awaiting essential clarification stays uncommitted.

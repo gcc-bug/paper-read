@@ -33,7 +33,7 @@ root; there is no additional `reader/` directory to enter.
    its hash and summary. Inspect that commit and push when you want to sync.
    Say “leave changes uncommitted” whenever you prefer to review before committing.
 
-The [repository rules](AGENTS.md) route these requests to the four workflows in
+The [repository rules](AGENTS.md) route these requests to the workflows in
 [skills/](skills/). They work through those local instructions without installing
 anything globally. You can also explicitly ask Codex to follow a particular
 `skills/<name>/SKILL.md` file.
@@ -43,7 +43,9 @@ anything globally. You can also explicitly ask Codex to follow a particular
 | Path | Purpose |
 | --- | --- |
 | `inbox/` | New sources and unprocessed personal notes |
-| `papers/<slug>/source.pdf` and `note.md` | A paper's original file and reading note |
+| `papers/<slug>/source.pdf` and `note.md` | A paper selected for reading or ingested for later reading, with its reading note |
+| `discussions/<topic>/note.md` | A topic, dataset, or question discussion, which may continue across sessions |
+| `discussions/<topic>/references/` and optional `references.md` | Supporting source files and attributed annotations for that discussion |
 | `books/<slug>/source.pdf` or `source.epub` | A book's original file |
 | `books/<slug>/index.md` and `chapters/01.md` | Evolving book argument and chapter notes |
 | `concepts/` | Reusable ideas shared across reading areas |
@@ -59,7 +61,12 @@ separated by hyphens; full titles and the original filename stay in the notes.
 Links use normal relative Markdown paths, so no special note-taking app is required.
 Empty folders have `.gitkeep` files so Git preserves the initial structure.
 
-Current topic map: [Superconducting-qubit calibration](maps/superconducting-qubit-calibration.md)
+Consulting a paper to explain a discussion does not create a standalone paper
+reading. Keep those references with the discussion; `papers/` is for reading
+targets. Additional sources used during a paper or book reading may live in that
+reading's `references/`. Link existing sources instead of duplicating them.
+
+Current discussion: [Superconducting-qubit calibration](discussions/superconducting-qubit-calibration/note.md)
 connects the 0918 experiment explanations, the four-panel IQ readout guide,
 unresolved estimator questions, and supporting reference PDFs.
 
@@ -84,8 +91,8 @@ history; they explicitly state when those records are incomplete.
 
 Once a private GitHub remote and upstream branch are configured, start a session
 with `git pull --ff-only` when the working tree is ready to update. Completed
-reading, intake, connection, review, and maintenance tasks automatically produce
-one local commit when they change files. Codex checks the changes, includes the
+reading, discussion, intake, connection, review, and maintenance tasks produce
+one automatic local commit when they change files. Codex checks the changes, includes the
 relevant PDF/EPUB sources, and uses a message describing the actual work.
 
 Related source, note, concept, and question changes stay together. Workflows used

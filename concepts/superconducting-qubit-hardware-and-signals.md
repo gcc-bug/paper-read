@@ -169,10 +169,10 @@ GMM readout benefits from an approximate π pulse; pulse calibration benefits fr
 
 | Source and location in local version | Source mechanism used here |
 | --- | --- |
-| [Krantz note and PDF](../papers/quantum-engineers-guide-superconducting-qubits/note.md), Sec. II.A, pp. 4–5, Fig. 1 and Eqs. (13)–(16) | Linear oscillator versus Josephson oscillator, energy-level selection, and transmon Hamiltonian |
+| [Krantz reference and PDF](../discussions/superconducting-qubit-calibration/references.md#a-quantum-engineers-guide-to-superconducting-qubits), Sec. II.A, pp. 4–5, Fig. 1 and Eqs. (13)–(16) | Linear oscillator versus Josephson oscillator, energy-level selection, and transmon Hamiltonian |
 | Krantz Sec. IV.D.1, p. 29, Eqs. (92)–(94) | Drive envelope and phase control rotations; multiplexed drive synthesis |
 | Krantz Sec. V.B, Fig. 22, p. 45 | Heterodyne acquisition and processing into IQ |
-| [Blais note and PDF](../papers/circuit-quantum-electrodynamics/note.md), Sec. V.A, pp. 25–27, Figs. 14 and 16 | Measurement chain, attenuation, amplification, reference oscillator, and IQ mixing |
+| [Blais reference and PDF](../discussions/superconducting-qubit-calibration/references.md#circuit-quantum-electrodynamics), Sec. V.A, pp. 25–27, Figs. 14 and 16 | Measurement chain, attenuation, amplification, reference oscillator, and IQ mixing |
 | Blais Sec. V.C.1, pp. 29–31, Eqs. (107), (110), Fig. 19 | State-dependent resonator shift and complex response |
 
 The polarity example and calibration sequence are Codex explanatory syntheses. The references establish general mechanisms, not the undocumented 0918 estimator or wiring. On 2026-10-08 these source passages were read selectively by local text extraction; Krantz p. 5 and Blais p. 29 were also rendered and visually checked. Page labels match PDF indices at these cited locations. Neither paper was read in full.

@@ -11,6 +11,12 @@ templates when creating notes.
 
 ## Establish scope
 
+Use this workflow when the book or chapter is the reading target. Passages
+consulted only to support a topic discussion belong with that discussion under
+[discuss-topic](../discuss-topic/SKILL.md). Additional sources supporting a book
+reading may live in the book's `references/`, with annotations in its index or
+chapter note; link existing sources rather than duplicating them.
+
 Locate the source, edition, existing index, and chapter notes. Follow the inbox
 intake workflow for new material. An intake-only request creates an unread index;
 it does not require chapter summaries. Preserve the original PDF/EPUB bytes.

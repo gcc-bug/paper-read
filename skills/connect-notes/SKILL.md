@@ -14,6 +14,11 @@ extension, generalization or specialization, use of an idea, and analogy. Check
 whether a new source answers an older question. Shared keywords alone do not
 establish a useful relationship.
 
+Include discussion notes and supporting-reference annotations in the search.
+Consulting a reference for a connection does not create a standalone paper
+reading; retain its role and store new supporting sources with the owning note
+or discussion, following AGENTS.md.
+
 Inspect both sides before asserting a connection. Follow source references when
 needed; if only reading notes are available, identify that evidence limitation.
 Explain the relation's direction, common structure, relevant differences, and
