@@ -8,7 +8,7 @@ tags: []
 source: "source.pdf"
 original_filename: "read-2608.20164v1.pdf"
 provenance: "https://arxiv.org/abs/2608.20164; arXiv v1 PDF retrieved from https://arxiv.org/pdf/2608.20164v1 on 2026-09-30. Original filename records the temporary local download name."
-reading_dates: [2026-09-23, 2026-09-30]
+reading_dates: [2026-09-23, 2026-09-30, 2026-10-03, 2026-10-09]
 ---
 
 # Architecture and Compilation Co-Design for High-Rate Quantum Product Codes on Neutral Atom Arrays
@@ -22,6 +22,8 @@ reading_dates: [2026-09-23, 2026-09-30]
 On 2026-09-23, Codex read the main text (PDF pp. 1–13) and appendices A–C (PDF pp. 14–18); references were skimmed. PDF page indices and printed page numbers coincide. Text was extracted locally. Figure 1, Figure 4, and the constraints on p. 14 were also inspected in rendered pages; the remaining figures were not comprehensively visually audited. On 2026-09-30, follow-up reading revisited the formulation and compaction in Appendix A.1–A.3, the benchmarks and formulation ablation, the zoned and lifted-product evaluations, and relevant references. No compiler implementation, solver certificates, or experimental reproduction was inspected.
 
 The initial conversational explanation was too compressed. The reader requested the problem background and methodology, followed by questions about scheduling, initial placement, distance compaction, SMT modeling, symmetry, and comparisons. This note preserves that discussion for resumption.
+
+**Checkpoint update, 2026-10-09, requested by the reader.** The reading remains in progress. On 2026-10-03, Codex revisited §3.2 and Appendix A.1–A.3 (PDF pp. 4–5 and 14–15), including rendered pp. 14–15, to recover the earlier stopping points. On 2026-10-09, discussion covered MILP, discrete depth versus physical duration, parallel movements, and gate-pulse time. Codex consulted PDF pp. 4–7 and 14–15, inspected rendered pp. 4, 6, and 14, and added the detailed Phase 1 walkthrough below. The walkthrough is a Codex explanation of the source; its small example is constructed for teaching, not taken from the paper or produced by an ONEX run. No implementation or solver certificate was inspected. The earlier checkpoint and the reader's personal text are preserved.
 
 ## Source claims
 
@@ -50,6 +52,82 @@ The constraints enforce distinct traps, the prescribed stage order, co-location 
 The formulation includes initial placements π(q,0) among its variables and does not specify a fixed initial mapping. The stage sequence is fixed by t(k) < t(k+1). The authors use quantifier-free bit-vector constraints with Z3. They first find a feasible depth and then search downward until reaching the lower bound or proving the next smaller depth infeasible (Appendix A.1). A timeout or unknown result is not an infeasibility proof.
 
 For repeated HGP syndrome extraction, the authors separately mention a lightweight solver that returns qubits to their initial placement (§4.2.2, PDF p. 7). The core formulation in Appendix A.1 alone does not describe the complete cyclic execution procedure.
+
+#### Phase 1 equations and depth search — clarification, 2026-10-09
+
+Appendix A.1 (PDF p. 14) describes a feasibility model at a candidate depth T. In the notation below, t indexes placement snapshots and t_k is the snapshot assigned to gate stage k. The fixed inputs are the qubits Q, trap count M, and ordered gate schedule S = [s_0, …, s_{L-1}]. Each s_k contains disjoint pairs that execute in parallel. The solver chooses the placements and gate-stage times jointly:
+
+\[
+0 \le \pi_q^t < M,\qquad 0 \le t_k < T,
+\qquad \sigma_q^t=\lfloor\pi_q^t/2\rfloor,
+\qquad \ell_q^t=\pi_q^t\bmod 2.
+\]
+
+Here π is a trap index, σ is an interaction-site index, and ℓ selects one of the site's two traps. These are bounded discrete variables, encoded using quantifier-free bit vectors (QF_BV), rather than unbounded mathematical integers. The following equations are mathematical presentations of the source constraints, not implementation code. Source quantifiers indicate constraints instantiated over the finite inputs; the reported solver encoding is quantifier-free.
+
+1. **Distinct traps:** at every snapshot, two different qubits must have different trap indices:
+
+   \[
+   \pi_i^t\ne\pi_j^t\quad(i\ne j).
+   \]
+
+2. **Fixed stage order:** the solver chooses when each stage executes, but cannot reorder the input stages:
+
+   \[
+   t_k<t_{k+1}.
+   \]
+
+3. **Required gate pairs:** if stage k executes at snapshot t, each pair in that stage must share an interaction site:
+
+   \[
+   (t_k=t)\Rightarrow(\sigma_u^t=\sigma_v^t),
+   \qquad (u,v)\in s_k.
+   \]
+
+   Combined with distinct traps, the pair occupies the two different traps of that site.
+
+4. **Idle-qubit isolation:** let I_k be the qubits absent from all pairs in stage k. At that stage, different idle qubits must occupy different sites:
+
+   \[
+   (t_k=t)\Rightarrow(\sigma_i^t\ne\sigma_j^t),
+   \qquad i\ne j\in I_k.
+   \]
+
+   Idle qubits cannot share a site with an active gate pair either: the pair already occupies both traps, and distinct-trap constraints leave no room for another atom. This site-isolation condition applies at gate stages; an intermediate snapshot without a gate stage is not subject to this particular condition.
+
+5. **No crossing between co-moving atoms:** define m_q^t to mean that atom q changes traps between snapshots t and t+1:
+
+   \[
+   m_q^t\Leftrightarrow(\pi_q^t\ne\pi_q^{t+1}).
+   \]
+
+   If both i and j move in that transition, their relative order must be preserved:
+
+   \[
+   (m_i^t\land m_j^t)\Rightarrow
+   \big[(\pi_i^t<\pi_j^t)\Leftrightarrow
+   (\pi_i^{t+1}<\pi_j^{t+1})\big].
+   \]
+
+   The condition is on both atoms moving. It does not impose a single fixed order of all atoms throughout the execution.
+
+The initial positions π_q^0 are variables too. No displacement objective or physical movement-time objective appears in this Phase 1 feasibility model. One SAT result supplies a placement table and stage times for the chosen T. UNSAT establishes that no assignment satisfies that model at that T; UNKNOWN or a timeout establishes neither feasibility nor infeasibility.
+
+Appendix A.1.2 searches upward with short time budgets to find a feasible depth, then downward with larger budgets to seek a smaller one. The lower bound is T ≥ L because the L gate stages require strictly increasing snapshot indices. A solution at T* is depth-optimal within this fixed-schedule model if it reaches L or the next smaller depth T*−1 is proved UNSAT. Optimality is conditional on the specified inputs and constraints, and cannot be inferred from a timeout.
+
+#### Discrete depth, parallel movement, and gate time — clarification, 2026-10-09
+
+In Appendix A's indexing, there are T placement snapshots, t = 0, …, T−1, and T−1 transitions between them; the compaction sums in Appendix A.2 run from 0 to T−2. Section 4.2.2 informally calls T the number of rearrangement steps. Do not use that wording to erase the distinction between snapshots and transitions, or infer full-cycle boundary costs from the core model alone.
+
+All compatible atoms moving in one transition form one parallel rearrangement layer. Its duration depends on the maximum physical displacement in that layer, not the sum of individual atom travel times. Gate stages execute at selected snapshots, after the required atoms have been brought together. Figure 3 (PDF p. 4) depicts gate pulses and rearrangements sequentially; gates within one stage execute in parallel. Thus, for the modeled 1D execution with L entangling stages, the rearrangement and gate contribution is
+
+\[
+\sum_{t=0}^{T-2}\tau_t+L\,t_{\mathrm{gate}},
+\qquad
+\tau_t=2t_{\mathrm{transfer}}+\sqrt{D_t/\alpha}.
+\]
+
+This expression does not by itself describe all preparation, measurement, or cyclic-return costs of a complete memory round. Section 4.1 (PDF p. 6) assumes t_gate = 0.36 μs, t_transfer = 15 μs, and α = 2.75 × 10^−3 μm/μs². The gate-stage count L is fixed during Phase 1, so its modeled pulse-time contribution is constant. Minimum discrete depth does not guarantee minimum elapsed movement time.
 
 ### How distance compaction is modeled
 
@@ -134,6 +212,23 @@ The reader's two observations concern different choices. Color order is fixed in
 
 **Clarification, 2026-09-30.** The earlier compaction explanation was imprecise about the objective: Phase 2 minimizes the sum of per-transition maximum displacements, then total displacement. It does not independently minimize every transition or prove minimum physical duration.
 
+### Worked Phase 1 example — 2026-10-09
+
+This is a Codex-constructed example of Appendix A.1's model, not a paper benchmark or an executed solver result. Use four qubits A, B, C, D and eight traps. Sites 0, 1, 2, 3 contain trap pairs (0,1), (2,3), (4,5), (6,7), respectively. The fixed input has two stages: s_0 = {(A,B)}, then s_1 = {(A,C)}. D is always idle.
+
+For candidate T = 2, the stage times must be t_0 = 0 and t_1 = 1. One satisfying assignment is:
+
+| Snapshot | A's trap | B's trap | C's trap | D's trap | Gate stage |
+| --- | ---: | ---: | ---: | ---: | --- |
+| 0 | 0 | 1 | 4 | 6 | A–B |
+| 1 | 5 | 1 | 4 | 6 | A–C |
+
+At snapshot 0, A and B share site 0; idle C and D occupy sites 2 and 3. At snapshot 1, A and C share site 2; idle B and D occupy sites 0 and 3. All traps are distinct. Only A moves, so there is no pair of co-moving atoms whose order could reverse. Under this model, A passing stationary B and C does not violate the conditional no-crossing constraint. The example has two snapshots, one rearrangement transition, and two gate stages. Since T = L = 2, this assignment attains the model's depth lower bound; no solver run is needed to check that fact for this small example.
+
+For comparison, retain snapshot 0 but propose snapshot 1 as A = 0, B = 4, C = 1, D = 6. This puts A and C together and keeps idle B and D isolated. However, B and C both move, and their order reverses: B < C initially, but B > C finally. Constraint 5 rejects this simultaneous swap. An additional intermediate snapshot, or a different trajectory such as the valid one above, is required. This shows why gate co-location alone is an insufficient formulation and why the solver chooses movements and placements jointly.
+
+SMT means *satisfiability modulo theories*: the solver finds values satisfying logical formulas together with rules for a chosen domain, here fixed-width bit vectors. Conceptually, one Phase 1 call answers “Does a valid placement-and-stage-time table exist at this T?” The outer depth search turns those feasibility answers into depth optimization. This is distinct from Phase 2's MILP (*mixed-integer linear programming*), which optimizes a linear displacement objective within a retained structure. The input coloring controls gate-stage count; Phase 1 controls discrete depth; Phase 2 controls a restricted distance objective; Phase 3 searches other structures under tighter bounds. The input coloring is described as near-optimal in §3.2, not as a general certificate of globally minimum gate depth.
+
 ## Open questions and resumption points
 
 The following reader comments are retained verbatim. The answers underneath are provisional Codex explanations, not confirmed reader understanding.
@@ -163,6 +258,8 @@ The following reader comments are retained verbatim. The answers underneath are 
 Additional question arising from the reader's scheduling observation, recorded by Codex on 2026-09-30: how much do valid color orders and cyclic boundary handling change the achievable movement depth and duration? A controlled recompilation experiment would answer this. No measured gap has been established.
 
 **Suggested place to resume:** a small example of the SMT variables and constraints, followed by compaction of the same trajectory. Then examine color-order sensitivity and symmetry handling in any available implementation.
+
+**Development, 2026-10-09.** At the reader's request, the note now includes the Phase 1 equations, SAT/UNSAT depth search, a valid small trajectory and a rejected simultaneous swap, plus the distinctions between snapshots, parallel transitions, and gate-pulse duration. These are Codex explanations, not an endorsement or a record of confirmed reader understanding. The earlier resumption suggestion remains as historical context. Next useful step: work through compaction of a trajectory with unnecessary spatial gaps, then revisit symmetry and color-order sensitivity. Explicit symmetry handling and full-cycle boundary details remain unresolved.
 
 ## Important locations
 
