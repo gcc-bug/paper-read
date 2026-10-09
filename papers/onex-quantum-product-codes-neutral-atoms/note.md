@@ -25,6 +25,8 @@ The initial conversational explanation was too compressed. The reader requested 
 
 **Checkpoint update, 2026-10-09, requested by the reader.** The reading remains in progress. On 2026-10-03, Codex revisited §3.2 and Appendix A.1–A.3 (PDF pp. 4–5 and 14–15), including rendered pp. 14–15, to recover the earlier stopping points. On 2026-10-09, discussion covered MILP, discrete depth versus physical duration, parallel movements, and gate-pulse time. Codex consulted PDF pp. 4–7 and 14–15, inspected rendered pp. 4, 6, and 14, and added the detailed Phase 1 walkthrough below. The walkthrough is a Codex explanation of the source; its small example is constructed for teaching, not taken from the paper or produced by an ONEX run. No implementation or solver certificate was inspected. The earlier checkpoint and the reader's personal text are preserved.
 
+**Session consolidation, 2026-10-09.** At the reader's request, the subsequent discussion of ordered trap labels, physical coordinates, crossing versus movement direction, and dimensional decomposition is merged below. The reader's assessment of the decomposition is recorded verbatim in **My thoughts**; the technical clarifications remain in **Codex interpretation**. For this consolidation, Codex revisited PDF pp. 2–4 and inspected rendered pp. 2–3, including Fig. 1 and Eq. (1). This records selected-passages consultation and a completed note update, not completion of the whole-paper reading.
+
 ## Source claims
 
 ### Problem and motivation
@@ -36,6 +38,8 @@ The target application is repeated syndrome extraction for quantum memory. The r
 ### Product decomposition and pipeline
 
 For HGP codes constructed from classical parity-check matrices H1 and H2, Eq. (1) contains tensor-product terms with identity factors. Each check-to-data edge fixes one product coordinate and varies the other. The product-aligned placement therefore partitions interactions into horizontal and vertical groups. Compatible row problems execute in parallel, followed by compatible column problems (Fig. 1; §2.2–3.1, PDF pp. 2–4).
+
+Section 2.2 explicitly identifies four check-to-data edge types: copies of the H1 Tanner graph at a fixed second coordinate, and copies of the H2 Tanner graph at a fixed first coordinate. Under the placement in Fig. 1b, these become horizontal and vertical 1D subproblems. The authors describe this as an exact partition of the interaction edges, with no diagonal support, and identify the correspondence between product structure and Cartesian AOD control as their key insight (§1–2.2, PDF pp. 2–3). The two directional families may contain multiple subproblem instances; the 1D plans are composed into row and column phases (§3.1, PDF pp. 3–4).
 
 ONEX takes an ordered gate-stage schedule derived from edge coloring and applies three phases (Fig. 4; §3.2, PDF p. 5):
 
@@ -197,6 +201,10 @@ The main application is memory; logical operations are proposed future work (§7
 >
 > i also think the initial mapping will infulence the movements
 
+2026-10-09 — reader's words, retained verbatim:
+
+> ok. I know. in my view, the real good point or observation is that Onex make the 2 dim problem with two 1 dim SAT problem. it is much more important.
+
 ## Codex interpretation
 
 The central contribution is the match between product-code structure, Cartesian hardware control, and a smaller exact search problem. The overall process chooses a schedule first, optimizes placement and rearrangement conditional on that schedule, then improves duration. This is narrower than joint optimization over all valid schedules and all physical plans.
@@ -229,6 +237,39 @@ For comparison, retain snapshot 0 but propose snapshot 1 as A = 0, B = 4, C = 1,
 
 SMT means *satisfiability modulo theories*: the solver finds values satisfying logical formulas together with rules for a chosen domain, here fixed-width bit vectors. Conceptually, one Phase 1 call answers “Does a valid placement-and-stage-time table exist at this T?” The outer depth search turns those feasibility answers into depth optimization. This is distinct from Phase 2's MILP (*mixed-integer linear programming*), which optimizes a linear displacement objective within a retained structure. The input coloring controls gate-stage count; Phase 1 controls discrete depth; Phase 2 controls a restricted distance objective; Phase 3 searches other structures under tighter bounds. The input coloring is described as near-optimal in §3.2, not as a general certificate of globally minimum gate depth.
 
+### Session synthesis: geometry and optimization — 2026-10-09
+
+These are Codex clarifications of the discussion, grounded in Fig. 1, Eq. (1), §3.1–3.2, and Appendix A.1–A.3. The reader's assessment of importance appears separately, in their own words above.
+
+**Why the decomposition matters.** Product structure makes the interactions copies of smaller seed-code graphs along fixed coordinates. Matching that structure to the row/column control geometry reduces the coupled planning problem and allows compatible copies to execute in parallel. The Phase 1 SMT model then searches these 1D problems; Phase 2 MILP compaction and Phase 3 refinement also operate on the 1D plans. The decomposition precedes the three-phase pipeline. It is therefore reasonable to emphasize it as an enabling structural insight. This is Codex's explanation of the reader's stated emphasis, not a claim that generic 2D routing always decomposes this way or that the complete 2D execution is globally optimal.
+
+The phrase “two 1D SAT problems” is useful shorthand for two directional families of 1D SMT problems, not necessarily two individual solver calls. In the HGP construction, compatible horizontal groups execute in parallel, followed by compatible vertical groups. The source also notes that Xu et al.'s local baseline uses the same structural decomposition (§1, PDF p. 2). Consequently, identifying decomposition as the reader's most important insight does not establish that ONEX originated decomposition or that decomposition alone explains its reported timing-model advantage. The joint formulation remains a distinct contribution, with an ablation in Fig. 7.
+
+**Ordered trap labels already encode spatial information.** Phase 1's trap numbers increase from left to right; they are not arbitrary names unrelated to positions. The no-crossing constraint checks whether the relative order of two co-moving atoms changes between consecutive snapshots. It uses these discrete endpoint positions rather than continuous trajectory simulation. Physical distance is unnecessary for this ordering test, but is required for duration optimization.
+
+The following examples illustrate the order test; they are constructed by Codex:
+
+| Simultaneous movements | Direction comparison | Order comparison | Model permits the pair? |
+| --- | --- | --- | --- |
+| u: 1 → 4; v: 4 → 1 | Opposite directions | u starts left of v and finishes right | No |
+| u: 1 → 2; v: 6 → 5 | Opposite directions | u remains left of v | Yes |
+| u: 1 → 6; v: 4 → 5 | Both move right | u overtakes v | No |
+
+Thus equal movement direction is neither necessary nor sufficient. The condition applies only when both atoms move; passing a stationary atom is not prohibited by this particular constraint. The table assesses the co-moving ordering constraint alone, not an entire gate schedule.
+
+**Phase 2 retains one spatial dimension.** The decomposition π = 2σ + ℓ separates a site index from its within-site trap offset; σ and ℓ are not x and y coordinates. The physical position x = d_site σ + d_trap ℓ lies on the same 1D line. With d_site = 12 μm and d_trap = 2 μm, traps 0, 1, 2, 3 lie at x = 0, 2, 12, 14 μm. Trap order therefore captures spatial order, but equal differences in trap indices need not represent equal distances. Phase 2 optimizes trap assignments using physical displacement while preserving each snapshot's atom order and keeping previously stationary atoms stationary. The overall 2D architecture arises from composing row and column plans, not from Phase 2 converting a 1D index into a 2D position.
+
+**MILP and the optimization targets.** MILP means mixed-integer linear programming: some variables are integer or binary, others can be continuous, and the constraints and objective are linear in those variables. In Phase 2, trap assignments are discrete and per-transition displacement bounds D_t are continuous. The two inequalities bounding positive and negative displacement encode absolute distance without a nonlinear absolute-value expression. Minimizing D_t makes it the maximum atom displacement for that transition. See the equations in **How distance compaction is modeled** above.
+
+| Pipeline component | Target | Qualification |
+| --- | --- | --- |
+| Input coloring | A short sequence of parallel gate stages | The paper describes a near-optimal schedule; its order is fixed during Phase 1 |
+| Phase 1 SMT depth search | Minimum discrete depth under that schedule and the 1D constraints | It optimizes neither displacement nor elapsed movement time |
+| Phase 2 MILP compaction | Sum of per-transition maximum displacements, then total atom displacement | Restricted to structure retained from one SMT solution; distance is a duration surrogate |
+| Phase 3 SMT/MILP feedback | Further improvement under tighter displacement or duration bounds | Can change the structure; no general global-duration optimality guarantee is established |
+
+Parallel atom movements count as one rearrangement layer, whose modeled duration is controlled by its largest physical displacement. Parallel gates within a stage contribute one pulse duration. For a fixed input schedule, the gate-pulse contribution is constant while placements and movements are optimized. The earlier depth-versus-duration clarification above records the snapshot/transition distinction and the timing parameters.
+
 ## Open questions and resumption points
 
 The following reader comments are retained verbatim. The answers underneath are provisional Codex explanations, not confirmed reader understanding.
@@ -260,6 +301,8 @@ Additional question arising from the reader's scheduling observation, recorded b
 **Suggested place to resume:** a small example of the SMT variables and constraints, followed by compaction of the same trajectory. Then examine color-order sensitivity and symmetry handling in any available implementation.
 
 **Development, 2026-10-09.** At the reader's request, the note now includes the Phase 1 equations, SAT/UNSAT depth search, a valid small trajectory and a rejected simultaneous swap, plus the distinctions between snapshots, parallel transitions, and gate-pulse duration. These are Codex explanations, not an endorsement or a record of confirmed reader understanding. The earlier resumption suggestion remains as historical context. Next useful step: work through compaction of a trajectory with unnecessary spatial gaps, then revisit symmetry and color-order sensitivity. Explicit symmetry handling and full-cycle boundary details remain unresolved.
+
+**Later development, 2026-10-09.** The session is now consolidated through the reader's assessment that dimensional decomposition is the more important insight. Their words are retained in **My thoughts**, with the distinction between two directional families and two individual problems explained in **Codex interpretation**. Follow-up explanations address ordered trap labels, crossing versus direction, 1D physical coordinates, and the separate objectives of coloring, SMT, and MILP. These clarifications supplement the earlier checkpoint without closing the implementation, symmetry, color-order, or cyclic-return questions. Suggested continuation: trace one HGP check's horizontal and vertical interactions in Eq. (1)/Fig. 1, then revisit compaction with that structural context.
 
 ## Important locations
 
