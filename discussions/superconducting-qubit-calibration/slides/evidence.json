@@ -1,0 +1,2289 @@
+{
+  "scope": "Reused completed recorded audit; no new physics fit or acquisition.",
+  "prepared_date": "2026-10-10",
+  "review_status": {
+    "status": "complete",
+    "manifest_sha256": "79b65c30c3be7b5af03437febb15ad21ae5f30d0c384ab2cbb61298a3257bc70",
+    "summary_sha256": "26da0c82d854d65281d548134f2838ce7ad08d1b2e132103b999bd08b72d899a"
+  },
+  "review_generated_utc": "2026-09-18T08:58:14.925553+00:00",
+  "raw_results_sha256": "4fa9571b8aa01534cd320ca03f6b7cd8844f602c537c535e2e0ea509f20a3ebe",
+  "audit_script_sha256": "a297d21354378a2add089473bb5bb0ca29534bed450f60b6fb7a26cfc672e855",
+  "policy": {
+    "name": "raw-physics-screen-v1",
+    "purpose": "Exploratory review flags, not universal acceptance thresholds",
+    "probability_tolerance": 1e-09,
+    "iq_relative_tolerance": 1e-08,
+    "low_model_explained_variance": 0.8,
+    "large_residual_lag1": 0.3,
+    "few_samples_per_cycle": 6.0,
+    "short_cycle_coverage": 0.75,
+    "large_iq_orthogonal_variance_fraction": 0.1,
+    "t1_offset_sensitivity_fraction": 0.25,
+    "weak_readout_balanced_accuracy": 0.75,
+    "readout_half_shift_in_sd": 0.25
+  },
+  "runtime": {
+    "python": "3.12.12",
+    "numpy": "2.0.0",
+    "scipy": "1.14.0",
+    "matplotlib": "3.9.1",
+    "script_sha256": "a297d21354378a2add089473bb5bb0ca29534bed450f60b6fb7a26cfc672e855",
+    "workbook_used_for_fits": false
+  },
+  "cases": [
+    {
+      "family": "GMM Readout Clusters",
+      "case": "001",
+      "source": "data/0918/GMM Readout Clusters/001/00855 - q23%c IQ raw.csv",
+      "sha256": "e15d691c57a6dd4e51a444983383fd4b32d356898f20030e9c8f1040090161cd",
+      "rows": 3200,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3199.0,
+        "step": 1.0,
+        "heldout_balanced_accuracy": 0.9396875,
+        "ordered_half_folds": [
+          {
+            "F0": 0.96125,
+            "F1": 0.910625,
+            "balanced_accuracy": 0.9359375000000001
+          },
+          {
+            "F0": 0.968125,
+            "F1": 0.91875,
+            "balanced_accuracy": 0.9434374999999999
+          }
+        ],
+        "max_half_mean_shift_sd": 0.061104906002277005,
+        "projected_mean_separation_pooled_sd": 3.242782975795806
+      },
+      "limitations": [
+        "Preparation labels assumed from INI; held-out linear classification includes preparation/relaxation effects and is not GMM-fidelity reproduction. Row order need not be wall-clock order."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "no_screen_flag",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/readout-001.csv"
+    },
+    {
+      "family": "GMM Readout Clusters",
+      "case": "002",
+      "source": "data/0918/GMM Readout Clusters/002/00435 - q10%c IQ raw.csv",
+      "sha256": "6b670668fa703f213f415e9ff0889176d3b1d47c693cf0b38d9da960d9daca0b",
+      "rows": 3200,
+      "hard_violations": [],
+      "review_flags": [
+        "WEAK_READOUT_SEPARABILITY_UNDER_LINEAR_CLASSIFIER"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3199.0,
+        "step": 1.0,
+        "heldout_balanced_accuracy": 0.62125,
+        "ordered_half_folds": [
+          {
+            "F0": 0.73625,
+            "F1": 0.51875,
+            "balanced_accuracy": 0.6275
+          },
+          {
+            "F0": 0.704375,
+            "F1": 0.525625,
+            "balanced_accuracy": 0.615
+          }
+        ],
+        "max_half_mean_shift_sd": 0.06298411075231895,
+        "projected_mean_separation_pooled_sd": 0.5724325176036203
+      },
+      "limitations": [
+        "Preparation labels assumed from INI; held-out linear classification includes preparation/relaxation effects and is not GMM-fidelity reproduction. Row order need not be wall-clock order."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/readout-002.csv"
+    },
+    {
+      "family": "GMM Readout Clusters",
+      "case": "003",
+      "source": "data/0918/GMM Readout Clusters/003/00447 - q10%c IQ raw.csv",
+      "sha256": "e02e47dcc53b018704d20fddef24c6d4436c0a52c8253b7b5069c1a2468bc600",
+      "rows": 3200,
+      "hard_violations": [],
+      "review_flags": [
+        "WEAK_READOUT_SEPARABILITY_UNDER_LINEAR_CLASSIFIER"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3199.0,
+        "step": 1.0,
+        "heldout_balanced_accuracy": 0.59671875,
+        "ordered_half_folds": [
+          {
+            "F0": 0.6475,
+            "F1": 0.5475,
+            "balanced_accuracy": 0.5974999999999999
+          },
+          {
+            "F0": 0.741875,
+            "F1": 0.45,
+            "balanced_accuracy": 0.5959375
+          }
+        ],
+        "max_half_mean_shift_sd": 0.02690913936709718,
+        "projected_mean_separation_pooled_sd": 0.4940364753721371
+      },
+      "limitations": [
+        "Preparation labels assumed from INI; held-out linear classification includes preparation/relaxation effects and is not GMM-fidelity reproduction. Row order need not be wall-clock order."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/readout-003.csv"
+    },
+    {
+      "family": "GMM Readout Clusters",
+      "case": "004",
+      "source": "data/0918/GMM Readout Clusters/004/00455 - q10%c IQ raw.csv",
+      "sha256": "ae44ff57bdde60389ea4fea0e376d956190512648fb1ed824bf7345addf9288a",
+      "rows": 3200,
+      "hard_violations": [],
+      "review_flags": [
+        "WEAK_READOUT_SEPARABILITY_UNDER_LINEAR_CLASSIFIER"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3199.0,
+        "step": 1.0,
+        "heldout_balanced_accuracy": 0.7073437499999999,
+        "ordered_half_folds": [
+          {
+            "F0": 0.84,
+            "F1": 0.57,
+            "balanced_accuracy": 0.705
+          },
+          {
+            "F0": 0.79,
+            "F1": 0.629375,
+            "balanced_accuracy": 0.7096875
+          }
+        ],
+        "max_half_mean_shift_sd": 0.03983153381829912,
+        "projected_mean_separation_pooled_sd": 0.955526719737684
+      },
+      "limitations": [
+        "Preparation labels assumed from INI; held-out linear classification includes preparation/relaxation effects and is not GMM-fidelity reproduction. Row order need not be wall-clock order."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/readout-004.csv"
+    },
+    {
+      "family": "GMM Readout Clusters",
+      "case": "005",
+      "source": "data/0918/GMM Readout Clusters/005/00462 - q10%c IQ raw.csv",
+      "sha256": "ad91d8994dd20a6b25a54acd52fcd34ba6079683a89319bc57423b885a1f46e6",
+      "rows": 3200,
+      "hard_violations": [],
+      "review_flags": [
+        "WEAK_READOUT_SEPARABILITY_UNDER_LINEAR_CLASSIFIER"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3199.0,
+        "step": 1.0,
+        "heldout_balanced_accuracy": 0.74484375,
+        "ordered_half_folds": [
+          {
+            "F0": 0.820625,
+            "F1": 0.65,
+            "balanced_accuracy": 0.7353125
+          },
+          {
+            "F0": 0.8725,
+            "F1": 0.63625,
+            "balanced_accuracy": 0.754375
+          }
+        ],
+        "max_half_mean_shift_sd": 0.07917058601071925,
+        "projected_mean_separation_pooled_sd": 1.1891253228152912
+      },
+      "limitations": [
+        "Preparation labels assumed from INI; held-out linear classification includes preparation/relaxation effects and is not GMM-fidelity reproduction. Row order need not be wall-clock order."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/readout-005.csv"
+    },
+    {
+      "family": "GMM Readout Clusters",
+      "case": "006",
+      "source": "data/0918/GMM Readout Clusters/006/00528 - q10%c IQ raw.csv",
+      "sha256": "bba7ad2416ad591c527e0061235ff16ca29b4256b8c5636aed353ec92d7ebe2c",
+      "rows": 3200,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3199.0,
+        "step": 1.0,
+        "heldout_balanced_accuracy": 0.7821875,
+        "ordered_half_folds": [
+          {
+            "F0": 0.89375,
+            "F1": 0.654375,
+            "balanced_accuracy": 0.7740625000000001
+          },
+          {
+            "F0": 0.921875,
+            "F1": 0.65875,
+            "balanced_accuracy": 0.7903125
+          }
+        ],
+        "max_half_mean_shift_sd": 0.0434147646192031,
+        "projected_mean_separation_pooled_sd": 1.338212045610558
+      },
+      "limitations": [
+        "Preparation labels assumed from INI; held-out linear classification includes preparation/relaxation effects and is not GMM-fidelity reproduction. Row order need not be wall-clock order."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "no_screen_flag",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/readout-006.csv"
+    },
+    {
+      "family": "GMM Readout Clusters",
+      "case": "007",
+      "source": "data/0918/GMM Readout Clusters/007/00624 - q12%c IQ raw.csv",
+      "sha256": "0787b964db4bf13a12a0f6838eb2a5d15f0f2e0ca31e7212a71d03e017e2ce3f",
+      "rows": 3200,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3199.0,
+        "step": 1.0,
+        "heldout_balanced_accuracy": 0.95453125,
+        "ordered_half_folds": [
+          {
+            "F0": 0.9625,
+            "F1": 0.934375,
+            "balanced_accuracy": 0.9484375
+          },
+          {
+            "F0": 0.969375,
+            "F1": 0.951875,
+            "balanced_accuracy": 0.9606250000000001
+          }
+        ],
+        "max_half_mean_shift_sd": 0.051654804963185585,
+        "projected_mean_separation_pooled_sd": 3.7202085357096855
+      },
+      "limitations": [
+        "Preparation labels assumed from INI; held-out linear classification includes preparation/relaxation effects and is not GMM-fidelity reproduction. Row order need not be wall-clock order."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "no_screen_flag",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/readout-007.csv"
+    },
+    {
+      "family": "GMM Readout Clusters",
+      "case": "008",
+      "source": "data/0918/GMM Readout Clusters/008/00621 - q12%c IQ raw.csv",
+      "sha256": "5fa5579bb3a22dec2be6f123187776676f6106eda91803d0ef5f90b4af4d0ab5",
+      "rows": 3200,
+      "hard_violations": [],
+      "review_flags": [
+        "WEAK_READOUT_SEPARABILITY_UNDER_LINEAR_CLASSIFIER"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3199.0,
+        "step": 1.0,
+        "heldout_balanced_accuracy": 0.6170312499999999,
+        "ordered_half_folds": [
+          {
+            "F0": 0.679375,
+            "F1": 0.5375,
+            "balanced_accuracy": 0.6084375
+          },
+          {
+            "F0": 0.521875,
+            "F1": 0.729375,
+            "balanced_accuracy": 0.625625
+          }
+        ],
+        "max_half_mean_shift_sd": 0.0902127140881548,
+        "projected_mean_separation_pooled_sd": 0.6098164327400936
+      },
+      "limitations": [
+        "Preparation labels assumed from INI; held-out linear classification includes preparation/relaxation effects and is not GMM-fidelity reproduction. Row order need not be wall-clock order."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/readout-008.csv"
+    },
+    {
+      "family": "GMM Readout Clusters",
+      "case": "009",
+      "source": "data/0918/GMM Readout Clusters/009/01206 - q10%c IQ raw.csv",
+      "sha256": "4f395e1d793ade66e2213063f66ecc59fe3e7c32b890bb695f274c2de545654f",
+      "rows": 3200,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3199.0,
+        "step": 1.0,
+        "heldout_balanced_accuracy": 0.8225,
+        "ordered_half_folds": [
+          {
+            "F0": 0.923125,
+            "F1": 0.714375,
+            "balanced_accuracy": 0.81875
+          },
+          {
+            "F0": 0.89125,
+            "F1": 0.76125,
+            "balanced_accuracy": 0.8262499999999999
+          }
+        ],
+        "max_half_mean_shift_sd": 0.05376763221117896,
+        "projected_mean_separation_pooled_sd": 1.6621472102102266
+      },
+      "limitations": [
+        "Preparation labels assumed from INI; held-out linear classification includes preparation/relaxation effects and is not GMM-fidelity reproduction. Row order need not be wall-clock order."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "no_screen_flag",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/readout-009.csv"
+    },
+    {
+      "family": "GMM Readout Clusters",
+      "case": "010",
+      "source": "data/0918/GMM Readout Clusters/010/01119 - q13%c IQ raw.csv",
+      "sha256": "53a5b85050c4466cde0ac18029bd110f05b4c9b9d783512b2480e187dd3fc757",
+      "rows": 3200,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3199.0,
+        "step": 1.0,
+        "heldout_balanced_accuracy": 0.92765625,
+        "ordered_half_folds": [
+          {
+            "F0": 0.9675,
+            "F1": 0.8925,
+            "balanced_accuracy": 0.9299999999999999
+          },
+          {
+            "F0": 0.965625,
+            "F1": 0.885,
+            "balanced_accuracy": 0.9253125
+          }
+        ],
+        "max_half_mean_shift_sd": 0.028301928723728036,
+        "projected_mean_separation_pooled_sd": 2.8630277533134745
+      },
+      "limitations": [
+        "Preparation labels assumed from INI; held-out linear classification includes preparation/relaxation effects and is not GMM-fidelity reproduction. Row order need not be wall-clock order."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "no_screen_flag",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/readout-010.csv"
+    },
+    {
+      "family": "T1 Visibility",
+      "case": "001",
+      "source": "data/0918/T1 Visibility/001/00180 - q1%c T1 visibility.csv",
+      "sha256": "06c54c15b12551c6290d7fd09e3c7a4d150c3b77adb892396eb64ab85b784798",
+      "rows": 68,
+      "hard_violations": [],
+      "review_flags": [
+        "LIFETIME_SENSITIVE_TO_OFFSET_MODEL"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 134.0,
+        "step": 2.0,
+        "max_probability_sum_error": 0.0,
+        "r2": 0.9718273412014087,
+        "rmse": 0.021553967833884646,
+        "residual_lag1": 0.03063210444102973,
+        "contrast_tau_us": 55.940246335192754,
+        "contrast_offset": 0.07216436423813846,
+        "contrast_amplitude": 0.49423706534902967,
+        "zero_offset_tau_us": 77.47579939272336,
+        "tau_offset_sensitivity": 0.38497422640025636,
+        "tau_se_iid_ols_only_us": 4.282820937519643,
+        "no_pi_slope_per_us": 7.2020412642669e-06,
+        "no_pi_slope_t_iid_only": 0.23904134515522862
+      },
+      "limitations": [
+        "No verified shot counts/error bars: residual screens and OLS fits are not binomial significance tests.",
+        "Column preparation order inferred; shared baseline and stationary exponential relaxation are hypotheses."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/t1-001.csv"
+    },
+    {
+      "family": "T1 Visibility",
+      "case": "002",
+      "source": "data/0918/T1 Visibility/002/00197 - q2%c T1 visibility.csv",
+      "sha256": "9413ed4a92b49785d36a9ac8510a2ff3b0f703b58b68b197bdae6418788a2a82",
+      "rows": 52,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 102.0,
+        "step": 2.0,
+        "max_probability_sum_error": 0.0,
+        "r2": 0.9869267098992114,
+        "rmse": 0.027090183287410887,
+        "residual_lag1": 0.04544218856040825,
+        "contrast_tau_us": 44.676754387789146,
+        "contrast_offset": -0.019500492896471815,
+        "contrast_amplitude": 0.9214367319496425,
+        "zero_offset_tau_us": 42.39775878221553,
+        "tau_offset_sensitivity": 0.05101076917522231,
+        "tau_se_iid_ols_only_us": 2.755086601501041,
+        "no_pi_slope_per_us": -1.85090817894647e-05,
+        "no_pi_slope_t_iid_only": -0.6628793378826254
+      },
+      "limitations": [
+        "No verified shot counts/error bars: residual screens and OLS fits are not binomial significance tests.",
+        "Column preparation order inferred; shared baseline and stationary exponential relaxation are hypotheses."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "no_screen_flag",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/t1-002.csv"
+    },
+    {
+      "family": "T1 Visibility",
+      "case": "003",
+      "source": "data/0918/T1 Visibility/003/00215 - q3%c T1 visibility.csv",
+      "sha256": "83f59cee25baeaf7249430443d00ad761ea90e4d055ae50e77d6f9a36cb3e0a8",
+      "rows": 60,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 118.0,
+        "step": 2.0,
+        "max_probability_sum_error": 0.0,
+        "r2": 0.9879712178788843,
+        "rmse": 0.02333374258841397,
+        "residual_lag1": -0.12093002521670777,
+        "contrast_tau_us": 49.81722832955958,
+        "contrast_offset": 0.06442139607906255,
+        "contrast_amplitude": 0.8250163780808717,
+        "zero_offset_tau_us": 59.846847107139205,
+        "tau_offset_sensitivity": 0.2013283178106567,
+        "tau_se_iid_ols_only_us": 2.658716659124407,
+        "no_pi_slope_per_us": 3.8074812447902196e-05,
+        "no_pi_slope_t_iid_only": 1.333066439302915
+      },
+      "limitations": [
+        "No verified shot counts/error bars: residual screens and OLS fits are not binomial significance tests.",
+        "Column preparation order inferred; shared baseline and stationary exponential relaxation are hypotheses."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "no_screen_flag",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/t1-003.csv"
+    },
+    {
+      "family": "T1 Visibility",
+      "case": "004",
+      "source": "data/0918/T1 Visibility/004/04940 - q1%c T1 visibility.csv",
+      "sha256": "8cd4440b1eeb2758a3a15a2d45f1992f671d6fc603ae4cc1351536d97ae67ebe",
+      "rows": 51,
+      "hard_violations": [],
+      "review_flags": [
+        "DECAY_NOT_RESOLVED_BY_BASELINE_MODEL",
+        "LIFETIME_WEAKLY_IDENTIFIED",
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 100.0,
+        "step": 2.0,
+        "max_probability_sum_error": 0.0,
+        "r2": 0.007578953016617818,
+        "rmse": 0.017549511044295453,
+        "residual_lag1": 0.14498957115854882,
+        "contrast_tau_us": 9999.77235643979,
+        "contrast_offset": 0.3995199884274914,
+        "contrast_amplitude": 0.5234931588131437,
+        "zero_offset_tau_us": 9999.999999999887,
+        "tau_offset_sensitivity": 2.2764874237495037e-05,
+        "tau_se_iid_ols_only_us": 12546049.90808194,
+        "no_pi_slope_per_us": -7.352941176470595e-06,
+        "no_pi_slope_t_iid_only": -0.17408041639837643
+      },
+      "limitations": [
+        "No verified shot counts/error bars: residual screens and OLS fits are not binomial significance tests.",
+        "Column preparation order inferred; shared baseline and stationary exponential relaxation are hypotheses."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/t1-004.csv"
+    },
+    {
+      "family": "T1 Visibility",
+      "case": "005",
+      "source": "data/0918/T1 Visibility/005/05002 - q1%c T1 visibility.csv",
+      "sha256": "2aa22f0a581ac8c3638d0a8d7ad17f527d315f2eef7a7f8f96842b89ba7aa984",
+      "rows": 51,
+      "hard_violations": [],
+      "review_flags": [
+        "LIFETIME_SENSITIVE_TO_OFFSET_MODEL",
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 100.0,
+        "step": 2.0,
+        "max_probability_sum_error": 0.0,
+        "r2": 0.908673531580862,
+        "rmse": 0.06973264498945446,
+        "residual_lag1": -0.3296224346962661,
+        "contrast_tau_us": 33.01162282246746,
+        "contrast_offset": 0.09245310677011727,
+        "contrast_amplitude": 0.8307120123023046,
+        "zero_offset_tau_us": 44.47734839389375,
+        "tau_offset_sensitivity": 0.34732389961825216,
+        "tau_se_iid_ols_only_us": 4.618410510474222,
+        "no_pi_slope_per_us": 3.110859728506784e-06,
+        "no_pi_slope_t_iid_only": 0.08009164698392306
+      },
+      "limitations": [
+        "No verified shot counts/error bars: residual screens and OLS fits are not binomial significance tests.",
+        "Column preparation order inferred; shared baseline and stationary exponential relaxation are hypotheses."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/t1-005.csv"
+    },
+    {
+      "family": "T1 Visibility",
+      "case": "006",
+      "source": "data/0918/T1 Visibility/006/02094 - q10%c T1 visibility.csv",
+      "sha256": "443b40aeb57b2fed40f8287ad42a83aebe49845a224eccaf4283bac1c3d3148a",
+      "rows": 51,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 100.0,
+        "step": 2.0,
+        "max_probability_sum_error": 0.0,
+        "r2": 0.9793975397474195,
+        "rmse": 0.023650126261349932,
+        "residual_lag1": 0.26406141714059833,
+        "contrast_tau_us": 12.589936407080963,
+        "contrast_offset": 0.00036252542317754134,
+        "contrast_amplitude": 0.7002335853930622,
+        "zero_offset_tau_us": 12.613378587575104,
+        "tau_offset_sensitivity": 0.0018619776729735507,
+        "tau_se_iid_ols_only_us": 0.5590986184216578,
+        "no_pi_slope_per_us": 3.520927601809954e-05,
+        "no_pi_slope_t_iid_only": 0.493304760314222
+      },
+      "limitations": [
+        "No verified shot counts/error bars: residual screens and OLS fits are not binomial significance tests.",
+        "Column preparation order inferred; shared baseline and stationary exponential relaxation are hypotheses."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "no_screen_flag",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/t1-006.csv"
+    },
+    {
+      "family": "T2 Ramsey",
+      "case": "001",
+      "source": "data/0918/T2 Ramsey/001/01115 - q12%c ramsey.csv",
+      "sha256": "8c13e0f463a2fbb898264f5c7caa66179e44786d1084a8a89f5269c69a3fbf51",
+      "rows": 5001,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 50.0,
+        "step": 0.009999999999999787,
+        "max_probability_sum_error": 0.0,
+        "r2": 0.7687195596676331,
+        "rmse": 0.09806221341205927,
+        "residual_lag1": 0.09548745947228442,
+        "frequency_MHz": 0.9577451486983674,
+        "tau_us": 36.114718042222506,
+        "samples_per_cycle": 104.41190971931111,
+        "offset": 0.5130325466460892,
+        "oscillation_amplitude": 0.4344821111771445,
+        "continuous_envelope_min": 0.07855043546894469,
+        "continuous_envelope_max": 0.9475146578232337
+      },
+      "limitations": [
+        "No verified shot counts/error bars: residual screens and OLS fits are not binomial significance tests.",
+        "Single stationary frequency and exponential envelope tested; beating/noise mechanism, intentional fringe frequency and gate errors not determined."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/ramsey-001.csv"
+    },
+    {
+      "family": "T2 Ramsey",
+      "case": "002",
+      "source": "data/0918/T2 Ramsey/002/01121 - q13%c ramsey.csv",
+      "sha256": "2b768e7e3452e5e889061d9a5d1c51ed1c6271590d80463e27dfd61648078fc1",
+      "rows": 1001,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 50.0,
+        "step": 0.05000000000000071,
+        "max_probability_sum_error": 0.0,
+        "r2": 0.8779268174356045,
+        "rmse": 0.06711092734781623,
+        "residual_lag1": 0.31804594273088355,
+        "frequency_MHz": 0.43747528032284483,
+        "tau_us": 36.50643293774256,
+        "samples_per_cycle": 45.7168688142568,
+        "offset": 0.49663541777592574,
+        "oscillation_amplitude": 0.4342700383865784,
+        "continuous_envelope_min": 0.06236537938934733,
+        "continuous_envelope_max": 0.9309054561625041
+      },
+      "limitations": [
+        "No verified shot counts/error bars: residual screens and OLS fits are not binomial significance tests.",
+        "Single stationary frequency and exponential envelope tested; beating/noise mechanism, intentional fringe frequency and gate errors not determined."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/ramsey-002.csv"
+    },
+    {
+      "family": "T2 Ramsey",
+      "case": "003",
+      "source": "data/0918/T2 Ramsey/003/01133 - q15%c ramsey.csv",
+      "sha256": "08d885cf1f77e8f4129372177259daed03e0d9f2cebf937a26f017e1123983dc",
+      "rows": 1001,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE",
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 50.0,
+        "step": 0.05000000000000071,
+        "max_probability_sum_error": 0.0,
+        "r2": 0.7000670098862923,
+        "rmse": 0.06627225708647101,
+        "residual_lag1": 0.47844495394652375,
+        "frequency_MHz": 0.4197013743596808,
+        "tau_us": 7.810528611794495,
+        "samples_per_cycle": 47.65292949186264,
+        "offset": 0.48161109947489883,
+        "oscillation_amplitude": 0.5005466338704146,
+        "continuous_envelope_min": -0.01893553439551582,
+        "continuous_envelope_max": 0.9821577333453135
+      },
+      "limitations": [
+        "No verified shot counts/error bars: residual screens and OLS fits are not binomial significance tests.",
+        "Single stationary frequency and exponential envelope tested; beating/noise mechanism, intentional fringe frequency and gate errors not determined."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/ramsey-003.csv"
+    },
+    {
+      "family": "T2 Ramsey",
+      "case": "004",
+      "source": "data/0918/T2 Ramsey/004/01179 - q2%c ramsey.csv",
+      "sha256": "3499c89d1b008ae9e616499203d81d79d4c93dc9f74e4ad7a308bebf7fdb431d",
+      "rows": 1001,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 50.0,
+        "step": 0.05000000000000071,
+        "max_probability_sum_error": 0.0,
+        "r2": 0.5800184058966446,
+        "rmse": 0.12627904867045583,
+        "residual_lag1": 0.21968588505002404,
+        "frequency_MHz": 0.32068397472496746,
+        "tau_us": 20.5593669095773,
+        "samples_per_cycle": 62.36669611305831,
+        "offset": 0.4995673934906256,
+        "oscillation_amplitude": 0.45918144952052153,
+        "continuous_envelope_min": 0.04038594397010409,
+        "continuous_envelope_max": 0.9587488430111472
+      },
+      "limitations": [
+        "No verified shot counts/error bars: residual screens and OLS fits are not binomial significance tests.",
+        "Single stationary frequency and exponential envelope tested; beating/noise mechanism, intentional fringe frequency and gate errors not determined."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/ramsey-004.csv"
+    },
+    {
+      "family": "T2 Ramsey",
+      "case": "005",
+      "source": "data/0918/T2 Ramsey/005/01232 - q7%c ramsey.csv",
+      "sha256": "af104a633883481937dee90c0df5e6506a9190f5ac874f60c28b536ceae91c9e",
+      "rows": 1001,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 50.0,
+        "step": 0.05000000000000071,
+        "max_probability_sum_error": 0.0,
+        "r2": 0.6419044752406395,
+        "rmse": 0.05055370128231588,
+        "residual_lag1": 0.17138036694639758,
+        "frequency_MHz": 1.3657567647366506,
+        "tau_us": 4.653420688988929,
+        "samples_per_cycle": 14.643895982353913,
+        "offset": 0.505356030515523,
+        "oscillation_amplitude": 0.4407229675704449,
+        "continuous_envelope_min": 0.06463306294507815,
+        "continuous_envelope_max": 0.9460789980859678
+      },
+      "limitations": [
+        "No verified shot counts/error bars: residual screens and OLS fits are not binomial significance tests.",
+        "Single stationary frequency and exponential envelope tested; beating/noise mechanism, intentional fringe frequency and gate errors not determined."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/ramsey-005.csv"
+    },
+    {
+      "family": "T2 Ramsey",
+      "case": "006",
+      "source": "data/0918/T2 Ramsey/006/01885 - q13%c ramsey.csv",
+      "sha256": "7317a89dedba1799a1d0f09de7fe60de9a2bd66067d31542eba4c7c0da0a48cb",
+      "rows": 301,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 60.0,
+        "step": 0.19999999999999973,
+        "max_probability_sum_error": 3.000932835561798e-13,
+        "r2": 0.8780109871234363,
+        "rmse": 0.06641041321736138,
+        "residual_lag1": 0.3660290750948149,
+        "frequency_MHz": 0.45783521959747375,
+        "tau_us": 36.73991731338091,
+        "samples_per_cycle": 10.92095973830056,
+        "offset": 0.5029023050280861,
+        "oscillation_amplitude": 0.4616349535765162,
+        "continuous_envelope_min": 0.0412673514515699,
+        "continuous_envelope_max": 0.9645372586046023
+      },
+      "limitations": [
+        "No verified shot counts/error bars: residual screens and OLS fits are not binomial significance tests.",
+        "Single stationary frequency and exponential envelope tested; beating/noise mechanism, intentional fringe frequency and gate errors not determined."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/ramsey-006.csv"
+    },
+    {
+      "family": "T2 Ramsey",
+      "case": "007",
+      "source": "data/0918/T2 Ramsey/007/01891 - q14%c ramsey.csv",
+      "sha256": "eb4d435bf4495bd9da3b8a158cc85c19d5e3aa672d8dd26e006c6775a983d11b",
+      "rows": 301,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE",
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 60.0,
+        "step": 0.19999999999999973,
+        "max_probability_sum_error": 2.999822612537173e-13,
+        "r2": 0.5629403841582029,
+        "rmse": 0.08649133795188738,
+        "residual_lag1": 0.3695572969383061,
+        "frequency_MHz": 0.4318463768706074,
+        "tau_us": 17.64527709125658,
+        "samples_per_cycle": 11.578191384243427,
+        "offset": 0.45530417405016965,
+        "oscillation_amplitude": 0.36034265213356953,
+        "continuous_envelope_min": 0.09496152191660012,
+        "continuous_envelope_max": 0.8156468261837392
+      },
+      "limitations": [
+        "No verified shot counts/error bars: residual screens and OLS fits are not binomial significance tests.",
+        "Single stationary frequency and exponential envelope tested; beating/noise mechanism, intentional fringe frequency and gate errors not determined."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/ramsey-007.csv"
+    },
+    {
+      "family": "T2 Ramsey",
+      "case": "008",
+      "source": "data/0918/T2 Ramsey/008/00241 - q1%c ramsey.csv",
+      "sha256": "23665b5f98846124c4f1175b3bc93f06836f5d7f10dd8b5312bb4f90927ecdbb",
+      "rows": 7001,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE",
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 70.0,
+        "step": 0.009999999999999787,
+        "max_probability_sum_error": 0.0,
+        "r2": 0.3283714073330052,
+        "rmse": 0.10282862514748184,
+        "residual_lag1": 0.38208946203031247,
+        "frequency_MHz": 5.01397932899907,
+        "tau_us": 21.783595292312793,
+        "samples_per_cycle": 19.944238585436075,
+        "offset": 0.4029289067926445,
+        "oscillation_amplitude": 0.25783599491627607,
+        "continuous_envelope_min": 0.1450929118763684,
+        "continuous_envelope_max": 0.6607649017089205
+      },
+      "limitations": [
+        "No verified shot counts/error bars: residual screens and OLS fits are not binomial significance tests.",
+        "Single stationary frequency and exponential envelope tested; beating/noise mechanism, intentional fringe frequency and gate errors not determined."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/ramsey-008.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "001",
+      "source": "data/0918/Rabi Oscillation/001/00440 - q10%c rabihigh.csv",
+      "sha256": "aaa8c07a949a8c8661b543f08e8bac31db4eda5b8f285715edfde04e6cb491ba",
+      "rows": 61,
+      "hard_violations": [],
+      "review_flags": [
+        "FEW_SAMPLES_PER_FITTED_CYCLE",
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE",
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3.0,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.943156994841047e-12,
+        "magnitude_relative_error": 5.360049683072202e-13,
+        "r2": 0.1604151982682075,
+        "rmse": 0.9162886017690018,
+        "residual_lag1": 0.6589821061165798,
+        "frequency_per_amplitude": 3.367383506726666,
+        "half_period_candidate": 0.14848323602025218,
+        "cycles_in_scan": 10.102150520179999,
+        "samples_per_cycle": 5.939329440810082,
+        "orthogonal_iq_variance_fraction": 0.031038412478169446,
+        "projection_direction": [
+          0.04155991843004481,
+          -0.9991360133535815
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-001.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "002",
+      "source": "data/0918/Rabi Oscillation/002/00453 - q10%c rabihigh.csv",
+      "sha256": "c8b481a48dbc91ce1e1b26d5db40630183e49487ad441b33d9ef735dca40e4b3",
+      "rows": 51,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 2.5,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.815481347009154e-12,
+        "magnitude_relative_error": 5.408255725219913e-13,
+        "r2": 0.91237126506912,
+        "rmse": 0.29602151092594603,
+        "residual_lag1": 0.22638167131029566,
+        "frequency_per_amplitude": 0.43263412384490835,
+        "half_period_candidate": 1.1557109632416354,
+        "cycles_in_scan": 1.081585309612271,
+        "samples_per_cycle": 46.228438529665375,
+        "orthogonal_iq_variance_fraction": 0.0264736870010681,
+        "projection_direction": [
+          0.029737544678963897,
+          -0.9995577414219083
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "no_screen_flag",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-002.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "003",
+      "source": "data/0918/Rabi Oscillation/003/00480 - q11%c rabihigh.csv",
+      "sha256": "d356a84e1846a5f836d89901c0f51fcb72903a67074571d3ca099489936c3e45",
+      "rows": 61,
+      "hard_violations": [],
+      "review_flags": [
+        "IQ_NOT_WELL_APPROXIMATED_BY_FIXED_TWO_STATE_LINE",
+        "FEW_SAMPLES_PER_FITTED_CYCLE",
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3.0,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.99977836909693e-12,
+        "magnitude_relative_error": 2.0975392838486664e-12,
+        "r2": 0.13036044914348044,
+        "rmse": 0.9325446642689665,
+        "residual_lag1": 0.023238409735983758,
+        "frequency_per_amplitude": 8.481225300401356,
+        "half_period_candidate": 0.05895374574901796,
+        "cycles_in_scan": 25.443675901204067,
+        "samples_per_cycle": 2.3581498299607166,
+        "orthogonal_iq_variance_fraction": 0.4595437330435704,
+        "projection_direction": [
+          -0.47310984677349777,
+          -0.8810034465800671
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-003.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "004",
+      "source": "data/0918/Rabi Oscillation/004/00485 - q11%c rabihigh.csv",
+      "sha256": "45b3e0ec5afdecf6e24eac3fbc3c326a7c3b00014e6bcecbe03d5167cce9817d",
+      "rows": 61,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3.0,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.9613646524448995e-12,
+        "magnitude_relative_error": 1.4214679586212243e-12,
+        "r2": 0.9669955419075318,
+        "rmse": 0.18167129132713347,
+        "residual_lag1": 0.6421127044827912,
+        "frequency_per_amplitude": 0.3583735205838551,
+        "half_period_candidate": 1.395192365734527,
+        "cycles_in_scan": 1.0751205617515653,
+        "samples_per_cycle": 55.80769462938103,
+        "orthogonal_iq_variance_fraction": 0.0017015365652349851,
+        "projection_direction": [
+          0.9893888784125071,
+          0.14529159395381813
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-004.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "005",
+      "source": "data/0918/Rabi Oscillation/005/00617 - q12%c rabihigh.csv",
+      "sha256": "52aed24f6b41b3d5a2bc55c4648d7086c694a4fa9a6c0d4bdaa7514ca8a265f2",
+      "rows": 61,
+      "hard_violations": [],
+      "review_flags": [
+        "IQ_NOT_WELL_APPROXIMATED_BY_FIXED_TWO_STATE_LINE",
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3.0,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.919176177509144e-12,
+        "magnitude_relative_error": 9.867526414134471e-13,
+        "r2": 0.7980169605423598,
+        "rmse": 0.4494252323330769,
+        "residual_lag1": 0.23523268824746316,
+        "frequency_per_amplitude": 0.35261585039276155,
+        "half_period_candidate": 1.4179736941577483,
+        "cycles_in_scan": 1.0578475511782846,
+        "samples_per_cycle": 56.71894776630988,
+        "orthogonal_iq_variance_fraction": 0.12870708472133818,
+        "projection_direction": [
+          -0.9293667729611248,
+          0.3691576916655338
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-005.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "006",
+      "source": "data/0918/Rabi Oscillation/006/00618 - q12%c rabihigh.csv",
+      "sha256": "bd1fd44d838f61a168508c36ea02f01f34bd28567d01591f55fc1d7bbbc59a8f",
+      "rows": 61,
+      "hard_violations": [],
+      "review_flags": [
+        "IQ_NOT_WELL_APPROXIMATED_BY_FIXED_TWO_STATE_LINE",
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE",
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3.0,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.9396042811622465e-12,
+        "magnitude_relative_error": 1.0329687523811e-12,
+        "r2": 0.688600662314959,
+        "rmse": 0.5580316636939531,
+        "residual_lag1": 0.5248411491424804,
+        "frequency_per_amplitude": 0.5644161870784359,
+        "half_period_candidate": 0.8858711203662128,
+        "cycles_in_scan": 1.6932485612353076,
+        "samples_per_cycle": 35.434844814648486,
+        "orthogonal_iq_variance_fraction": 0.1149781038611235,
+        "projection_direction": [
+          -0.9067625252255116,
+          0.42164169960602044
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-006.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "007",
+      "source": "data/0918/Rabi Oscillation/007/00626 - q13%c rabihigh.csv",
+      "sha256": "6c15288521eb56ac3d5bd0923d2b229eb85b717c71a5a5e46471fab528bb035a",
+      "rows": 36,
+      "hard_violations": [],
+      "review_flags": [
+        "LIMITED_OSCILLATION_COVERAGE",
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 1.75,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.864997293907436e-12,
+        "magnitude_relative_error": 3.0301754620707847e-12,
+        "r2": 0.9589194452958456,
+        "rmse": 0.20268338536780567,
+        "residual_lag1": -0.40983023617598796,
+        "frequency_per_amplitude": 0.12524842069230518,
+        "half_period_candidate": 3.992066304998273,
+        "cycles_in_scan": 0.21918473621153406,
+        "samples_per_cycle": 159.6826521999308,
+        "orthogonal_iq_variance_fraction": 0.009075475683601597,
+        "projection_direction": [
+          -0.09974102193147899,
+          -0.9950134313385242
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-007.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "008",
+      "source": "data/0918/Rabi Oscillation/008/00627 - q13%c rabihigh.csv",
+      "sha256": "6d43363eb6810c925e9d184a2bd7dc76fc922b545fef23d86fd3664edaa80aad",
+      "rows": 48,
+      "hard_violations": [],
+      "review_flags": [
+        "LIMITED_OSCILLATION_COVERAGE"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 2.35,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.67847982577041e-12,
+        "magnitude_relative_error": 1.3197238336095908e-12,
+        "r2": 0.9961975028664264,
+        "rmse": 0.061664391131134935,
+        "residual_lag1": 0.15802416925354693,
+        "frequency_per_amplitude": 0.21351257764999662,
+        "half_period_candidate": 2.341782416301637,
+        "cycles_in_scan": 0.5017545574774921,
+        "samples_per_cycle": 93.67129665206541,
+        "orthogonal_iq_variance_fraction": 0.0009665718831418113,
+        "projection_direction": [
+          -0.10775054462598993,
+          -0.9941779620031833
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-008.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "009",
+      "source": "data/0918/Rabi Oscillation/009/00628 - q13%c rabihigh.csv",
+      "sha256": "30037e94a35582811532908f4ad9346ce1eae5a0065c8e0ec7cee514163269cf",
+      "rows": 61,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3.0,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.728217817273617e-12,
+        "magnitude_relative_error": 1.20086796820125e-12,
+        "r2": 0.8236411314194262,
+        "rmse": 0.4199510311697946,
+        "residual_lag1": 0.9491116751795855,
+        "frequency_per_amplitude": 0.5542431472463167,
+        "half_period_candidate": 0.9021311359178429,
+        "cycles_in_scan": 1.6627294417389502,
+        "samples_per_cycle": 36.085245436713684,
+        "orthogonal_iq_variance_fraction": 0.0008639591795861462,
+        "projection_direction": [
+          -0.10416923684056117,
+          -0.9945595859957589
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-009.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "010",
+      "source": "data/0918/Rabi Oscillation/010/00634 - q15%c rabihigh.csv",
+      "sha256": "e7bacedbcfed89290bc7d67ab809768c06a37f79c116be3a4cc64dfeebcd9346",
+      "rows": 61,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE",
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3.0,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.899636252275741e-12,
+        "magnitude_relative_error": 1.561878639654859e-12,
+        "r2": 0.4796775542769063,
+        "rmse": 0.7213337963267031,
+        "residual_lag1": 0.94161469775935,
+        "frequency_per_amplitude": 0.9184155198514248,
+        "half_period_candidate": 0.5444158871366707,
+        "cycles_in_scan": 2.7552465595542746,
+        "samples_per_cycle": 21.77663548546681,
+        "orthogonal_iq_variance_fraction": 0.0017493123580480268,
+        "projection_direction": [
+          -0.18807087332123532,
+          -0.9821554594911073
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-010.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "011",
+      "source": "data/0918/Rabi Oscillation/011/00734 - q18%c rabihigh.csv",
+      "sha256": "6df01cd1a8f8abe00bc7825d3eda2bb271da9b0424f71e5f873079efbb21b8d8",
+      "rows": 61,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE",
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3.0,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.874989301129062e-13,
+        "magnitude_relative_error": 8.599991167530197e-13,
+        "r2": 0.6638807647164422,
+        "rmse": 0.5797579109279646,
+        "residual_lag1": 0.9383220761794222,
+        "frequency_per_amplitude": 1.0009336795646906,
+        "half_period_candidate": 0.49953359568982797,
+        "cycles_in_scan": 3.002801038694072,
+        "samples_per_cycle": 19.981343827593104,
+        "orthogonal_iq_variance_fraction": 0.0006423973581074901,
+        "projection_direction": [
+          0.9766947408350036,
+          -0.21463313636352924
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-011.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "012",
+      "source": "data/0918/Rabi Oscillation/012/00737 - q18%c rabihigh.csv",
+      "sha256": "05b1dc050f6d41ae276581d6678865b04cca8abf3d73e41750c56e7bad1ec7c2",
+      "rows": 50,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE",
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 2.45,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.866662628444374e-13,
+        "magnitude_relative_error": 8.467910625417501e-13,
+        "r2": 0.51211052192334,
+        "rmse": 0.6984908575469403,
+        "residual_lag1": 0.8117634098184954,
+        "frequency_per_amplitude": 1.9176630048397414,
+        "half_period_candidate": 0.2607340282093959,
+        "cycles_in_scan": 4.698274361857367,
+        "samples_per_cycle": 10.429361128375826,
+        "orthogonal_iq_variance_fraction": 0.0004814916233718876,
+        "projection_direction": [
+          0.8571613231129231,
+          -0.5150480231583293
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-012.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "013",
+      "source": "data/0918/Rabi Oscillation/013/00788 - q21%c rabihigh.csv",
+      "sha256": "a26c76f8935923f3ecbf8c15d313db11f6fe2ef1e804fe516ea9890892df6e60",
+      "rows": 61,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE",
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3.0,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.983791157542328e-13,
+        "magnitude_relative_error": 1.4890794660607838e-12,
+        "r2": 0.43212162995479675,
+        "rmse": 0.7535770498397647,
+        "residual_lag1": 0.9463051562410167,
+        "frequency_per_amplitude": 0.9591109354470115,
+        "half_period_candidate": 0.5213161288448511,
+        "cycles_in_scan": 2.877332806341035,
+        "samples_per_cycle": 20.852645153794025,
+        "orthogonal_iq_variance_fraction": 0.005304404476581588,
+        "projection_direction": [
+          0.37821089882632225,
+          0.9257194585882839
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-013.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "014",
+      "source": "data/0918/Rabi Oscillation/014/00829 - q23%c rabihigh.csv",
+      "sha256": "11466c98629d6008bde42fcc500d86aca5a3b02193671c9d7b22be77bbe5704e",
+      "rows": 61,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE",
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3.0,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.988454094245753e-12,
+        "magnitude_relative_error": 9.186653212774513e-13,
+        "r2": 0.5938891906951823,
+        "rmse": 0.6372682396799778,
+        "residual_lag1": 0.9633606382584249,
+        "frequency_per_amplitude": 0.7566517559379148,
+        "half_period_candidate": 0.6608059732580945,
+        "cycles_in_scan": 2.2699552678137445,
+        "samples_per_cycle": 26.43223893032376,
+        "orthogonal_iq_variance_fraction": 0.000789080856026724,
+        "projection_direction": [
+          -0.886012685163233,
+          0.4636609987154813
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-014.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "015",
+      "source": "data/0918/Rabi Oscillation/015/00956 - q6%c rabihigh.csv",
+      "sha256": "b03fcdcf810022ddba4d9c208f264197c846168037e66c2681112f136e1b37af",
+      "rows": 61,
+      "hard_violations": [],
+      "review_flags": [
+        "LIMITED_OSCILLATION_COVERAGE",
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 3.0,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.941158593396722e-12,
+        "magnitude_relative_error": 1.1392845271488435e-12,
+        "r2": 0.5858987000053357,
+        "rmse": 0.643507031814466,
+        "residual_lag1": -0.10709228124772577,
+        "frequency_per_amplitude": 0.03333808657951826,
+        "half_period_candidate": 14.99786134418351,
+        "cycles_in_scan": 0.1000142597385548,
+        "samples_per_cycle": 599.9144537673399,
+        "orthogonal_iq_variance_fraction": 0.012895330597005046,
+        "projection_direction": [
+          0.9944612303918715,
+          -0.10510404962457494
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-015.csv"
+    },
+    {
+      "family": "Rabi Oscillation",
+      "case": "016",
+      "source": "data/0918/Rabi Oscillation/016/00995 - q8%c rabihigh.csv",
+      "sha256": "087832c2a4cab77d9ebfff6472f0839f32653ea897a2602054764203fdecc0b3",
+      "rows": 45,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 0.0,
+        "x_max": 2.2,
+        "step": 0.050000000000000044,
+        "phase_identity_error_rad": 4.976907774789652e-12,
+        "magnitude_relative_error": 1.6749532117597706e-12,
+        "r2": 0.8944975515367182,
+        "rmse": 0.32481140445384893,
+        "residual_lag1": 0.6903458716230657,
+        "frequency_per_amplitude": 0.8306480254317581,
+        "half_period_candidate": 0.6019396720290856,
+        "cycles_in_scan": 1.8274256559498678,
+        "samples_per_cycle": 24.077586881163402,
+        "orthogonal_iq_variance_fraction": 0.0025713100059986836,
+        "projection_direction": [
+          0.9446818246962951,
+          -0.32798818589772105
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Half-period is a model diagnostic, not an approved pi amplitude; detuning, pulse linearity, preparation, leakage and absolute readout endpoints are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/rabi-016.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "001",
+      "source": "data/0918/Qubit Spectroscopy/001/00177 - q1%c spectroscopy.csv",
+      "sha256": "1960cbbeedaa1bf21fc79b56e893eb460beaba5b679e422c594cc79d4a89ce7a",
+      "rows": 176,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 4.001,
+        "x_max": 4.176,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.942046771816422e-12,
+        "magnitude_relative_error": 1.6659462705112695e-12,
+        "r2": 0.8510443009946985,
+        "rmse": 0.38594779310847405,
+        "residual_lag1": -0.07810333090869076,
+        "candidate_center_GHz": 4.118474127430402,
+        "candidate_fwhm_GHz": 0.0020285105539044964,
+        "orthogonal_iq_variance_fraction": 0.07986299975253115
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "no_screen_flag",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-001.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "002",
+      "source": "data/0918/Qubit Spectroscopy/002/00273 - q6%c spectroscopy.csv",
+      "sha256": "24c504169d464112de02e05f6eb4b597b3f6b882c1fea567d84da3f8daa8e877",
+      "rows": 668,
+      "hard_violations": [],
+      "review_flags": [
+        "FEATURE_WIDTH_POORLY_SAMPLED",
+        "IQ_NOT_WELL_APPROXIMATED_BY_FIXED_TWO_STATE_LINE",
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 4.001,
+        "x_max": 4.668,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.991562718714704e-12,
+        "magnitude_relative_error": 1.6886967042047571e-12,
+        "r2": 0.015859538601226686,
+        "rmse": 0.9920385382628909,
+        "residual_lag1": 0.030909793506747593,
+        "candidate_center_GHz": 4.359353325799355,
+        "candidate_fwhm_GHz": 0.0010757836795558663,
+        "orthogonal_iq_variance_fraction": 0.42851276258753934
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-002.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "003",
+      "source": "data/0918/Qubit Spectroscopy/003/00274 - q6%c spectroscopy.csv",
+      "sha256": "b5329144e5b8c0b837487cf77eb5a76eb8503572847c91b4faad89b0ad51a820",
+      "rows": 144,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 4.001,
+        "x_max": 4.144,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.990230451085154e-12,
+        "magnitude_relative_error": 2.63772558386962e-12,
+        "r2": 0.8274167290623026,
+        "rmse": 0.415431427479551,
+        "residual_lag1": -0.053259651882734335,
+        "candidate_center_GHz": 4.056336806443582,
+        "candidate_fwhm_GHz": 0.002274322622954685,
+        "orthogonal_iq_variance_fraction": 0.09409589661786771
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "no_screen_flag",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-003.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "004",
+      "source": "data/0918/Qubit Spectroscopy/004/00307 - q7%c spectroscopy.csv",
+      "sha256": "bc54ddef4a65454310d596eca0d7b4d23b584b2e4937c94695f6dc9d7d1624dd",
+      "rows": 181,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 4.001,
+        "x_max": 4.181,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.991562718714704e-13,
+        "magnitude_relative_error": 1.5898466787397803e-12,
+        "r2": 0.6817806223435627,
+        "rmse": 0.5641093667511977,
+        "residual_lag1": -0.15310637697819537,
+        "candidate_center_GHz": 4.103923479764312,
+        "candidate_fwhm_GHz": 0.007553331933557963,
+        "orthogonal_iq_variance_fraction": 0.022250419913014966
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-004.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "005",
+      "source": "data/0918/Qubit Spectroscopy/005/00308 - q7%c spectroscopy.csv",
+      "sha256": "e4b5abdaa2e49799ab960bae9c0076fceae4ab3aa98eaad301b5f3b863669e49",
+      "rows": 187,
+      "hard_violations": [],
+      "review_flags": [
+        "FEATURE_WIDTH_POORLY_SAMPLED"
+      ],
+      "metrics": {
+        "x_min": 4.001,
+        "x_max": 4.187,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.966999034294872e-13,
+        "magnitude_relative_error": 1.0493915697517815e-12,
+        "r2": 0.9649893364084055,
+        "rmse": 0.1871113668155801,
+        "residual_lag1": 0.1058321841224662,
+        "candidate_center_GHz": 4.104500352086086,
+        "candidate_fwhm_GHz": 0.000500000000000167,
+        "orthogonal_iq_variance_fraction": 0.017670028773839674
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-005.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "006",
+      "source": "data/0918/Qubit Spectroscopy/006/00419 - q10%c spectroscopy.csv",
+      "sha256": "e3bb5b19576f56287404c1082e9213cf4a89ef52b0a1689c2911c0fad58e3248",
+      "rows": 330,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE",
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 4.001,
+        "x_max": 4.33,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.9966697446279795e-12,
+        "magnitude_relative_error": 3.807790460144568e-12,
+        "r2": 0.545091842378312,
+        "rmse": 0.6744687966256764,
+        "residual_lag1": 0.3577467366242738,
+        "candidate_center_GHz": 4.089163481051806,
+        "candidate_fwhm_GHz": 0.11637493750154163,
+        "orthogonal_iq_variance_fraction": 0.02621404595941963
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-006.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "007",
+      "source": "data/0918/Qubit Spectroscopy/007/00420 - q10%c spectroscopy.csv",
+      "sha256": "838aaf7b0879bd046ccf0c1a0812e3b87b0e49cdd4ed0b6ef1578f2be8c83946",
+      "rows": 431,
+      "hard_violations": [],
+      "review_flags": [
+        "FEATURE_WIDTH_POORLY_SAMPLED",
+        "IQ_NOT_WELL_APPROXIMATED_BY_FIXED_TWO_STATE_LINE",
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 4.001,
+        "x_max": 4.431,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.984235246752178e-12,
+        "magnitude_relative_error": 7.194453951936163e-13,
+        "r2": 0.26507583317536587,
+        "rmse": 0.8572771820272799,
+        "residual_lag1": -0.060749727531791524,
+        "candidate_center_GHz": 4.135983253196094,
+        "candidate_fwhm_GHz": 0.0015703067435189786,
+        "orthogonal_iq_variance_fraction": 0.3417036583864094
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-007.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "008",
+      "source": "data/0918/Qubit Spectroscopy/008/00733 - q18%c spectroscopy.csv",
+      "sha256": "32ab1333028536c39536104bf22cab660b07860779d954fa9910466ebbe18674",
+      "rows": 301,
+      "hard_violations": [],
+      "review_flags": [
+        "FEATURE_NEAR_SCAN_EDGE",
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 4.0,
+        "x_max": 4.3,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.524158825347513e-12,
+        "magnitude_relative_error": 1.9013233947597375e-12,
+        "r2": 0.31246350363482167,
+        "rmse": 0.8291782054330531,
+        "residual_lag1": 0.27807956470612527,
+        "candidate_center_GHz": 4.3,
+        "candidate_fwhm_GHz": 0.013301677413024234,
+        "orthogonal_iq_variance_fraction": 0.09193087461468377
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-008.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "009",
+      "source": "data/0918/Qubit Spectroscopy/009/00736 - q18%c spectroscopy.csv",
+      "sha256": "50f31e54342ab28be1d5a5143ceb7762497092ae747bf2d801d41b070ae16707",
+      "rows": 181,
+      "hard_violations": [],
+      "review_flags": [
+        "FEATURE_WIDTH_POORLY_SAMPLED",
+        "BASELINE_MODEL_CORRELATED_RESIDUALS"
+      ],
+      "metrics": {
+        "x_min": 4.2,
+        "x_max": 4.38,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.867883873771461e-12,
+        "magnitude_relative_error": 3.336528106807707e-13,
+        "r2": 0.9478673558659985,
+        "rmse": 0.22832574128643818,
+        "residual_lag1": 0.32899013988790654,
+        "candidate_center_GHz": 4.309594006506827,
+        "candidate_fwhm_GHz": 0.0018517428037610572,
+        "orthogonal_iq_variance_fraction": 0.009744465816232407
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-009.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "010",
+      "source": "data/0918/Qubit Spectroscopy/010/00755 - q17%c spectroscopy.csv",
+      "sha256": "1366a7140f700c094a5a22d447963f9fd97efba547365c5e15af568418b46e74",
+      "rows": 201,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 4.2,
+        "x_max": 4.4,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.985789558986653e-12,
+        "magnitude_relative_error": 2.7078924258183497e-12,
+        "r2": 0.8310651808987795,
+        "rmse": 0.4110168112148463,
+        "residual_lag1": -0.20248731817886642,
+        "candidate_center_GHz": 4.230911809959494,
+        "candidate_fwhm_GHz": 0.0031973821767567003,
+        "orthogonal_iq_variance_fraction": 0.05369252572206486
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "no_screen_flag",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-010.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "011",
+      "source": "data/0918/Qubit Spectroscopy/011/00781 - q21%c spectroscopy.csv",
+      "sha256": "ca003b9ee4e9be358a9ec406e2c43874c7d15bb090e108cb3722ca549cf8c29b",
+      "rows": 381,
+      "hard_violations": [],
+      "review_flags": [
+        "IQ_NOT_WELL_APPROXIMATED_BY_FIXED_TWO_STATE_LINE",
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 4.0,
+        "x_max": 4.38,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.998640390496689e-13,
+        "magnitude_relative_error": 3.2886611369543824e-12,
+        "r2": 0.04368463557616864,
+        "rmse": 0.9779137816923489,
+        "residual_lag1": 0.004015735618253283,
+        "candidate_center_GHz": 4.025388823246248,
+        "candidate_fwhm_GHz": 0.0021116172529253483,
+        "orthogonal_iq_variance_fraction": 0.45981739941026184
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-011.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "012",
+      "source": "data/0918/Qubit Spectroscopy/012/00786 - q21%c spectroscopy.csv",
+      "sha256": "f2963cf010345f2943ed7d5470d312a9a3c06ac6f01c195d65a6014eb4071a6a",
+      "rows": 401,
+      "hard_violations": [],
+      "review_flags": [
+        "FEATURE_NEAR_SCAN_EDGE",
+        "IQ_NOT_WELL_APPROXIMATED_BY_FIXED_TWO_STATE_LINE",
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 4.0,
+        "x_max": 4.4,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.999056724130924e-13,
+        "magnitude_relative_error": 3.2407861396527745e-12,
+        "r2": 0.06517478579735936,
+        "rmse": 0.9668635964822755,
+        "residual_lag1": 0.015660852830158174,
+        "candidate_center_GHz": 4.399999999994943,
+        "candidate_fwhm_GHz": 0.782409945192006,
+        "orthogonal_iq_variance_fraction": 0.4697980078057675
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-012.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "013",
+      "source": "data/0918/Qubit Spectroscopy/013/00787 - q21%c spectroscopy.csv",
+      "sha256": "213fdf461f98af9d30ae080b75360995e2474b717dfa623a0694abb10e6b4cea",
+      "rows": 221,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 4.38,
+        "x_max": 4.6,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.954925358902074e-13,
+        "magnitude_relative_error": 1.999627258026261e-12,
+        "r2": 0.6178862152794351,
+        "rmse": 0.6181535284381744,
+        "residual_lag1": -0.204479903571628,
+        "candidate_center_GHz": 4.406107519776437,
+        "candidate_fwhm_GHz": 0.008928520985457539,
+        "orthogonal_iq_variance_fraction": 0.08170378834520692
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-013.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "014",
+      "source": "data/0918/Qubit Spectroscopy/014/00811 - q22%c spectroscopy.csv",
+      "sha256": "f1a55a5525a5bf3cba7907b42bca07fed0b2d187f49174e6599ebf03f5ebc3e2",
+      "rows": 281,
+      "hard_violations": [],
+      "review_flags": [
+        "FEATURE_WIDTH_POORLY_SAMPLED",
+        "IQ_NOT_WELL_APPROXIMATED_BY_FIXED_TWO_STATE_LINE",
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 4.3,
+        "x_max": 4.58,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.980460488468452e-12,
+        "magnitude_relative_error": 1.6826002855202336e-12,
+        "r2": 0.032544301857152624,
+        "rmse": 0.9835932584879015,
+        "residual_lag1": 0.042243761047590464,
+        "candidate_center_GHz": 4.463560984127566,
+        "candidate_fwhm_GHz": 0.0010127437559390431,
+        "orthogonal_iq_variance_fraction": 0.4689260310144058
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-014.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "015",
+      "source": "data/0918/Qubit Spectroscopy/015/00812 - q22%c spectroscopy.csv",
+      "sha256": "5bf0e6cc7b968745ce4c7569c1ca9d996a8b6eb60b305aa73c473308b5f09dda",
+      "rows": 341,
+      "hard_violations": [],
+      "review_flags": [
+        "IQ_NOT_WELL_APPROXIMATED_BY_FIXED_TWO_STATE_LINE",
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 4.01,
+        "x_max": 4.35,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.978684131629052e-12,
+        "magnitude_relative_error": 1.0212674862353904e-12,
+        "r2": 0.0537966420825714,
+        "rmse": 0.9727298483738579,
+        "residual_lag1": 0.06388757338850654,
+        "candidate_center_GHz": 4.2724061917696785,
+        "candidate_fwhm_GHz": 0.0020109724927177765,
+        "orthogonal_iq_variance_fraction": 0.48878646174575563
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-015.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "016",
+      "source": "data/0918/Qubit Spectroscopy/016/03597 - q12%c spectroscopy.csv",
+      "sha256": "82d4f505381b4bd905d0eb4f4d671f1054d8251e9479576499f9a57672682b0b",
+      "rows": 161,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 4.1,
+        "x_max": 4.26,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.392042285417119e-12,
+        "magnitude_relative_error": 1.4838280221882956e-12,
+        "r2": 0.3915989063488873,
+        "rmse": 0.7800007010580905,
+        "residual_lag1": -0.029294875213599074,
+        "candidate_center_GHz": 4.231562826122178,
+        "candidate_fwhm_GHz": 0.054004401875649255,
+        "orthogonal_iq_variance_fraction": 0.028640063344189733
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-016.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "017",
+      "source": "data/0918/Qubit Spectroscopy/017/03599 - q16%c spectroscopy.csv",
+      "sha256": "1a205fb25a5ca2145d79c88c2d839eabf459e1c7fa5756288dace677da27f591",
+      "rows": 231,
+      "hard_violations": [],
+      "review_flags": [
+        "BASELINE_MODEL_LOW_EXPLAINED_VARIANCE"
+      ],
+      "metrics": {
+        "x_min": 4.06,
+        "x_max": 4.29,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.9968917892329046e-12,
+        "magnitude_relative_error": 7.302614341805449e-13,
+        "r2": 0.6192089493243007,
+        "rmse": 0.6170826935473878,
+        "residual_lag1": -0.1372997390235723,
+        "candidate_center_GHz": 4.245463870688362,
+        "candidate_fwhm_GHz": 0.030865543025038494,
+        "orthogonal_iq_variance_fraction": 0.007213850493773509
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-017.csv"
+    },
+    {
+      "family": "Qubit Spectroscopy",
+      "case": "018",
+      "source": "data/0918/Qubit Spectroscopy/018/06121 - q3%c spectroscopy.csv",
+      "sha256": "0e74df06ca38cdbf188024f6d364379a22dc1f5bf925a0cf204eb99a2467d0eb",
+      "rows": 151,
+      "hard_violations": [],
+      "review_flags": [
+        "FEATURE_WIDTH_POORLY_SAMPLED"
+      ],
+      "metrics": {
+        "x_min": 4.05,
+        "x_max": 4.2,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.898748073856041e-12,
+        "magnitude_relative_error": 1.2876140784630572e-12,
+        "r2": 0.9294243630420498,
+        "rmse": 0.26566075539670925,
+        "residual_lag1": 0.10024013202379946,
+        "candidate_center_GHz": 4.112541451637048,
+        "candidate_fwhm_GHz": 0.0010462484287265933,
+        "orthogonal_iq_variance_fraction": 0.03671660544040607
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Single Lorentzian plus linear baseline is a restricted diagnostic, not unique transition identification; power, pulse shape, saturation and extra transitions are unverified."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "review_needed",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/spectroscopy-018.csv"
+    },
+    {
+      "family": "Resonator Spectroscopy",
+      "case": "001",
+      "source": "data/0918/Resonator Spectroscopy/001/00009 - q1%c s21_scan.csv",
+      "sha256": "1f523bfa3138c4393bb8ce2fe9671030757ad6f9d4e591bc9cbd2803269dce32",
+      "rows": 458,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 6.0,
+        "x_max": 6.457,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.991562718714704e-12,
+        "magnitude_relative_error": 1.0079370379935243e-12,
+        "candidate_dips_at_8pct_span": [
+          6.119,
+          6.144,
+          6.185,
+          6.236,
+          6.294
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Resonator topology, background transfer function and absolute calibration absent. Dip detection is descriptive; no full physical S21 model was validated."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "not_fully_tested",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/resonator-001.csv"
+    },
+    {
+      "family": "Resonator Spectroscopy",
+      "case": "002",
+      "source": "data/0918/Resonator Spectroscopy/002/00012 - q11%c s21_scan.csv",
+      "sha256": "a5201edd90ff6f62430045509a92343c17cb21a4bed4db161c6d9ef09047c14f",
+      "rows": 401,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 6.0,
+        "x_max": 6.4,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.89563944938709e-12,
+        "magnitude_relative_error": 1.2044558830865338e-12,
+        "candidate_dips_at_8pct_span": [
+          6.063,
+          6.12,
+          6.146,
+          6.182,
+          6.23,
+          6.291,
+          6.327
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Resonator topology, background transfer function and absolute calibration absent. Dip detection is descriptive; no full physical S21 model was validated."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "not_fully_tested",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/resonator-002.csv"
+    },
+    {
+      "family": "Resonator Spectroscopy",
+      "case": "003",
+      "source": "data/0918/Resonator Spectroscopy/003/00011 - q6%c s21_scan.csv",
+      "sha256": "a4adcd7bcfed5005eb092ea8a5dabb0247cd7379d49c9d263ff570e5bbe1ffe3",
+      "rows": 401,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 6.0,
+        "x_max": 6.4,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.9971138338378296e-12,
+        "magnitude_relative_error": 1.6573791766851867e-12,
+        "candidate_dips_at_8pct_span": [
+          6.005,
+          6.119,
+          6.146,
+          6.184,
+          6.236,
+          6.29
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Resonator topology, background transfer function and absolute calibration absent. Dip detection is descriptive; no full physical S21 model was validated."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "not_fully_tested",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/resonator-003.csv"
+    },
+    {
+      "family": "Resonator Spectroscopy",
+      "case": "004",
+      "source": "data/0918/Resonator Spectroscopy/004/00688 - q16%c s21_scan.csv",
+      "sha256": "35c36e34a8427ce71563c4d9c5355ac1df582817dcd3073b3f50d70e9ae40e9f",
+      "rows": 1396,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 5.8,
+        "x_max": 6.4975,
+        "step": 0.0004999999999997229,
+        "phase_identity_error_rad": 4.997335878442755e-12,
+        "magnitude_relative_error": 7.254227821922077e-13,
+        "candidate_dips_at_8pct_span": [
+          6.073,
+          6.102,
+          6.1615,
+          6.239
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Resonator topology, background transfer function and absolute calibration absent. Dip detection is descriptive; no full physical S21 model was validated."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "not_fully_tested",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/resonator-004.csv"
+    },
+    {
+      "family": "Resonator Spectroscopy",
+      "case": "005",
+      "source": "data/0918/Resonator Spectroscopy/005/00239 - q21%c s21_scan.csv",
+      "sha256": "e1b7b619ff6dd340708afbe611e9efca21d8ddf65dc2fb6123f826228fa971ce",
+      "rows": 396,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 6.005,
+        "x_max": 6.4,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.9751314179502515e-12,
+        "magnitude_relative_error": 1.5663469997058908e-12,
+        "candidate_dips_at_8pct_span": [
+          6.034,
+          6.072,
+          6.099,
+          6.159,
+          6.177,
+          6.235,
+          6.27
+        ]
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Resonator topology, background transfer function and absolute calibration absent. Dip detection is descriptive; no full physical S21 model was validated."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "not_fully_tested",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/resonator-005.csv"
+    },
+    {
+      "family": "Resonator Spectroscopy",
+      "case": "006",
+      "source": "data/0918/Resonator Spectroscopy/006/00010 - q6%c s21_scan.csv",
+      "sha256": "3494ca035ed6725001113d51a342ec24c9a4c9e7e61f91ade7cb3f2467dfd197",
+      "rows": 131,
+      "hard_violations": [],
+      "review_flags": [],
+      "metrics": {
+        "x_min": 6.0,
+        "x_max": 6.13,
+        "step": 0.001000000000000334,
+        "phase_identity_error_rad": 4.950484466803573e-12,
+        "magnitude_relative_error": 1.6039244789930495e-13,
+        "candidate_dips_at_8pct_span": []
+      },
+      "limitations": [
+        "IQ and amplitude are in uncalibrated units: no absolute gain, power, or passive-S21 bound is tested.",
+        "Resonator topology, background transfer function and absolute calibration absent. Dip detection is descriptive; no full physical S21 model was validated."
+      ],
+      "constraint_status": "no_violation_detected",
+      "model_status": "not_fully_tested",
+      "overall_reliability": "not_certified",
+      "packaged_source": "data/resonator-006.csv"
+    }
+  ]
+}

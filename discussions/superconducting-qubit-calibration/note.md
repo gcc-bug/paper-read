@@ -43,3 +43,9 @@ Read Krantz Fig. 1, pp. 4–5, alongside the energy-level explanation; Eqs. (92)
 ## Organization correction
 
 2026-10-08 — The reader clarified that the two supporting papers belong to this discussion rather than standalone paper readings. Their PDFs and source annotations now live here. The reusable calibration, IQ-readout, and hardware explanations remain in the linked concept notes. This correction changes filing and navigation, with no new paper reading or experiment.
+
+## Chinese Beamer presentation added 2026-10-10
+
+The reader approved a presentation covering hardware, the calibration pipeline, and paired clearer/needs-review data. [Slides and build instructions](slides/README.md): [24-page main talk](slides/0918-calibration-main-zh.pdf), [65-page full version](slides/0918-calibration-zh.pdf), and [all 47 review cases](slides/coverage.md). English technical terms are retained and abbreviations are expanded on first use. The appendix includes all 46 recorded audit flags plus Resonator/006; these are review targets, not established acquisition errors. Figures replot byte-preserved numeric snapshots and reuse recorded diagnostics. No new acquisition or full nonlinear audit rerun was performed.
+
+The explanations and possible causes are Codex interpretations. Supporting sources are the existing Krantz/Blais PDFs; the previously consulted passages are reused, with p. 29 of each PDF selectively re-extracted and checked for the pulse-control/dispersive models. This does not constitute a full rereading. Source versions, column mappings, estimator differences, reproducibility instructions, and limitations are recorded in the slides README.

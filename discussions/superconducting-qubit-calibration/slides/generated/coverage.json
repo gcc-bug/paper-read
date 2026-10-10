@@ -1,0 +1,195 @@
+{
+  "main": [
+    [
+      "T1 Visibility",
+      "004"
+    ],
+    [
+      "GMM Readout Clusters",
+      "008"
+    ],
+    [
+      "Rabi Oscillation",
+      "003"
+    ],
+    [
+      "Rabi Oscillation",
+      "007"
+    ],
+    [
+      "Qubit Spectroscopy",
+      "008"
+    ],
+    [
+      "Qubit Spectroscopy",
+      "005"
+    ],
+    [
+      "T2 Ramsey",
+      "008"
+    ],
+    [
+      "Resonator Spectroscopy",
+      "006"
+    ]
+  ],
+  "appendix": [
+    [
+      "T1 Visibility",
+      "001"
+    ],
+    [
+      "T1 Visibility",
+      "005"
+    ],
+    [
+      "T2 Ramsey",
+      "001"
+    ],
+    [
+      "T2 Ramsey",
+      "002"
+    ],
+    [
+      "T2 Ramsey",
+      "003"
+    ],
+    [
+      "T2 Ramsey",
+      "004"
+    ],
+    [
+      "T2 Ramsey",
+      "005"
+    ],
+    [
+      "T2 Ramsey",
+      "006"
+    ],
+    [
+      "T2 Ramsey",
+      "007"
+    ],
+    [
+      "Rabi Oscillation",
+      "001"
+    ],
+    [
+      "Rabi Oscillation",
+      "004"
+    ],
+    [
+      "Rabi Oscillation",
+      "005"
+    ],
+    [
+      "Rabi Oscillation",
+      "006"
+    ],
+    [
+      "Rabi Oscillation",
+      "008"
+    ],
+    [
+      "Rabi Oscillation",
+      "009"
+    ],
+    [
+      "Rabi Oscillation",
+      "010"
+    ],
+    [
+      "Rabi Oscillation",
+      "011"
+    ],
+    [
+      "Rabi Oscillation",
+      "012"
+    ],
+    [
+      "Rabi Oscillation",
+      "013"
+    ],
+    [
+      "Rabi Oscillation",
+      "014"
+    ],
+    [
+      "Rabi Oscillation",
+      "015"
+    ],
+    [
+      "Rabi Oscillation",
+      "016"
+    ],
+    [
+      "Qubit Spectroscopy",
+      "002"
+    ],
+    [
+      "Qubit Spectroscopy",
+      "004"
+    ],
+    [
+      "Qubit Spectroscopy",
+      "006"
+    ],
+    [
+      "Qubit Spectroscopy",
+      "007"
+    ],
+    [
+      "Qubit Spectroscopy",
+      "009"
+    ],
+    [
+      "Qubit Spectroscopy",
+      "011"
+    ],
+    [
+      "Qubit Spectroscopy",
+      "012"
+    ],
+    [
+      "Qubit Spectroscopy",
+      "013"
+    ],
+    [
+      "Qubit Spectroscopy",
+      "014"
+    ],
+    [
+      "Qubit Spectroscopy",
+      "015"
+    ],
+    [
+      "Qubit Spectroscopy",
+      "016"
+    ],
+    [
+      "Qubit Spectroscopy",
+      "017"
+    ],
+    [
+      "Qubit Spectroscopy",
+      "018"
+    ],
+    [
+      "GMM Readout Clusters",
+      "002"
+    ],
+    [
+      "GMM Readout Clusters",
+      "003"
+    ],
+    [
+      "GMM Readout Clusters",
+      "004"
+    ],
+    [
+      "GMM Readout Clusters",
+      "005"
+    ]
+  ],
+  "total": 47
+}

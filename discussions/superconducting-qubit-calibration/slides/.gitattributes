@@ -1,0 +1,2 @@
+# Preserve source CSV bytes, including original CR CR LF endings.
+data/*.csv -text whitespace=-blank-at-eol
