@@ -1,6 +1,8 @@
 \documentclass[aspectratio=169,12pt,fontset=none]{ctexbeamer}
 \input{arclight-fonts.tex}
 \usepackage{amsmath}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 \usetheme{Arclight}
 \arclightsetcompany{弧光量子}
 \usetikzlibrary{arrows.meta,positioning}
@@ -15,7 +17,9 @@
 \begin{frame}[plain]
   \titlepage
 \end{frame}
+\arclightagenda{报告目录}
 
+\section{从实验到数据}
 \arclightdivider{01\quad 从实验到数据}{先明确：我们控制什么，测量什么？}
 
 \begin{frame}{控制信号通过实验变成测量记录}
@@ -44,24 +48,26 @@
     \begin{column}{.47\textwidth}
       \textbf{窗口内可见衰减}\par
       \vspace{2mm}
-      \begin{tikzpicture}[x=8.5mm,y=23mm]
-        \draw[->,ArclightMuted] (0,0) -- (6.4,0) node[right,font=\footnotesize] {$t$};
-        \draw[->,ArclightMuted] (0,0) -- (0,1.18) node[above,font=\footnotesize] {$y$};
-        \draw[ArclightInk,line width=1.1pt,domain=0:6,samples=60]
-          plot (\x,{exp(-\x/2)});
-        \node[font=\small,align=center] at (3.2,.77) {曲线发生\\明显变化};
+      \begin{tikzpicture}
+        \begin{axis}[width=59mm,height=36mm,axis lines=left,
+          xmin=0,xmax=6.4,ymin=0,ymax=1.18,ticks=none,
+          xlabel={$t$},ylabel={$y$},clip=false]
+          \addplot[ArclightInk,line width=1.1pt,domain=0:6,samples=60] {exp(-x/2)};
+          \node[font=\small,align=center] at (axis cs:3.2,.77) {曲线发生\\明显变化};
+        \end{axis}
       \end{tikzpicture}
     \end{column}
     \begin{column}{.47\textwidth}
       \textbf{窗口内几乎平坦}\par
       \vspace{2mm}
-      \begin{tikzpicture}[x=8.5mm,y=23mm]
-        \draw[->,ArclightMuted] (0,0) -- (6.4,0) node[right,font=\footnotesize] {$t$};
-        \draw[->,ArclightMuted] (0,0) -- (0,1.18) node[above,font=\footnotesize] {$y$};
-        \draw[ArclightInk,line width=1.1pt,domain=0:6,samples=60]
-          plot (\x,{.96-.002*\x});
-        \draw[ArclightRed,line width=.8pt,-{Latex}] (3,.60) -- (4,.94);
-        \node[font=\small,align=center] at (2.9,.44) {没有可分辨\\的衰减};
+      \begin{tikzpicture}
+        \begin{axis}[width=59mm,height=36mm,axis lines=left,
+          xmin=0,xmax=6.4,ymin=0,ymax=1.18,ticks=none,
+          xlabel={$t$},ylabel={$y$},clip=false]
+          \addplot[ArclightInk,line width=1.1pt,domain=0:6,samples=60] {.96-.002*x};
+          \draw[ArclightRed,line width=.8pt,-{Latex}] (axis cs:3,.60) -- (axis cs:4,.94);
+          \node[font=\small,align=center] at (axis cs:2.9,.44) {没有可分辨\\的衰减};
+        \end{axis}
       \end{tikzpicture}
     \end{column}
   \end{columns}
@@ -71,5 +77,6 @@
   {\footnotesize\color{ArclightMuted}示意曲线，非实验数据。}
 \end{frame}
 
+\section{交流与讨论}
 \arclightdivider{交流与讨论}{问题、观察与下一步}
 \end{document}

@@ -55,3 +55,16 @@ The explanations and possible causes are Codex interpretations. Supporting sourc
 The reader requested shorter slides, moved explanations into companion notes, and approved the company Beamer layout and stronger typography for less clear screens. The deck is now a [25-page main talk](slides/0918-calibration-main-zh.pdf) and a [67-page full version](slides/0918-calibration-zh.pdf), with [background and slide explanations](slides/notes.md) and [detailed notes for all 47 cases](slides/case-notes.md). Slides retain the figures, key diagnostics, and essential interpretation limits; candidate causes in the case notes are labeled as unverified hypotheses.
 
 The original evidence snapshot, all 64 CSVs, both supporting PDFs, reference selections, and full case explanations are preserved. This revision changes presentation and navigation; it adds no acquisition or full nonlinear audit. All 67 pages were rendered and inspected, including representative low-resolution previews. [Build instructions and validation scope](slides/README.md) record the current organization. The 2026-10-10 description above records the earlier delivery.
+
+## Presentation navigation and figure tools added 2026-10-12
+
+The reader clarified that “0918” is a private label and requested an agenda,
+section progress, and established figure tools. The current [main talk](slides/0918-calibration-main-zh.pdf)
+is 26 pages and the [full version](slides/0918-calibration-zh.pdf) is 68 pages.
+The agenda and section footer use native Beamer navigation data; appendix pages
+are kept separate from main-section progress. Circuitikz supplies electrical
+symbols, PGFPlots draws the illustrative pulse, and case plots use Beamer figure
+environments with their existing Matplotlib PDFs. The internal label remains
+in filenames and provenance notes, outside displayed slide content. The reader's
+existing title/date edits are preserved. Evidence and diagnostics are unchanged;
+[companion notes](slides/notes.md) have updated page references.

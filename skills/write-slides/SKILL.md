@@ -17,6 +17,11 @@ preferences. The reader accepted the overall company style, then requested a
 font change for less clear screens. Exact text limits and a fixed storytelling
 structure have not been agreed.
 
+After reviewing the rewritten deck, the reader clarified that `0918` is a
+private filing label, not presentation content, and requested an agenda,
+section progress, and established tools for figures. Apply these choices to
+this reader's substantial Beamer talks.
+
 ## Discuss or write at the requested scope
 
 Inspect the existing deck and related notes before diagnosing its style. Use
@@ -46,6 +51,34 @@ attribution. The note can hold full references, provenance, and methodological
 details. Reduce text by selecting and relocating content, rather than shrinking
 fonts or turning explanations into unexplained fragments. Let the content decide
 whether a slide needs splitting; do not impose a universal word or bullet limit.
+
+Keep private dataset labels, task IDs, and file-management names in filenames
+and provenance notes. Use a descriptive topic or experiment name in visible
+titles, footers, captions, and claims unless that identifier is meaningful to
+the audience. Removing an internal label must preserve scientific attribution
+and the traceable source mapping in the companion notes.
+
+## Figures and audience navigation
+
+Use established tools appropriate to the visual: `graphicx` and Beamer's
+`figure` environment for imported plots, Circuitikz for electrical symbols,
+TikZ for conceptual diagrams, and PGFPlots or an existing scientific plotting
+script for curves. Reuse faithful existing data plots; adding a LaTeX package
+is not a reason to change preprocessing, values, models, or evidence. Prefer
+library symbols over hand-drawn approximations when the library supplies the
+needed symbol. Keep measured curves and illustrative models clearly identified.
+Captions should aid interpretation; figure environments need not add a verbose
+caption or a number to every slide. Put full explanations in the note.
+
+For substantial Beamer talks, provide an agenda near the beginning and visible
+section navigation with progress within the current section. Use native Beamer
+sections and table-of-contents/navigation data so the displayed structure and
+counts follow the actual deck. A section fraction or progress bar represents
+pages/slides, not remaining speaking time. Separate the appendix from the main
+talk so backup cases do not inflate main-section progress. Check the first and
+last pages of sections in both main-only and full builds, and update note page
+references after inserting navigation pages. Keep this optional for a short
+preview where navigation would add more overhead than help.
 
 ## Make the companion note useful for understanding
 

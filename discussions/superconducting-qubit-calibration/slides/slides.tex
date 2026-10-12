@@ -6,6 +6,8 @@
 \newcommand{\arclightfontpath}{../../../skills/write-slides/assets/company-beamer/fonts/}
 \input{arclight-fonts.tex}
 \usepackage{amsmath,amssymb,booktabs,tabularx,graphicx,tikz}
+\usepackage{circuitikz,pgfplots}
+\pgfplotsset{compat=1.18}
 \usetheme{Arclight}
 \arclightsetlogo{../../../skills/write-slides/assets/company-beamer/brand/logo.pdf}
 \arclightsetcompany{弧光量子}
@@ -33,6 +35,7 @@
 
 \begin{document}
 \begin{frame}[plain]\titlepage\end{frame}
+\arclightagenda{报告目录}
 \section{硬件与信号}
 \begin{frame}{校准连接控制、器件与测量记录}
  \begin{center}
@@ -51,16 +54,12 @@
 \begin{frame}{Transmon 的非等间隔能级允许选择性驱动}
  \begin{columns}[c,onlytextwidth]
  \column{.43\textwidth}\centering
- \begin{tikzpicture}[scale=.82]
-  \draw[very thick] (0,0)--(0,2.6)--(3.2,2.6)--(3.2,1.6);
-  \draw[very thick] (3.2,1.1)--(3.2,0)--(0,0);
-  \draw[very thick] (2.85,1.6)--(3.55,1.6) (2.85,1.1)--(3.55,1.1);
-  \draw[white,line width=5pt] (0,1)--(0,1.6);
-  \draw[very thick] (-.3,1) rectangle (.3,1.6);
-  \draw[very thick] (-.3,1)--(.3,1.6) (-.3,1.6)--(.3,1);
-  \node[left] at (-.3,1.3) {$E_J$};\node[right] at (3.5,1.35) {$C_\Sigma$};
+ \begin{circuitikz}[scale=.82]
+  % Circuitikz's barrier supplies the cross symbol denoting the junction.
+  \draw[thick] (0,0) to[barrier,l=$E_J$] (0,2.6)
+    -- (3.2,2.6) to[C,l=$C_\Sigma$] (3.2,0) -- (0,0);
   \node[align=center,font=\small] at (1.6,-.65) {Josephson junction\\+ capacitance};
- \end{tikzpicture}
+ \end{circuitikz}
  \column{.53\textwidth}\centering
  \begin{tikzpicture}[x=9mm,y=7mm]
   \draw[flow] (0,0)--(0,4.2) node[above,font=\small] {Energy};
@@ -74,7 +73,7 @@
  \src{非按比例的概念示意；Krantz Fig. 1、Eq. (16) \cite{krantz}。}
 \end{frame}
 
-\begin{frame}{Readout resonator 与 coupler 承担不同功能}
+\begin{frame}{Resonator 与 coupler 的功能不同}
  \begin{center}
  \begin{tikzpicture}[x=9mm,y=9mm]
   \draw[probe] (0,3.2)--(12.8,3.2);
@@ -92,7 +91,7 @@
  \end{tikzpicture}
  \end{center}
  \textbf{Resonator 用于读出；coupler / bus 用于 qubit 间相互作用。}
- \src{通用结构示意，非 0918 wiring；Krantz / Blais \cite{krantz,blais}。}
+ \src{通用结构示意，非实验设备 wiring；Krantz / Blais \cite{krantz,blais}。}
 \end{frame}
 
 \begin{frame}{弱微波响应经过测量链变成 IQ}
@@ -113,6 +112,7 @@
 \end{frame}
 
 \begin{frame}{四个控制量共同决定一次驱动}
+ \renewcommand{\arraystretch}{1.25}
  \[V_d(t)=A(t)\cos(2\pi f_dt+\phi_d)\]
  \begin{tabularx}{\linewidth}{@{}p{27mm}X@{}}
   \toprule
@@ -140,7 +140,7 @@
  \src{$\sigma_z\ket0=-\ket0$，采用 dispersive 近似；Blais Eq. (107)、Fig. 19 \cite{blais}。}
 \end{frame}
 
-\section{校准流程与记录}
+\section[流程与记录]{校准流程与记录}
 \begin{frame}{校准通过反馈反复修正控制与读出}
  \begin{center}
  \begin{tikzpicture}[font=\small]
@@ -157,7 +157,7 @@
  \end{tikzpicture}
  \end{center}
  \textbf{Pulse calibration 与 usable readout 相互依赖。}
- \src{通用 dependency map，非 0918 acquisition 时间顺序；Krantz \cite{krantz}。}
+ \src{通用 dependency map，非实际 acquisition 时间顺序；Krantz \cite{krantz}。}
 \end{frame}
 
 \begin{frame}{Frequency 与 amplitude scans 定位控制参数}
@@ -171,7 +171,7 @@
   \bottomrule
  \end{tabularx}\par
  \vspace{5mm}\textbf{这三类记录保留 phase、magnitude 与 IQ。}
- \src{0918 numeric CSV；完整列映射、单位与处理约定见配套笔记。}
+ \src{实验 numeric CSV；完整列映射、单位与处理约定见配套笔记。}
 \end{frame}
 
 \begin{frame}{Delay 与 preparation records 检查状态保持和区分}
@@ -191,19 +191,24 @@
 \begin{frame}{Rabi calibration 用 pulse area 控制旋转角}
  \begin{columns}[c,onlytextwidth]
  \column{.47\textwidth}\centering
- \begin{tikzpicture}[x=6mm,y=6mm]
-  \draw[flow] (0,0)--(8,0) node[right] {$t$};
-  \draw[flow] (0,0)--(0,3.2) node[above] {$\Omega(t)$};
-  \draw[Orange,very thick] (1,0)--(1,2)--(6,2)--(6,0);
-  \fill[Orange,opacity=.13] (1,0) rectangle (6,2);
-  \node at (3.5,1) {$\theta=\int\Omega(t)\,dt$};
+ \begin{tikzpicture}
+  \begin{axis}[width=57mm,height=35mm,axis lines=left,
+    xmin=0,xmax=8,ymin=0,ymax=3.2,ticks=none,clip=false,
+    xlabel={$t$},ylabel={$\Omega(t)$},
+    xlabel style={at={(axis description cs:1,0)},anchor=west},
+    ylabel style={at={(axis description cs:0,1)},anchor=south,rotate=-90}]
+   \addplot[draw=none,fill=Orange,fill opacity=.13]
+     coordinates {(1,0) (1,2) (6,2) (6,0)} \closedcycle;
+   \addplot[Orange,very thick] coordinates {(1,0) (1,2) (6,2) (6,0)};
+   \node at (axis cs:3.5,1) {$\theta=\int\Omega(t)\,dt$};
+  \end{axis}
  \end{tikzpicture}
  \column{.49\textwidth}
  \[P_1=\sin^2(\theta/2)\]
  固定 duration，扫描 amplitude：\par
  \textbf{寻找可约束 $\pi$ pulse 的周期。}
  \end{columns}
- \vspace{3mm}\textbf{0918 扫 drive-amplitude setting；magnitude 不直接等于 $P_1$。}
+ \vspace{3mm}\textbf{本组实验扫 drive-amplitude setting；magnitude 不直接等于 $P_1$。}
  \src{Initial $\ket0$、resonant、固定轴 two-level 近似；示意 envelope，非恢复的实际 pulse \cite{krantz}。}
 \end{frame}
 
@@ -235,10 +240,10 @@
  \end{tikzpicture}
  \end{center}
  \vspace{5mm}\textbf{本报告的 accuracy 同时包含 preparation / relaxation 影响。}
- \src{Held-out linear classifier；不是原始 GMM fidelity estimator 的复现。0918 recorded audit。}
+ \src{Held-out linear classifier；不是原始 GMM fidelity estimator 的复现。复用 recorded audit。}
 \end{frame}
 
-\section{从数据判断可信度}
+\section[数据判断]{从数据判断可信度}
 \begin{frame}{先观察，再检查模型，最后提出原因}
  \begin{enumerate}
   \item \textbf{Observation}：曲线、边界、采样、分布重叠。
@@ -262,10 +267,10 @@
  \textbf{Preparation / readout}\par 参考分布是否能区分？\par\vspace{2mm}
  \textbf{Reproducibility}\par 重复与改变 sweep 后是否一致？
  \end{columns}
- \src{对 0918 recorded evidence 的归纳；具体验证方向见配套笔记。}
+ \src{对 recorded evidence 的归纳；具体验证方向见配套笔记。}
 \end{frame}
 
-\section{References 与来源}
+\section[参考与来源]{References 与来源}
 \begin{frame}{理论依据：hardware、control 与 readout}
  \begin{thebibliography}{B}
  \bibitem[K]{krantz} P. Krantz et al.\par
@@ -291,7 +296,7 @@
 
 \ifdefined\MainOnly\else
 \appendix
-\section{Appendix：完整案例}
+\section[附录案例]{Appendix：完整案例}
 \input{generated/case-index.tex}
 \begin{frame}{附录对照图保留各 family 的解释条件}
  \begin{itemize}

@@ -18,12 +18,15 @@ specifications.
 - Native bold headings, 10 pt figure labels/captions, an 8 pt footer, and darker
   secondary text for better legibility on less clear screens.
 - Full logo on the cover; a 22 mm logo in a reserved content-header zone.
-- Quiet footer with company name, short talk title, and slide number.
+- Compact footer with clickable section names, the current section highlighted,
+  a section progress bar, current/total section pages, and slide number.
 - Figures and short messages on slides; fuller explanations in `notes.md`.
 
-The preview includes a cover, optional section divider, diagram, paired curves,
-and closing page. Its curves are explicitly illustrative, not experimental data.
-The speaker field is a placeholder. No existing calibration deck was restyled.
+The preview includes a cover, agenda, optional section divider, diagram, paired
+PGFPlots curves, and closing page. Its curves are explicitly illustrative,
+not experimental data.
+The speaker field is a placeholder. The calibration deck reuses these assets;
+its data and explanations are maintained in its own discussion directory.
 
 ## Use the template
 
@@ -65,6 +68,38 @@ Use a `[plain]` frame for `\titlepage`. Optional transition/closing frames use
 space for the logo; long frame titles wrap within their own area. Use a concise
 optional title in `\title[...]{...}` to keep the footer legible.
 
+## Agenda, sections, and progress
+
+For a substantial talk, place the built-in agenda after the cover and declare
+sections around the actual content:
+
+```latex
+\begin{frame}[plain]\titlepage\end{frame}
+\arclightagenda{报告目录}
+\section[硬件与信号]{硬件与信号}
+% Content frames...
+\section[数据判断]{从数据判断可信度}
+% Content frames...
+\appendix
+\section[附录案例]{完整案例}
+% Backup frames...
+```
+
+The theme uses native Beamer navigation data. Compile with `latexmk` until
+references and section ranges settle. The footer highlights the current section
+and shows a bar plus current/total pages within that section. Overlays count as
+PDF pages; the fraction does not estimate speaking time. Beamer's appendix is a
+separate part, so its pages do not inflate the main sections or main agenda.
+Keep short section names readable in the footer. Plain covers/dividers omit it.
+For a short unsectioned deck, the section fraction is empty and the bar unfilled.
+
+Use `graphicx` and Beamer `figure` environments for imported plots, TikZ for
+conceptual diagrams, PGFPlots for editable curve illustrations, and Circuitikz
+when electrical symbols are needed. The preview curves are PGFPlots models;
+the calibration deck imports its existing Matplotlib plots without changing
+values or preprocessing. Keep private filing labels in provenance notes and
+filenames; visible titles and labels should describe the audience's subject.
+
 ## Build and inspect
 
 Run from this directory:
@@ -73,7 +108,7 @@ Run from this directory:
 bash build.sh
 ```
 
-Requires XeLaTeX, latexmk, Poppler's `pdftoppm`, Python 3,
+Requires XeLaTeX, latexmk, PGFPlots, Poppler's `pdftoppm`, Python 3,
 and Pillow. Build intermediates are ignored under `build/`; the current PDF and
 contact-sheet PNG are kept alongside their editable source. To compile a copied
 deck without making the preview PNG, use:
@@ -113,8 +148,10 @@ The CJK files' SHA-256 values identify the downloaded artifacts:
 Keep the accompanying licenses with copied template fonts. The supplied company
 logo has separate provenance below.
 
-The revised five-page Chinese preview was compiled and all pages were visually
-inspected. A separate English Beamer build checked a long wrapped title,
+The initial typography revision produced a five-page Chinese preview, compiled
+and visually inspected. The current navigation revision adds an agenda, giving
+a six-page preview; all six pages were rebuilt and visually inspected.
+The earlier separate English Beamer build checked a long wrapped title,
 subtitle, equation, block, bullets, and native italic text. Both builds finished
 without overflow, missing-character, or undefined-reference warnings. PDF font
 inspection confirms that the used fonts are embedded. Before/after renders were

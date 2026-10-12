@@ -2,8 +2,8 @@
 
 2026-10-12 — 按读者认可的 [slide-writing skill](../../../skills/write-slides/SKILL.md) 重写。使用弧光量子 company theme 与较粗的字体；slides 保留主线、图与必要限制，讲解和 possible causes 移至配套笔记。解释为 Codex interpretation；数据来自既有实验及 recorded audit，不表示读者认可所有解释。
 
-- [正文 PDF](0918-calibration-main-zh.pdf)：25 页，适合主报告。
-- [完整 PDF](0918-calibration-zh.pdf)：67 页，包含全部 47 个待复查案例。
+- [正文 PDF](0918-calibration-main-zh.pdf)：26 页，适合主报告。
+- [完整 PDF](0918-calibration-zh.pdf)：68 页，包含全部 47 个待复查案例。
 - [Beamer 源码](slides.tex)：中文叙述，保留 English technical terms；完整 definitions 在配套笔记。
 - [讲解与背景笔记](notes.md)：按正文页组织的解释、模型条件、definitions 与来源。
 - [详细案例笔记](case-notes.md)：47 个 targets 的完整诊断、观察、未验证原因与验证方向。
@@ -12,9 +12,9 @@
 
 ## 组织与讲述
 
-正文第 1–7 页介绍 Transmon、chip components、measurement chain、microwave control 与 dispersive readout；第 8–13 页说明 iterative calibration pipeline、六类 records、Rabi、T1、Ramsey 与 preparation/assignment；第 14 页区分 observation、diagnostic 与 possible cause；第 15–22 页比较八个代表案例；第 23–25 页是判断方法、references 和 data provenance。
+正文第 1 页为封面，第 2 页为目录。第 3–8 页介绍硬件与信号；第 9–14 页说明校准流程、六类 records 与模型；第 15–24 页区分 observation / diagnostic / cause 并展示八个代表案例与判断方法；第 25–26 页为 references 和 provenance。页脚使用原生 Beamer section navigation，当前章节红色突出；fraction 与细条表示本节当前页 / 总页，不是剩余讲述时间。
 
-完整版本第 26–27 页为可点击案例导航，第 28 页说明附录约定，第 29–67 页覆盖其余 39 个案例。正文可按约 30–40 分钟准备；这只是讲述建议，不是实测报告时长。
+完整版本第 27–28 页为可点击案例导航，第 29 页说明附录约定，第 30–68 页覆盖其余 39 个案例。正文可按约 30–40 分钟准备；这只是讲述建议，不是实测报告时长。
 
 每个案例页只讨论一个 experiment family：短标题、较大的 paired plot、关键 diagnostic 与必要限制。完整 observation、possible causes 和验证方向在 [case-notes.md](case-notes.md)；候选原因明确标为未验证 hypotheses。Reference 不等于通过 calibration certification；不同 case 通常不是 matched controlled experiment。Ramsey reference 本身也有 residual flags，案例页保留说明。
 
@@ -22,7 +22,7 @@
 
 ## 编译与修改
 
-需要 XeLaTeX、latexmk、ctexbeamer 与 TikZ。主题、vector logo 和字体通过 repository-relative paths 复用 [company Beamer template](../../../skills/write-slides/assets/company-beamer/README.md)。中文使用 bundled Noto Sans SC Medium/Bold，英文使用 Open Sans Semibold/Bold；无需另装 system fonts。搬迁时保留仓库内 `skills/write-slides/assets/company-beamer/` 的相对位置；单独复制 slides 目录不足以编译。
+需要 XeLaTeX、latexmk、ctexbeamer、TikZ、Circuitikz 与 PGFPlots。主题、vector logo 和字体通过 repository-relative paths 复用 [company Beamer template](../../../skills/write-slides/assets/company-beamer/README.md)。中文使用 bundled Noto Sans SC Medium/Bold，英文使用 Open Sans Semibold/Bold；无需另装 system fonts。搬迁时保留仓库内 `skills/write-slides/assets/company-beamer/` 的相对位置；单独复制 slides 目录不足以编译。
 
 在本目录运行：
 
@@ -39,7 +39,7 @@ python3 generate_assets.py
 bash build.sh
 ```
 
-默认使用本目录的 `evidence.json` 和 64 份 `data/*.csv`，不要求原始 checkout 或网络。脚本逐份核对 SHA-256 后重绘 47 份 `figures/*.pdf`，生成简洁的 `generated/*.tex`、coverage JSON / Markdown 和全部 `case-notes.md`。`notes.md` 为手写的正文讲解笔记；内容或页码改变后需同步修改。案例页请修改 `generate_assets.py` 后再生成；直接编辑 `generated/` 会在下次生成时被覆盖。Hardware/pipeline diagrams 为源码中的可编辑 TikZ。
+默认使用本目录的 `evidence.json` 和 64 份 `data/*.csv`，不要求原始 checkout 或网络。脚本逐份核对 SHA-256 后重绘 47 份 `figures/*.pdf`，生成简洁的 `generated/*.tex`、coverage JSON / Markdown 和全部 `case-notes.md`。`notes.md` 为手写的正文讲解笔记；内容或页码改变后需同步修改。案例页请修改 `generate_assets.py` 后再生成；直接编辑 `generated/` 会在下次生成时被覆盖。电路使用 Circuitikz 的 capacitor / cross symbols；概念 diagrams 使用 TikZ；示意 pulse envelope 使用 PGFPlots。案例图通过 Beamer `figure` 环境导入既有 Matplotlib vector PDFs。
 
 需要从 canonical checkout 刷新快照时：
 
@@ -91,6 +91,10 @@ Spectroscopy 图展示 magnitude；页内 R²/FWHM 来自 audit 的 **IQ-project
 
 ## 本次交付检查
 
-两份 PDF 已用 XeLaTeX 编译，正文 25 页、完整版本 67 页。最终 `main.log` / `slides.log` 无 overflow、missing-character 或 undefined-reference warnings；通过 repository-relative theme lookup 加载时的 package-name warning 不影响输出。所有 67 页已渲染检查，并在 854 × 480 的代表页与较高分辨率 render 上检查图轴、标题、关键 diagnostic 和导航。低分辨率预览是模拟，不是实际房间 / 屏幕测量。
+两份 PDF 已用 XeLaTeX 编译，正文 26 页、完整版本 68 页。最终 `main.log` / `slides.log` 无 overflow、missing-character 或 undefined-reference warnings；通过 repository-relative theme lookup 加载时的 package-name warning 不影响输出。所有 68 页已渲染检查，并在 854 × 480 的代表页与较高分辨率 render 上检查图轴、标题、关键 diagnostic 和导航。低分辨率预览是模拟，不是实际房间 / 屏幕测量。
 
 已验证全部 47 个唯一案例 labels、47 份 paired figures、64 份 CSV hashes、57,993 行总数、notes 中的 local links / case anchors，以及 reference selections 和完整 explanation 与旧版一致。`evidence.json`、64 份 CSV 和两篇原始 supporting PDFs 的 SHA-256 均保持不变。Rabi 固定频率重建仍通过 R² consistency assertion。上述为交付与证据对应检查，不是新增 acquisition validation。
+
+## Navigation and figure-tools revision — 2026-10-12
+
+“0918”是读者的内部 filing label；输出文件名、原始来源与 provenance 保留该 label，slides 的标题、正文、页脚与显示的 PDF metadata 已移除。保留读者已有的封面标题 / subtitle 与 `\today` 日期设置。正文目录与 section footer 由 shared company theme 提供；附录独立，不增加正文 section 的进度。图的数据 / 拟合未改变；仅电路符号与示意 pulse 使用对应专业 packages，导入图采用 Beamer figure 环境。配套笔记的正文页码已同步更新。

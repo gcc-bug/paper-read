@@ -43,6 +43,10 @@
 \setbeamerfont{framesubtitle}{size=\fontsize{11}{14},series=\mdseries}
 \setbeamerfont{block title}{size=\normalsize,series=\bfseries}
 \setbeamerfont{footline}{size=\fontsize{8}{10},series=\mdseries}
+\setbeamerfont{section in head/foot}{size=\fontsize{8}{10},series=\mdseries}
+\setbeamercolor{section in head/foot}{fg=ArclightInk,bg=white}
+\setbeamertemplate{section in head/foot}{\color{ArclightRed}\bfseries\insertsectionhead}
+\setbeamertemplate{section in head/foot shaded}{\color{ArclightMuted}\insertsectionhead}
 \setbeamersize{text margin left=9mm,text margin right=9mm}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{itemize item}{\raisebox{.2ex}{\scriptsize$\bullet$}}
@@ -72,14 +76,49 @@
   \vskip2mm%
 }
 
+% Native Beamer section ranges are restored from .nav on subsequent passes.
+% Progress counts PDF pages within the current section (including overlays).
+\newlength{\arclightprogresswidth}
+\newlength{\arclightcontentwidth}
+\setlength{\arclightcontentwidth}{\dimexpr\paperwidth-18mm\relax}
+\newcommand{\arclightsectionposition}{%
+  \ifnum\c@section>0\relax
+    \the\numexpr\insertpagenumber-\insertsectionstartpage+1\relax
+    \,/\,\the\numexpr\insertsectionendpage-\insertsectionstartpage+1\relax
+  \fi}
+\newcommand{\arclightprogressbar}{%
+  \pgfmathsetlength{\arclightprogresswidth}{0pt}%
+  \ifnum\c@section>0\relax
+    \pgfmathsetlength{\arclightprogresswidth}{\arclightcontentwidth *
+      min(1,max(0,(\insertpagenumber-\insertsectionstartpage+1)/
+      max(1,\insertsectionendpage-\insertsectionstartpage+1)))}%
+  \fi
+  \rlap{\color{ArclightRule}\rule{\arclightcontentwidth}{.65pt}}%
+  {\color{ArclightRed}\rule{\arclightprogresswidth}{.65pt}}}
+
 \setbeamertemplate{footline}{%
-  \begin{beamercolorbox}[wd=\paperwidth,ht=5mm,dp=2.5mm,%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=3mm,dp=.5mm,%
+      leftskip=9mm,rightskip=9mm]{footline}
+    \insertsectionnavigationhorizontal{\arclightcontentwidth}{}{}%
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=.6mm,dp=.4mm,%
+      leftskip=9mm,rightskip=9mm]{footline}
+    \arclightprogressbar
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=3mm,dp=2mm,%
       leftskip=9mm,rightskip=9mm]{footline}
     \usebeamerfont{footline}%
-    \begin{minipage}[b]{.80\textwidth}
+    \begin{minipage}[b]{.68\arclightcontentwidth}
       \raggedright\arclightcompanyname\quad|\quad\insertshorttitle
-    \end{minipage}\hfill\insertframenumber
+    \end{minipage}\hfill\arclightsectionposition\quad|\quad\insertframenumber
   \end{beamercolorbox}%
+}
+
+% Place after the cover, before the first section. Appendix is a separate part.
+\newcommand{\arclightagenda}[1]{%
+  \begin{frame}[label=arclight-agenda]{#1}
+    \tableofcontents[hideallsubsections]
+  \end{frame}%
 }
 
 \setbeamertemplate{title page}{%

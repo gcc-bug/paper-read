@@ -26,13 +26,21 @@ The title and subtitle are separate so a long topic description does not compete
 with the main title. Replace the example title, speaker placeholder, and preview
 date with actual presentation metadata.
 
-## Slide 2 — 从实验到数据
+## Slide 2 — 报告目录
+
+The agenda uses native Beamer sections. Content pages display clickable section
+names, highlight the current section, and show its current/total PDF pages with
+a progress bar. These indicate page progress, not speaking time. Plain dividers
+still count toward their sections but omit the footer. A full talk should keep
+appendix sections in a separate Beamer part.
+
+## Slide 3 — 从实验到数据
 
 A section divider gives the audience a short transition. Its question introduces
 the next explanation. Use a divider where it helps orientation; it is optional
 and does not need to precede every content slide.
 
-## Slide 3 — 控制信号通过实验变成测量记录
+## Slide 4 — 控制信号通过实验变成测量记录
 
 ### Codex interpretation
 
@@ -55,11 +63,11 @@ explanation. The background above belongs here because the listener need not
 read it while following the diagram. The small logo and fixed header/footer
 provide affiliation and navigation without taking the figure's space.
 
-## Slide 4 — 平坦曲线无法确定衰减时间
+## Slide 5 — 平坦曲线无法确定衰减时间
 
 ### Codex interpretation
 
-Both curves are mathematical illustrations authored in TikZ, not measured
+Both curves are mathematical illustrations authored in PGFPlots, not measured
 records. The left curve is $y=\exp(-t/2)$; the right is
 $y=0.96-0.002t$, with dimensionless illustrative coordinates. The right-hand
 curve is not fitted to a relaxation model. Neither curve estimates an actual
@@ -80,7 +88,15 @@ retains the essential label that the curves are illustrative. The longer model
 explanation and possible causes remain in this note. Red draws attention to a
 feature; it does not serve as an automatic pass/fail or physical-error label.
 
-## Slide 5 — 交流与讨论
+## Slide 6 — 交流与讨论
 
 The closing page provides a clean endpoint and space for questions. Add a contact
 or follow-up link only when the actual details and intended audience are known.
+
+## Navigation and figure-tools revision — 2026-10-12
+
+The reader requested agenda/section progress and established figure tools, and
+clarified that “0918” is a private label. The current six-page preview demonstrates
+the agenda and shared section footer; its illustrative curves use PGFPlots.
+These choices are also recorded in the slide-writing skill. Private labels stay
+in provenance records, outside the displayed presentation content.
