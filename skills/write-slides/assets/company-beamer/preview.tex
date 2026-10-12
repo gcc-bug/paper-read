@@ -1,9 +1,5 @@
-\documentclass[aspectratio=169,11pt,fontset=none]{ctexbeamer}
-\usepackage{fontspec}
-\setsansfont{TeX Gyre Heros}
-\setCJKmainfont[AutoFakeBold=2]{Droid Sans Fallback}
-\setCJKsansfont[AutoFakeBold=2]{Droid Sans Fallback}
-\setCJKmonofont{Droid Sans Fallback}
+\documentclass[aspectratio=169,12pt,fontset=none]{ctexbeamer}
+\input{arclight-fonts.tex}
 \usepackage{amsmath}
 \usetheme{Arclight}
 \arclightsetcompany{弧光量子}
@@ -40,7 +36,7 @@
   \vspace{5mm}
   \textbf{校准建立控制参数与测量响应之间的关系。}
   \vfill
-  {\scriptsize\color{ArclightMuted}通用概念示意；背景与术语解释见配套 notes.md。}
+  {\footnotesize\color{ArclightMuted}概念示意；完整解释见配套笔记。}
 \end{frame}
 
 \begin{frame}{平坦曲线无法确定衰减时间}
@@ -49,8 +45,8 @@
       \textbf{窗口内可见衰减}\par
       \vspace{2mm}
       \begin{tikzpicture}[x=8.5mm,y=23mm]
-        \draw[->,ArclightMuted] (0,0) -- (6.4,0) node[right,font=\scriptsize] {$t$};
-        \draw[->,ArclightMuted] (0,0) -- (0,1.18) node[above,font=\scriptsize] {$y$};
+        \draw[->,ArclightMuted] (0,0) -- (6.4,0) node[right,font=\footnotesize] {$t$};
+        \draw[->,ArclightMuted] (0,0) -- (0,1.18) node[above,font=\footnotesize] {$y$};
         \draw[ArclightInk,line width=1.1pt,domain=0:6,samples=60]
           plot (\x,{exp(-\x/2)});
         \node[font=\small,align=center] at (3.2,.77) {曲线发生\\明显变化};
@@ -60,8 +56,8 @@
       \textbf{窗口内几乎平坦}\par
       \vspace{2mm}
       \begin{tikzpicture}[x=8.5mm,y=23mm]
-        \draw[->,ArclightMuted] (0,0) -- (6.4,0) node[right,font=\scriptsize] {$t$};
-        \draw[->,ArclightMuted] (0,0) -- (0,1.18) node[above,font=\scriptsize] {$y$};
+        \draw[->,ArclightMuted] (0,0) -- (6.4,0) node[right,font=\footnotesize] {$t$};
+        \draw[->,ArclightMuted] (0,0) -- (0,1.18) node[above,font=\footnotesize] {$y$};
         \draw[ArclightInk,line width=1.1pt,domain=0:6,samples=60]
           plot (\x,{.96-.002*\x});
         \draw[ArclightRed,line width=.8pt,-{Latex}] (3,.60) -- (4,.94);
@@ -72,7 +68,7 @@
   \vspace{3mm}
   \textbf{拟合返回的数值，需要曲线提供支持。}
   \vfill
-  {\scriptsize\color{ArclightMuted}示意曲线，非实验数据；模型条件与进一步检查见配套 notes.md。}
+  {\footnotesize\color{ArclightMuted}示意曲线，非实验数据。}
 \end{frame}
 
 \arclightdivider{交流与讨论}{问题、观察与下一步}

@@ -8,6 +8,16 @@ or an experimental report. The speaker field is an explicit placeholder.
 [Preview PDF](preview.pdf) · [Editable preview](preview.tex) ·
 [Theme and usage](README.md)
 
+## Typography revision — 2026-10-12
+
+The reader accepted the overall company style and requested a more suitable font
+for less clear screens. Codex selected Noto Sans SC Medium for Chinese body text,
+native Bold for headings, and Open Sans Semibold/Bold for English. The preview
+now uses a 12 pt base, larger captions and footer text, and darker secondary text.
+The fonts are bundled with their licenses for reproducible output. Extended
+caption explanations remain in this note. These changes target legibility; they
+do not establish readability on a particular physical screen.
+
 ## Slide 1 — 从信号到判断
 
 The cover establishes the company affiliation, talk title, and speaker. The full

@@ -13,8 +13,9 @@ On 2026-10-12, the reader identified too much text and explanation in the
 calibration slides and proposed moving some explanation and background knowledge
 into a note about the slides. The reader also requested a basic Beamer style for
 presenting as a company member and supplied the 弧光量子 logo. Build on these
-preferences. The proposed visual theme remains open to refinement; exact text
-limits and a fixed storytelling structure have not been agreed.
+preferences. The reader accepted the overall company style, then requested a
+font change for less clear screens. Exact text limits and a fixed storytelling
+structure have not been agreed.
 
 ## Discuss or write at the requested scope
 
@@ -78,9 +79,16 @@ and the supplied logo. Use this branding in the company context; other contexts
 should use their own affiliation and style. Keep the writing principles shared
 across themes. Read the template instructions when creating or changing a deck.
 
-The initial candidate uses a white canvas, dark text, restrained red accents,
+The accepted layout uses a white canvas, dark text, restrained red accents,
 consistent margins, a small company logo on content slides, and larger branding
 on the cover. These are proposed defaults, not an official company brand manual.
+For less clear screens, start with the template's bundled medium/semibold
+sans-serif body fonts and native bold headings. Prefer open, substantial strokes,
+larger readable text, and dark secondary labels. Keep captions legible; move
+their extended explanation into the companion note. Check the rendered deck at
+reduced resolution as well as full size, and adjust if the actual screen or room
+provides better evidence. A simulated preview is not a screen measurement.
+
 Preserve the supplied logo's proportions and artwork. Supply the actual speaker,
 affiliation, talk title, and date; leave unknown values as clearly marked
 placeholders. Keep detailed explanations in the companion Markdown note.
