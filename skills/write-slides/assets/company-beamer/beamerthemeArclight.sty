@@ -1,0 +1,116 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemeArclight}[2026/10/12 Arclight company presentation theme]
+\RequirePackage{graphicx}
+\RequirePackage{tikz}
+
+\mode<presentation>
+
+% Proposed theme tokens, sampled from the supplied logo's rendered PDF.
+% These are not official company brand specifications.
+\definecolor{ArclightRed}{HTML}{E7211B}
+\definecolor{ArclightInk}{HTML}{231916}
+\definecolor{ArclightMuted}{HTML}{68615E}
+\definecolor{ArclightRule}{HTML}{DDD8D5}
+\definecolor{ArclightPale}{HTML}{F7F5F4}
+\definecolor{ArclightAlert}{HTML}{B91C17}
+
+\newcommand{\arclightlogopath}{brand/logo.pdf}
+\newcommand{\arclightcompanyname}{Arclight}
+\newcommand{\arclightsetlogo}[1]{\renewcommand{\arclightlogopath}{#1}}
+\newcommand{\arclightsetcompany}[1]{\renewcommand{\arclightcompanyname}{#1}}
+\newcommand{\arclightlogographic}[1]{%
+  \includegraphics[width=#1]{\arclightlogopath}}
+
+\setbeamercolor{normal text}{fg=ArclightInk,bg=white}
+\setbeamercolor{structure}{fg=ArclightInk}
+\setbeamercolor{frametitle}{fg=ArclightInk,bg=white}
+\setbeamercolor{framesubtitle}{fg=ArclightMuted}
+\setbeamercolor{title}{fg=ArclightInk}
+\setbeamercolor{subtitle}{fg=ArclightMuted}
+\setbeamercolor{alerted text}{fg=ArclightAlert}
+\setbeamercolor{block title}{fg=ArclightInk,bg=ArclightPale}
+\setbeamercolor{block body}{fg=ArclightInk,bg=ArclightPale}
+\setbeamercolor{block title alerted}{fg=ArclightAlert,bg=ArclightPale}
+\setbeamercolor{block body alerted}{fg=ArclightInk,bg=ArclightPale}
+\setbeamercolor{footline}{fg=ArclightMuted,bg=white}
+\setbeamercolor{itemize item}{fg=ArclightRed}
+\setbeamercolor{itemize subitem}{fg=ArclightMuted}
+
+\usefonttheme{professionalfonts}
+\setbeamerfont{title}{size=\fontsize{25}{30},series=\bfseries}
+\setbeamerfont{subtitle}{size=\normalsize,series=\mdseries}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamerfont{framesubtitle}{size=\small}
+\setbeamerfont{block title}{size=\normalsize,series=\bfseries}
+\setbeamerfont{footline}{size=\tiny}
+\setbeamersize{text margin left=9mm,text margin right=9mm}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize item}{\raisebox{.2ex}{\scriptsize$\bullet$}}
+\setbeamertemplate{itemize subitem}{\raisebox{.2ex}{\tiny$\bullet$}}
+\setbeamertemplate{blocks}[default]
+\setbeamertemplate{bibliography item}[text]
+\setlength{\parskip}{2mm}
+
+% Reserve a separate right-hand zone for the logo, so titles can wrap safely.
+\setbeamertemplate{frametitle}{%
+  \vskip4mm%
+  \begin{beamercolorbox}[wd=\textwidth,sep=0pt]{frametitle}
+    \begin{minipage}[t]{\dimexpr\textwidth-28mm\relax}
+      \vspace{0pt}\raggedright\usebeamerfont{frametitle}\insertframetitle\par
+      \ifx\insertframesubtitle\@empty\else
+        \vskip1mm{\usebeamerfont{framesubtitle}%
+          \usebeamercolor[fg]{framesubtitle}\insertframesubtitle\par}%
+      \fi
+    \end{minipage}\hfill%
+    \begin{minipage}[t]{22mm}
+      \vspace{0pt}\raggedleft\arclightlogographic{22mm}
+    \end{minipage}\par
+    \vskip2mm
+    {\color{ArclightRed}\rule{12mm}{.65pt}}%
+    {\color{ArclightRule}\rule{\dimexpr\textwidth-12mm\relax}{.35pt}}
+  \end{beamercolorbox}
+  \vskip2mm%
+}
+
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=5mm,dp=2.5mm,%
+      leftskip=9mm,rightskip=9mm]{footline}
+    \usebeamerfont{footline}%
+    \begin{minipage}[b]{.80\textwidth}
+      \raggedright\arclightcompanyname\quad|\quad\insertshorttitle
+    \end{minipage}\hfill\insertframenumber
+  \end{beamercolorbox}%
+}
+
+\setbeamertemplate{title page}{%
+  \vskip3mm
+  \arclightlogographic{42mm}\par
+  \vskip8mm
+  {\color{ArclightRed}\rule{15mm}{1.2pt}}\par
+  \vskip3mm
+  \begin{minipage}{.93\textwidth}
+    \raggedright{\usebeamerfont{title}\inserttitle\par}
+    \vskip3mm
+    {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
+  \end{minipage}
+  \vfill
+  {\normalsize\insertauthor\par}
+  {\small\color{ArclightMuted}\insertinstitute\quad|\quad\insertdate\par}
+}
+
+% Optional section/closing frame; the user chooses where it helps the talk.
+\newcommand{\arclightdivider}[2]{%
+  \begin{frame}[plain]
+    \vspace{3mm}
+    \arclightlogographic{30mm}\par
+    \vfill
+    {\color{ArclightRed}\rule{15mm}{1.2pt}}\par
+    \vspace{3mm}
+    {\LARGE\bfseries #1\par}
+    \vspace{3mm}
+    {\normalsize\color{ArclightMuted}#2\par}
+    \vfill
+  \end{frame}%
+}
+
+\mode<all>

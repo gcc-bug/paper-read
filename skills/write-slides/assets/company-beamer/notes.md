@@ -1,0 +1,76 @@
+# Notes for the company Beamer preview
+
+2026-10-12 — Codex design proposal based on the supplied company logo and the
+reader's preference for concise slides with separate explanatory notes. The
+preview demonstrates a possible house style; it is not an official brand manual
+or an experimental report. The speaker field is an explicit placeholder.
+
+[Preview PDF](preview.pdf) · [Editable preview](preview.tex) ·
+[Theme and usage](README.md)
+
+## Slide 1 — 从信号到判断
+
+The cover establishes the company affiliation, talk title, and speaker. The full
+supplied logo has room to breathe; its proportions and colors are preserved.
+The title and subtitle are separate so a long topic description does not compete
+with the main title. Replace the example title, speaker placeholder, and preview
+date with actual presentation metadata.
+
+## Slide 2 — 从实验到数据
+
+A section divider gives the audience a short transition. Its question introduces
+the next explanation. Use a divider where it helps orientation; it is optional
+and does not need to precede every content slide.
+
+## Slide 3 — 控制信号通过实验变成测量记录
+
+### Codex interpretation
+
+The diagram distinguishes a control pulse, the device's response, and the
+digitized record. In a typical superconducting-qubit experiment, a microwave
+drive changes the qubit state; a readout probe and measurement chain produce the
+record. The diagram compresses these into a conceptual sequence and does not
+specify a particular chip or wiring arrangement. IQ means in-phase and quadrature
+components of a demodulated signal.
+
+For a substantive calibration talk, extend this note using the existing
+[calibration discussion](../../../../discussions/superconducting-qubit-calibration/note.md)
+and its attributed supporting sources. This preview does not add a new literature
+consultation or recover the 0918 acquisition setup.
+
+### Why the slide stays short
+
+The visible diagram supplies the objects and order needed for the spoken
+explanation. The background above belongs here because the listener need not
+read it while following the diagram. The small logo and fixed header/footer
+provide affiliation and navigation without taking the figure's space.
+
+## Slide 4 — 平坦曲线无法确定衰减时间
+
+### Codex interpretation
+
+Both curves are mathematical illustrations authored in TikZ, not measured
+records. The left curve is $y=\exp(-t/2)$; the right is
+$y=0.96-0.002t$, with dimensionless illustrative coordinates. The right-hand
+curve is not fitted to a relaxation model. Neither curve estimates an actual
+device lifetime.
+
+When a decay measurement shows no resolved change over its acquisition window,
+a model's returned time constant can depend strongly on bounds, noise, offset,
+or other assumptions. A flat trace alone does not distinguish a genuinely long
+lifetime from problems such as an ineffective delay sweep or poor measurement
+sensitivity. The substantive diagnosis needs the acquisition sequence, units,
+measurement uncertainty, and model. Those distinctions belong in a talk's notes
+or a follow-up slide when they become the next reasoning step.
+
+### Why the slide stays short
+
+Aligned panels and direct annotations make the observation visible. The slide
+retains the essential label that the curves are illustrative. The longer model
+explanation and possible causes remain in this note. Red draws attention to a
+feature; it does not serve as an automatic pass/fail or physical-error label.
+
+## Slide 5 — 交流与讨论
+
+The closing page provides a clean endpoint and space for questions. Add a contact
+or follow-up link only when the actual details and intended audience are known.

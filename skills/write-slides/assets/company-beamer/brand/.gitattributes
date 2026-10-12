@@ -1,0 +1,2 @@
+# Preserve PDF-compatible Illustrator artwork as binary source bytes.
+*.ai binary

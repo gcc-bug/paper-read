@@ -1,0 +1,79 @@
+\documentclass[aspectratio=169,11pt,fontset=none]{ctexbeamer}
+\usepackage{fontspec}
+\setsansfont{TeX Gyre Heros}
+\setCJKmainfont[AutoFakeBold=2]{Droid Sans Fallback}
+\setCJKsansfont[AutoFakeBold=2]{Droid Sans Fallback}
+\setCJKmonofont{Droid Sans Fallback}
+\usepackage{amsmath}
+\usetheme{Arclight}
+\arclightsetcompany{弧光量子}
+\usetikzlibrary{arrows.meta,positioning}
+
+\title[量子校准与数据解读]{从信号到判断}
+\subtitle{量子校准与数据解读 / 公司报告样式预览}
+\author{报告人：待填写}
+\institute{弧光量子}
+\date{2026 年 10 月 12 日}
+
+\begin{document}
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\arclightdivider{01\quad 从实验到数据}{先明确：我们控制什么，测量什么？}
+
+\begin{frame}{控制信号通过实验变成测量记录}
+  \vspace{4mm}
+  \begin{center}
+    \begin{tikzpicture}[
+      node distance=11mm,
+      stage/.style={draw=ArclightRule,line width=.7pt,fill=ArclightPale,
+        minimum width=34mm,minimum height=21mm,align=center},
+      flow/.style={-{Latex[length=2.5mm]},draw=ArclightRed,line width=1pt}]
+      \node[stage] (pulse) {控制信号\\[2mm]{\small Drive pulse}};
+      \node[stage,right=of pulse] (device) {器件响应\\[2mm]{\small Qubit + resonator}};
+      \node[stage,right=of device] (record) {测量记录\\[2mm]{\small Digitized IQ}};
+      \draw[flow] (pulse) -- (device);
+      \draw[flow] (device) -- (record);
+    \end{tikzpicture}
+  \end{center}
+  \vspace{5mm}
+  \textbf{校准建立控制参数与测量响应之间的关系。}
+  \vfill
+  {\scriptsize\color{ArclightMuted}通用概念示意；背景与术语解释见配套 notes.md。}
+\end{frame}
+
+\begin{frame}{平坦曲线无法确定衰减时间}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{.47\textwidth}
+      \textbf{窗口内可见衰减}\par
+      \vspace{2mm}
+      \begin{tikzpicture}[x=8.5mm,y=23mm]
+        \draw[->,ArclightMuted] (0,0) -- (6.4,0) node[right,font=\scriptsize] {$t$};
+        \draw[->,ArclightMuted] (0,0) -- (0,1.18) node[above,font=\scriptsize] {$y$};
+        \draw[ArclightInk,line width=1.1pt,domain=0:6,samples=60]
+          plot (\x,{exp(-\x/2)});
+        \node[font=\small,align=center] at (3.2,.77) {曲线发生\\明显变化};
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{.47\textwidth}
+      \textbf{窗口内几乎平坦}\par
+      \vspace{2mm}
+      \begin{tikzpicture}[x=8.5mm,y=23mm]
+        \draw[->,ArclightMuted] (0,0) -- (6.4,0) node[right,font=\scriptsize] {$t$};
+        \draw[->,ArclightMuted] (0,0) -- (0,1.18) node[above,font=\scriptsize] {$y$};
+        \draw[ArclightInk,line width=1.1pt,domain=0:6,samples=60]
+          plot (\x,{.96-.002*\x});
+        \draw[ArclightRed,line width=.8pt,-{Latex}] (3,.60) -- (4,.94);
+        \node[font=\small,align=center] at (2.9,.44) {没有可分辨\\的衰减};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+  \vspace{3mm}
+  \textbf{拟合返回的数值，需要曲线提供支持。}
+  \vfill
+  {\scriptsize\color{ArclightMuted}示意曲线，非实验数据；模型条件与进一步检查见配套 notes.md。}
+\end{frame}
+
+\arclightdivider{交流与讨论}{问题、观察与下一步}
+\end{document}

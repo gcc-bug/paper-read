@@ -11,8 +11,10 @@ Read [AGENTS.md](../../AGENTS.md) for authorship, evidence, and Git rules.
 
 On 2026-10-12, the reader identified too much text and explanation in the
 calibration slides and proposed moving some explanation and background knowledge
-into a note about the slides. Build on that preference. Visual themes, exact
-text limits, and a fixed storytelling structure have not been agreed.
+into a note about the slides. The reader also requested a basic Beamer style for
+presenting as a company member and supplied the 弧光量子 logo. Build on these
+preferences. The proposed visual theme remains open to refinement; exact text
+limits and a fixed storytelling structure have not been agreed.
 
 ## Discuss or write at the requested scope
 
@@ -67,6 +69,25 @@ the deck. For substantial changes, try representative slides and their notes
 before extending the approach across the presentation. Render and inspect changed
 slides in the actual output format; a successful build alone does not establish
 readability.
+
+## Company Beamer presentations
+
+When presenting as a member of 弧光量子, start from the reusable
+[company Beamer template](assets/company-beamer/README.md), its editable theme,
+and the supplied logo. Use this branding in the company context; other contexts
+should use their own affiliation and style. Keep the writing principles shared
+across themes. Read the template instructions when creating or changing a deck.
+
+The initial candidate uses a white canvas, dark text, restrained red accents,
+consistent margins, a small company logo on content slides, and larger branding
+on the cover. These are proposed defaults, not an official company brand manual.
+Preserve the supplied logo's proportions and artwork. Supply the actual speaker,
+affiliation, talk title, and date; leave unknown values as clearly marked
+placeholders. Keep detailed explanations in the companion Markdown note.
+
+Changing a theme does not automatically redesign a deck's content. For an
+existing presentation, address its text density separately and inspect the
+rendered output after changing shared typography or layout.
 
 Apply [Automatic commits](../../AGENTS.md#automatic-commits) after a completed
 writing or maintenance task. When refining the skill itself, retain confirmed
