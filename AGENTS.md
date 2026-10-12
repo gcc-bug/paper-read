@@ -14,6 +14,7 @@ Before doing the corresponding work, read the repository-local workflow:
 | Read a book or chapter, or ingest a book | [read-book](skills/read-book/SKILL.md) |
 | Find relationships between notes | [connect-notes](skills/connect-notes/SKILL.md) |
 | Review recent reading, a topic, questions, or changes in understanding | [knowledge-review](skills/knowledge-review/SKILL.md) |
+| Discuss slide style, or write slides with companion explanatory notes | [write-slides](skills/write-slides/SKILL.md) |
 
 Use these files directly; this repository does not depend on global skill installation.
 Resolve repository paths from this file's directory. Load additional workflows only as needed.
