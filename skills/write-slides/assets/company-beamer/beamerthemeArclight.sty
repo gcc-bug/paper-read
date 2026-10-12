@@ -5,6 +5,9 @@
 
 \mode<presentation>
 
+% Berlin's native section/slide dots; keep the company colors and content layout.
+\useoutertheme[subsection=false]{miniframes}
+
 % Proposed theme tokens, sampled from the supplied logo's rendered PDF.
 % These are not official company brand specifications.
 \definecolor{ArclightRed}{HTML}{E7211B}
@@ -45,6 +48,9 @@
 \setbeamerfont{footline}{size=\fontsize{8}{10},series=\mdseries}
 \setbeamerfont{section in head/foot}{size=\fontsize{8}{10},series=\mdseries}
 \setbeamercolor{section in head/foot}{fg=ArclightInk,bg=white}
+\setbeamercolor{mini frame}{fg=ArclightRed,bg=white}
+\setbeamercolor{upper separation line head}{bg=white}
+\setbeamercolor{lower separation line head}{bg=ArclightRule}
 \setbeamertemplate{section in head/foot}{\color{ArclightRed}\bfseries\insertsectionhead}
 \setbeamertemplate{section in head/foot shaded}{\color{ArclightMuted}\insertsectionhead}
 \setbeamersize{text margin left=9mm,text margin right=9mm}
@@ -57,7 +63,7 @@
 
 % Reserve a separate right-hand zone for the logo, so titles can wrap safely.
 \setbeamertemplate{frametitle}{%
-  \vskip4mm%
+  \vskip2mm%
   \begin{beamercolorbox}[wd=\textwidth,sep=0pt]{frametitle}
     \begin{minipage}[t]{\dimexpr\textwidth-28mm\relax}
       \vspace{0pt}\raggedright\usebeamerfont{frametitle}\insertframetitle\par
@@ -73,44 +79,15 @@
     {\color{ArclightRed}\rule{12mm}{.65pt}}%
     {\color{ArclightRule}\rule{\dimexpr\textwidth-12mm\relax}{.35pt}}
   \end{beamercolorbox}
-  \vskip2mm%
+  \vskip1mm%
 }
 
-% Native Beamer section ranges are restored from .nav on subsequent passes.
-% Progress counts PDF pages within the current section (including overlays).
-\newlength{\arclightprogresswidth}
-\newlength{\arclightcontentwidth}
-\setlength{\arclightcontentwidth}{\dimexpr\paperwidth-18mm\relax}
-\newcommand{\arclightsectionposition}{%
-  \ifnum\c@section>0\relax
-    \the\numexpr\insertpagenumber-\insertsectionstartpage+1\relax
-    \,/\,\the\numexpr\insertsectionendpage-\insertsectionstartpage+1\relax
-  \fi}
-\newcommand{\arclightprogressbar}{%
-  \pgfmathsetlength{\arclightprogresswidth}{0pt}%
-  \ifnum\c@section>0\relax
-    \pgfmathsetlength{\arclightprogresswidth}{\arclightcontentwidth *
-      min(1,max(0,(\insertpagenumber-\insertsectionstartpage+1)/
-      max(1,\insertsectionendpage-\insertsectionstartpage+1)))}%
-  \fi
-  \rlap{\color{ArclightRule}\rule{\arclightcontentwidth}{.65pt}}%
-  {\color{ArclightRed}\rule{\arclightprogresswidth}{.65pt}}}
-
+% Navigation stays in the native miniframes headline; footer carries metadata.
 \setbeamertemplate{footline}{%
-  \begin{beamercolorbox}[wd=\paperwidth,ht=3mm,dp=.5mm,%
-      leftskip=9mm,rightskip=9mm]{footline}
-    \insertsectionnavigationhorizontal{\arclightcontentwidth}{}{}%
-  \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=\paperwidth,ht=.6mm,dp=.4mm,%
-      leftskip=9mm,rightskip=9mm]{footline}
-    \arclightprogressbar
-  \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=\paperwidth,ht=3mm,dp=2mm,%
       leftskip=9mm,rightskip=9mm]{footline}
     \usebeamerfont{footline}%
-    \begin{minipage}[b]{.68\arclightcontentwidth}
-      \raggedright\arclightcompanyname\quad|\quad\insertshorttitle
-    \end{minipage}\hfill\arclightsectionposition\quad|\quad\insertframenumber
+    \arclightcompanyname\quad|\quad\insertshorttitle\hfill\insertframenumber
   \end{beamercolorbox}%
 }
 

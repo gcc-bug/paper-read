@@ -19,8 +19,10 @@ structure have not been agreed.
 
 After reviewing the rewritten deck, the reader clarified that `0918` is a
 private filing label, not presentation content, and requested an agenda,
-section progress, and established tools for figures. Apply these choices to
-this reader's substantial Beamer talks.
+section progress, and established tools for figures. The reader subsequently
+chose native Berlin-style dot navigation, consistent `figure` environments for
+both imported and drawn visuals, and one full PDF including the appendix.
+Apply these choices to this reader's substantial Beamer talks.
 
 ## Discuss or write at the requested scope
 
@@ -60,10 +62,12 @@ and the traceable source mapping in the companion notes.
 
 ## Figures and audience navigation
 
-Use established tools appropriate to the visual: `graphicx` and Beamer's
-`figure` environment for imported plots, Circuitikz for electrical symbols,
-TikZ for conceptual diagrams, and PGFPlots or an existing scientific plotting
-script for curves. Reuse faithful existing data plots; adding a LaTeX package
+Place slide visuals in Beamer's nonfloating `figure` environment, including
+diagrams drawn directly in LaTeX and figures inside columns. Use `graphicx`
+for imported plots, Circuitikz for electrical symbols, TikZ for conceptual
+diagrams, and PGFPlots or an existing scientific plotting script for curves.
+These drawing tools supply the contents of the figure environment. Reuse
+faithful existing data plots; adding a LaTeX package
 is not a reason to change preprocessing, values, models, or evidence. Prefer
 library symbols over hand-drawn approximations when the library supplies the
 needed symbol. Keep measured curves and illustrative models clearly identified.
@@ -71,14 +75,21 @@ Captions should aid interpretation; figure environments need not add a verbose
 caption or a number to every slide. Put full explanations in the note.
 
 For substantial Beamer talks, provide an agenda near the beginning and visible
-section navigation with progress within the current section. Use native Beamer
-sections and table-of-contents/navigation data so the displayed structure and
-counts follow the actual deck. A section fraction or progress bar represents
-pages/slides, not remaining speaking time. Separate the appendix from the main
-talk so backup cases do not inflate main-section progress. Check the first and
-last pages of sections in both main-only and full builds, and update note page
-references after inserting navigation pages. Keep this optional for a short
-preview where navigation would add more overhead than help.
+section navigation using Beamer's native `miniframes` outer theme, as in Berlin.
+Use its default dots and current-frame highlighting rather than a custom bar
+or section fraction. Native sections, subsections, and navigation data should
+determine the displayed structure. Dots represent frames; overlays within one
+frame share a dot. They do not estimate remaining speaking time. Separate the
+appendix from the main talk using Beamer's appendix part so backup cases do not
+inflate main-section navigation. Check the first and last frames of sections,
+dot visibility, and links in the rendered PDF; update note page references when
+the deck changes. Keep navigation optional for a short preview where it adds
+more overhead than help.
+
+Deliver one full PDF containing the main talk and appendix by default, alongside
+editable source and companion notes. Create a separate main-only PDF only when
+the reader requests it. Keep the build script and current note links aligned
+with the selected delivery.
 
 ## Make the companion note useful for understanding
 

@@ -2,7 +2,6 @@
 
 2026-10-12 — 按读者认可的 [slide-writing skill](../../../skills/write-slides/SKILL.md) 重写。使用弧光量子 company theme 与较粗的字体；slides 保留主线、图与必要限制，讲解和 possible causes 移至配套笔记。解释为 Codex interpretation；数据来自既有实验及 recorded audit，不表示读者认可所有解释。
 
-- [正文 PDF](0918-calibration-main-zh.pdf)：26 页，适合主报告。
 - [完整 PDF](0918-calibration-zh.pdf)：68 页，包含全部 47 个待复查案例。
 - [Beamer 源码](slides.tex)：中文叙述，保留 English technical terms；完整 definitions 在配套笔记。
 - [讲解与背景笔记](notes.md)：按正文页组织的解释、模型条件、definitions 与来源。
@@ -12,7 +11,7 @@
 
 ## 组织与讲述
 
-正文第 1 页为封面，第 2 页为目录。第 3–8 页介绍硬件与信号；第 9–14 页说明校准流程、六类 records 与模型；第 15–24 页区分 observation / diagnostic / cause 并展示八个代表案例与判断方法；第 25–26 页为 references 和 provenance。页脚使用原生 Beamer section navigation，当前章节红色突出；fraction 与细条表示本节当前页 / 总页，不是剩余讲述时间。
+正文第 1 页为封面，第 2 页为目录。第 3–8 页介绍硬件与信号；第 9–14 页说明校准流程、六类 records 与模型；第 15–24 页区分 observation / diagnostic / cause 并展示八个代表案例与判断方法；第 25–26 页为 references 和 provenance。页眉采用 Berlin 同款原生 `miniframes` 导航，显示章节与 frames 的圆点，实心圆点表示当前 frame。Overlays 共用一个圆点；圆点不表示剩余讲述时间。页脚保留公司、短标题与页码。
 
 完整版本第 27–28 页为可点击案例导航，第 29 页说明附录约定，第 30–68 页覆盖其余 39 个案例。正文可按约 30–40 分钟准备；这只是讲述建议，不是实测报告时长。
 
@@ -30,7 +29,7 @@
 bash build.sh
 ```
 
-两份输出 PDF 会更新；辅助文件和 logs 位于忽略的 `build/`。`main.tex` 定义 `MainOnly` 后加载同一份 `slides.tex`，因此正文不需要维护两份。
+仅更新一份完整输出 `0918-calibration-zh.pdf`，包括正文与附录；辅助文件和 logs 位于忽略的 `build/`。不再维护独立的 main-only 入口或 PDF。
 
 普通排版编辑只需重编译。若修改案例解释、reference selection 或绘图，需要 Python 3、NumPy、Matplotlib，然后运行：
 
@@ -39,7 +38,7 @@ python3 generate_assets.py
 bash build.sh
 ```
 
-默认使用本目录的 `evidence.json` 和 64 份 `data/*.csv`，不要求原始 checkout 或网络。脚本逐份核对 SHA-256 后重绘 47 份 `figures/*.pdf`，生成简洁的 `generated/*.tex`、coverage JSON / Markdown 和全部 `case-notes.md`。`notes.md` 为手写的正文讲解笔记；内容或页码改变后需同步修改。案例页请修改 `generate_assets.py` 后再生成；直接编辑 `generated/` 会在下次生成时被覆盖。电路使用 Circuitikz 的 capacitor / cross symbols；概念 diagrams 使用 TikZ；示意 pulse envelope 使用 PGFPlots。案例图通过 Beamer `figure` 环境导入既有 Matplotlib vector PDFs。
+默认使用本目录的 `evidence.json` 和 64 份 `data/*.csv`，不要求原始 checkout 或网络。脚本逐份核对 SHA-256 后重绘 47 份 `figures/*.pdf`，生成简洁的 `generated/*.tex`、coverage JSON / Markdown 和全部 `case-notes.md`。`notes.md` 为手写的正文讲解笔记；内容或页码改变后需同步修改。案例页请修改 `generate_assets.py` 后再生成；直接编辑 `generated/` 会在下次生成时被覆盖。电路使用 Circuitikz 的 capacitor / cross symbols；概念 diagrams 使用 TikZ；示意 pulse envelope 使用 PGFPlots。所有 slide visuals 都置于 Beamer `figure` 环境，包括直接绘制的 diagrams 和 columns 内的 visuals；案例图继续导入既有 Matplotlib vector PDFs。
 
 需要从 canonical checkout 刷新快照时：
 
@@ -91,10 +90,16 @@ Spectroscopy 图展示 magnitude；页内 R²/FWHM 来自 audit 的 **IQ-project
 
 ## 本次交付检查
 
-两份 PDF 已用 XeLaTeX 编译，正文 26 页、完整版本 68 页。最终 `main.log` / `slides.log` 无 overflow、missing-character 或 undefined-reference warnings；通过 repository-relative theme lookup 加载时的 package-name warning 不影响输出。所有 68 页已渲染检查，并在 854 × 480 的代表页与较高分辨率 render 上检查图轴、标题、关键 diagnostic 和导航。低分辨率预览是模拟，不是实际房间 / 屏幕测量。
+完整 PDF 已用 XeLaTeX 编译，共 68 页（正文 26 页、附录 42 页）。最终 `slides.log` 无 overflow、missing-character 或 undefined-reference warnings；通过 repository-relative theme lookup 加载时的 package-name warning 不影响输出。所有 68 页已渲染检查，并在 854 × 480 的代表页与较高分辨率 render 上检查图轴、标题、关键 diagnostic 和导航。低分辨率预览是模拟，不是实际房间 / 屏幕测量。
 
 已验证全部 47 个唯一案例 labels、47 份 paired figures、64 份 CSV hashes、57,993 行总数、notes 中的 local links / case anchors，以及 reference selections 和完整 explanation 与旧版一致。`evidence.json`、64 份 CSV 和两篇原始 supporting PDFs 的 SHA-256 均保持不变。Rabi 固定频率重建仍通过 R² consistency assertion。上述为交付与证据对应检查，不是新增 acquisition validation。
 
 ## Navigation and figure-tools revision — 2026-10-12
 
 “0918”是读者的内部 filing label；输出文件名、原始来源与 provenance 保留该 label，slides 的标题、正文、页脚与显示的 PDF metadata 已移除。保留读者已有的封面标题 / subtitle 与 `\today` 日期设置。正文目录与 section footer 由 shared company theme 提供；附录独立，不增加正文 section 的进度。图的数据 / 拟合未改变；仅电路符号与示意 pulse 使用对应专业 packages，导入图采用 Beamer figure 环境。配套笔记的正文页码已同步更新。
+
+## Native dot navigation and single PDF — 2026-10-12
+
+按读者最新选择，改用 Berlin 同款原生 `miniframes` 圆点页眉，删除自定义 bar / fraction。所有直接绘制的 visuals 与导入图均采用 `figure`，columns 内的图也一致。仅交付含附录的完整 PDF；旧 main-only PDF 和入口已移除，当前笔记链接同步更新。保留读者的 title / subtitle、`\today` 和 hardware section 名称。正文与附录页码不变；数据和案例解释未改变。
+
+本轮重新编译并检查完整 68 页与六页 shared preview，均无 overflow / missing-character / undefined-reference warnings；核对各节首尾的原生圆点链接，以及 259 个 local note links / anchors。116 份保护文件 bytes 不变；案例笔记仅删除旧正文 PDF 链接，47 个 generated case frames 与 generator 一致。

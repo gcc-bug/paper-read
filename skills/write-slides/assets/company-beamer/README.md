@@ -18,8 +18,8 @@ specifications.
 - Native bold headings, 10 pt figure labels/captions, an 8 pt footer, and darker
   secondary text for better legibility on less clear screens.
 - Full logo on the cover; a 22 mm logo in a reserved content-header zone.
-- Compact footer with clickable section names, the current section highlighted,
-  a section progress bar, current/total section pages, and slide number.
+- Native Berlin-style `miniframes` headline with clickable section names and
+  frame dots; a compact footer with company, short talk title, and slide number.
 - Figures and short messages on slides; fuller explanations in `notes.md`.
 
 The preview includes a cover, agenda, optional section divider, diagram, paired
@@ -85,17 +85,24 @@ sections around the actual content:
 % Backup frames...
 ```
 
-The theme uses native Beamer navigation data. Compile with `latexmk` until
-references and section ranges settle. The footer highlights the current section
-and shows a bar plus current/total pages within that section. Overlays count as
-PDF pages; the fraction does not estimate speaking time. Beamer's appendix is a
-separate part, so its pages do not inflate the main sections or main agenda.
-Keep short section names readable in the footer. Plain covers/dividers omit it.
-For a short unsectioned deck, the section fraction is empty and the bar unfilled.
+The theme loads the native `miniframes` outer theme used by Berlin, with its
+default circular frame markers and no extra subsection-title strip. Compile
+with `latexmk` until navigation data settles. The headline highlights the current
+section and fills the current frame's dot; other frames in that subsection have
+outlined dots. Dots and section names link to their frames. Overlays within one
+frame share a dot; dots do not estimate speaking time. Beamer's appendix is a
+separate part, so backup frames do not inflate main-section navigation or the
+main agenda. Use concise section names. Plain covers/dividers omit the navigation
+and footer. An unsectioned short deck has no section dots.
 
-Use `graphicx` and Beamer `figure` environments for imported plots, TikZ for
-conceptual diagrams, PGFPlots for editable curve illustrations, and Circuitikz
-when electrical symbols are needed. The preview curves are PGFPlots models;
+Deliver one full PDF, including any appendix, with editable source and companion
+notes. Add a separate main-only export only when the reader requests it.
+
+Place all slide visuals in Beamer's nonfloating `figure` environment, including
+TikZ/Circuitikz diagrams and plots inside columns. Use `graphicx` for imported
+plots, TikZ for conceptual diagrams, PGFPlots for editable curve illustrations,
+and Circuitikz when electrical symbols are needed. Captions are optional; move
+extended explanations into the note. The preview curves are PGFPlots models;
 the calibration deck imports its existing Matplotlib plots without changing
 values or preprocessing. Keep private filing labels in provenance notes and
 filenames; visible titles and labels should describe the audience's subject.

@@ -334,7 +334,7 @@ def main():
     (HERE/'generated'/'case-index.tex').write_text('\n'.join(index)+'\n',encoding='utf-8')
     note_header=['# 0918 案例解释与验证方向','',
         '2026-10-12 — 配套 slides 的详细案例笔记。诊断复用 recorded audit；解释为 Codex interpretation，可能原因为未验证假设。','',
-        '[主笔记](notes.md) · [正文 PDF](0918-calibration-main-zh.pdf) · [完整 PDF](0918-calibration-zh.pdf) · [案例索引](coverage.md)','',
+        '[主笔记](notes.md) · [完整 PDF](0918-calibration-zh.pdf) · [案例索引](coverage.md)','',
         '所有 47 个案例的 reference selection 与既有版本一致；reference 表示相对清晰，不构成 calibration certification。不同 cases 通常不是 controlled pairs。','']
     (HERE/'case-notes.md').write_text('\n'.join(note_header)+'\n'+ '\n\n'.join(case_note(f,c,records[f,c]) for f,c in targets)+'\n',encoding='utf-8')
     listing=['# Case coverage','', '* marks a main-deck case; all others appear in the appendix.','', '| Family | Target and explanation | Reference | Location |','| --- | --- | --- | --- |']

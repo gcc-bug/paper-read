@@ -28,11 +28,12 @@ date with actual presentation metadata.
 
 ## Slide 2 — 报告目录
 
-The agenda uses native Beamer sections. Content pages display clickable section
-names, highlight the current section, and show its current/total PDF pages with
-a progress bar. These indicate page progress, not speaking time. Plain dividers
-still count toward their sections but omit the footer. A full talk should keep
-appendix sections in a separate Beamer part.
+The agenda uses native Beamer sections. The headline uses Berlin's native
+`miniframes` navigation: clickable section names and frame dots, with the current
+frame filled. Overlays within a frame share one dot. Dots show frame positions,
+not speaking time. Plain dividers still count toward their sections but omit
+navigation and the footer. A full talk keeps appendix sections in a separate
+Beamer part and delivers them in the same PDF.
 
 ## Slide 3 — 从实验到数据
 
@@ -100,3 +101,11 @@ clarified that “0918” is a private label. The current six-page preview demon
 the agenda and shared section footer; its illustrative curves use PGFPlots.
 These choices are also recorded in the slide-writing skill. Private labels stay
 in provenance records, outside the displayed presentation content.
+
+## Native dot navigation and figure environments — 2026-10-12
+
+The reader subsequently chose Berlin-style native dots and one full PDF. The
+shared theme now uses `miniframes` navigation instead of a custom progress
+bar/fraction. Both the conceptual diagram and the two illustrative curve panels
+use Beamer `figure` environments. Branding and the approved font profile remain
+the basis of the template.

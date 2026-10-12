@@ -2,7 +2,7 @@
 
 2026-10-12 — 依据读者认可的 slide-writing skill 重写 slides。Slides 保留主线、图与关键诊断；本笔记保存讲解、背景、模型条件和出处。内容为 **Codex interpretation**；不代表读者确认了全部解释。没有新增 acquisition、完整 nonlinear audit 或文献全文阅读。
 
-[正文 PDF](0918-calibration-main-zh.pdf) · [完整 PDF](0918-calibration-zh.pdf) · [47 个案例的详细笔记](case-notes.md) · [案例索引](coverage.md) · [构建与 provenance](README.md) · [原讨论](../note.md) · [来源注释](../references.md)
+[完整 PDF](0918-calibration-zh.pdf) · [47 个案例的详细笔记](case-notes.md) · [案例索引](coverage.md) · [构建与 provenance](README.md) · [原讨论](../note.md) · [来源注释](../references.md)
 
 正文面向具有 Quantum Information / Computer Science 基础的听众，沿用中文叙述与 English technical terms。“0918”只作为本地 filing / provenance label，不出现在 slides 的标题、正文或页脚。封面保留读者设置的 `\today`，表示编译日期，不是 acquisition date。报告人保留待填写字段。
 
@@ -12,9 +12,9 @@
 
 ## 2 — 报告目录
 
-目录来自 Beamer 的四个正文 sections：硬件与信号、校准流程与记录、从数据判断可信度、References 与来源。页脚显示可点击的章节名称，红色突出当前章节；红色进度条与右侧 fraction 表示本节的当前页 / 总页。它们是页数进度，不是剩余报告分钟数。若使用 overlays，进度按生成的 PDF pages 计算。
+目录来自 Beamer 的四个正文 sections：超导量子硬件概览、校准流程与记录、从数据判断可信度、References 与来源。页眉采用 Berlin 同款的原生 `miniframes` 导航：章节名称与可点击圆点，实心圆点表示当前 frame。同一 frame 的 overlays 共用一个圆点；后续圆点表示后续 frames，不估计剩余报告分钟数。页脚保留公司、报告短标题和页码。
 
-正文四节分别占 6、6、10、2 页。完整版本的附录是独立 Beamer part，含 42 页；不计入正文四节的进度，目录也只列正文。新增目录使正文变为 26 页、完整版本变为 68 页。
+正文四节分别占 6、6、10、2 页。完整版本的附录是独立 Beamer part，含 42 页；不计入正文四节的进度，目录也只列正文。当前仅交付一份 68 页完整 PDF，其中前 26 页为正文。
 
 ## 3 — 校准连接控制、器件与测量记录
 
@@ -177,3 +177,7 @@ Ramsey 全部 cases 均有 flag，因此 reference 使用相对清晰的 002 或
 ## Implementation revision — 2026-10-12
 
 读者指出缺少目录 / section progress、内部 label 不应出现在 slide content，并希望 figure 使用已有专业工具。本次修订采用原生 Beamer `\tableofcontents`、section navigation / page ranges；使用 Circuitikz 重画电路符号、PGFPlots 绘制示意 pulse envelope；案例图放入 Beamer `figure` 环境，继续导入既有 Matplotlib vector PDFs。数据、预处理与 recorded diagnostics 均未改变。全文的页码已按新增目录更新。
+
+## Native dot navigation and single PDF — 2026-10-12
+
+读者选择 Berlin 同款原生圆点导航、一份含附录的完整 PDF，以及所有 diagrams / plots 使用 `figure`。此次取代先前的 bar / fraction 与双 PDF 交付；历史修订说明保留。正文仍为第 1–26 页，附录为第 27–68 页；案例解释与 scientific caveats 不变。

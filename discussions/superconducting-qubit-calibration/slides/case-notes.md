@@ -2,7 +2,7 @@
 
 2026-10-12 — 配套 slides 的详细案例笔记。诊断复用 recorded audit；解释为 Codex interpretation，可能原因为未验证假设。
 
-[主笔记](notes.md) · [正文 PDF](0918-calibration-main-zh.pdf) · [完整 PDF](0918-calibration-zh.pdf) · [案例索引](coverage.md)
+[主笔记](notes.md) · [完整 PDF](0918-calibration-zh.pdf) · [案例索引](coverage.md)
 
 所有 47 个案例的 reference selection 与既有版本一致；reference 表示相对清晰，不构成 calibration certification。不同 cases 通常不是 controlled pairs。
 

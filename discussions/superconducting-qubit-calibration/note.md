@@ -46,20 +46,20 @@ Read Krantz Fig. 1, pp. 4–5, alongside the energy-level explanation; Eqs. (92)
 
 ## Chinese Beamer presentation added 2026-10-10
 
-The reader approved a presentation covering hardware, the calibration pipeline, and paired clearer/needs-review data. [Slides and build instructions](slides/README.md): [24-page main talk](slides/0918-calibration-main-zh.pdf), [65-page full version](slides/0918-calibration-zh.pdf), and [all 47 review cases](slides/coverage.md). English technical terms are retained and abbreviations are expanded on first use. The appendix includes all 46 recorded audit flags plus Resonator/006; these are review targets, not established acquisition errors. Figures replot byte-preserved numeric snapshots and reuse recorded diagnostics. No new acquisition or full nonlinear audit rerun was performed.
+The reader approved a presentation covering hardware, the calibration pipeline, and paired clearer/needs-review data. [Slides and build instructions](slides/README.md): 24-page main talk, [65-page full version](slides/0918-calibration-zh.pdf), and [all 47 review cases](slides/coverage.md). English technical terms are retained and abbreviations are expanded on first use. The appendix includes all 46 recorded audit flags plus Resonator/006; these are review targets, not established acquisition errors. Figures replot byte-preserved numeric snapshots and reuse recorded diagnostics. No new acquisition or full nonlinear audit rerun was performed.
 
 The explanations and possible causes are Codex interpretations. Supporting sources are the existing Krantz/Blais PDFs; the previously consulted passages are reused, with p. 29 of each PDF selectively re-extracted and checked for the pulse-control/dispersive models. This does not constitute a full rereading. Source versions, column mappings, estimator differences, reproducibility instructions, and limitations are recorded in the slides README.
 
 ## Presentation rewrite added 2026-10-12
 
-The reader requested shorter slides, moved explanations into companion notes, and approved the company Beamer layout and stronger typography for less clear screens. The deck is now a [25-page main talk](slides/0918-calibration-main-zh.pdf) and a [67-page full version](slides/0918-calibration-zh.pdf), with [background and slide explanations](slides/notes.md) and [detailed notes for all 47 cases](slides/case-notes.md). Slides retain the figures, key diagnostics, and essential interpretation limits; candidate causes in the case notes are labeled as unverified hypotheses.
+The reader requested shorter slides, moved explanations into companion notes, and approved the company Beamer layout and stronger typography for less clear screens. The deck is now a 25-page main talk and a [67-page full version](slides/0918-calibration-zh.pdf), with [background and slide explanations](slides/notes.md) and [detailed notes for all 47 cases](slides/case-notes.md). Slides retain the figures, key diagnostics, and essential interpretation limits; candidate causes in the case notes are labeled as unverified hypotheses.
 
 The original evidence snapshot, all 64 CSVs, both supporting PDFs, reference selections, and full case explanations are preserved. This revision changes presentation and navigation; it adds no acquisition or full nonlinear audit. All 67 pages were rendered and inspected, including representative low-resolution previews. [Build instructions and validation scope](slides/README.md) record the current organization. The 2026-10-10 description above records the earlier delivery.
 
 ## Presentation navigation and figure tools added 2026-10-12
 
 The reader clarified that “0918” is a private label and requested an agenda,
-section progress, and established figure tools. The current [main talk](slides/0918-calibration-main-zh.pdf)
+section progress, and established figure tools. At this revision, the main talk
 is 26 pages and the [full version](slides/0918-calibration-zh.pdf) is 68 pages.
 The agenda and section footer use native Beamer navigation data; appendix pages
 are kept separate from main-section progress. Circuitikz supplies electrical
@@ -68,3 +68,16 @@ environments with their existing Matplotlib PDFs. The internal label remains
 in filenames and provenance notes, outside displayed slide content. The reader's
 existing title/date edits are preserved. Evidence and diagnostics are unchanged;
 [companion notes](slides/notes.md) have updated page references.
+
+## Native dot navigation and single PDF — 2026-10-12
+
+The reader chose Berlin-style native frame dots, consistent Beamer `figure`
+environments for both drawn and imported visuals, and one full PDF. The earlier
+main-only deliveries described above are superseded; PDF links point to the
+current [68-page full deck](slides/0918-calibration-zh.pdf), with the main talk
+followed by the appendix. The shared company theme now uses the native
+`miniframes` headline instead of a custom progress bar/fraction. All nine
+hardware/workflow visuals in the deck source use `figure`, including those
+inside columns. Existing reader title, date, and hardware-section edits are
+preserved. Companion links and the reusable slide-writing skill follow the
+single-PDF preference. No scientific evidence or case interpretation changed.
