@@ -13,9 +13,16 @@ import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from matplotlib import font_manager
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_SOURCE = HERE.parents[3] / 'agent_control'
+FONT_ROOT = HERE.parents[2] / 'skills/write-slides/assets/company-beamer/fonts'
+for font in FONT_ROOT.glob('OpenSans-*.ttf'):
+    font_manager.fontManager.addfont(font)
+plt.rcParams.update({'font.family':'Open Sans', 'font.weight':'semibold',
+    'axes.labelweight':'semibold', 'axes.labelsize':14,
+    'xtick.labelsize':14, 'ytick.labelsize':14, 'pdf.fonttype':42})
 SLUG = {'T1 Visibility':'t1','T2 Ramsey':'ramsey','Rabi Oscillation':'rabi',
         'Qubit Spectroscopy':'spectroscopy','GMM Readout Clusters':'readout','Resonator Spectroscopy':'resonator'}
 ORDER = list(SLUG)
@@ -131,18 +138,19 @@ def projection(a):
 def panel(ax,fam,case,record,a,is_reference):
     m=record['metrics']
     qubit=re.search(r' - (q\d+)',record['source'])
-    ax.set_title(('Reference' if is_reference else 'Needs review')+f' / {case}'+(f' / {qubit[1]}' if qubit else ''),loc='left',fontsize=12,fontweight='bold')
+    ax.set_title(('Reference' if is_reference else 'Needs review')+f' / {case}'+(f' / {qubit[1]}' if qubit else ''),loc='left',fontsize=16,fontweight='bold')
     ax.grid(alpha=.14)
+    ax.tick_params(labelsize=14)
     if fam=='GMM Readout Clusters':
         ax.scatter(a[:,1],a[:,2],s=2.2,alpha=.28,color='#1d6a9c',rasterized=True,label='Without pi')
         ax.scatter(a[:,3],a[:,4],s=2.2,alpha=.28,color='#cf6a38',rasterized=True,label='With pi')
         ax.set(xlabel='I (a.u.)',ylabel='Q (a.u.)')
-        ax.legend(loc='upper right',fontsize=8,markerscale=3)
+        ax.legend(loc='upper right',fontsize=14,markerscale=3)
     elif fam=='T1 Visibility':
-        ax.plot(a[:,0],a[:,2],'.-',ms=3,lw=.7,color='#1d6a9c',label='Nominal with-pi P1')
-        ax.plot(a[:,0],a[:,4],'.-',ms=3,lw=.7,color='#cf6a38',label='Nominal no-pi P1')
+        ax.plot(a[:,0],a[:,2],'.-',ms=3,lw=.7,color='#1d6a9c',label='Nominal with pi')
+        ax.plot(a[:,0],a[:,4],'.-',ms=3,lw=.7,color='#cf6a38',label='Nominal no pi')
         ax.set(xlabel='Delay (us)',ylabel='Recorded P1',ylim=(-.03,1.03))
-        ax.legend(loc='best',fontsize=8)
+        ax.legend(loc='best',fontsize=14)
     elif fam=='T2 Ramsey':
         ax.plot(a[:,0],a[:,2],'.',ms=1.3,color='#1d6a9c',alpha=.7,rasterized=True)
         t=np.linspace(a[0,0],a[-1,0],600)
@@ -150,60 +158,126 @@ def panel(ax,fam,case,record,a,is_reference):
         ax.plot(t,m['offset']+envelope,'--',lw=1,color='#c25c38',label='Recorded-fit envelope')
         ax.plot(t,m['offset']-envelope,'--',lw=1,color='#c25c38')
         ax.set(xlabel='Delay (us)',ylabel='Recorded P1',ylim=(0,1))
-        ax.legend(loc='upper right',fontsize=8)
+        ax.legend(loc='upper right',fontsize=14)
     elif fam=='Rabi Oscillation':
         y=projection(a);x=a[:,0];f=m['frequency_per_amplitude']
         design=np.column_stack([np.ones(len(x)),np.cos(2*np.pi*f*x),np.sin(2*np.pi*f*x)])
         coef=np.linalg.lstsq(design,y,rcond=None)[0]
         r2=1-np.sum((y-design@coef)**2)/np.sum((y-y.mean())**2)
         assert abs(r2-m['r2'])<1e-6
-        ax.plot(x,y,'.',ms=3,color='#1d6a9c',label='Measured IQ projection')
+        ax.plot(x,y,'.',ms=3,color='#1d6a9c',label='IQ projection')
         t=np.linspace(x[0],x[-1],1500)
-        ax.plot(t,np.column_stack([np.ones(len(t)),np.cos(2*np.pi*f*t),np.sin(2*np.pi*f*t)])@coef,lw=1,color='#c25c38',label='Recorded-frequency sinusoid')
-        ax.set(xlabel='Drive amplitude (setting)',ylabel='Standardized IQ projection')
-        ax.legend(loc='best',fontsize=8)
+        ax.plot(t,np.column_stack([np.ones(len(t)),np.cos(2*np.pi*f*t),np.sin(2*np.pi*f*t)])@coef,lw=1,color='#c25c38',label='Fit (recorded frequency)')
+        ax.set(xlabel='Drive amplitude (setting)',ylabel='IQ projection\n(standardized)')
+        ax.legend(loc='best',fontsize=14)
     else:
         x=a[:,0]; y=a[:,3]/1000
         if fam=='Qubit Spectroscopy' and case=='005' and not is_reference:
             k=np.argmax(y); sl=slice(max(0,k-6),min(len(x),k+7));x=x[sl];y=y[sl]
-            ax.set_title(f'Needs review / {case} / local zoom',loc='left',fontsize=12,fontweight='bold')
+            ax.set_title(f'Review / {case} (local zoom)',loc='left',fontsize=16,fontweight='bold')
         ax.plot(x,y,'.-',ms=2.7,lw=.6,color='#1d6a9c')
-        ax.set(xlabel=('Drive' if fam=='Qubit Spectroscopy' else 'Probe')+' frequency (GHz)',ylabel='Scaled magnitude / 1000 (a.u.)')
+        ax.set(xlabel=('Drive' if fam=='Qubit Spectroscopy' else 'Probe')+' frequency (GHz)',ylabel='Scaled magnitude\n/ 1000 (a.u.)')
         ax.ticklabel_format(axis='x',style='plain',useOffset=False)
-    ax.tick_params(labelsize=9)
+    for spine in ax.spines.values(): spine.set_color('#49433f')
+    # Shared, readable legend below both panels; keep the curves unobscured.
+    legend=ax.get_legend()
+    if legend is not None: legend.remove()
 
 def make_figure(fam,case,records,out):
     ref=reference(fam,case)
-    fig,axs=plt.subplots(1,2,figsize=(11.4,2.8))
+    fig,axs=plt.subplots(1,2,figsize=(8.1,2.9))
     for ax,c,is_ref in zip(axs,[ref,case],[True,False]):
         a=np.loadtxt(HERE/'data'/f'{SLUG[fam]}-{c}.csv',delimiter=',')
         panel(ax,fam,c,records[fam,c],a,is_ref)
-    fig.tight_layout(pad=.7,w_pad=2.2)
+    handles,labels=axs[0].get_legend_handles_labels()
+    fig.tight_layout(pad=.6,w_pad=1.4,rect=(0,.17 if handles else 0,1,1))
+    if handles:
+        fig.legend(handles,labels,loc='lower center',ncol=2,fontsize=14,
+                   frameon=False,markerscale=2,handlelength=1.4,columnspacing=1.2)
     fig.savefig(out,metadata={'Title':f'{fam} {ref} versus {case}','Author':'0918 calibration study'})
     plt.close(fig)
 
+def slide_content(fam,case,record):
+    """Select visible evidence; retain complete interpretation in case-notes.md."""
+    m=record['metrics'];flags=record['review_flags']
+    if fam=='T1 Visibility':
+        title='Baseline 的选择影响 lifetime'
+        metric=rf"Contrast fit: $\tau_{{free}}={m['contrast_tau_us']:.2f}$ / $\tau_0={m['zero_offset_tau_us']:.2f}\,\mu s$"
+        if case=='004':
+            title='平坦曲线无法确定 T1'
+            metric=r"0--100 $\mu s$: $P_1$ 0.956 $\to$ 0.950; fit reaches 10000 $\mu s$ bound"
+        caveat='Preparation 顺序为推断；diagnostic 拟合两路 contrast。'
+    elif fam=='GMM Readout Clusters':
+        title='Preparation groups 的区分仍需验证'
+        if case=='008':title='Preparation groups 明显重叠'
+        if case=='005':title='接近筛查阈值仍需结合数据判断'
+        metric=rf"Held-out linear balanced accuracy: ${100*m['heldout_balanced_accuracy']:.2f}\%$"
+        caveat='预测 nominal preparation labels；包含 preparation / relaxation 影响。'
+    elif fam=='Rabi Oscillation':
+        title='单一 sinusoid 仍有未解释的结构'
+        if 'LIMITED_OSCILLATION_COVERAGE' in flags:title='局部曲线不足以约束周期'
+        if case in ('001','003'):title='Noise-like trace 也会返回周期'
+        elif 'IQ_NOT_WELL_APPROXIMATED_BY_FIXED_TWO_STATE_LINE' in flags:title='IQ 几何超出固定两态连线'
+        metric=rf"IQ fit: $R^2={m['r2']:.3f}$; coverage ${m['cycles_in_scan']:.2f}$ cycles"
+        if case in ('001','003'):metric+=rf"; ${m['samples_per_cycle']:.2f}$ samples/cycle"
+        caveat='IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。'
+    elif fam=='Qubit Spectroscopy':
+        title='可见 feature 仍需检查线形模型'
+        if case in ('002','011','014','015'):title='Background 中的 candidate 仍需验证'
+        elif 'FEATURE_NEAR_SCAN_EDGE' in flags:title='Scan 边界限制了 center 的判断'
+        elif 'FEATURE_WIDTH_POORLY_SAMPLED' in flags:title='Frequency step 不能分辨拟合线宽'
+        metric=rf"IQ diagnostic: $R^2={m['r2']:.3f}$; step {1000*m['step']:.2f} / FWHM {1000*m['candidate_fwhm_GHz']:.2f} MHz"
+        caveat='图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。'
+    elif fam=='T2 Ramsey':
+        title='单一 envelope 仍有未解释的结构'
+        if case=='008':title='振荡结构超出单一 envelope'
+        if case in ('002','006'):title='较清晰振荡也留下 correlated residual'
+        metric=rf"Recorded fit: $R^2={m['r2']:.3f}$; residual correlation ${m['residual_lag1']:.2f}$"
+        caveat='Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。'
+    else:
+        title='首点 spike 的来源仍未确定'
+        metric=r"Window: 6.000--6.130 GHz; no resolved interior resonance"
+        caveat='Descriptive review；无 validated transfer-function fit。'
+    return title,metric,caveat
+
 def frame(fam,case,record):
-    slug=SLUG[fam];d=explanation(fam,case,record);ref=reference(fam,case)
-    caveat={'T1 Visibility':'P1 channel preparation order inferred; metrics fit contrast.',
-            'T2 Ramsey':'Reference also flagged; envelope shown, not the full fitted oscillation.',
-            'Rabi Oscillation':'IQ projection is standardized independently; its sign is arbitrary.',
-            'Qubit Spectroscopy':'Magnitude plotted; reported R2 and FWHM are from IQ-projection diagnostic.',
-            'GMM Readout Clusters':'Classifier predicts preparation labels; not isolated readout error.',
-            'Resonator Spectroscopy':'Independent scales/settings; multiple features can be normal.'}[fam]
+    slug=SLUG[fam];title,metric,caveat=slide_content(fam,case,record)
     return '\n'.join([
-        rf'\begin{{frame}}[t,label=case-{slug}-{case}]{{{fam} / {case}}}{{{d["title"]}}}',
-        rf'\includegraphics[width=\linewidth]{{figures/{slug}-{case}.pdf}}',
-        r'\vspace{-1.5mm}',
-        rf'{{\fontsize{{8.4}}{{10}}\selectfont\color{{Muted}} {d["metric"]}\par}}',
-        r'\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}',
-        rf'观察 & {esc(d["observation"])} \\',
-        rf'可能原因 & {esc(d["cause"])} \\',
-        rf'验证 & {esc(d["check"])}',
-        r'\end{tabularx}}',
-        r'\vfill',
-        rf'{{\fontsize{{6.5}}{{8}}\selectfont\color{{Muted}} Source: 0918 / {fam} / {ref}, {case}; raw CSV replotted. {caveat}\par}}',
+        rf'\begin{{frame}}[t,label=case-{slug}-{case}]{{{title}}}{{{fam} / {case}}}',
+        r'\setlength{\parskip}{0pt}',
+        rf'{{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{{figures/{slug}-{case}.pdf}}\par}}',
+        r'\vspace{1mm}',
+        rf'{{\small {metric}\par}}',
+        r'\vspace{1mm}',
+        rf'{{\footnotesize\color{{Muted}}{caveat}\par}}',
         r'\end{frame}',
     ])
+
+def case_note(fam,case,record):
+    d=explanation(fam,case,record);ref=reference(fam,case);slug=SLUG[fam]
+    metric=d['metric']
+    lines=[f'<a id="case-{slug}-{case}"></a>',f'## {fam} / {case}','',
+        f'**{d["title"]}**','',
+        f'[对照图](figures/{slug}-{case}.pdf) · [Target CSV](data/{slug}-{case}.csv) · [Reference / {ref}](data/{slug}-{ref}.csv)','',
+        f'**来源与诊断**：0918 packaged CSV 与 recorded audit；{metric}。','',
+        f'**Codex interpretation — 观察**：{d["observation"]}','',
+        '> [!hypothesis]',
+        f'> Suggested by Codex; not yet verified. {d["cause"]}','',
+        f'**验证方向**：{d["check"]}','',
+        f'**读图条件**：{slide_content(fam,case,record)[2]}']
+    if fam=='Rabi Oscillation':
+        lines+=['','Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。']
+    elif fam=='Qubit Spectroscopy':
+        lines+=['','低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。']
+    elif fam=='GMM Readout Clusters':
+        lines+=['','这里的 accuracy 来自 held-out linear classifier，不是原始 GMM fidelity。相同 qubit 仍不保证所有 settings 匹配。']
+    elif fam=='T1 Visibility':
+        lines+=['','图显示两路 recorded P1；diagnostic 拟合的是 preparation-channel contrast。触及 fit bound 不构成该上界 lifetime 的测量。']
+    elif fam=='T2 Ramsey':
+        lines+=['','Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal standard。模型条件、不同 runs 的 T1/T2 比较限制见主笔记。']
+    else:
+        lines+=['','原 scaled magnitude 首点约 1728、次点约 66、后续 median 约 41；图显示除以 1000 后的相同数据。不同 case 的 scale / settings 独立；多个 features 本身不构成错误。']
+    return '\n'.join(lines)
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--source',type=Path,help='agent_control checkout; import verified recorded data instead of using packaged snapshots')
@@ -239,16 +313,26 @@ def main():
     for name,items in [('main-cases',MAIN),('appendix-cases',appendix)]:
         (HERE/'generated'/f'{name}.tex').write_text('\n\n'.join(frame(f,c,records[f,c]) for f,c in items)+'\n')
     index=[]
-    for fam in ORDER:
-        keys=[k for k in targets if k[0]==fam]
-        links=[]
-        for _,c in keys:
-            text=c+('*' if (fam,c) in MAIN else '')
-            links.append(rf'\hyperlink{{case-{SLUG[fam]}-{c}}}{{\beamerbutton{{{text}}}}}')
-        index.append(rf'\textbf{{{fam}}} ({len(keys)})\par '+ ' '.join(links)+r'\par\vspace{1mm}')
-    (HERE/'generated'/'case-index.tex').write_text('\n'.join(index)+'\n')
-    listing=['# Case coverage','', '* marks a main-deck case; all others appear in the appendix.','', '| Family | Target | Reference | Location |','| --- | --- | --- | --- |']
-    for fam,c in targets:listing.append(f'| {fam} | {c} | {reference(fam,c)} | '+('Main*' if (fam,c) in MAIN else 'Appendix')+' |')
+    for label,title,families in [('case-index','完整案例：时间与脉冲',ORDER[:3]),
+                                  ('case-index-other','完整案例：频谱与读出',ORDER[3:])]:
+        index += [rf'\begin{{frame}}[label={label}]{{{title}}}',
+                  r'\setlength{\parskip}{.6mm}\small',
+                  r'* 表示正文中的代表案例；点击编号跳转。\par\vspace{2mm}']
+        for fam in families:
+            keys=[k for k in targets if k[0]==fam]
+            links=[rf'\hyperlink{{case-{SLUG[fam]}-{c}}}{{\beamerbutton{{{c+("*" if (fam,c) in MAIN else "")}}}}}' for _,c in keys]
+            rows=[ ' '.join(links[i:i+8]) for i in range(0,len(links),8)]
+            index.append(rf'\textbf{{{fam}}} ({len(keys)})\par '+r'\par\vspace{1mm}'.join(rows)+r'\par\vspace{2mm}')
+        other='case-index-other' if label=='case-index' else 'case-index'
+        index += [rf'\vfill\hyperlink{{{other}}}{{\beamerbutton{{另一页导航}}}}',r'\end{frame}']
+    (HERE/'generated'/'case-index.tex').write_text('\n'.join(index)+'\n',encoding='utf-8')
+    note_header=['# 0918 案例解释与验证方向','',
+        '2026-10-12 — 配套 slides 的详细案例笔记。诊断复用 recorded audit；解释为 Codex interpretation，可能原因为未验证假设。','',
+        '[主笔记](notes.md) · [正文 PDF](0918-calibration-main-zh.pdf) · [完整 PDF](0918-calibration-zh.pdf) · [案例索引](coverage.md)','',
+        '所有 47 个案例的 reference selection 与既有版本一致；reference 表示相对清晰，不构成 calibration certification。不同 cases 通常不是 controlled pairs。','']
+    (HERE/'case-notes.md').write_text('\n'.join(note_header)+'\n'+ '\n\n'.join(case_note(f,c,records[f,c]) for f,c in targets)+'\n',encoding='utf-8')
+    listing=['# Case coverage','', '* marks a main-deck case; all others appear in the appendix.','', '| Family | Target and explanation | Reference | Location |','| --- | --- | --- | --- |']
+    for fam,c in targets:listing.append(f'| {fam} | [{c}](case-notes.md#case-{SLUG[fam]}-{c}) | {reference(fam,c)} | '+('Main*' if (fam,c) in MAIN else 'Appendix')+' |')
     (HERE/'coverage.md').write_text('\n'.join(listing)+'\n')
     (HERE/'generated'/'coverage.json').write_text(json.dumps({'main':MAIN,'appendix':appendix,'total':47},indent=2)+'\n')
     print(f'Verified {len(records)} packaged CSVs; generated 47 paired figures, 8 main frames, 39 appendix frames.')

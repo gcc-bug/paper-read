@@ -35,7 +35,13 @@ set fonts itself.
 
 For Chinese presentations use `ctexbeamer` with XeLaTeX and
 `\input{arclight-fonts.tex}` before loading the theme. The bundled font files are
-loaded directly; no system font installation is needed. The original preview
+loaded directly; no system font installation is needed. When reusing the assets
+from another compile directory, define `\arclightfontpath` before loading
+`arclight-fonts.tex`, with a relative path ending in `/` to this template's
+`fonts/` directory. Its default remains `fonts/`. Add the theme directory to
+LaTeX's input search path and set the logo path separately; see the
+[0918 deck source](../../../../discussions/superconducting-qubit-calibration/slides/slides.tex)
+for a repository-relative example. The original preview
 used Droid Sans Fallback with simulated bold; the revised profile uses separate
 Medium and Bold Chinese font files. English presentations can use ordinary
 `beamer` with the same font profile, which conditionally skips the CJK settings.

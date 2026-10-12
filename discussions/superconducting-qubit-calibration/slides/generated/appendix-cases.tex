@@ -1,506 +1,350 @@
-\begin{frame}[t,label=case-t1-001]{T1 Visibility / 001}{Baseline 改变时，lifetime 是否稳定？}
-\includegraphics[width=\linewidth]{figures/t1-001.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} Contrast fit: $R^2=0.972$; free / zero offset $\tau=55.94/77.48\,\mu s$\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Free-offset / zero-offset fit：55.94 / 77.48 us；检查 baseline 依赖。 \\
-可能原因 & Baseline 未稳定、晚时刻 contrast 未归零，或 exponential model 的假设不满足。 \\
-验证 & 延长 delay；交错测量 no-pi reference；比较 baseline 稳定性与不同 fit window。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / T1 Visibility / 002, 001; raw CSV replotted. P1 channel preparation order inferred; metrics fit contrast.\par}
+\begin{frame}[t,label=case-t1-001]{Baseline 的选择影响 lifetime}{T1 Visibility / 001}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/t1-001.pdf}\par}
+\vspace{1mm}
+{\small Contrast fit: $\tau_{free}=55.94$ / $\tau_0=77.48\,\mu s$\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}Preparation 顺序为推断；diagnostic 拟合两路 contrast。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-t1-005]{T1 Visibility / 005}{Baseline 改变时，lifetime 是否稳定？}
-\includegraphics[width=\linewidth]{figures/t1-005.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} Contrast fit: $R^2=0.909$; free / zero offset $\tau=33.01/44.48\,\mu s$\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Free-offset / zero-offset fit：33.01 / 44.48 us；检查 baseline 依赖。 Residual 还存在相邻关联。 \\
-可能原因 & Baseline 未稳定、晚时刻 contrast 未归零，或 exponential model 的假设不满足。 \\
-验证 & 延长 delay；交错测量 no-pi reference；比较 baseline 稳定性与不同 fit window。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / T1 Visibility / 002, 005; raw CSV replotted. P1 channel preparation order inferred; metrics fit contrast.\par}
+\begin{frame}[t,label=case-t1-005]{Baseline 的选择影响 lifetime}{T1 Visibility / 005}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/t1-005.pdf}\par}
+\vspace{1mm}
+{\small Contrast fit: $\tau_{free}=33.01$ / $\tau_0=44.48\,\mu s$\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}Preparation 顺序为推断；diagnostic 拟合两路 contrast。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-ramsey-001]{T2 Ramsey / 001}{一个 exponential envelope 能否描述全部 delay？}
-\includegraphics[width=\linewidth]{figures/ramsey-001.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} Recorded Ramsey fit: $R^2=0.769$; candidate $T_2^*=36.11\,\mu s$; residual correlation $0.10$\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Single-frequency exponential fit：R2=0.769；residual correlation=0.10。 \\
-可能原因 & Frequency / baseline drift、非 exponential dephasing 或 measurement noise；尚无唯一机制。 \\
-验证 & 检查 cycle-resolved trace 与 residual；重复 acquisition；比较 fit window、envelope 与 echo。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / T2 Ramsey / 002, 001; raw CSV replotted. Reference also flagged; envelope shown, not the full fitted oscillation.\par}
+\begin{frame}[t,label=case-ramsey-001]{单一 envelope 仍有未解释的结构}{T2 Ramsey / 001}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/ramsey-001.pdf}\par}
+\vspace{1mm}
+{\small Recorded fit: $R^2=0.769$; residual correlation $0.10$\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-ramsey-002]{T2 Ramsey / 002}{较清晰 oscillation 也可能留下 correlated residual}
-\includegraphics[width=\linewidth]{figures/ramsey-002.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} Recorded Ramsey fit: $R^2=0.878$; candidate $T_2^*=36.51\,\mu s$; residual correlation $0.32$\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & 可见 decaying oscillation，R2=0.878；residual correlation=0.32，仍需检查。 \\
-可能原因 & Frequency / baseline drift、非 exponential dephasing 或 measurement noise；尚无唯一机制。 \\
-验证 & 检查 cycle-resolved trace 与 residual；重复 acquisition；比较 fit window、envelope 与 echo。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / T2 Ramsey / 006, 002; raw CSV replotted. Reference also flagged; envelope shown, not the full fitted oscillation.\par}
+\begin{frame}[t,label=case-ramsey-002]{较清晰振荡也留下 correlated residual}{T2 Ramsey / 002}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/ramsey-002.pdf}\par}
+\vspace{1mm}
+{\small Recorded fit: $R^2=0.878$; residual correlation $0.32$\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-ramsey-003]{T2 Ramsey / 003}{一个 exponential envelope 能否描述全部 delay？}
-\includegraphics[width=\linewidth]{figures/ramsey-003.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} Recorded Ramsey fit: $R^2=0.700$; candidate $T_2^*=7.81\,\mu s$; residual correlation $0.48$\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Single-frequency exponential fit：R2=0.700；residual correlation=0.48。 \\
-可能原因 & Frequency / baseline drift、非 exponential dephasing 或 measurement noise；尚无唯一机制。 \\
-验证 & 检查 cycle-resolved trace 与 residual；重复 acquisition；比较 fit window、envelope 与 echo。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / T2 Ramsey / 002, 003; raw CSV replotted. Reference also flagged; envelope shown, not the full fitted oscillation.\par}
+\begin{frame}[t,label=case-ramsey-003]{单一 envelope 仍有未解释的结构}{T2 Ramsey / 003}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/ramsey-003.pdf}\par}
+\vspace{1mm}
+{\small Recorded fit: $R^2=0.700$; residual correlation $0.48$\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-ramsey-004]{T2 Ramsey / 004}{一个 exponential envelope 能否描述全部 delay？}
-\includegraphics[width=\linewidth]{figures/ramsey-004.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} Recorded Ramsey fit: $R^2=0.580$; candidate $T_2^*=20.56\,\mu s$; residual correlation $0.22$\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Single-frequency exponential fit：R2=0.580；residual correlation=0.22。 \\
-可能原因 & Frequency / baseline drift、非 exponential dephasing 或 measurement noise；尚无唯一机制。 \\
-验证 & 检查 cycle-resolved trace 与 residual；重复 acquisition；比较 fit window、envelope 与 echo。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / T2 Ramsey / 002, 004; raw CSV replotted. Reference also flagged; envelope shown, not the full fitted oscillation.\par}
+\begin{frame}[t,label=case-ramsey-004]{单一 envelope 仍有未解释的结构}{T2 Ramsey / 004}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/ramsey-004.pdf}\par}
+\vspace{1mm}
+{\small Recorded fit: $R^2=0.580$; residual correlation $0.22$\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-ramsey-005]{T2 Ramsey / 005}{一个 exponential envelope 能否描述全部 delay？}
-\includegraphics[width=\linewidth]{figures/ramsey-005.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} Recorded Ramsey fit: $R^2=0.642$; candidate $T_2^*=4.65\,\mu s$; residual correlation $0.17$\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Single-frequency exponential fit：R2=0.642；residual correlation=0.17。 \\
-可能原因 & Frequency / baseline drift、非 exponential dephasing 或 measurement noise；尚无唯一机制。 \\
-验证 & 检查 cycle-resolved trace 与 residual；重复 acquisition；比较 fit window、envelope 与 echo。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / T2 Ramsey / 002, 005; raw CSV replotted. Reference also flagged; envelope shown, not the full fitted oscillation.\par}
+\begin{frame}[t,label=case-ramsey-005]{单一 envelope 仍有未解释的结构}{T2 Ramsey / 005}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/ramsey-005.pdf}\par}
+\vspace{1mm}
+{\small Recorded fit: $R^2=0.642$; residual correlation $0.17$\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-ramsey-006]{T2 Ramsey / 006}{较清晰 oscillation 也可能留下 correlated residual}
-\includegraphics[width=\linewidth]{figures/ramsey-006.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} Recorded Ramsey fit: $R^2=0.878$; candidate $T_2^*=36.74\,\mu s$; residual correlation $0.37$\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & 可见 decaying oscillation，R2=0.878；residual correlation=0.37，仍需检查。 \\
-可能原因 & Frequency / baseline drift、非 exponential dephasing 或 measurement noise；尚无唯一机制。 \\
-验证 & 检查 cycle-resolved trace 与 residual；重复 acquisition；比较 fit window、envelope 与 echo。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / T2 Ramsey / 002, 006; raw CSV replotted. Reference also flagged; envelope shown, not the full fitted oscillation.\par}
+\begin{frame}[t,label=case-ramsey-006]{较清晰振荡也留下 correlated residual}{T2 Ramsey / 006}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/ramsey-006.pdf}\par}
+\vspace{1mm}
+{\small Recorded fit: $R^2=0.878$; residual correlation $0.37$\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-ramsey-007]{T2 Ramsey / 007}{一个 exponential envelope 能否描述全部 delay？}
-\includegraphics[width=\linewidth]{figures/ramsey-007.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} Recorded Ramsey fit: $R^2=0.563$; candidate $T_2^*=17.65\,\mu s$; residual correlation $0.37$\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Single-frequency exponential fit：R2=0.563；residual correlation=0.37。 \\
-可能原因 & Frequency / baseline drift、非 exponential dephasing 或 measurement noise；尚无唯一机制。 \\
-验证 & 检查 cycle-resolved trace 与 residual；重复 acquisition；比较 fit window、envelope 与 echo。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / T2 Ramsey / 002, 007; raw CSV replotted. Reference also flagged; envelope shown, not the full fitted oscillation.\par}
+\begin{frame}[t,label=case-ramsey-007]{单一 envelope 仍有未解释的结构}{T2 Ramsey / 007}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/ramsey-007.pdf}\par}
+\vspace{1mm}
+{\small Recorded fit: $R^2=0.563$; residual correlation $0.37$\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-rabi-001]{Rabi Oscillation / 001}{Noise-like trace 中，fitter 仍然会返回 period}
-\includegraphics[width=\linewidth]{figures/rabi-001.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ-projection fit: $R^2=0.160$; coverage $10.10$ cycles; $5.9$ samples/cycle\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & 没有清晰完整 cycle；R2=0.160；每个 fitted cycle 仅 5.94 个 samples。 \\
-可能原因 & Drive / readout contrast 不足、frequency 不准或 pulse path 问题；candidate 高频也可能是 noise fitting。 \\
-验证 & 先验证 spectroscopy 与 readout，再重复 sweep；不能直接采用 fitted half-period 作为 pi amplitude。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Rabi Oscillation / 002, 001; raw CSV replotted. IQ projection is standardized independently; its sign is arbitrary.\par}
+\begin{frame}[t,label=case-rabi-001]{Noise-like trace 也会返回周期}{Rabi Oscillation / 001}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/rabi-001.pdf}\par}
+\vspace{1mm}
+{\small IQ fit: $R^2=0.160$; coverage $10.10$ cycles; $5.94$ samples/cycle\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-rabi-004]{Rabi Oscillation / 004}{Sinusoid 是否足以描述这个 amplitude scan？}
-\includegraphics[width=\linewidth]{figures/rabi-004.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ-projection fit: $R^2=0.967$; coverage $1.08$ cycles; $55.8$ samples/cycle\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & IQ-projection sinusoid：R2=0.967；相邻 residual correlation=0.64。 \\
-可能原因 & Drive nonlinearity、detuning、drift 或 readout model 不适用；仅凭 residual 无法确定机制。 \\
-验证 & 重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Rabi Oscillation / 002, 004; raw CSV replotted. IQ projection is standardized independently; its sign is arbitrary.\par}
+\begin{frame}[t,label=case-rabi-004]{单一 sinusoid 仍有未解释的结构}{Rabi Oscillation / 004}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/rabi-004.pdf}\par}
+\vspace{1mm}
+{\small IQ fit: $R^2=0.967$; coverage $1.08$ cycles\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-rabi-005]{Rabi Oscillation / 005}{Sinusoid 是否足以描述这个 amplitude scan？}
-\includegraphics[width=\linewidth]{figures/rabi-005.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ-projection fit: $R^2=0.798$; coverage $1.06$ cycles; $56.7$ samples/cycle\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & IQ-projection sinusoid：R2=0.798；相邻 residual correlation=0.24。 Orthogonal IQ variance fraction=0.13。 \\
-可能原因 & Noise、readout response 变化或额外 state contribution；IQ 几何本身不能证明 leakage。 \\
-验证 & 检查完整 IQ trajectory 与重复 scan；独立验证 readout，必要时增加 leakage-sensitive measurement。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Rabi Oscillation / 002, 005; raw CSV replotted. IQ projection is standardized independently; its sign is arbitrary.\par}
+\begin{frame}[t,label=case-rabi-005]{IQ 几何超出固定两态连线}{Rabi Oscillation / 005}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/rabi-005.pdf}\par}
+\vspace{1mm}
+{\small IQ fit: $R^2=0.798$; coverage $1.06$ cycles\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-rabi-006]{Rabi Oscillation / 006}{Sinusoid 是否足以描述这个 amplitude scan？}
-\includegraphics[width=\linewidth]{figures/rabi-006.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ-projection fit: $R^2=0.689$; coverage $1.69$ cycles; $35.4$ samples/cycle\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & IQ-projection sinusoid：R2=0.689；相邻 residual correlation=0.52。 Orthogonal IQ variance fraction=0.11。 \\
-可能原因 & Noise、readout response 变化或额外 state contribution；IQ 几何本身不能证明 leakage。 \\
-验证 & 检查完整 IQ trajectory 与重复 scan；独立验证 readout，必要时增加 leakage-sensitive measurement。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Rabi Oscillation / 002, 006; raw CSV replotted. IQ projection is standardized independently; its sign is arbitrary.\par}
+\begin{frame}[t,label=case-rabi-006]{IQ 几何超出固定两态连线}{Rabi Oscillation / 006}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/rabi-006.pdf}\par}
+\vspace{1mm}
+{\small IQ fit: $R^2=0.689$; coverage $1.69$ cycles\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-rabi-008]{Rabi Oscillation / 008}{高 fit score 不保证 period 已被测到}
-\includegraphics[width=\linewidth]{figures/rabi-008.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ-projection fit: $R^2=0.996$; coverage $0.50$ cycles; $93.7$ samples/cycle\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Scan 仅覆盖 candidate cycle 的 0.50；period 很大部分来自 extrapolation。 \\
-可能原因 & Amplitude window 太短；局部 response 被误当作完整 sinusoid；模型可辨识性不足。 \\
-验证 & 在合适的控制范围内扩大 amplitude scan；观察 turning point 与 return；验证 pi endpoint。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Rabi Oscillation / 002, 008; raw CSV replotted. IQ projection is standardized independently; its sign is arbitrary.\par}
+\begin{frame}[t,label=case-rabi-008]{局部曲线不足以约束周期}{Rabi Oscillation / 008}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/rabi-008.pdf}\par}
+\vspace{1mm}
+{\small IQ fit: $R^2=0.996$; coverage $0.50$ cycles\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-rabi-009]{Rabi Oscillation / 009}{Sinusoid 是否足以描述这个 amplitude scan？}
-\includegraphics[width=\linewidth]{figures/rabi-009.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ-projection fit: $R^2=0.824$; coverage $1.66$ cycles; $36.1$ samples/cycle\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & IQ-projection sinusoid：R2=0.824；相邻 residual correlation=0.95。 \\
-可能原因 & Drive nonlinearity、detuning、drift 或 readout model 不适用；仅凭 residual 无法确定机制。 \\
-验证 & 重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Rabi Oscillation / 002, 009; raw CSV replotted. IQ projection is standardized independently; its sign is arbitrary.\par}
+\begin{frame}[t,label=case-rabi-009]{单一 sinusoid 仍有未解释的结构}{Rabi Oscillation / 009}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/rabi-009.pdf}\par}
+\vspace{1mm}
+{\small IQ fit: $R^2=0.824$; coverage $1.66$ cycles\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-rabi-010]{Rabi Oscillation / 010}{Sinusoid 是否足以描述这个 amplitude scan？}
-\includegraphics[width=\linewidth]{figures/rabi-010.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ-projection fit: $R^2=0.480$; coverage $2.76$ cycles; $21.8$ samples/cycle\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & IQ-projection sinusoid：R2=0.480；相邻 residual correlation=0.94。 \\
-可能原因 & Drive nonlinearity、detuning、drift 或 readout model 不适用；仅凭 residual 无法确定机制。 \\
-验证 & 重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Rabi Oscillation / 002, 010; raw CSV replotted. IQ projection is standardized independently; its sign is arbitrary.\par}
+\begin{frame}[t,label=case-rabi-010]{单一 sinusoid 仍有未解释的结构}{Rabi Oscillation / 010}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/rabi-010.pdf}\par}
+\vspace{1mm}
+{\small IQ fit: $R^2=0.480$; coverage $2.76$ cycles\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-rabi-011]{Rabi Oscillation / 011}{Sinusoid 是否足以描述这个 amplitude scan？}
-\includegraphics[width=\linewidth]{figures/rabi-011.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ-projection fit: $R^2=0.664$; coverage $3.00$ cycles; $20.0$ samples/cycle\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & IQ-projection sinusoid：R2=0.664；相邻 residual correlation=0.94。 \\
-可能原因 & Drive nonlinearity、detuning、drift 或 readout model 不适用；仅凭 residual 无法确定机制。 \\
-验证 & 重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Rabi Oscillation / 002, 011; raw CSV replotted. IQ projection is standardized independently; its sign is arbitrary.\par}
+\begin{frame}[t,label=case-rabi-011]{单一 sinusoid 仍有未解释的结构}{Rabi Oscillation / 011}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/rabi-011.pdf}\par}
+\vspace{1mm}
+{\small IQ fit: $R^2=0.664$; coverage $3.00$ cycles\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-rabi-012]{Rabi Oscillation / 012}{Sinusoid 是否足以描述这个 amplitude scan？}
-\includegraphics[width=\linewidth]{figures/rabi-012.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ-projection fit: $R^2=0.512$; coverage $4.70$ cycles; $10.4$ samples/cycle\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & IQ-projection sinusoid：R2=0.512；相邻 residual correlation=0.81。 \\
-可能原因 & Drive nonlinearity、detuning、drift 或 readout model 不适用；仅凭 residual 无法确定机制。 \\
-验证 & 重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Rabi Oscillation / 002, 012; raw CSV replotted. IQ projection is standardized independently; its sign is arbitrary.\par}
+\begin{frame}[t,label=case-rabi-012]{单一 sinusoid 仍有未解释的结构}{Rabi Oscillation / 012}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/rabi-012.pdf}\par}
+\vspace{1mm}
+{\small IQ fit: $R^2=0.512$; coverage $4.70$ cycles\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-rabi-013]{Rabi Oscillation / 013}{Sinusoid 是否足以描述这个 amplitude scan？}
-\includegraphics[width=\linewidth]{figures/rabi-013.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ-projection fit: $R^2=0.432$; coverage $2.88$ cycles; $20.9$ samples/cycle\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & IQ-projection sinusoid：R2=0.432；相邻 residual correlation=0.95。 \\
-可能原因 & Drive nonlinearity、detuning、drift 或 readout model 不适用；仅凭 residual 无法确定机制。 \\
-验证 & 重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Rabi Oscillation / 002, 013; raw CSV replotted. IQ projection is standardized independently; its sign is arbitrary.\par}
+\begin{frame}[t,label=case-rabi-013]{单一 sinusoid 仍有未解释的结构}{Rabi Oscillation / 013}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/rabi-013.pdf}\par}
+\vspace{1mm}
+{\small IQ fit: $R^2=0.432$; coverage $2.88$ cycles\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-rabi-014]{Rabi Oscillation / 014}{Sinusoid 是否足以描述这个 amplitude scan？}
-\includegraphics[width=\linewidth]{figures/rabi-014.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ-projection fit: $R^2=0.594$; coverage $2.27$ cycles; $26.4$ samples/cycle\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & IQ-projection sinusoid：R2=0.594；相邻 residual correlation=0.96。 \\
-可能原因 & Drive nonlinearity、detuning、drift 或 readout model 不适用；仅凭 residual 无法确定机制。 \\
-验证 & 重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Rabi Oscillation / 002, 014; raw CSV replotted. IQ projection is standardized independently; its sign is arbitrary.\par}
+\begin{frame}[t,label=case-rabi-014]{单一 sinusoid 仍有未解释的结构}{Rabi Oscillation / 014}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/rabi-014.pdf}\par}
+\vspace{1mm}
+{\small IQ fit: $R^2=0.594$; coverage $2.27$ cycles\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-rabi-015]{Rabi Oscillation / 015}{Scan 未覆盖完整 cycle，period 缺乏约束}
-\includegraphics[width=\linewidth]{figures/rabi-015.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ-projection fit: $R^2=0.586$; coverage $0.10$ cycles; $599.9$ samples/cycle\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Scan 仅覆盖 candidate cycle 的 0.10；period 很大部分来自 extrapolation。 \\
-可能原因 & Amplitude window 太短；局部 response 被误当作完整 sinusoid；模型可辨识性不足。 \\
-验证 & 在合适的控制范围内扩大 amplitude scan；观察 turning point 与 return；验证 pi endpoint。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Rabi Oscillation / 002, 015; raw CSV replotted. IQ projection is standardized independently; its sign is arbitrary.\par}
+\begin{frame}[t,label=case-rabi-015]{局部曲线不足以约束周期}{Rabi Oscillation / 015}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/rabi-015.pdf}\par}
+\vspace{1mm}
+{\small IQ fit: $R^2=0.586$; coverage $0.10$ cycles\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-rabi-016]{Rabi Oscillation / 016}{Sinusoid 是否足以描述这个 amplitude scan？}
-\includegraphics[width=\linewidth]{figures/rabi-016.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ-projection fit: $R^2=0.894$; coverage $1.83$ cycles; $24.1$ samples/cycle\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & IQ-projection sinusoid：R2=0.894；相邻 residual correlation=0.69。 \\
-可能原因 & Drive nonlinearity、detuning、drift 或 readout model 不适用；仅凭 residual 无法确定机制。 \\
-验证 & 重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Rabi Oscillation / 002, 016; raw CSV replotted. IQ projection is standardized independently; its sign is arbitrary.\par}
+\begin{frame}[t,label=case-rabi-016]{单一 sinusoid 仍有未解释的结构}{Rabi Oscillation / 016}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/rabi-016.pdf}\par}
+\vspace{1mm}
+{\small IQ fit: $R^2=0.894$; coverage $1.83$ cycles\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-spectroscopy-002]{Qubit Spectroscopy / 002}{Background 中的 fitted line 不足以确定 f10}
-\includegraphics[width=\linewidth]{figures/spectroscopy-002.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ single-line diagnostic: $R^2=0.016$; step $1.00$ MHz; FWHM $1.08$ MHz\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Whole-scan IQ fit 的 R2=0.016；缺少清晰可复现的 single feature 证据。 \\
-可能原因 & Transition 不在窗口、drive 或 readout contrast 太弱；也可能存在很窄但尚未验证的 feature。 \\
-验证 & 验证 probe 与 drive path；调整 scan window；重复局部 candidate frequency，检查 reproducibility。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Qubit Spectroscopy / 001, 002; raw CSV replotted. Magnitude plotted; reported R2 and FWHM are from IQ-projection diagnostic.\par}
+\begin{frame}[t,label=case-spectroscopy-002]{Background 中的 candidate 仍需验证}{Qubit Spectroscopy / 002}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-002.pdf}\par}
+\vspace{1mm}
+{\small IQ diagnostic: $R^2=0.016$; step 1.00 / FWHM 1.08 MHz\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-spectroscopy-004]{Qubit Spectroscopy / 004}{存在 feature，不等于 single-line model 已可靠}
-\includegraphics[width=\linewidth]{figures/spectroscopy-004.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ single-line diagnostic: $R^2=0.682$; step $1.00$ MHz; FWHM $7.55$ MHz\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Single-Lorentzian IQ fit：R2=0.682；candidate FWHM=7.55 MHz。 \\
-可能原因 & Background、drive-induced broadening、多个 response 或 drift；线形不匹配不能唯一归因。 \\
-验证 & 重复并局部细扫；比较 drive strength；保留 IQ 和 phase，检查两侧 background。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Qubit Spectroscopy / 001, 004; raw CSV replotted. Magnitude plotted; reported R2 and FWHM are from IQ-projection diagnostic.\par}
+\begin{frame}[t,label=case-spectroscopy-004]{可见 feature 仍需检查线形模型}{Qubit Spectroscopy / 004}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-004.pdf}\par}
+\vspace{1mm}
+{\small IQ diagnostic: $R^2=0.682$; step 1.00 / FWHM 7.55 MHz\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-spectroscopy-006]{Qubit Spectroscopy / 006}{存在 feature，不等于 single-line model 已可靠}
-\includegraphics[width=\linewidth]{figures/spectroscopy-006.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ single-line diagnostic: $R^2=0.545$; step $1.00$ MHz; FWHM $116.37$ MHz\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Single-Lorentzian IQ fit：R2=0.545；candidate FWHM=116.37 MHz。 \\
-可能原因 & Background、drive-induced broadening、多个 response 或 drift；线形不匹配不能唯一归因。 \\
-验证 & 重复并局部细扫；比较 drive strength；保留 IQ 和 phase，检查两侧 background。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Qubit Spectroscopy / 001, 006; raw CSV replotted. Magnitude plotted; reported R2 and FWHM are from IQ-projection diagnostic.\par}
+\begin{frame}[t,label=case-spectroscopy-006]{可见 feature 仍需检查线形模型}{Qubit Spectroscopy / 006}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-006.pdf}\par}
+\vspace{1mm}
+{\small IQ diagnostic: $R^2=0.545$; step 1.00 / FWHM 116.37 MHz\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-spectroscopy-007]{Qubit Spectroscopy / 007}{Fit score 不能补足 frequency resolution}
-\includegraphics[width=\linewidth]{figures/spectroscopy-007.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ single-line diagnostic: $R^2=0.265$; step $1.00$ MHz; FWHM $1.57$ MHz\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Frequency step=1.00 MHz，candidate FWHM=1.57 MHz；采样不足。 \\
-可能原因 & 实际窄 resonance 或 isolated outlier；现有 grid 无法可靠区分，也不支持过高 linewidth precision。 \\
-验证 & 在 feature 附近使用更小 frequency step，并重复采样；比较 peak / dip 的宽度与 reproducibility。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Qubit Spectroscopy / 001, 007; raw CSV replotted. Magnitude plotted; reported R2 and FWHM are from IQ-projection diagnostic.\par}
+\begin{frame}[t,label=case-spectroscopy-007]{Frequency step 不能分辨拟合线宽}{Qubit Spectroscopy / 007}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-007.pdf}\par}
+\vspace{1mm}
+{\small IQ diagnostic: $R^2=0.265$; step 1.00 / FWHM 1.57 MHz\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-spectroscopy-009]{Qubit Spectroscopy / 009}{Fit score 不能补足 frequency resolution}
-\includegraphics[width=\linewidth]{figures/spectroscopy-009.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ single-line diagnostic: $R^2=0.948$; step $1.00$ MHz; FWHM $1.85$ MHz\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Frequency step=1.00 MHz，candidate FWHM=1.85 MHz；采样不足。 \\
-可能原因 & 实际窄 resonance 或 isolated outlier；现有 grid 无法可靠区分，也不支持过高 linewidth precision。 \\
-验证 & 在 feature 附近使用更小 frequency step，并重复采样；比较 peak / dip 的宽度与 reproducibility。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Qubit Spectroscopy / 010, 009; raw CSV replotted. Magnitude plotted; reported R2 and FWHM are from IQ-projection diagnostic.\par}
+\begin{frame}[t,label=case-spectroscopy-009]{Frequency step 不能分辨拟合线宽}{Qubit Spectroscopy / 009}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-009.pdf}\par}
+\vspace{1mm}
+{\small IQ diagnostic: $R^2=0.948$; step 1.00 / FWHM 1.85 MHz\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-spectroscopy-011]{Qubit Spectroscopy / 011}{Background 中的 fitted line 不足以确定 f10}
-\includegraphics[width=\linewidth]{figures/spectroscopy-011.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ single-line diagnostic: $R^2=0.044$; step $1.00$ MHz; FWHM $2.11$ MHz\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Whole-scan IQ fit 的 R2=0.044；缺少清晰可复现的 single feature 证据。 \\
-可能原因 & Transition 不在窗口、drive 或 readout contrast 太弱；也可能存在很窄但尚未验证的 feature。 \\
-验证 & 验证 probe 与 drive path；调整 scan window；重复局部 candidate frequency，检查 reproducibility。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Qubit Spectroscopy / 001, 011; raw CSV replotted. Magnitude plotted; reported R2 and FWHM are from IQ-projection diagnostic.\par}
+\begin{frame}[t,label=case-spectroscopy-011]{Background 中的 candidate 仍需验证}{Qubit Spectroscopy / 011}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-011.pdf}\par}
+\vspace{1mm}
+{\small IQ diagnostic: $R^2=0.044$; step 1.00 / FWHM 2.11 MHz\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-spectroscopy-012]{Qubit Spectroscopy / 012}{Scan boundary 限制了 resonance center 的判断}
-\includegraphics[width=\linewidth]{figures/spectroscopy-012.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ single-line diagnostic: $R^2=0.065$; step $1.00$ MHz; FWHM $782.41$ MHz\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Candidate center=4.400 GHz 位于 scan 边界；不能完整观察两侧 response。 \\
-可能原因 & Feature 延伸到窗口外、多个 transitions 或 baseline 变化；边界值不是已测定的 center。 \\
-验证 & 扩大 frequency window 观察两侧；检查 candidate feature 的复现性与 drive-strength dependence。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Qubit Spectroscopy / 001, 012; raw CSV replotted. Magnitude plotted; reported R2 and FWHM are from IQ-projection diagnostic.\par}
+\begin{frame}[t,label=case-spectroscopy-012]{Scan 边界限制了 center 的判断}{Qubit Spectroscopy / 012}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-012.pdf}\par}
+\vspace{1mm}
+{\small IQ diagnostic: $R^2=0.065$; step 1.00 / FWHM 782.41 MHz\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-spectroscopy-013]{Qubit Spectroscopy / 013}{存在 feature，不等于 single-line model 已可靠}
-\includegraphics[width=\linewidth]{figures/spectroscopy-013.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ single-line diagnostic: $R^2=0.618$; step $1.00$ MHz; FWHM $8.93$ MHz\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Single-Lorentzian IQ fit：R2=0.618；candidate FWHM=8.93 MHz。 \\
-可能原因 & Background、drive-induced broadening、多个 response 或 drift；线形不匹配不能唯一归因。 \\
-验证 & 重复并局部细扫；比较 drive strength；保留 IQ 和 phase，检查两侧 background。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Qubit Spectroscopy / 010, 013; raw CSV replotted. Magnitude plotted; reported R2 and FWHM are from IQ-projection diagnostic.\par}
+\begin{frame}[t,label=case-spectroscopy-013]{可见 feature 仍需检查线形模型}{Qubit Spectroscopy / 013}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-013.pdf}\par}
+\vspace{1mm}
+{\small IQ diagnostic: $R^2=0.618$; step 1.00 / FWHM 8.93 MHz\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-spectroscopy-014]{Qubit Spectroscopy / 014}{Background 中的 fitted line 不足以确定 f10}
-\includegraphics[width=\linewidth]{figures/spectroscopy-014.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ single-line diagnostic: $R^2=0.033$; step $1.00$ MHz; FWHM $1.01$ MHz\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Whole-scan IQ fit 的 R2=0.033；缺少清晰可复现的 single feature 证据。 \\
-可能原因 & Transition 不在窗口、drive 或 readout contrast 太弱；也可能存在很窄但尚未验证的 feature。 \\
-验证 & 验证 probe 与 drive path；调整 scan window；重复局部 candidate frequency，检查 reproducibility。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Qubit Spectroscopy / 001, 014; raw CSV replotted. Magnitude plotted; reported R2 and FWHM are from IQ-projection diagnostic.\par}
+\begin{frame}[t,label=case-spectroscopy-014]{Background 中的 candidate 仍需验证}{Qubit Spectroscopy / 014}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-014.pdf}\par}
+\vspace{1mm}
+{\small IQ diagnostic: $R^2=0.033$; step 1.00 / FWHM 1.01 MHz\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-spectroscopy-015]{Qubit Spectroscopy / 015}{Background 中的 fitted line 不足以确定 f10}
-\includegraphics[width=\linewidth]{figures/spectroscopy-015.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ single-line diagnostic: $R^2=0.054$; step $1.00$ MHz; FWHM $2.01$ MHz\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Whole-scan IQ fit 的 R2=0.054；缺少清晰可复现的 single feature 证据。 \\
-可能原因 & Transition 不在窗口、drive 或 readout contrast 太弱；也可能存在很窄但尚未验证的 feature。 \\
-验证 & 验证 probe 与 drive path；调整 scan window；重复局部 candidate frequency，检查 reproducibility。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Qubit Spectroscopy / 001, 015; raw CSV replotted. Magnitude plotted; reported R2 and FWHM are from IQ-projection diagnostic.\par}
+\begin{frame}[t,label=case-spectroscopy-015]{Background 中的 candidate 仍需验证}{Qubit Spectroscopy / 015}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-015.pdf}\par}
+\vspace{1mm}
+{\small IQ diagnostic: $R^2=0.054$; step 1.00 / FWHM 2.01 MHz\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-spectroscopy-016]{Qubit Spectroscopy / 016}{存在 feature，不等于 single-line model 已可靠}
-\includegraphics[width=\linewidth]{figures/spectroscopy-016.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ single-line diagnostic: $R^2=0.392$; step $1.00$ MHz; FWHM $54.00$ MHz\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Single-Lorentzian IQ fit：R2=0.392；candidate FWHM=54.00 MHz。 \\
-可能原因 & Background、drive-induced broadening、多个 response 或 drift；线形不匹配不能唯一归因。 \\
-验证 & 重复并局部细扫；比较 drive strength；保留 IQ 和 phase，检查两侧 background。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Qubit Spectroscopy / 001, 016; raw CSV replotted. Magnitude plotted; reported R2 and FWHM are from IQ-projection diagnostic.\par}
+\begin{frame}[t,label=case-spectroscopy-016]{可见 feature 仍需检查线形模型}{Qubit Spectroscopy / 016}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-016.pdf}\par}
+\vspace{1mm}
+{\small IQ diagnostic: $R^2=0.392$; step 1.00 / FWHM 54.00 MHz\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-spectroscopy-017]{Qubit Spectroscopy / 017}{存在 feature，不等于 single-line model 已可靠}
-\includegraphics[width=\linewidth]{figures/spectroscopy-017.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ single-line diagnostic: $R^2=0.619$; step $1.00$ MHz; FWHM $30.87$ MHz\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Single-Lorentzian IQ fit：R2=0.619；candidate FWHM=30.87 MHz。 \\
-可能原因 & Background、drive-induced broadening、多个 response 或 drift；线形不匹配不能唯一归因。 \\
-验证 & 重复并局部细扫；比较 drive strength；保留 IQ 和 phase，检查两侧 background。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Qubit Spectroscopy / 001, 017; raw CSV replotted. Magnitude plotted; reported R2 and FWHM are from IQ-projection diagnostic.\par}
+\begin{frame}[t,label=case-spectroscopy-017]{可见 feature 仍需检查线形模型}{Qubit Spectroscopy / 017}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-017.pdf}\par}
+\vspace{1mm}
+{\small IQ diagnostic: $R^2=0.619$; step 1.00 / FWHM 30.87 MHz\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-spectroscopy-018]{Qubit Spectroscopy / 018}{Fit score 不能补足 frequency resolution}
-\includegraphics[width=\linewidth]{figures/spectroscopy-018.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} IQ single-line diagnostic: $R^2=0.929$; step $1.00$ MHz; FWHM $1.05$ MHz\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Frequency step=1.00 MHz，candidate FWHM=1.05 MHz；采样不足。 \\
-可能原因 & 实际窄 resonance 或 isolated outlier；现有 grid 无法可靠区分，也不支持过高 linewidth precision。 \\
-验证 & 在 feature 附近使用更小 frequency step，并重复采样；比较 peak / dip 的宽度与 reproducibility。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / Qubit Spectroscopy / 010, 018; raw CSV replotted. Magnitude plotted; reported R2 and FWHM are from IQ-projection diagnostic.\par}
+\begin{frame}[t,label=case-spectroscopy-018]{Frequency step 不能分辨拟合线宽}{Qubit Spectroscopy / 018}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-018.pdf}\par}
+\vspace{1mm}
+{\small IQ diagnostic: $R^2=0.929$; step 1.00 / FWHM 1.05 MHz\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-readout-002]{GMM Readout Clusters / 002}{Preparation label 不等于可可靠区分的 state}
-\includegraphics[width=\linewidth]{figures/readout-002.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} Held-out linear classifier: balanced accuracy $62.12\%$; not original GMM fidelity\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Held-out linear balanced accuracy = 62.12\%；nominal preparation groups 重叠。 \\
-可能原因 & Preparation pulse 不准；probe setting 不合适；measurement 期间 relaxation；measurement chain noise。 \\
-验证 & 先验证 preparation / Rabi，再检查 probe frequency、integration window 和 demodulated time trace。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / GMM Readout Clusters / 009, 002; raw CSV replotted. Classifier predicts preparation labels; not isolated readout error.\par}
+\begin{frame}[t,label=case-readout-002]{Preparation groups 的区分仍需验证}{GMM Readout Clusters / 002}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/readout-002.pdf}\par}
+\vspace{1mm}
+{\small Held-out linear balanced accuracy: $62.12\%$\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}预测 nominal preparation labels；包含 preparation / relaxation 影响。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-readout-003]{GMM Readout Clusters / 003}{Preparation label 不等于可可靠区分的 state}
-\includegraphics[width=\linewidth]{figures/readout-003.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} Held-out linear classifier: balanced accuracy $59.67\%$; not original GMM fidelity\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Held-out linear balanced accuracy = 59.67\%；nominal preparation groups 重叠。 \\
-可能原因 & Preparation pulse 不准；probe setting 不合适；measurement 期间 relaxation；measurement chain noise。 \\
-验证 & 先验证 preparation / Rabi，再检查 probe frequency、integration window 和 demodulated time trace。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / GMM Readout Clusters / 009, 003; raw CSV replotted. Classifier predicts preparation labels; not isolated readout error.\par}
+\begin{frame}[t,label=case-readout-003]{Preparation groups 的区分仍需验证}{GMM Readout Clusters / 003}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/readout-003.pdf}\par}
+\vspace{1mm}
+{\small Held-out linear balanced accuracy: $59.67\%$\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}预测 nominal preparation labels；包含 preparation / relaxation 影响。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-readout-004]{GMM Readout Clusters / 004}{Preparation label 不等于可可靠区分的 state}
-\includegraphics[width=\linewidth]{figures/readout-004.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} Held-out linear classifier: balanced accuracy $70.73\%$; not original GMM fidelity\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Held-out linear balanced accuracy = 70.73\%；nominal preparation groups 重叠。 \\
-可能原因 & Preparation pulse 不准；probe setting 不合适；measurement 期间 relaxation；measurement chain noise。 \\
-验证 & 先验证 preparation / Rabi，再检查 probe frequency、integration window 和 demodulated time trace。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / GMM Readout Clusters / 009, 004; raw CSV replotted. Classifier predicts preparation labels; not isolated readout error.\par}
+\begin{frame}[t,label=case-readout-004]{Preparation groups 的区分仍需验证}{GMM Readout Clusters / 004}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/readout-004.pdf}\par}
+\vspace{1mm}
+{\small Held-out linear balanced accuracy: $70.73\%$\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}预测 nominal preparation labels；包含 preparation / relaxation 影响。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-readout-005]{GMM Readout Clusters / 005}{接近 screen threshold：需要检查，但不宜二分判错}
-\includegraphics[width=\linewidth]{figures/readout-005.pdf}
-\vspace{-1.5mm}
-{\fontsize{8.4}{10}\selectfont\color{Muted} Held-out linear classifier: balanced accuracy $74.48\%$; not original GMM fidelity\par}
-\vspace{1mm}{\fontsize{8.7}{10.4}\selectfont\renewcommand{\arraystretch}{1.08}\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{Navy}}p{1.35cm}X@{}}
-观察 & Balanced accuracy = 74.48\%，略低于本地 75\% screen threshold；threshold 不是物理定律。 \\
-可能原因 & Preparation pulse 不准；probe setting 不合适；measurement 期间 relaxation；measurement chain noise。 \\
-验证 & 先验证 preparation / Rabi，再检查 probe frequency、integration window 和 demodulated time trace。
-\end{tabularx}}
-\vfill
-{\fontsize{6.5}{8}\selectfont\color{Muted} Source: 0918 / GMM Readout Clusters / 009, 005; raw CSV replotted. Classifier predicts preparation labels; not isolated readout error.\par}
+\begin{frame}[t,label=case-readout-005]{接近筛查阈值仍需结合数据判断}{GMM Readout Clusters / 005}
+\setlength{\parskip}{0pt}
+{\centering\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/readout-005.pdf}\par}
+\vspace{1mm}
+{\small Held-out linear balanced accuracy: $74.48\%$\par}
+\vspace{1mm}
+{\footnotesize\color{Muted}预测 nominal preparation labels；包含 preparation / relaxation 影响。\par}
 \end{frame}

@@ -1,14 +1,15 @@
 % XeLaTeX typography for less clear presentation screens.
 % Font files and redistribution licenses are bundled under fonts/.
 \usepackage{fontspec}
+\providecommand{\arclightfontpath}{fonts/}
 \setsansfont[
-  Path=fonts/,
+  Path=\arclightfontpath,
   BoldFont=OpenSans-Bold.ttf,
   ItalicFont=OpenSans-SemiboldItalic.ttf,
   BoldItalicFont=OpenSans-BoldItalic.ttf
 ]{OpenSans-Semibold.ttf}
 \ifdefined\setCJKmainfont
-  \setCJKmainfont[Path=fonts/,BoldFont=NotoSansSC-Bold.otf]{NotoSansSC-Medium.otf}
-  \setCJKsansfont[Path=fonts/,BoldFont=NotoSansSC-Bold.otf]{NotoSansSC-Medium.otf}
-  \setCJKmonofont[Path=fonts/,BoldFont=NotoSansSC-Bold.otf]{NotoSansSC-Medium.otf}
+  \setCJKmainfont[Path=\arclightfontpath,BoldFont=NotoSansSC-Bold.otf]{NotoSansSC-Medium.otf}
+  \setCJKsansfont[Path=\arclightfontpath,BoldFont=NotoSansSC-Bold.otf]{NotoSansSC-Medium.otf}
+  \setCJKmonofont[Path=\arclightfontpath,BoldFont=NotoSansSC-Bold.otf]{NotoSansSC-Medium.otf}
 \fi

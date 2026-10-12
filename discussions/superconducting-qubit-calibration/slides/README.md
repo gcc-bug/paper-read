@@ -1,26 +1,28 @@
 # 0918 calibration：中文 Beamer slides
 
-2026-10-10 — 根据读者确认的结构撰写。讲解和 possible causes 为 Codex interpretation；数据来自既有实验及 recorded audit，不表示读者认可所有解释。
+2026-10-12 — 按读者认可的 [slide-writing skill](../../../skills/write-slides/SKILL.md) 重写。使用弧光量子 company theme 与较粗的字体；slides 保留主线、图与必要限制，讲解和 possible causes 移至配套笔记。解释为 Codex interpretation；数据来自既有实验及 recorded audit，不表示读者认可所有解释。
 
-- [正文 PDF](0918-calibration-main-zh.pdf)：24 页，适合主报告。
-- [完整 PDF](0918-calibration-zh.pdf)：65 页，包含全部 47 个待复查案例。
-- [Beamer 源码](slides.tex)：中文叙述，保留 English technical terms；缩写首次出现时展开。
+- [正文 PDF](0918-calibration-main-zh.pdf)：25 页，适合主报告。
+- [完整 PDF](0918-calibration-zh.pdf)：67 页，包含全部 47 个待复查案例。
+- [Beamer 源码](slides.tex)：中文叙述，保留 English technical terms；完整 definitions 在配套笔记。
+- [讲解与背景笔记](notes.md)：按正文页组织的解释、模型条件、definitions 与来源。
+- [详细案例笔记](case-notes.md)：47 个 targets 的完整诊断、观察、未验证原因与验证方向。
 - [全部案例索引](coverage.md)：每个 target、reference 及所在部分。
 - [返回讨论](../note.md)；[论文与来源注释](../references.md)。
 
 ## 组织与讲述
 
-正文第 1–7 页介绍 Transmon、chip components、measurement chain、microwave control 与 dispersive readout；第 8–12 页说明 iterative calibration pipeline、六类 records、Rabi、T1、Ramsey 与 preparation/assignment；第 13 页解释 diagnostic；第 14–21 页比较八个代表案例；第 22–24 页是判断方法、references 和 data provenance。
+正文第 1–7 页介绍 Transmon、chip components、measurement chain、microwave control 与 dispersive readout；第 8–13 页说明 iterative calibration pipeline、六类 records、Rabi、T1、Ramsey 与 preparation/assignment；第 14 页区分 observation、diagnostic 与 possible cause；第 15–22 页比较八个代表案例；第 23–25 页是判断方法、references 和 data provenance。
 
-完整版本第 25 页为可点击案例导航，第 26 页说明附录约定，第 27–65 页覆盖其余 39 个案例。正文可按约 30–40 分钟准备；这只是讲述建议，不是实测报告时长。
+完整版本第 26–27 页为可点击案例导航，第 28 页说明附录约定，第 29–67 页覆盖其余 39 个案例。正文可按约 30–40 分钟准备；这只是讲述建议，不是实测报告时长。
 
-每个案例页只讨论一个 experiment family，左侧为相对清晰的 reference，右侧为 needs-review record，并列出 observation、possible causes 和验证方向。Reference 不等于通过 calibration certification；不同 case 通常不是 matched controlled experiment。Ramsey reference 本身也有 residual flags，页脚明确说明。
+每个案例页只讨论一个 experiment family：短标题、较大的 paired plot、关键 diagnostic 与必要限制。完整 observation、possible causes 和验证方向在 [case-notes.md](case-notes.md)；候选原因明确标为未验证 hypotheses。Reference 不等于通过 calibration certification；不同 case 通常不是 matched controlled experiment。Ramsey reference 本身也有 residual flags，案例页保留说明。
 
 47 个案例包括既有 audit 的全部 46 个 flagged cases，以及另列的 Resonator Spectroscopy/006。并不声称这是 acquisition 所有可能问题的穷举。按 family 为 T1 3、Ramsey 8、Rabi 15、Qubit Spectroscopy 15、GMM 5、Resonator 1。
 
 ## 编译与修改
 
-需要 XeLaTeX、latexmk、ctexbeamer、TikZ，以及 `Droid Sans Fallback` 和 `TeX Gyre Heros` fonts。若其他机器没有该 Chinese font，请修改 `slides.tex` 的三处 CJK font 设置。
+需要 XeLaTeX、latexmk、ctexbeamer 与 TikZ。主题、vector logo 和字体通过 repository-relative paths 复用 [company Beamer template](../../../skills/write-slides/assets/company-beamer/README.md)。中文使用 bundled Noto Sans SC Medium/Bold，英文使用 Open Sans Semibold/Bold；无需另装 system fonts。搬迁时保留仓库内 `skills/write-slides/assets/company-beamer/` 的相对位置；单独复制 slides 目录不足以编译。
 
 在本目录运行：
 
@@ -37,7 +39,7 @@ python3 generate_assets.py
 bash build.sh
 ```
 
-默认使用本目录的 `evidence.json` 和 64 份 `data/*.csv`，不要求原始 checkout 或网络。脚本逐份核对 SHA-256 后重绘 47 份 `figures/*.pdf`，生成 `generated/*.tex`、coverage JSON 和 Markdown。案例页请修改 `generate_assets.py` 后再生成；直接编辑 `generated/` 会在下次生成时被覆盖。Hardware/pipeline diagrams 为源码中的可编辑 TikZ。
+默认使用本目录的 `evidence.json` 和 64 份 `data/*.csv`，不要求原始 checkout 或网络。脚本逐份核对 SHA-256 后重绘 47 份 `figures/*.pdf`，生成简洁的 `generated/*.tex`、coverage JSON / Markdown 和全部 `case-notes.md`。`notes.md` 为手写的正文讲解笔记；内容或页码改变后需同步修改。案例页请修改 `generate_assets.py` 后再生成；直接编辑 `generated/` 会在下次生成时被覆盖。Hardware/pipeline diagrams 为源码中的可编辑 TikZ。
 
 需要从 canonical checkout 刷新快照时：
 
@@ -85,8 +87,10 @@ Spectroscopy 图展示 magnitude；页内 R²/FWHM 来自 audit 的 **IQ-project
 1. P. Krantz et al., *A Quantum Engineer's Guide to Superconducting Qubits*, Applied Physics Reviews 6, 021318 (2019), [DOI](https://doi.org/10.1063/1.5089550)。本地 arXiv:1904.06560v5（2021 revision）；Fig. 1 / Eq. (16), pp. 4–5；Fig. 5, p. 15；Eqs. (92)–(94), p. 29；Fig. 22, p. 45。
 2. A. Blais et al., *Circuit Quantum Electrodynamics*, Reviews of Modern Physics 93, 025005 (2021), [DOI](https://doi.org/10.1103/RevModPhys.93.025005)。本地 arXiv:2005.12667v1（2020）；Figs. 14/16, pp. 25/27；Eq. (107), p. 29；Fig. 19, p. 31。
 
-位置按本地 PDF 页码，版本不同可能变化。沿用既有 selective consultation；本次另外重新提取并核对两篇 PDF 的 p. 29，以确认 control/dispersive models。未作 full-paper rereading；这些论文也不定义 0918 unpublished plotting code 的 estimator。Hardware 图是 generic conceptual setup，不是恢复的 0918 wiring。
+位置按本地 PDF 页码，版本不同可能变化。沿用既有 selective consultation；2026-10-10 制作时另外重新提取并核对两篇 PDF 的 p. 29，以确认 control/dispersive models；2026-10-12 重写复用已记录的解释与出处。未作 full-paper rereading；这些论文也不定义 0918 unpublished plotting code 的 estimator。Hardware 图是 generic conceptual setup，不是恢复的 0918 wiring。
 
 ## 本次交付检查
 
-两份 PDF 已用 XeLaTeX 编译；日志无 overflow、missing-character 或 undefined-reference warnings。完整版本 65 页均已渲染检查；另外检查代表页和修订页的版面。已验证 PDF 页数、全部 47 个唯一案例 labels、47 份 paired figures、64 份 CSV hashes、57,993 行总数及本次新增 Markdown links。两篇原始 supporting PDFs 的 SHA-256 保持不变。这些是交付与证据对应检查，不是新增 acquisition validation。
+两份 PDF 已用 XeLaTeX 编译，正文 25 页、完整版本 67 页。最终 `main.log` / `slides.log` 无 overflow、missing-character 或 undefined-reference warnings；通过 repository-relative theme lookup 加载时的 package-name warning 不影响输出。所有 67 页已渲染检查，并在 854 × 480 的代表页与较高分辨率 render 上检查图轴、标题、关键 diagnostic 和导航。低分辨率预览是模拟，不是实际房间 / 屏幕测量。
+
+已验证全部 47 个唯一案例 labels、47 份 paired figures、64 份 CSV hashes、57,993 行总数、notes 中的 local links / case anchors，以及 reference selections 和完整 explanation 与旧版一致。`evidence.json`、64 份 CSV 和两篇原始 supporting PDFs 的 SHA-256 均保持不变。Rabi 固定频率重建仍通过 R² consistency assertion。上述为交付与证据对应检查，不是新增 acquisition validation。

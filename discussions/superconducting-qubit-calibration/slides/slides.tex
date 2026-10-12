@@ -1,469 +1,307 @@
-\documentclass[aspectratio=169,10pt,fontset=none]{ctexbeamer}
-\usepackage{fontspec}
-\setCJKmainfont[AutoFakeBold=2]{Droid Sans Fallback}
-\setCJKsansfont[AutoFakeBold=2]{Droid Sans Fallback}
-\setCJKmonofont{Droid Sans Fallback}
-\setsansfont{TeX Gyre Heros}
+\documentclass[aspectratio=169,12pt,fontset=none]{ctexbeamer}
+% Reuse the canonical skill assets; do not fork the logo, theme, or fonts.
+\makeatletter
+\def\input@path{{../../../skills/write-slides/assets/company-beamer/}}
+\makeatother
+\newcommand{\arclightfontpath}{../../../skills/write-slides/assets/company-beamer/fonts/}
+\input{arclight-fonts.tex}
 \usepackage{amsmath,amssymb,booktabs,tabularx,graphicx,tikz}
+\usetheme{Arclight}
+\arclightsetlogo{../../../skills/write-slides/assets/company-beamer/brand/logo.pdf}
+\arclightsetcompany{弧光量子}
+\setbeamerfont{button}{size=\fontsize{10}{12},series=\mdseries}
+\setbeamercolor{button}{fg=ArclightInk,bg=ArclightPale}
+\setbeamercolor{button border}{fg=ArclightRule}
 \usetikzlibrary{arrows.meta,positioning,calc,decorations.pathmorphing,fit}
-\definecolor{Navy}{HTML}{17344D}
-\definecolor{Teal}{HTML}{177E89}
-\definecolor{Orange}{HTML}{C46536}
-\definecolor{Muted}{HTML}{5D6D78}
-\definecolor{Pale}{HTML}{EDF4F7}
-\setbeamercolor{normal text}{fg=Navy,bg=white}
-\setbeamercolor{structure}{fg=Teal}
-\setbeamercolor{frametitle}{fg=Navy,bg=white}
-\setbeamercolor{framesubtitle}{fg=Teal}
-\setbeamercolor{block title}{fg=white,bg=Navy}
-\setbeamercolor{block body}{fg=Navy,bg=Pale}
-\setbeamercolor{alerted text}{fg=Orange}
-\setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{itemize items}[circle]
-\setbeamertemplate{bibliography item}[text]
-\setbeamerfont{frametitle}{size=\large,series=\bfseries}
-\setbeamerfont{framesubtitle}{size=\small}
-\setbeamersize{text margin left=7mm,text margin right=7mm}
-\setlength{\parskip}{1.5mm}
-\setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{1.18}
-\setbeamertemplate{footline}{%
-  \hspace{7mm}\color{Muted}\fontsize{6.5}{8}\selectfont
-  0918 calibration study\quad|\quad\insertsection
-  \hfill\insertframenumber\,/\,\inserttotalframenumber\hspace{7mm}\vspace{2mm}}
-\newcommand{\src}[1]{\vfill{\fontsize{7}{8.5}\selectfont\color{Muted}依据：#1\par}}
+\colorlet{Navy}{ArclightInk}
+\definecolor{Teal}{HTML}{276087}
+\colorlet{Orange}{ArclightRed}
+\colorlet{Muted}{ArclightMuted}
+\colorlet{Pale}{ArclightPale}
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.35}
+\newcommand{\src}[1]{\vfill{\fontsize{9}{11}\selectfont\color{Muted}#1\par}}
 \newcommand{\ket}[1]{\lvert #1\rangle}
-\newcommand{\takeaway}[1]{\begin{beamercolorbox}[sep=2mm,wd=\linewidth]{block body}\textbf{#1}\end{beamercolorbox}}
-\tikzset{box/.style={draw=Navy,rounded corners=2pt,fill=Pale,align=center,minimum height=9mm,font=\small},
-  flow/.style={-{Latex[length=2mm]},line width=.8pt,draw=Navy},
-  drive/.style={draw=Orange,very thick},probe/.style={draw=Teal,very thick}}
-\title{从 superconducting hardware\texorpdfstring{\\}{ }到 calibration 数据判断}
-\subtitle{0918：实验流程、参考数据与需要检查的案例}
-\author{Calibration study notes}
-\date{2026 年 10 月 10 日}
+\tikzset{box/.style={draw=ArclightRule,line width=.8pt,fill=Pale,align=center,minimum height=12mm,font=\small},
+ flow/.style={-{Latex[length=2.4mm]},line width=1pt,draw=Navy},
+ drive/.style={draw=Orange,very thick},probe/.style={draw=Teal,very thick}}
+\title[0918 校准数据解读]{从硬件到校准判断}
+\subtitle{0918：实验流程、参考数据与复查案例}
+\author{报告人：待填写}
+\institute{弧光量子}
+\date{版本更新：2026 年 10 月 12 日}
 
 \begin{document}
-\begin{frame}[plain]
-  \vspace{6mm}
-  {\color{Teal}\small SUPERCONDUCTING QUBITS / CALIBRATION}\par
-  \vspace{4mm}
-  {\color{Navy}\LARGE\bfseries 从 superconducting hardware\\到 calibration 数据判断}\par
-  \vspace{4mm}
-  {\large 0918：实验流程、参考数据与需要检查的案例}\par
-  \vspace{6mm}
-  \begin{tikzpicture}
-    \node[box,minimum width=3.4cm] (a) {Hardware\\电路实现什么功能？};
-    \node[box,minimum width=3.4cm,right=7mm of a] (b) {Calibration\\如何控制和测量？};
-    \node[box,minimum width=3.4cm,right=7mm of b] (c) {Data evidence\\数值在何时可信？};
-    \draw[flow] (a)--(b);\draw[flow] (b)--(c);
-  \end{tikzpicture}\par
-  \vfill
-  {\small 面向具有 Quantum Information / Computer Science 基础的听众}\par
-  {\color{Muted}\footnotesize 2026-10-10\quad|\quad 正文：代表案例；附录：全部 47 个 review cases}
+\begin{frame}[plain]\titlepage\end{frame}
+\section{硬件与信号}
+\begin{frame}{校准连接控制、器件与测量记录}
+ \begin{center}
+ \begin{tikzpicture}[node distance=9mm]
+  \node[box,minimum width=34mm] (a) {控制信号\\Drive / probe};
+  \node[box,minimum width=34mm,right=of a] (b) {器件与量子态\\Qubit / resonator};
+  \node[box,minimum width=34mm,right=of b] (c) {测量记录\\IQ / population};
+  \draw[flow] (a)--(b);\draw[flow] (b)--(c);
+ \end{tikzpicture}
+ \end{center}
+ \vspace{6mm}
+ \textbf{一个校准参数，必须回到它对应的实验与记录。}
+ \src{概念示意；Krantz \cite{krantz}。完整解释与数据列映射见配套笔记。}
 \end{frame}
 
-\section{Hardware 与信号}
-\begin{frame}{从 gate 到实验数据：中间有四个不同对象}
-  \begin{columns}[T]
-  \column{.48\linewidth}
-  \begin{block}{Quantum operation}
-    $X_\pi:\ket0\mapsto\ket1$，需要实际 pulse 实现。\\
-    Measurement 的输出需要由电路 response 推断。
-  \end{block}
-  \begin{enumerate}
-    \item \textbf{Device}：Transmon、resonator、coupler。
-    \item \textbf{State}：$\ket0,\ket1$ 与 superposition。
-    \item \textbf{Signal}：drive、probe、flux control。
-    \item \textbf{Record}：数字化 response 或 assigned population。
-  \end{enumerate}
-  \column{.48\linewidth}
-  \begin{block}{本报告要回答的问题}
-    一个 calibration number 是怎样从\par
-    \textbf{hardware + pulse sequence + measured response}\par
-    中得到的？什么证据限制了它的解释？
-  \end{block}
-  \small
-  0918 是六类 measurement 的集合，不是一个存储 qubit wavefunction 的 tensor。\par
-  图中的 signal amplitude、pulse amplitude 和 population 是不同量。
-  \end{columns}
-  \src{Krantz et al. \cite{krantz}；0918 numeric records 与现有 calibration notes。}
+\begin{frame}{Transmon 的非等间隔能级允许选择性驱动}
+ \begin{columns}[c,onlytextwidth]
+ \column{.43\textwidth}\centering
+ \begin{tikzpicture}[scale=.82]
+  \draw[very thick] (0,0)--(0,2.6)--(3.2,2.6)--(3.2,1.6);
+  \draw[very thick] (3.2,1.1)--(3.2,0)--(0,0);
+  \draw[very thick] (2.85,1.6)--(3.55,1.6) (2.85,1.1)--(3.55,1.1);
+  \draw[white,line width=5pt] (0,1)--(0,1.6);
+  \draw[very thick] (-.3,1) rectangle (.3,1.6);
+  \draw[very thick] (-.3,1)--(.3,1.6) (-.3,1.6)--(.3,1);
+  \node[left] at (-.3,1.3) {$E_J$};\node[right] at (3.5,1.35) {$C_\Sigma$};
+  \node[align=center,font=\small] at (1.6,-.65) {Josephson junction\\+ capacitance};
+ \end{tikzpicture}
+ \column{.53\textwidth}\centering
+ \begin{tikzpicture}[x=9mm,y=7mm]
+  \draw[flow] (0,0)--(0,4.2) node[above,font=\small] {Energy};
+  \foreach \y/\label in {.4/0,1.9/1,3.15/2}{
+   \draw[very thick,Teal] (.5,\y)--(3.6,\y);\node[right] at (3.6,\y) {$\ket{\label}$};}
+  \draw[<->,Orange,thick] (1,.4)--(1,1.9) node[midway,right] {$hf_{10}$};
+  \draw[<->,Orange,thick] (2.8,1.9)--(2.8,3.15) node[midway,left] {$hf_{21}$};
+ \end{tikzpicture}
+ \end{columns}
+ \vspace{3mm}\textbf{$f_{10}\ne f_{21}$；通常用最低两个能级编码 qubit。}
+ \src{非按比例的概念示意；Krantz Fig. 1、Eq. (16) \cite{krantz}。}
 \end{frame}
 
-\begin{frame}{Transmon：用 nonlinear circuit 选择两个 energy levels}
-  \begin{columns}[c]
-  \column{.43\linewidth}
-  \centering
-  \begin{tikzpicture}[scale=.85]
-    \draw[very thick] (0,0)--(0,2.6)--(3.2,2.6)--(3.2,1.6);
-    \draw[very thick] (3.2,1.1)--(3.2,0)--(0,0);
-    \draw[very thick] (2.85,1.6)--(3.55,1.6) (2.85,1.1)--(3.55,1.1);
-    \draw[very thick,white,line width=4pt] (0,1.0)--(0,1.6);
-    \draw[very thick] (-.3,1.0) rectangle (.3,1.6);
-    \draw[very thick] (-.3,1.0)--(.3,1.6) (-.3,1.6)--(.3,1.0);
-    \node[left] at (-.3,1.3) {$E_J$};\node[right] at (3.5,1.35) {$C_\Sigma$};
-    \node[align=center,font=\small] at (1.6,-.6) {Josephson junction\\+ shunt capacitance};
-  \end{tikzpicture}
-  \column{.54\linewidth}
-  \begin{tikzpicture}[x=1cm,y=.72cm]
-    \draw[flow] (0,0)--(0,4.2) node[above,font=\small] {Energy};
-    \foreach \y/\label in {.4/0,1.9/1,3.15/2}{
-      \draw[very thick,Teal] (.5,\y)--(3.6,\y);
-      \node[right] at (3.6,\y) {$\ket{\label}$};}
-    \draw[<->,Orange,thick] (1.0,.4)--(1.0,1.9) node[midway,right] {$hf_{10}$};
-    \draw[<->,Orange,thick] (2.8,1.9)--(2.8,3.15) node[midway,left] {$hf_{21}$};
-    \node[font=\small] at (2,3.8) {$f_{10}\ne f_{21}$：anharmonicity};
-  \end{tikzpicture}
-  \end{columns}
-  \vspace{2mm}
-  \[
-    H_q=4E_C\hat n^2-E_J\cos\hat\varphi,\qquad E_1-E_0=hf_{10}.
-  \]
-  \small $E_C=e^2/(2C_\Sigma)$；$E_J$ 为 Josephson energy；$\hat n$ 为 Cooper-pair number operator，$\hat\varphi$ 为 junction phase operator。这里省略 offset charge。\par
-  \small 通常选择最低两个 energy eigenstates；higher levels 仍存在，误占据它们称为 leakage。$h$ 为 Planck constant。
-  \src{自绘概念示意，非按比例；Krantz arXiv v5，Fig. 1、Eq. (16)，pp. 4--5 \cite{krantz}。}
+\begin{frame}{Readout resonator 与 coupler 承担不同功能}
+ \begin{center}
+ \begin{tikzpicture}[x=9mm,y=9mm]
+  \draw[probe] (0,3.2)--(12.8,3.2);
+  \node[above,font=\small,Teal] at (6.4,3.2) {Shared readout feedline};
+  \foreach \x/\name in {2.5/A,9.4/B}{
+   \node[box,minimum width=29mm] (r\name) at (\x,2.1) {Readout resonator};
+   \node[box,minimum width=23mm] (q\name) at (\x,.4) {Transmon \name};
+   \draw[probe] (\x,3.2)--(r\name.north);
+   \draw[thick,dashed] (r\name.south)--(q\name.north);
+  }
+  \node[box,minimum width=25mm] (coupler) at (6,.4) {Coupler / bus};
+  \draw[thick] (qA.east)--(coupler.west) (coupler.east)--(qB.west);
+  \draw[drive,-{Latex}] (.1,.4)--(qA.west);
+  \draw[drive,-{Latex}] (12.3,.4)--(qB.east);
+ \end{tikzpicture}
+ \end{center}
+ \textbf{Resonator 用于读出；coupler / bus 用于 qubit 间相互作用。}
+ \src{通用结构示意，非 0918 wiring；Krantz / Blais \cite{krantz,blais}。}
 \end{frame}
 
-\begin{frame}{主流 chip：Qubit、readout resonator 与连接线路}
-  \centering
-  \begin{tikzpicture}[node distance=8mm,scale=.96,transform shape]
-    \draw[probe] (0,3.4)--(12.8,3.4);
-    \node[above,Teal] at (6.4,3.4) {Shared readout feedline：多个 probe frequencies 可共享一条线};
-    \foreach \x/\name in {2.5/A,9.4/B}{
-      \node[box,draw=Teal,minimum width=3cm] (r\name) at (\x,2.3) {Readout resonator \name};
-      \node[box,minimum width=2cm] (q\name) at (\x,.65) {Transmon \name};
-      \draw[probe] (\x,3.4)--(r\name.north);
-      \draw[thick,dashed] (r\name.south)--(q\name.north) node[midway,right,font=\scriptsize] {coupling};
-    }
-    \draw[drive,-{Latex}] (.3,.65)--(qA.west);
-    \node[font=\scriptsize,Orange,above] at (.85,.65) {Drive};
-    \draw[drive,-{Latex}] (12.1,.65)--(qB.east);
-    \node[font=\scriptsize,Orange,above] at (11.5,.65) {Drive};
-    \node[box,minimum width=2.3cm] (coupler) at (6,.65) {Optional coupler};
-    \draw[thick] (qA.east)--(coupler.west) (coupler.east)--(qB.west);
-    \draw[flow] (6,-.55)--(coupler.south);
-    \node[below,font=\small] at (6,-.55) {Flux control：可调 coupling / qubit frequency};
-  \end{tikzpicture}
-  \vspace{3mm}
-  \begin{columns}[T]
-    \column{.48\linewidth}\small
-    \textbf{Readout resonator} 将 qubit state 编码到 microwave response。\par
-    \textbf{Coupler / bus resonator} 用于 qubit 间 interaction；作用不同。
-    \column{.48\linewidth}\small
-    Chip 位于 dilution refrigerator，典型温度约 10--20 mK。\par
-    Fixed-frequency 与 tunable Transmon 的线路配置可以不同。
-  \end{columns}
-  \src{通用 architecture 自绘；不是从 0918 恢复的 wiring。Krantz Sec. II；Blais review \cite{krantz,blais}。}
+\begin{frame}{弱微波响应经过测量链变成 IQ}
+ \begin{center}
+ \begin{tikzpicture}[font=\small]
+  \node[box,minimum width=32mm] (g) at (0,2.6) {Pulse electronics};
+  \node[box,minimum width=32mm] (at) at (4.3,2.6) {Attenuators / filters};
+  \node[box,minimum width=32mm] (chip) at (8.6,2.6) {Cold chip};
+  \node[box,minimum width=32mm] (amp) at (8.6,.5) {Isolation / amplifiers};
+  \node[box,minimum width=32mm] (mix) at (4.3,.5) {Mixer / digitization};
+  \node[box,minimum width=32mm] (iq) at (0,.5) {$I+iQ$};
+  \draw[flow] (g)--(at);\draw[flow] (at)--(chip);\draw[flow] (chip)--(amp);
+  \draw[flow] (amp)--(mix);\draw[flow] (mix)--(iq);
+ \end{tikzpicture}
+ \end{center}
+ \textbf{IQ 是电磁响应的记录，不是 qubit 的波函数系数。}
+ \src{通用信号链；Blais Figs. 14、16；Krantz Fig. 22 \cite{blais,krantz}。}
 \end{frame}
 
-\begin{frame}{Measurement chain：弱 microwave response 怎样变成数字记录}
-  \centering
-  \begin{tikzpicture}[node distance=5mm,font=\small]
-    \node[box,minimum width=2.35cm] (g) at (0,2.6) {Microwave source\\+ pulse electronics};
-    \node[box,minimum width=2cm] (at) at (3.3,2.6) {Attenuators\\+ filters};
-    \node[box,minimum width=2.2cm,draw=Teal] (chip) at (6.5,2.6) {Cold chip\\Qubit + resonator};
-    \node[box,minimum width=2.3cm] (amp) at (10.0,2.6) {Isolation\\+ amplifiers};
-    \node[box,minimum width=2.3cm] (mix) at (10.0,.7) {Mixer + reference\\local oscillator};
-    \node[box,minimum width=2.6cm] (dig) at (6.5,.7) {Digitization\\+ digital processing};
-    \node[box,minimum width=2.5cm,draw=Teal] (iq) at (2.8,.7) {In-phase and\\Quadrature (IQ)};
-    \draw[flow] (g)--(at);\draw[flow] (at)--(chip);\draw[flow] (chip)--(amp);
-    \draw[flow] (amp)--(mix);\draw[flow] (mix)--(dig);\draw[flow] (dig)--(iq);
-    \draw[dashed,Muted] (1.8,1.75) rectangle (7.8,3.35);
-    \node[Muted,font=\scriptsize] at (4.8,3.55) {Cryogenic input stages：attenuation 分布在多个温度层};
-    \node[Muted,font=\scriptsize,align=center] at (10,3.55) {Output chain 包含\\cold / warm amplification};
-  \end{tikzpicture}
-  \vspace{2mm}
-  \begin{columns}[T]
-  \column{.49\linewidth}\footnotesize
-  AWG = Arbitrary Waveform Generator\par
-  DAC = Digital-to-Analog Converter\par
-  用来合成 envelope，再生成实际 drive / probe。
-  \column{.49\linewidth}\footnotesize
-  ADC = Analog-to-Digital Converter\par
-  FPGA = Field-Programmable Gate Array\par
-  用于采样、demodulation 与 integration。
-  \end{columns}
-  \src{通用 signal path 自绘；Blais Fig. 14、Fig. 16，pp. 25--27；Krantz Fig. 22，p. 45 \cite{blais,krantz}。}
-\end{frame}
-
-\begin{frame}{Frequency、strength、duration、phase 是四个不同控制量}
-  \[
-    V_d(t)=A(t)\cos(2\pi f_dt+\phi_d),\qquad \omega=2\pi f.
-  \]
-  \begin{tabularx}{\linewidth}{@{}p{2.4cm}p{3.0cm}X@{}}
+\begin{frame}{四个控制量共同决定一次驱动}
+ \[V_d(t)=A(t)\cos(2\pi f_dt+\phi_d)\]
+ \begin{tabularx}{\linewidth}{@{}p{27mm}X@{}}
   \toprule
-  Control & 数学对象 & 作用 \\
-  \midrule
-  Frequency & $f_d$，单位 Hz & 接近 $f_{10}$ 才能有效驱动目标 transition \\
-  Strength & Envelope $A(t)$ & 在线性 regime 中改变 Rabi rotation speed \\
-  Duration & Pulse 持续时间 & 决定 drive 作用多久；与 strength 共同决定 rotation angle \\
-  Phase & Carrier phase $\phi_d$ & 决定 transverse rotation axis \\
+  Frequency & 选择目标 transition \\
+  Strength & 改变 rotation speed \\
+  Duration & 决定作用时间 \\
+  Phase & 选择 transverse rotation axis \\
   \bottomrule
-  \end{tabularx}
-  \vspace{3mm}
-  \takeaway{Microwave frequency 对应 transition energy；pulse strength 不等于 energy-level spacing。}
-  \small
-  Readout probe 接近 resonator frequency；local oscillator 用于电子学混频；parametric amplifier pump 用于放大。并非所有 microwave signals 都用来 flip qubit。
-  \src{Krantz Sec. IV.D.1、Eqs. (92)--(94)；Blais Sec. V.A \cite{krantz,blais}。}
+ \end{tabularx}\par
+ \vspace{3mm}\textbf{驱动频率对应能级差；强度与时间决定 pulse area。}
+ \src{Resonant / two-level 近似下的控制图景；Krantz Eqs. (92)--(94) \cite{krantz}。}
 \end{frame}
 
-\begin{frame}{Dispersive readout：为什么 resonator 能区分 qubit state？}
-  \[
-    \frac{H_{\mathrm{disp}}}{\hbar}=(\omega_r+\chi\sigma_z)a^\dagger a+\frac{\omega_q}{2}\sigma_z.
-  \]
-  \begin{columns}[T]
-  \column{.49\linewidth}
-  \begin{block}{State-dependent response}
-    约定 $\sigma_z\ket0=-\ket0$，$\sigma_z\ket1=+\ket1$：
-    \[
-      \omega_{r,0}=\omega_r-\chi,\qquad \omega_{r,1}=\omega_r+\chi.
-    \]
-    Probe 产生不同的 complex response，再记录为 $z=I+iQ$。
-  \end{block}
-  \column{.47\linewidth}
-  \small
-  $\omega_r,\omega_q$ 为 resonator / qubit angular frequency；$\hbar=h/(2\pi)$；$a^\dagger a$ 是 photon number；$\chi$ 是 dispersive shift。\par
-  \textbf{IQ 不是 qubit wavefunction 的 coefficients。}\par
-  若选择 linear scalar response $y$：
-  \[
-    y=y_0+(y_1-y_0)P_1.
-  \]
-  $y_0,y_1$ 为两 state 的 reference response。$y_1>y_0$ 时 excitation 可形成 peak；反之为 dip。Magnitude / phase 不一定线性。
-  \end{columns}
-  \small Resonance 是 circuit response 的性质；transmission 中的 interference 也能形成 dip。Polarity 不直接表示 $0\to1$ 或 $1\to0$。
-  \src{Blais Eq. (107)、Fig. 19，pp. 29--31；模型需 dispersive approximation，过强 probe 可使其失效 \cite{blais}。}
+\begin{frame}{Dispersive readout 把 state 映射到不同响应}
+ \[\omega_{r,0}=\omega_r-\chi,\qquad \omega_{r,1}=\omega_r+\chi\]
+ \begin{center}
+ \begin{tikzpicture}[node distance=8mm]
+  \node[box,minimum width=28mm] (s) {$\ket0$ / $\ket1$};
+  \node[box,minimum width=44mm,right=of s] (r) {State-dependent\\resonator response};
+  \node[box,minimum width=28mm,right=of r] (z) {$z=I+iQ$};
+  \draw[flow] (s)--(r);\draw[flow] (r)--(z);
+ \end{tikzpicture}
+ \end{center}
+ \vspace{3mm}\textbf{Peak / dip 的方向取决于响应与 observable 的约定。}
+ \src{$\sigma_z\ket0=-\ket0$，采用 dispersive 近似；Blais Eq. (107)、Fig. 19 \cite{blais}。}
 \end{frame}
 
-\section{0918 calibration pipeline}
-\begin{frame}{Calibration 是带反馈的过程，不是一次通过的单向列表}
-  \centering
-  \begin{tikzpicture}[font=\small]
-    \node[box,minimum width=3.4cm] (r) at (0,2.9) {1. Resonator Spectroscopy\\定位 probe frequencies};
-    \node[box,minimum width=3.4cm] (q) at (4.6,2.9) {2. Qubit Spectroscopy\\定位 candidate $f_{10}$};
-    \node[box,minimum width=3.4cm] (ra) at (9.2,2.9) {3. Rabi calibration\\估计 $\pi,\pi/2$ pulses};
-    \node[box,minimum width=3.4cm] (ro) at (9.2,.9) {4. Readout calibration\\检查 preparation 分布};
-    \node[box,minimum width=3.4cm] (t) at (4.6,.9) {5. T1 / Ramsey\\characterization};
-    \node[box,minimum width=3.4cm] (re) at (0,.9) {6. Refine / repeat\\跟踪 drift};
-    \draw[flow] (r)--(q);\draw[flow] (q)--(ra);\draw[flow] (ra)--(ro);
-    \draw[flow] (ro)--(t);\draw[flow] (t)--(re);
-    \draw[flow,Orange,dashed] (ro.north west) to[bend left=15] (q.south east);
-    \draw[flow,Orange,dashed] (re.west) to[out=180,in=180,looseness=1.4] (r.west);
-  \end{tikzpicture}
-  \vspace{3mm}
-  \begin{itemize}
-    \item 初始 spectroscopy / Rabi 可以使用 averaged IQ，不需要最终 single-shot classifier。
-    \item Readout calibration 需要 approximate $\pi$ preparation；pulse calibration 又依赖 usable readout。
-    \item 这是通用 dependency map，不是从 0918 恢复的真实 acquisition 时间顺序。
-  \end{itemize}
-  \src{依据 pulse / measurement 机制归纳；Krantz Figs. 5、22 \cite{krantz}；0918 六类 measurement。}
+\section{校准流程与记录}
+\begin{frame}{校准通过反馈反复修正控制与读出}
+ \begin{center}
+ \begin{tikzpicture}[font=\small]
+  \node[box,minimum width=33mm] (r) at (0,2.5) {Resonator scan};
+  \node[box,minimum width=33mm] (q) at (4.4,2.5) {Qubit scan};
+  \node[box,minimum width=33mm] (ra) at (8.8,2.5) {Rabi calibration};
+  \node[box,minimum width=33mm] (ro) at (8.8,.5) {Readout calibration};
+  \node[box,minimum width=33mm] (t) at (4.4,.5) {T1 / Ramsey};
+  \node[box,minimum width=33mm] (re) at (0,.5) {Refine / repeat};
+  \draw[flow] (r)--(q);\draw[flow] (q)--(ra);\draw[flow] (ra)--(ro);
+  \draw[flow] (ro)--(t);\draw[flow] (t)--(re);
+  \draw[flow,Orange,dashed] (ro.north west) to[bend left=15] (q.south east);
+  \draw[flow,Orange,dashed] (re.west) to[out=180,in=180,looseness=1.2] (r.west);
+ \end{tikzpicture}
+ \end{center}
+ \textbf{Pulse calibration 与 usable readout 相互依赖。}
+ \src{通用 dependency map，非 0918 acquisition 时间顺序；Krantz \cite{krantz}。}
 \end{frame}
 
-\begin{frame}{0918 保存的六类 measurement：控制什么，记录什么？}
-  \small
-  \setlength{\parskip}{.8mm}
-  GMM = Gaussian Mixture Model，用于 readout distributions 建模；CSV = Comma-Separated Values，numeric record 的文件格式。\par
-  \begin{tabularx}{\linewidth}{@{}p{3.6cm}p{2.7cm}p{3.2cm}X@{}}
+\begin{frame}{Frequency 与 amplitude scans 定位控制参数}
+ \begin{tabularx}{\linewidth}{@{}p{43mm}p{38mm}X@{}}
   \toprule
-  Family（cases） & Sweep / preparation & Recorded response & Target \\
+  Measurement & 扫描量 & 目标 \\
   \midrule
-  Resonator Spectroscopy (6) & Probe frequency & Phase, magnitude, $I,Q$ & Resonator frequencies \\
-  Qubit Spectroscopy (18) & Drive frequency & Phase, magnitude, $I,Q$ & Candidate $f_{10}$ \\
-  Rabi Oscillation (16) & Drive amplitude & Phase, magnitude, $I,Q$ & Pulse rotation setting \\
-  GMM Readout Clusters (10) & Without / with $\pi$ & 两组 single-shot $I,Q$ & Assignment contrast \\
-  T1 Visibility (6) & Delay & 两组 recorded $P_0,P_1$ & Relaxation time \\
-  T2 Ramsey (8) & Delay & Recorded $P_0,P_1$ & Coherence 与 fringe frequency \\
+  Resonator scan (6) & Probe frequency & Resonator response \\
+  Qubit scan (18) & Drive frequency & Candidate $f_{10}$ \\
+  Rabi scan (16) & Drive amplitude & Pulse rotation setting \\
   \bottomrule
-  \end{tabularx}
-  \vspace{1mm}
-  \small 共 64 cases、57,993 numeric rows；并非每一行都是一个 shot。\par
-  文件名 ``0918'' 不足以确定 acquisition date。T1 的 preparation channel 顺序来自推断；GMM 顺序由 configuration labels 支持。
-  \src{0918 raw CSV、GMM configuration 与 verified recorded review；完整列映射见 evidence.json / README。}
+ \end{tabularx}\par
+ \vspace{5mm}\textbf{这三类记录保留 phase、magnitude 与 IQ。}
+ \src{0918 numeric CSV；完整列映射、单位与处理约定见配套笔记。}
 \end{frame}
 
-\begin{frame}{Rabi calibration：用 pulse area 控制 rotation angle}
-  \begin{columns}[T]
-  \column{.49\linewidth}
-  \centering
-  \begin{tikzpicture}[x=.7cm,y=.7cm]
-    \draw[flow] (0,0)--(8,0) node[right] {$t$};
-    \draw[flow] (0,0)--(0,3.2) node[above] {$\Omega(t)$};
-    \draw[Orange,very thick] (1,0)--(1,2)--(6,2)--(6,0);
-    \fill[Orange,opacity=.13] (1,0) rectangle (6,2);
-    \draw[<->] (1,-.45)--(6,-.45) node[midway,below] {$T$};
-    \node[align=center] at (3.5,1) {Pulse area\\$\theta=\int\Omega(t)\,dt$};
-  \end{tikzpicture}\par
-  \footnotesize Rectangular envelope 为解释示意；0918 的真实 envelope 未恢复。
-  \column{.47\linewidth}
-  \[
-    P_1=\sin^2(\theta/2),\qquad \theta=\Omega T
-  \]
-  \small $\Omega$ 为 angular Rabi frequency。适用条件：initial $\ket0$、resonant drive、固定 rotation axis、理想 two-level dynamics。\par
-  \textbf{Amplitude Rabi}：固定 $T$，改变 strength。\par
-  \textbf{Time Rabi}：固定 strength，改变 $T$。\par
-  $\pi$ pulse 是 $180^\circ$ state rotation；$\pi/2$ pulse 可产生等 population superposition。
-  \end{columns}
-  \vspace{2mm}
-  \takeaway{0918 扫的是 drive-amplitude setting；readout magnitude 不是直接的 $P_1$。}
-  \small 稳定 two-state readout 下，averaged IQ 可近似沿两端点连线；取 magnitude / phase 后一般不再是简单 sinusoid。
-  \src{Krantz Eqs. (92)--(94)，p. 29 \cite{krantz}；0918 Rabi CSV。}
+\begin{frame}{Delay 与 preparation records 检查状态保持和区分}
+ \begin{tabularx}{\linewidth}{@{}p{43mm}p{38mm}X@{}}
+  \toprule
+  Measurement & 控制 / 准备 & 记录 \\
+  \midrule
+  T1 Visibility (6) & Delay & 两路 $P_0,P_1$ \\
+  T2 Ramsey (8) & Delay & $P_0,P_1$ \\
+  GMM readout (10) & Without / with $\pi$ & 两组 single-shot IQ \\
+  \bottomrule
+ \end{tabularx}\par
+ \vspace{4mm}\textbf{六类共 64 cases；numeric rows 的含义随 family 改变。}
+ \src{GMM = Gaussian Mixture Model。T1 preparation 顺序为推断；来源见配套笔记。}
 \end{frame}
 
-\begin{frame}{T1 与 Ramsey：先理解 sequence，再选择 fit model}
-  \begin{columns}[T]
-  \column{.49\linewidth}
-  \begin{block}{T1：excitation 的衰减}
-    $\ket0\ \xrightarrow{\pi}\ \ket1\ \xrightarrow{\text{delay }t}\ \text{readout}$
-    \[
-      P_1(t)=B+A e^{-t/T_1}.
-    \]
-    $A$ 为 initial contrast，$B$ 为 long-delay baseline。\par
-    $t=T_1$ 时，\textbf{相对 baseline 的 excess} 变为原来的 $1/e$。
-  \end{block}
-  \column{.49\linewidth}
-  \begin{block}{Ramsey：relative phase 的保持}
-    $\ket0\ \xrightarrow{\pi/2}\ \text{superposition}\ \xrightarrow{t}\ \pi/2\ \to\ \text{readout}$
-    \[
-      P_1(t)=B+A e^{-t/T_2^*}\cos(2\pi f_Rt+\phi).
-    \]
-    第二个 pulse 将 relative phase 转成 population contrast。\par
-    $f_R$ 是 fringe frequency，不是 carrier frequency。
-  \end{block}
-  \end{columns}
-  \small
-  等 population superposition：$(\ket0+e^{i\phi}\ket1)/\sqrt2$；amplitudes 的大小是 $1/\sqrt2$，probabilities 是 $1/2$。\par
-  Stationary exponential relaxation / dephasing 下，$1/T_2=1/(2T_1)+1/T_\phi$；不能将无关 runs 的 $T_1,T_2^*$ 任意代入比较。
-  \src{Krantz Fig. 5、Sec. III.B.2--3，pp. 13--16 \cite{krantz}。}
+\begin{frame}{Rabi calibration 用 pulse area 控制旋转角}
+ \begin{columns}[c,onlytextwidth]
+ \column{.47\textwidth}\centering
+ \begin{tikzpicture}[x=6mm,y=6mm]
+  \draw[flow] (0,0)--(8,0) node[right] {$t$};
+  \draw[flow] (0,0)--(0,3.2) node[above] {$\Omega(t)$};
+  \draw[Orange,very thick] (1,0)--(1,2)--(6,2)--(6,0);
+  \fill[Orange,opacity=.13] (1,0) rectangle (6,2);
+  \node at (3.5,1) {$\theta=\int\Omega(t)\,dt$};
+ \end{tikzpicture}
+ \column{.49\textwidth}
+ \[P_1=\sin^2(\theta/2)\]
+ 固定 duration，扫描 amplitude：\par
+ \textbf{寻找可约束 $\pi$ pulse 的周期。}
+ \end{columns}
+ \vspace{3mm}\textbf{0918 扫 drive-amplitude setting；magnitude 不直接等于 $P_1$。}
+ \src{Initial $\ket0$、resonant、固定轴 two-level 近似；示意 envelope，非恢复的实际 pulse \cite{krantz}。}
 \end{frame}
 
-\begin{frame}{Readout calibration：prepare state 与 assign state 不同}
-  \begin{columns}[T]
-  \column{.49\linewidth}
-  \begin{block}{Preparation}
-    Without $\pi$：名义上 prepare $\ket0$。\par
-    With $\pi$：名义上 prepare $\ket1$。\par
-    这些 labels 记录的是\textbf{执行的操作}，不是每个 shot 的真实 state 保证。
-  \end{block}
-  \column{.49\linewidth}
-  \begin{block}{Assignment}
-    根据测得的 $(I,Q)$，classifier 输出 0 或 1。\par
-    GMM clustering 本身不能给 cluster 赋予物理 state label；需要 preparation reference。
-  \end{block}
-  \end{columns}
-  \[
-    F_0=P(\mathrm{assign}\ 0\mid\mathrm{nominal\ prepare}\ 0),\quad
-    F_1=P(\mathrm{assign}\ 1\mid\mathrm{nominal\ prepare}\ 1),\quad
-    F_{\mathrm{bal}}=\frac{F_0+F_1}{2}.
-  \]
-  \small
-  本报告使用现有 audit 的 \textbf{held-out linear classifier}：在一半 records 上训练，在另一半评估，再交换。\par
-  该 accuracy 包含 preparation / relaxation 影响；不是原始 GMM estimator 的复现，也不是 isolated measurement error。
-  \src{Krantz Sec. V.C；Blais Sec. V.C.2 \cite{krantz,blais}；audit\_raw\_physics.py 的 readout()。}
+\begin{frame}{T1 测衰减；Ramsey 测相位保持}
+ \begin{columns}[T,onlytextwidth]
+ \column{.47\textwidth}
+ \textbf{T1}\par
+ $\pi\ \to\ \mathrm{delay}\ t\ \to\ \mathrm{readout}$
+ \[P_1(t)=B+A e^{-t/T_1}\]
+ 相对 baseline 的 excess\par
+ 在 $T_1$ 后剩下 $1/e$。
+ \column{.50\textwidth}
+ \textbf{Ramsey}\par
+ $\pi/2\ \to\ t\ \to\ \pi/2\ \to\ \mathrm{readout}$
+ \[P_1(t)=B+A e^{-t/T_2^*}\cos(2\pi f_Rt+\phi)\]
+ 第二个 pulse 将 phase\par
+ 转成 population contrast。
+ \end{columns}
+ \src{Stationary exponential 模型；$f_R$ 为 fringe frequency。Krantz Fig. 5 \cite{krantz}。}
+\end{frame}
+
+\begin{frame}{Preparation label 与真实 state、assignment 不同}
+ \begin{center}
+ \begin{tikzpicture}[node distance=7mm]
+  \node[box,minimum width=37mm] (p) {Without / with $\pi$\\Nominal preparation};
+  \node[box,minimum width=25mm,right=of p] (iq) {Measured IQ};
+  \node[box,minimum width=37mm,right=of iq] (a) {Classifier\\Assignment 0 / 1};
+  \draw[flow] (p)--(iq);\draw[flow] (iq)--(a);
+ \end{tikzpicture}
+ \end{center}
+ \vspace{5mm}\textbf{本报告的 accuracy 同时包含 preparation / relaxation 影响。}
+ \src{Held-out linear classifier；不是原始 GMM fidelity estimator 的复现。0918 recorded audit。}
 \end{frame}
 
 \section{从数据判断可信度}
-\begin{frame}{如何阅读对照页：review flag 不等于实验测错}
-  \begin{columns}[T]
-  \column{.49\linewidth}
-  \textbf{三种证据强度}\par
-  \begin{enumerate}
-    \item \textbf{Observation}：flat trace、overlap、edge、scatter。
-    \item \textbf{Model diagnostic}：fit score、resolution、coverage、residual。
-    \item \textbf{Possible cause}：需要进一步实验区分，不能直接当作事实。
-  \end{enumerate}
-  \small Reference 表示相对清晰；不意味着已完成 calibration certification。不同 case 通常不是 controlled pair。
-  \column{.49\linewidth}
-  \textbf{本报告使用的 diagnostic}\par
-  {\small $R^2$：coefficient of determination。}\par
-  \[
-    R^2=1-\frac{\sum_i(y_i-\hat y_i)^2}{\sum_i(y_i-\bar y)^2}.
-  \]
-  \small $y_i$ 为观察，$\hat y_i$ 为 model prediction，$\bar y$ 为 mean。\par
-  Residual $r_i=y_i-\hat y_i$；相邻 correlation 反映 model 未解释的有序结构。\par
-  FWHM = Full Width at Half Maximum。\par
-  a.u. = arbitrary units；图中无 absolute gain calibration。
-  \end{columns}
-  \vspace{1mm}
-  \takeaway{46 个 flagged cases + 1 个 resonator review case = 47 个案例；全部附图并给出验证方向。}
-  \src{Hash-verified recorded review；本地 $R^2<0.8$ 等规则仅用于筛查，不是 universal threshold 或 significance test。}
+\begin{frame}{先观察，再检查模型，最后提出原因}
+ \begin{enumerate}
+  \item \textbf{Observation}：曲线、边界、采样、分布重叠。
+  \item \textbf{Diagnostic}：$R^2$、coverage、resolution、residual。
+  \item \textbf{Possible cause}：通过重复与干预区分解释。
+ \end{enumerate}
+ \vspace{3mm}\textbf{Reference 是相对清晰的对照；review flag 是复查起点。}
+ \src{47 个案例 = 46 个 recorded flags + Resonator/006；不同 cases 通常不是 controlled pairs。}
 \end{frame}
 
 \input{generated/main-cases.tex}
 
-\begin{frame}{判断一个 calibration number 前，依次检查什么？}
-  \small
-  \begin{tabularx}{\linewidth}{@{}p{2.5cm}Xp{4.5cm}@{}}
-  \toprule
-  层次 & 要检查的问题 & 0918 例子 \\
-  \midrule
-  Observable & 记录的是 IQ、magnitude 还是 population？ & Rabi magnitude 不直接等于 $P_1$ \\
-  Coverage & 两侧 feature / 足够 cycle / 足够 decay 是否出现？ & Spectroscopy/008；Rabi/007；T1/004 \\
-  Resolution & Frequency / delay / amplitude step 是否足够？ & Spectroscopy/005 \\
-  Model adequacy & Residual 是否有结构？模型是否过于简单？ & Ramsey/008；多个 Rabi cases \\
-  Preparation / readout & Reference groups 是否能可靠区分？ & GMM/008 \\
-  Reproducibility & 重复或改变 sweep direction 后是否一致？ & Resonator/006 的 first-point spike \\
-  \bottomrule
-  \end{tabularx}
-  \vspace{1mm}
-  \takeaway{Fit 返回数值只是开始；parameter 是否被数据约束、能否用于目标操作，需要单独判断。}
-  \src{本报告对 0918 recorded evidence 的解释归纳；possible causes 尚未经 intervention 验证。}
+\begin{frame}{校准参数需要六类检查共同支持}
+ \begin{columns}[T,onlytextwidth]
+ \column{.47\textwidth}
+ \textbf{Observable}\par 记录的量与模型是否一致？\par\vspace{2mm}
+ \textbf{Coverage}\par 看到完整 feature / cycle / decay？\par\vspace{2mm}
+ \textbf{Resolution}\par 采样间隔能分辨目标结构？
+ \column{.47\textwidth}
+ \textbf{Model adequacy}\par Residual 是否仍有结构？\par\vspace{2mm}
+ \textbf{Preparation / readout}\par 参考分布是否能区分？\par\vspace{2mm}
+ \textbf{Reproducibility}\par 重复与改变 sweep 后是否一致？
+ \end{columns}
+ \src{对 0918 recorded evidence 的归纳；具体验证方向见配套笔记。}
 \end{frame}
 
 \section{References 与来源}
-\begin{frame}{References：hardware、control、readout 的理论依据}
-  \begin{thebibliography}{B}
-  \bibitem[K]{krantz} P. Krantz et al.\par
-  \emph{A Quantum Engineer's Guide to Superconducting Qubits}.\par
-  Applied Physics Reviews \textbf{6}, 021318 (2019).\par
-  \href{https://doi.org/10.1063/1.5089550}{doi:10.1063/1.5089550}\par
-  \footnotesize Local source: arXiv:1904.06560v5（2021 revision）。\par
-  Fig. 1：Transmon；Fig. 5：T1 / Ramsey；Eqs. (92)--(94)：rotation；Fig. 22：IQ chain。
-  \bibitem[B]{blais} A. Blais, A. L. Grimsmo, S. M. Girvin, and A. Wallraff.\par
-  \emph{Circuit Quantum Electrodynamics}.\par
-  Reviews of Modern Physics \textbf{93}, 025005 (2021).\par
-  \href{https://doi.org/10.1103/RevModPhys.93.025005}{doi:10.1103/RevModPhys.93.025005}\par
-  \footnotesize Local source: arXiv:2005.12667v1（2020）。\par
-  Figs. 14、16：measurement chain；Eq. (107)、Fig. 19：dispersive response。
-  \end{thebibliography}
+\begin{frame}{理论依据：hardware、control 与 readout}
+ \begin{thebibliography}{B}
+ \bibitem[K]{krantz} P. Krantz et al.\par
+ \emph{A Quantum Engineer's Guide to Superconducting Qubits}.\par
+ Applied Physics Reviews 6, 021318 (2019).\par
+ {\small\href{https://doi.org/10.1063/1.5089550}{doi:10.1063/1.5089550}}
+ \bibitem[B]{blais} A. Blais et al.\par
+ \emph{Circuit Quantum Electrodynamics}.\par
+ Reviews of Modern Physics 93, 025005 (2021).\par
+ {\small\href{https://doi.org/10.1103/RevModPhys.93.025005}{doi:10.1103/RevModPhys.93.025005}}
+ \end{thebibliography}
 \end{frame}
 
-\begin{frame}{Data provenance 与解释边界}
-  \begin{itemize}
-    \item \textbf{Measurements}：0918 raw CSV，共 64 cases。对照图均从 numeric arrays 重绘；没有采集新实验。
-    \item \textbf{Diagnostics}：复用已完成的 recorded audit。制作时核对全部输入、报告和 audit script 的 SHA-256（Secure Hash Algorithm 256-bit）checksums。
-    \item \textbf{Estimator}：T1 指标 fit contrast；Rabi 指标 fit projected IQ；spectroscopy 的 $R^2$ 与 FWHM 来自 single-Lorentzian IQ diagnostic。
-    \item \textbf{Boundaries}：未确认 shot counts / noise covariance；未复现原 GMM estimator；resonator 未完成完整 circuit transfer-function fit。
-    \item \textbf{Possible causes} 是待验证解释；raw constraints 通过，不保证 acquisition 或 causal interpretation 正确。
-  \end{itemize}
-  \vspace{2mm}
-  \small
-  随附 \texttt{evidence.json} 保存 source / hash / metrics / policy；\texttt{coverage.md} 列出 47 个 case；\texttt{data/} 包含可重绘的 numeric snapshots。\par
-  Notes 与 reference PDFs 位于本 slides 的上级 discussion；source annotations 记录 consulted version 与 passages。
+\begin{frame}{记录、diagnostic 与因果解释分开判断}
+ \begin{itemize}
+  \item \textbf{Measurements}：复用 64 份 numeric CSV。
+  \item \textbf{Diagnostics}：复用 recorded audit；未重新采集或执行 nonlinear audit。
+  \item \textbf{Interpretation}：可能原因仍需验证。
+ \end{itemize}
+ \vspace{4mm}\textbf{源文件与 hash 支持复现；模型与 acquisition 仍需单独评估。}
+ \src{配套：notes.md、case-notes.md、evidence.json、coverage.md 与 data/。}
 \end{frame}
 
-\ifdefined\MainOnly
-\else
+\ifdefined\MainOnly\else
 \appendix
 \section{Appendix：完整案例}
-\begin{frame}[label=case-index]{完整案例导航：47 个 review cases}
-  \footnotesize\setlength{\parskip}{.6mm}
-  以下 case buttons 可跳转；带 * 的 8 个案例已在正文展示，其余 39 个位于附录。\par
-  \input{generated/case-index.tex}
-  \vfill
-  \footnotesize Case ID 在每个 family 内独立编号。Resonator/006 是人工选出的 descriptive review case；其余 46 个来自现有 screen flags。
+\input{generated/case-index.tex}
+\begin{frame}{附录对照图保留各 family 的解释条件}
+ \begin{itemize}
+  \item Ramsey reference 也有 flag；它是相对清晰的对照。
+  \item Spectroscopy 图画 magnitude；指标来自 IQ diagnostic。
+  \item Rabi projection 的 sign 与 scale 独立选择。
+  \item 同 qubit / family 不保证 settings 匹配；flags 不构成 failure rate。
+ \end{itemize}
+ \src{每个 case 的观察、假设与验证方向：case-notes.md。}
 \end{frame}
-
-\begin{frame}{附录阅读约定：Reference 与 Needs review}
-  \begin{itemize}
-    \item 每页只讨论一个 experiment family 的一个 review case；左图使用同 family 的较清晰 reference。
-    \item Ramsey 全部 cases 均有 flag，因此使用相对清晰的 002 或 006，不能称为无缺陷的 normal standard。
-    \item GMM/002--005 使用同为 q10 的 009；GMM/008 使用同为 q12 的 007。相同 qubit 仍不代表所有 settings 相同。
-    \item 对 spectroscopy：图显示 magnitude；旁列指标来自 IQ-projection diagnostic，不能解释成同一个 observable 的 fit score。
-    \item Rabi projection 的正负方向与 scale 是数学选择；不能把 standardized ordinate 直接当作 population。
-    \item Threshold、fit range 与 model assumptions 影响 flags；不把 flag 数量解释成 failure rate。
-  \end{itemize}
-  \vspace{2mm}
-  \hyperlink{case-index}{\beamerbutton{返回完整案例导航}}
-\end{frame}
-
 \input{generated/appendix-cases.tex}
 \fi
 \end{document}
