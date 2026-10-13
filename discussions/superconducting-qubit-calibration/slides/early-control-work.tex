@@ -1,0 +1,229 @@
+\documentclass[aspectratio=169,12pt,fontset=none]{ctexbeamer}
+\makeatletter
+\def\input@path{{../../../skills/write-slides/assets/company-beamer/}}
+\makeatother
+\newcommand{\arclightfontpath}{../../../skills/write-slides/assets/company-beamer/fonts/}
+\input{arclight-fonts.tex}
+\usepackage{amsmath,booktabs,tabularx,graphicx,tikz,pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usetheme{Arclight}
+\arclightsetlogo{../../../skills/write-slides/assets/company-beamer/brand/logo.pdf}
+\arclightsetcompany{弧光量子}
+\definecolor{Teal}{HTML}{276087}
+\newcommand{\src}[1]{\vfill{\fontsize{9}{11}\selectfont\color{ArclightMuted}#1\par}}
+\newcommand{\code}[1]{{\fontsize{10}{12}\selectfont\texttt{#1}}}
+\renewcommand{\arraystretch}{1.35}
+\setlength{\tabcolsep}{5pt}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\tikzset{box/.style={draw=ArclightRule,line width=.8pt,fill=ArclightPale,
+ align=center,minimum height=13mm,font=\small},
+ flow/.style={-{Latex[length=2.4mm]},line width=1pt,draw=ArclightInk}}
+\title[量子控制软件]{量子控制软件的早期工作}
+\subtitle{波形预失真编译与离子输运控制}
+\author{报告人：待填写}
+\institute{弧光量子}
+\date{报告日期：待填写}
+
+\begin{document}
+\begin{frame}[plain]\titlepage\end{frame}
+\arclightagenda{报告目录}
+
+\section[工作概览]{工作范围与共同问题}
+\begin{frame}{两类控制软件工作}
+ \begin{tabularx}{\linewidth}{@{}p{31mm}YY@{}}
+  \toprule
+  项目 & 控制目标 & 我的工作 \\
+  \midrule
+  QuantaCS & 补偿信号传输失真 & 将波形预失真集成到编译流程 \\
+  sion /\newline\mbox{sion-exper} & 用电极电压控制离子输运 & 计算电压序列，并编写 \mbox{ARTIQ} 输出控制代码 \\
+  \bottomrule
+ \end{tabularx}\par
+ \vspace{5mm}
+ \textbf{共同任务：把物理控制要求转成可执行的信号。}
+ \src{QuantaCS：个人 commits 与代码；离子输运：本人确认的软件工作范围。}
+\end{frame}
+
+\section[波形预失真]{QuantaCS：波形预失真编译}
+\begin{frame}{传输链会改变目标波形}
+ \begin{figure}
+ \centering
+ \begin{tikzpicture}[node distance=8mm]
+  \node[box,minimum width=31mm] (a) {波形发生器\\Input $u(t)$};
+  \node[box,minimum width=42mm,right=of a] (b) {传输链响应\\$H(\omega)$};
+  \node[box,minimum width=31mm,right=of b] (c) {芯片端波形\\Output $y(t)$};
+  \draw[flow] (a)--(b);\draw[flow] (b)--(c);
+ \end{tikzpicture}
+ \end{figure}
+ \[Y(\omega)=H(\omega)U(\omega),\qquad
+ U_{\mathrm{pre}}(\omega)=\frac{Y_{\mathrm{target}}(\omega)}{H(\omega)}\]
+ \textbf{同事提供响应参数；我实现编译阶段的波形补偿。}
+ \src{线性时不变模型下的预失真原理；QuantaCS StepResponseSystem。参数测量与拟合由他人完成。}
+\end{frame}
+
+\begin{frame}{预失真先改变输入，再补偿输出}
+ \begin{figure}
+ \centering
+ \begin{tikzpicture}
+  \begin{axis}[width=112mm,height=34mm,xmin=0,xmax=4,ymin=.65,ymax=1.65,
+    xlabel={$t/\tau$},ylabel={Normalized amplitude},
+    axis lines=left,xtick={0,1,2,3,4},ytick={.75,1,1.25},
+    tick label style={font=\footnotesize},label style={font=\footnotesize},
+    legend columns=3,
+    legend style={font=\fontsize{8}{10}\selectfont,draw=none,at={(.5,.98)},anchor=north},
+    samples=120,domain=0:4]
+   \addplot[ArclightInk,thick,dashed] {1};
+   \addlegendentry{Target output}
+   \addplot[Teal,very thick] {1-.25*exp(-x)};
+   \addlegendentry{Uncorrected output}
+   \addplot[ArclightRed,very thick] {1+exp(-x/.75)/3};
+   \addlegendentry{Predistorted input}
+  \end{axis}
+ \end{tikzpicture}
+ \end{figure}
+ \textbf{补偿波形可以偏离目标形状，以抵消传输链的响应。}
+ \src{单指数阶跃模型示意，$p=-0.25$；精确模型下 corrected output 与 target 重合。非实测或硬件验证。}
+\end{frame}
+
+\begin{frame}{补偿作用于每个端口的连续波形}
+ \begin{figure}
+ \centering
+ \begin{tikzpicture}[font=\small]
+  \node[box,minimum width=36mm] (a) at (0,2.5) {Pulse / wait\\instructions};
+  \node[box,minimum width=36mm] (b) at (4.4,2.5) {按端口组合\\连续采样波形};
+  \node[box,minimum width=36mm] (c) at (8.8,2.5) {Waveform\\predistortion};
+  \node[box,minimum width=36mm] (d) at (8.8,.35) {生成 playback / wait\\instructions};
+  \node[align=center,text=Teal] (p) at (4.4,.35) {端口响应参数\\$p_i,\tau_i$, sample rate};
+  \draw[flow] (a)--(b);\draw[flow] (b)--(c);\draw[flow] (c)--(d);
+  \draw[flow,Teal] (p.east)--(c.south west);
+ \end{tikzpicture}
+ \end{figure}
+ \textbf{组合、补偿与指令生成需要在同一条编译路径中衔接。}
+ \src{port\_wave\_composer.py；按 function / port 处理。图省略配置校验、可选 AWG 参数与不需补偿的分支。}
+\end{frame}
+
+\begin{frame}{我的贡献是补偿功能与编译集成}
+ \begin{tabularx}{\linewidth}{@{}p{32mm}Y@{}}
+  \toprule
+  软件层 & 实现内容 \\
+  \midrule
+  波形计算 & Transfer-function inversion 与 SampleWave 接口 \\
+  参数传递 & Qubit / coupler 的端口参数映射与校验 \\
+  编译集成 & 波形组合、补偿调用、playback / wait 指令生成 \\
+  边界与测试 & Guard samples、尾部处理、采样率与多端口配置测试 \\
+  \bottomrule
+ \end{tabularx}\par
+ \vspace{2mm}
+ \textbf{交付对象是控制软件；响应参数由同事提供。}
+ \src{个人 commits：14cfc4c3、30d8bb11、dae71df4、8de11547、9e499528。代码证据不等于硬件改善测量。}
+\end{frame}
+
+\section[离子输运]{sion / sion-exper：离子输运软件}
+\begin{frame}{离子输运需要随时间变化的电极电压}
+ \begin{figure}
+ \centering
+ \begin{tikzpicture}[node distance=7mm]
+  \node[box,minimum width=32mm] (a) {目标离子运动\\Transport target};
+  \node[box,minimum width=39mm,right=of a] (b) {计算电极电压序列\\$V_1(t),\ldots,V_m(t)$};
+  \node[box,minimum width=32mm,right=of b] (c) {ARTIQ 输出控制\\Voltage / timing};
+  \draw[flow] (a)--(b);\draw[flow] (b)--(c);
+ \end{tikzpicture}
+ \end{figure}
+ \vspace{5mm}
+ \textbf{我的工作覆盖电压序列计算与 ARTIQ 执行两部分。}
+ \src{项目：sion / sion-exper；本人确认的工作范围，图为功能关系示意。}
+\end{frame}
+
+\begin{frame}{电压计算与输出代码的衔接}
+ \begin{columns}[T,onlytextwidth]
+  \column{.47\textwidth}
+  \textbf{电压序列计算}\par
+  根据目标输运过程\par
+  计算各电极的控制序列。
+  \vspace{5mm}\par
+  输出：每个电极随时间变化的电压。
+  \column{.47\textwidth}
+  \textbf{ARTIQ 控制代码}\par
+  将电压序列组织为\par
+  控制硬件的输出过程。
+  \vspace{5mm}\par
+  输出：电压设置与时间安排。
+ \end{columns}
+ \vspace{5mm}
+ \textbf{职责范围：电压序列计算与 ARTIQ 控制软件开发。}
+ \src{本人确认的职责；电压序列与执行代码共同连接输运目标和硬件输出。}
+\end{frame}
+
+\section[连接数据报告]{控制实现与校准数据解读}
+\begin{frame}{控制侧与测量侧的两类软件转换}
+ \begin{tabularx}{\linewidth}{@{}p{25mm}YY@{}}
+  \toprule
+  方向 & 转换过程 & 需要明确的内容 \\
+  \midrule
+  控制侧 & 物理目标 $\to$ 波形 / 电压 $\to$ 输出指令 & 响应模型、参数、端口与时序 \\
+  测量侧 & IQ 数据 $\to$ 状态判别 $\to$ 报告指标 & 数据标签、处理步骤与指标定义 \\
+  \bottomrule
+ \end{tabularx}\par
+ \vspace{5mm}
+ \textbf{信号如何生成，指标如何计算，都需要可追溯的软件过程。}
+ \src{报告主线的概念连接；三个项目不是同一次实验，也未建立 QuantaCS 与该校准数据的因果对应。}
+\end{frame}
+
+\begin{frame}{下一部分：校准指标的来源与含义}
+ \begin{figure}
+ \centering
+ \begin{tikzpicture}[node distance=8mm]
+  \node[box,minimum width=32mm] (a) {Recorded IQ};
+  \node[box,minimum width=39mm,right=of a] (b) {Processing /\\state assignment};
+  \node[box,minimum width=32mm,right=of b] (c) {$F_0,F_1,F$\\Error labels};
+  \draw[flow] (a)--(b);\draw[flow] (b)--(c);
+ \end{tikzpicture}
+ \end{figure}
+ \vspace{4mm}
+ \textbf{核心问题：每个指标由什么数据、处理与定义得到？}\par
+ \vspace{2mm}
+ 已确认部分显示值的算术关系；原始 estimator 的语义仍待恢复。
+ \src{接续现有《从硬件到校准判断》报告；具体问题见配套笔记链接的 readout provenance note。}
+\end{frame}
+
+\appendix
+\section[附录]{实现与证据}
+\begin{frame}{QuantaCS 实现入口与个人提交}
+ \begin{tabularx}{\linewidth}{@{}p{32mm}Yp{24mm}@{}}
+  \toprule
+  模块 & 实现入口 & Commit \\
+  \midrule
+  波形补偿 & \code{calibrate\_sample\_wave} & \code{14cfc4c3} \\
+  端口参数 & \code{get\_qubit\_predistortion\_dict}\newline
+                \code{get\_edge\_predistortion\_dict} & \code{30d8bb11} \\
+  波形组合 & \code{compose\_qi\_program\_to\_waves} & \code{dae71df4} \\
+  补偿指令集成 & \code{\_compose\_function\_with\_port\_blocks} & \code{8de11547} \\
+  可选 AWG 模型 & \code{H\_awg\_on\_axis} & \code{9e499528} \\
+  \bottomrule
+ \end{tabularx}
+ \src{QuantaCS 本地 history，author 为 gcc-bug；路径、完整提交与检查范围见配套笔记。}
+\end{frame}
+
+\begin{frame}{当前实现中的传输函数}
+ \[H_{\mathrm{cryo}}(j\omega)
+   =1+j\omega\sum_i\frac{p_i}{j\omega+1/\tau_i}\]
+ \[H_{\mathrm{AWG}}(j\omega)
+   =\frac{\omega_n^2}{(j\omega)^2+2\zeta\omega_nj\omega+\omega_n^2},
+   \qquad \omega_n=2\pi f_n\]
+ \[U_{\mathrm{pre}}=\operatorname{FFT}(y_{\mathrm{target}})/H_{\mathrm{tot}}\]
+ \textbf{同时提供 $f_n$ 与 $\zeta$ 时，才启用可选 AWG 响应。}
+ \src{step\_response.py 当前实现；$H_{\mathrm{tot}}=H_{\mathrm{cryo}}H_{\mathrm{AWG}}$。FFT 有限窗口与硬件约束见配套笔记。}
+\end{frame}
+
+\begin{frame}{离子输运软件的后续细化}
+ \begin{itemize}
+  \item 电压序列使用的物理模型与计算方法
+  \item 我修改或实现的模块及代表提交
+  \item ARTIQ 到电压输出硬件的具体接口
+  \item 软件验证案例与适用条件
+ \end{itemize}
+ \vspace{5mm}
+ \textbf{已确认：电压序列计算与 ARTIQ 控制均属于我的工作。}
+ \src{本页供讨论与补充；当前不据此声称新求解算法或物理实验结果。}
+\end{frame}
+\end{document}

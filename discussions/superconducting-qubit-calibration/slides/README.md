@@ -11,6 +11,14 @@
 
 ## 组织与讲述
 
+### 配套早期工作报告 — 2026-10-13
+
+另有 [量子控制软件的早期工作 PDF](early-control-work-zh.pdf)（正文 11 页、附录 3 页），使用同一 company Beamer theme、字体与 native dot navigation。介绍 QuantaCS 的波形预失真编译集成，以及 sion / sion-exper 的电极电压序列计算和 ARTIQ 输出控制；最后接续本目录的校准数据报告。
+
+[可编辑源码](early-control-work.tex) · [配套解释与职责依据](early-control-work-notes.md)。运行 `bash build-early-control-work.sh` 单独编译，不更新现有校准 PDF。封面的报告人和实际报告日期待填写；离子项目的算法与接口细节尚待代码核对，当前只介绍本人确认的软件职责。示意阶跃图为模型说明，不是实验性能结果。
+
+### 校准报告
+
 正文第 1 页为封面，第 2 页为目录。第 3–8 页介绍硬件与信号；第 9–14 页说明校准流程、六类 records 与模型；第 15–24 页区分 observation / diagnostic / cause 并展示八个代表案例与判断方法；第 25–26 页为 references 和 provenance。页眉采用 Berlin 同款原生 `miniframes` 导航，显示章节与 frames 的圆点，实心圆点表示当前 frame。Overlays 共用一个圆点；圆点不表示剩余讲述时间。页脚保留公司、短标题与页码。
 
 完整版本第 27–28 页为可点击案例导航，第 29 页说明附录约定，第 30–68 页覆盖其余 39 个案例。正文可按约 30–40 分钟准备；这只是讲述建议，不是实测报告时长。
