@@ -81,3 +81,9 @@ hardware/workflow visuals in the deck source use `figure`, including those
 inside columns. Existing reader title, date, and hardware-section edits are
 preserved. Companion links and the reusable slide-writing skill follow the
 single-PDF preference. No scientific evidence or case interpretation changed.
+
+## Future calibration-agent proposal — 2026-10-13
+
+The reader clarified that the 0918 analysis motivates a future project using LLMs to control and automatically calibrate physical devices. The long-term vision is cooperation among agents using models of different costs and capabilities to balance price and effectiveness, with a software-engineering perspective. The current request is proposal development, not implementation.
+
+[Research proposal: adaptive multi-agent software for physical-device calibration](proposal.md) records the reader-confirmed direction separately from Codex's proposed formulation, research stages, software contracts and hypotheses. It connects the stored cases to evidence-aware decisions and annotates selected prior work on laboratory agents, heterogeneous models, routing and calibration software. This targeted comparison does not establish novelty or demonstrate improved calibration outcomes.
