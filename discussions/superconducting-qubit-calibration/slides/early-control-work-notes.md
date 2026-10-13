@@ -117,7 +117,7 @@ Consulted on 2026-10-13；local checkout `/Users/coldcat/Coldcat/Go/code/QuantaC
 
 ## Build
 
-在本目录执行 `bash build-early-control-work.sh`。使用与现有 deck 相同的 repository-relative theme、logo 与 bundled fonts。输出一份完整 `early-control-work-zh.pdf`，正文与附录放在一起；中间文件在 ignored `build/early-control-work/`。不重编译或更改现有校准报告。
+在本目录执行 `bash compile.sh`，同时编译本报告与现有校准报告。使用相同的 repository-relative theme、logo 与 bundled fonts。分别输出完整 `early-control-work-zh.pdf` 与 `0918-calibration-zh.pdf`，各自包含正文与附录；早期工作报告的中间文件在 ignored `build/early-control-work/`。
 
 ### Delivery checks — 2026-10-13
 

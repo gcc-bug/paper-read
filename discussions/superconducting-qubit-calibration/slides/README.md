@@ -15,7 +15,7 @@
 
 另有 [量子控制软件的早期工作 PDF](early-control-work-zh.pdf)（正文 11 页、附录 3 页），使用同一 company Beamer theme、字体与 native dot navigation。介绍 QuantaCS 的波形预失真编译集成，以及 sion / sion-exper 的电极电压序列计算和 ARTIQ 输出控制；最后接续本目录的校准数据报告。
 
-[可编辑源码](early-control-work.tex) · [配套解释与职责依据](early-control-work-notes.md)。运行 `bash build-early-control-work.sh` 单独编译，不更新现有校准 PDF。封面的报告人和实际报告日期待填写；离子项目的算法与接口细节尚待代码核对，当前只介绍本人确认的软件职责。示意阶跃图为模型说明，不是实验性能结果。
+[可编辑源码](early-control-work.tex) · [配套解释与职责依据](early-control-work-notes.md)。运行 `bash compile.sh` 同时编译两份报告。封面的报告人和实际报告日期待填写；离子项目的算法与接口细节尚待代码核对，当前只介绍本人确认的软件职责。示意阶跃图为模型说明，不是实验性能结果。
 
 ### 校准报告
 
@@ -34,16 +34,16 @@
 在本目录运行：
 
 ```bash
-bash build.sh
+bash compile.sh
 ```
 
-仅更新一份完整输出 `0918-calibration-zh.pdf`，包括正文与附录；辅助文件和 logs 位于忽略的 `build/`。不再维护独立的 main-only 入口或 PDF。
+一个命令编译两份源码：`slides.tex` 输出 `0918-calibration-zh.pdf`，`early-control-work.tex` 输出 `early-control-work-zh.pdf`。两份 PDF 均包含各自的正文与附录；辅助文件和 logs 位于忽略的 `build/`，早期工作报告使用其 `early-control-work/` 子目录。
 
 普通排版编辑只需重编译。若修改案例解释、reference selection 或绘图，需要 Python 3、NumPy、Matplotlib，然后运行：
 
 ```bash
 python3 generate_assets.py
-bash build.sh
+bash compile.sh
 ```
 
 默认使用本目录的 `evidence.json` 和 64 份 `data/*.csv`，不要求原始 checkout 或网络。脚本逐份核对 SHA-256 后重绘 47 份 `figures/*.pdf`，生成简洁的 `generated/*.tex`、coverage JSON / Markdown 和全部 `case-notes.md`。`notes.md` 为手写的正文讲解笔记；内容或页码改变后需同步修改。案例页请修改 `generate_assets.py` 后再生成；直接编辑 `generated/` 会在下次生成时被覆盖。电路使用 Circuitikz 的 capacitor / cross symbols；概念 diagrams 使用 TikZ；示意 pulse envelope 使用 PGFPlots。所有 slide visuals 都置于 Beamer `figure` 环境，包括直接绘制的 diagrams 和 columns 内的 visuals；案例图继续导入既有 Matplotlib vector PDFs。
