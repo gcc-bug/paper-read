@@ -24,6 +24,10 @@ chose native Berlin-style dot navigation, consistent `figure` environments for
 both imported and drawn visuals, and one full PDF including the appendix.
 Apply these choices to this reader's substantial Beamer talks.
 
+On 2026-10-13, the reader requested formal figure captions: descriptions and
+comments about a figure belong in its `\caption{...}`, rather than detached
+small-text paragraphs or slide-footer macros.
+
 ## Discuss or write at the requested scope
 
 Inspect the existing deck and related notes before diagnosing its style. Use
@@ -71,8 +75,19 @@ faithful existing data plots; adding a LaTeX package
 is not a reason to change preprocessing, values, models, or evidence. Prefer
 library symbols over hand-drawn approximations when the library supplies the
 needed symbol. Keep measured curves and illustrative models clearly identified.
-Captions should aid interpretation; figure environments need not add a verbose
-caption or a number to every slide. Put full explanations in the note.
+Use native `\caption{...}` inside the owning `figure` for its description,
+interpretation conditions and relevant source attribution. Use the company
+theme's numbered captions; place `\label{...}` after the caption when a reference
+is useful. For separate figures in columns, give each its own caption; when
+panels form one comparison, use one enclosing figure with a shared caption.
+Keep captions concise and legible, including units or the distinction between
+measurement and illustration when needed. Put extended explanations in the note.
+
+Keep the slide's main conclusion in the body. A source-only citation for a
+nonfigure claim may use a separate reference line. Do not use `\src`, manual
+font-size paragraphs, or `\vfill` to imitate figure captions; relocating such
+text into a `figure` without `\caption` does not fix the semantic structure.
+Inspect the caption with its figure, including column width and reading order.
 
 For substantial Beamer talks, provide an agenda near the beginning and visible
 section navigation using Beamer's native `miniframes` outer theme, as in Berlin.

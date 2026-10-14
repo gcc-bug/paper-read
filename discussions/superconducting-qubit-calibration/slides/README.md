@@ -2,7 +2,7 @@
 
 2026-10-12 — 按读者认可的 [slide-writing skill](../../../skills/write-slides/SKILL.md) 重写。使用弧光量子 company theme 与较粗的字体；slides 保留主线、图与必要限制，讲解和 possible causes 移至配套笔记。解释为 Codex interpretation；数据来自既有实验及 recorded audit，不表示读者认可所有解释。
 
-- [完整 PDF](0918-calibration-zh.pdf)：68 页，包含全部 47 个待复查案例。
+- [完整 PDF](0918-calibration-zh.pdf)：67 页：正文 24 页、附录 43 页。包含全部 47 个复查案例；三页研究计划位于正文总结之后。
 - [Beamer 源码](slides.tex)：中文叙述，保留 English technical terms；完整 definitions 在配套笔记。
 - [讲解与背景笔记](notes.md)：按正文页组织的解释、模型条件、definitions 与来源。
 - [详细案例笔记](case-notes.md)：47 个 targets 的完整诊断、观察、未验证原因与验证方向。
@@ -13,15 +13,15 @@
 
 ### 配套早期工作报告 — 2026-10-13
 
-另有 [量子控制软件的早期工作 PDF](early-control-work-zh.pdf)（正文 11 页、附录 3 页），使用同一 company Beamer theme、字体与 native dot navigation。介绍 QuantaCS 的波形预失真编译集成，以及 sion / sion-exper 的电极电压序列计算和 ARTIQ 输出控制；最后接续本目录的校准数据报告。
+另有 [量子控制软件的早期工作 PDF](early-control-work-zh.pdf)（正文 7 页、模型附录 1 页），使用同一 company Beamer theme、字体与 native dot navigation。介绍 QuantaCS 的波形预失真编译集成，以及 sion / sion-exper 的电极电压序列计算和 ARTIQ 输出控制；最后接续本目录的校准数据报告。
 
-[可编辑源码](early-control-work.tex) · [配套解释与职责依据](early-control-work-notes.md)。运行 `bash compile.sh` 同时编译两份报告。封面的报告人和实际报告日期待填写；离子项目的算法与接口细节尚待代码核对，当前只介绍本人确认的软件职责。示意阶跃图为模型说明，不是实验性能结果。
+[可编辑源码](early-control-work.tex) · [配套解释与职责依据](early-control-work-notes.md)。运行 `bash compile.sh` 同时编译两份报告。封面沿用读者填写的报告人和编译日期；离子项目的算法与接口细节尚待代码核对，当前只介绍本人确认的软件职责。示意阶跃图为模型说明，不是实验性能结果。
 
 ### 校准报告
 
-正文第 1 页为封面，第 2 页为目录。第 3–8 页介绍硬件与信号；第 9–14 页说明校准流程、六类 records 与模型；第 15–24 页区分 observation / diagnostic / cause 并展示八个代表案例与判断方法；第 25–26 页为 references 和 provenance。页眉采用 Berlin 同款原生 `miniframes` 导航，显示章节与 frames 的圆点，实心圆点表示当前 frame。Overlays 共用一个圆点；圆点不表示剩余讲述时间。页脚保留公司、短标题与页码。
+正文第 1–2 页为封面与目录，第 3–10 页介绍控制、测量及校准实验，第 11–20 页展示判断方法、八个代表案例与总结，第 21–23 页介绍研究计划，第 24 页为参考文献。研究计划按照“已有工作—harness 视角—三阶段路线”组织，强调软件工程与长期多智能体协作目标。
 
-完整版本第 27–28 页为可点击案例导航，第 29 页说明附录约定，第 30–68 页覆盖其余 39 个案例。正文可按约 30–40 分钟准备；这只是讲述建议，不是实测报告时长。
+页眉使用原生 `miniframes` 圆点导航；附录为独立 part，不增加正文导航进度。第 25–26 页为案例导航，第 27–28 页为解释条件与数据来源，第 29–67 页覆盖其余 39 个案例。
 
 每个案例页只讨论一个 experiment family：短标题、较大的 paired plot、关键 diagnostic 与必要限制。完整 observation、possible causes 和验证方向在 [case-notes.md](case-notes.md)；候选原因明确标为未验证 hypotheses。Reference 不等于通过 calibration certification；不同 case 通常不是 matched controlled experiment。Ramsey reference 本身也有 residual flags，案例页保留说明。
 
@@ -96,7 +96,7 @@ Spectroscopy 图展示 magnitude；页内 R²/FWHM 来自 audit 的 **IQ-project
 
 位置按本地 PDF 页码，版本不同可能变化。沿用既有 selective consultation；2026-10-10 制作时另外重新提取并核对两篇 PDF 的 p. 29，以确认 control/dispersive models；2026-10-12 重写复用已记录的解释与出处。未作 full-paper rereading；这些论文也不定义 0918 unpublished plotting code 的 estimator。Hardware 图是 generic conceptual setup，不是恢复的 0918 wiring。
 
-## 本次交付检查
+## 首次交付检查 — 2026-10-12（历史记录）
 
 完整 PDF 已用 XeLaTeX 编译，共 68 页（正文 26 页、附录 42 页）。最终 `slides.log` 无 overflow、missing-character 或 undefined-reference warnings；通过 repository-relative theme lookup 加载时的 package-name warning 不影响输出。所有 68 页已渲染检查，并在 854 × 480 的代表页与较高分辨率 render 上检查图轴、标题、关键 diagnostic 和导航。低分辨率预览是模拟，不是实际房间 / 屏幕测量。
 
@@ -111,3 +111,25 @@ Spectroscopy 图展示 magnitude；页内 R²/FWHM 来自 audit 的 **IQ-project
 按读者最新选择，改用 Berlin 同款原生 `miniframes` 圆点页眉，删除自定义 bar / fraction。所有直接绘制的 visuals 与导入图均采用 `figure`，columns 内的图也一致。仅交付含附录的完整 PDF；旧 main-only PDF 和入口已移除，当前笔记链接同步更新。保留读者的 title / subtitle、`\today` 和 hardware section 名称。正文与附录页码不变；数据和案例解释未改变。
 
 本轮重新编译并检查完整 68 页与六页 shared preview，均无 overflow / missing-character / undefined-reference warnings；核对各节首尾的原生圆点链接，以及 259 个 local note links / anchors。116 份保护文件 bytes 不变；案例笔记仅删除旧正文 PDF 链接，47 个 generated case frames 与 generator 一致。
+
+## Native figure captions — 2026-10-13
+
+按读者反馈修正图注：所有 figure 的描述、必要解释条件与相关出处改用环境内的 `\caption{...}`，由 shared theme 提供编号和统一格式；不再用脱离 figure 的 `\src` 小字段落代替图注。正文结论仍放在 slide body，较长讲解保留在笔记。同步修改 skill、company template 与 case generator，避免重新生成后恢复旧格式。
+
+两份 PDF 重新编译，分别保持 68 页和 14 页；全部页面及六页 shared preview 已渲染检查，无裁切、重叠或 overfull/underfull、missing-character、undefined-reference warnings。原案例指标、解释限制与配对不变；64 份 CSV、47 份原始 plot PDFs、两篇 supporting PDFs 和 evidence JSON 的 bytes 均保持不变。校准报告保留读者已填写的报告人；早期工作报告的封面字段仍待填写。
+
+## Calibration-agent proposal slides — 2026-10-13（历史记录；现已改写并移入正文）
+
+按读者要求，在全部案例之后追加第 69–71 页：成本与校准质量的研究目标、多智能体的软件架构、五阶段研究路线。内容来自 [proposal](../proposal.md)，是研究计划而非已实现功能或已测得收益。保持原第 1–68 页的内容与编号；新 section 位于附录 part 内，正文目录不变。
+
+新增 [proposal-slides.tex](proposal-slides.tex) 由主源码导入；配套解释、相关工作与讲述转场见 [notes](notes.md#calibration-agent-proposal)。只编译校准报告即可更新这三页；`bash compile.sh` 仍同时编译两份报告。
+
+完整报告重新编译为 71 页；三页新增 slides 已渲染检查，最终 log 无 overfull/underfull、missing-character 或 undefined-reference warnings。核对原 68 页正文文字和页码（附录新增 section navigation 除外）、六个 prior-work hyperlinks、数据/图/evidence hashes 与早期工作 PDF 均保持不变。
+
+## 叙述与研究计划改写 — 2026-10-14
+
+根据读者认可的 plain-text 稿件压缩两份报告，并保留读者已改动的封面与研究计划位置。早期工作只讲个人职责与控制目标；调研依据留在笔记。校准正文合并重复背景，案例按频率、脉冲、状态保持、读出的顺序呈现。研究计划以 Vibe Calibration 和 NVIDIA Blueprint 为基础，突出可复用 harness 的软件工程问题，按单模型、harness、异构协作三个阶段展开。该部分是拟研究方向。
+
+同步案例 generator、生成文本与笔记页码；统一两份报告的编译入口为 `bash compile.sh`。图注继续使用 figure 环境内的正式 caption。历史交付记录中的页码对应当时版本。
+
+两份 PDF 重新编译为 67 页和 8 页；全部 75 页、修正后的表格与相关工作页，以及共享主题六页预览已渲染检查。最终日志无 overfull/underfull、missing-character 或 undefined-reference warnings。验证 47 个案例跳转、205 个配套本地链接和生成文本一致性；64 份 CSV、47 份底层图、两篇参考 PDF 与 evidence JSON 共 114 份保护文件与提交前基线一致。slide-writing skill validator 通过。

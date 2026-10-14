@@ -1,20 +1,8 @@
 {
   "main": [
     [
-      "T1 Visibility",
-      "004"
-    ],
-    [
-      "GMM Readout Clusters",
-      "008"
-    ],
-    [
-      "Rabi Oscillation",
-      "003"
-    ],
-    [
-      "Rabi Oscillation",
-      "007"
+      "Resonator Spectroscopy",
+      "006"
     ],
     [
       "Qubit Spectroscopy",
@@ -25,12 +13,24 @@
       "005"
     ],
     [
+      "Rabi Oscillation",
+      "003"
+    ],
+    [
+      "Rabi Oscillation",
+      "007"
+    ],
+    [
+      "T1 Visibility",
+      "004"
+    ],
+    [
       "T2 Ramsey",
       "008"
     ],
     [
-      "Resonator Spectroscopy",
-      "006"
+      "GMM Readout Clusters",
+      "008"
     ]
   ],
   "appendix": [

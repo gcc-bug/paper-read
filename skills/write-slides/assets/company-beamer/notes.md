@@ -109,3 +109,17 @@ shared theme now uses `miniframes` navigation instead of a custom progress
 bar/fraction. Both the conceptual diagram and the two illustrative curve panels
 use Beamer `figure` environments. Branding and the approved font profile remain
 the basis of the template.
+
+## Native figure captions — 2026-10-13
+
+The reader requested formal captions for figure descriptions. The three preview
+figures now use native numbered `\caption{...}` entries inside their owning
+environments. The shared theme sets a consistent caption font and spacing.
+Descriptions and essential interpretation conditions belong in captions; the
+slide's main conclusion remains in its body and extended discussion stays here.
+The slide-writing skill records this distinction and disallows detached footer
+paragraphs as substitute captions.
+
+The six-page preview was rebuilt and rendered for inspection, with no clipping
+or overlap and no overfull/underfull, missing-character, or undefined-reference
+warnings. Its PDF and contact-sheet preview are updated.

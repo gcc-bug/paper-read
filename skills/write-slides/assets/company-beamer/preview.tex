@@ -37,11 +37,12 @@
       \draw[flow] (pulse) -- (device);
       \draw[flow] (device) -- (record);
     \end{tikzpicture}
-  \end{figure}
+  \caption{控制信号、器件响应与数字化 IQ 记录的概念关系。}
+\label{fig-preview-control-records}
+\end{figure}
   \vspace{5mm}
   \textbf{校准建立控制参数与测量响应之间的关系。}
-  \vfill
-  {\footnotesize\color{ArclightMuted}概念示意；完整解释见配套笔记。}
+
 \end{frame}
 
 \begin{frame}{平坦曲线无法确定衰减时间}
@@ -61,7 +62,9 @@
           \node[font=\small,align=center] at (axis cs:3.2,.77) {曲线发生\\明显变化};
         \end{axis}
       \end{tikzpicture}
-      \end{figure}
+      \caption{窗口内可见的指数衰减示意。}
+\label{fig-preview-decay}
+\end{figure}
       \endgroup
     \end{column}
     \begin{column}{.47\textwidth}
@@ -80,14 +83,15 @@
           \node[font=\small,align=center] at (axis cs:2.9,.44) {没有可分辨\\的衰减};
         \end{axis}
       \end{tikzpicture}
-      \end{figure}
+      \caption{窗口内几乎平坦的响应示意，非实验数据。}
+\label{fig-preview-flat}
+\end{figure}
       \endgroup
     \end{column}
   \end{columns}
   \vspace{3mm}
   \textbf{拟合返回的数值，需要曲线提供支持。}
-  \vfill
-  {\footnotesize\color{ArclightMuted}示意曲线，非实验数据。}
+
 \end{frame}
 
 \section{交流与讨论}

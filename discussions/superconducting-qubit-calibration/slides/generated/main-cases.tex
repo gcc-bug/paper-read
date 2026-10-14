@@ -1,46 +1,53 @@
-\begin{frame}[t,label=case-t1-004]{平坦曲线无法确定 T1}{T1 Visibility / 004}
+\begin{frame}[t,label=case-resonator-006]{首点尖峰的来源仍未确定}{Resonator Spectroscopy / 006}
 \setlength{\parskip}{0pt}
 \begingroup
 \setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/t1-004.pdf}
+\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/resonator-006.pdf}
+\caption{案例 006 与对照 001。扫描范围 6.000--6.130 GHz；窗口内部未分辨出共振。此处为曲线观察，尚无经过验证的传输函数拟合。}
+\label{fig-resonator-006}
 \end{figure}
 \endgroup
-\vspace{1mm}
-{\small 0--100 $\mu s$: $P_1$ 0.956 $\to$ 0.950; fit reaches 10000 $\mu s$ bound\par}
-\vspace{1mm}
-{\footnotesize\color{Muted}Preparation 顺序为推断；diagnostic 拟合两路 contrast。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-readout-008]{Preparation groups 明显重叠}{GMM Readout Clusters / 008}
+\begin{frame}[t,label=case-spectroscopy-008]{扫描边界限制了中心频率的判断}{Qubit Spectroscopy / 008}
 \setlength{\parskip}{0pt}
 \begingroup
 \setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/readout-008.pdf}
+\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-008.pdf}
+\caption{案例 008 与对照 001。IQ 投影诊断： $R^2=0.312$；步长 1.00 / 半高全宽 13.30 MHz。图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。}
+\label{fig-spectroscopy-008}
 \end{figure}
 \endgroup
-\vspace{1mm}
-{\small Held-out linear balanced accuracy: $61.70\%$\par}
-\vspace{1mm}
-{\footnotesize\color{Muted}预测 nominal preparation labels；包含 preparation / relaxation 影响。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-rabi-003]{Noise-like trace 也会返回周期}{Rabi Oscillation / 003}
+\begin{frame}[t,label=case-spectroscopy-005]{频率步长不能分辨拟合线宽}{Qubit Spectroscopy / 005}
+\setlength{\parskip}{0pt}
+\begingroup
+\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-005.pdf}
+\caption{案例 005 与对照 001。IQ 投影诊断： $R^2=0.965$；步长 1.00 / 半高全宽 0.50 MHz。图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。}
+\label{fig-spectroscopy-005}
+\end{figure}
+\endgroup
+\end{frame}
+
+\begin{frame}[t,label=case-rabi-003]{噪声状曲线也会返回拟合周期}{Rabi Oscillation / 003}
 \setlength{\parskip}{0pt}
 \begingroup
 \setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/rabi-003.pdf}
+\caption{案例 003 与对照 002。IQ 投影拟合： $R^2=0.130$；扫描覆盖 $25.44$ 个周期；每周期 $2.36$ 个采样点。IQ 投影独立标准化，符号与大小不可跨案例比较。}
+\label{fig-rabi-003}
 \end{figure}
 \endgroup
-\vspace{1mm}
-{\small IQ fit: $R^2=0.130$; coverage $25.44$ cycles; $2.36$ samples/cycle\par}
-\vspace{1mm}
-{\footnotesize\color{Muted}IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。\par}
 \end{frame}
 
 \begin{frame}[t,label=case-rabi-007]{局部曲线不足以约束周期}{Rabi Oscillation / 007}
@@ -50,70 +57,47 @@
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/rabi-007.pdf}
+\caption{案例 007 与对照 002。IQ 投影拟合： $R^2=0.959$；扫描覆盖 $0.22$ 个周期。IQ 投影独立标准化，符号与大小不可跨案例比较。}
+\label{fig-rabi-007}
 \end{figure}
 \endgroup
-\vspace{1mm}
-{\small IQ fit: $R^2=0.959$; coverage $0.22$ cycles\par}
-\vspace{1mm}
-{\footnotesize\color{Muted}IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-spectroscopy-008]{Scan 边界限制了 center 的判断}{Qubit Spectroscopy / 008}
+\begin{frame}[t,label=case-t1-004]{平坦曲线无法确定 T1}{T1 Visibility / 004}
 \setlength{\parskip}{0pt}
 \begingroup
 \setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-008.pdf}
+\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/t1-004.pdf}
+\caption{案例 004 与对照 002。0--100 $\mu s$ 内 $P_1$ 从 0.956 变为 0.950；拟合触及 10000 $\mu s$ 上界。准备顺序为推断；拟合对象是两路布居差。}
+\label{fig-t1-004}
 \end{figure}
 \endgroup
-\vspace{1mm}
-{\small IQ diagnostic: $R^2=0.312$; step 1.00 / FWHM 13.30 MHz\par}
-\vspace{1mm}
-{\footnotesize\color{Muted}图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-spectroscopy-005]{Frequency step 不能分辨拟合线宽}{Qubit Spectroscopy / 005}
-\setlength{\parskip}{0pt}
-\begingroup
-\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
-\begin{figure}
-\centering
-\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/spectroscopy-005.pdf}
-\end{figure}
-\endgroup
-\vspace{1mm}
-{\small IQ diagnostic: $R^2=0.965$; step 1.00 / FWHM 0.50 MHz\par}
-\vspace{1mm}
-{\footnotesize\color{Muted}图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。\par}
-\end{frame}
-
-\begin{frame}[t,label=case-ramsey-008]{振荡结构超出单一 envelope}{T2 Ramsey / 008}
+\begin{frame}[t,label=case-ramsey-008]{振荡结构超出单一包络模型}{T2 Ramsey / 008}
 \setlength{\parskip}{0pt}
 \begingroup
 \setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/ramsey-008.pdf}
+\caption{案例 008 与对照 002。已有拟合： $R^2=0.328$；相邻残差相关系数 $0.38$。对照也有复查项；虚线仅表示包络，不是完整振荡预测。}
+\label{fig-ramsey-008}
 \end{figure}
 \endgroup
-\vspace{1mm}
-{\small Recorded fit: $R^2=0.328$; residual correlation $0.38$\par}
-\vspace{1mm}
-{\footnotesize\color{Muted}Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。\par}
 \end{frame}
 
-\begin{frame}[t,label=case-resonator-006]{首点 spike 的来源仍未确定}{Resonator Spectroscopy / 006}
+\begin{frame}[t,label=case-readout-008]{两组准备条件的 IQ 分布明显重叠}{GMM Readout Clusters / 008}
 \setlength{\parskip}{0pt}
 \begingroup
 \setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/resonator-006.pdf}
+\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{figures/readout-008.pdf}
+\caption{案例 008 与对照 007。线性分类器的留出评估平衡准确率： $61.70\%$。预测准备标签；包含状态准备与弛豫的影响。}
+\label{fig-readout-008}
 \end{figure}
 \endgroup
-\vspace{1mm}
-{\small Window: 6.000--6.130 GHz; no resolved interior resonance\par}
-\vspace{1mm}
-{\footnotesize\color{Muted}Descriptive review；无 validated transfer-function fit。\par}
 \end{frame}

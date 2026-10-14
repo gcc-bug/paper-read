@@ -22,7 +22,7 @@
 
 **验证方向**：延长 delay；交错测量 no-pi reference；比较 baseline 稳定性与不同 fit window。
 
-**读图条件**：Preparation 顺序为推断；diagnostic 拟合两路 contrast。
+**读图条件**：准备顺序为推断；拟合对象是两路布居差。
 
 图显示两路 recorded P1；diagnostic 拟合的是 preparation-channel contrast。触及 fit bound 不构成该上界 lifetime 的测量。
 
@@ -42,7 +42,7 @@
 
 **验证方向**：核对 executed sequence 与 time units；重复 preparation reference，再扩大 delay window。
 
-**读图条件**：Preparation 顺序为推断；diagnostic 拟合两路 contrast。
+**读图条件**：准备顺序为推断；拟合对象是两路布居差。
 
 图显示两路 recorded P1；diagnostic 拟合的是 preparation-channel contrast。触及 fit bound 不构成该上界 lifetime 的测量。
 
@@ -62,7 +62,7 @@
 
 **验证方向**：延长 delay；交错测量 no-pi reference；比较 baseline 稳定性与不同 fit window。
 
-**读图条件**：Preparation 顺序为推断；diagnostic 拟合两路 contrast。
+**读图条件**：准备顺序为推断；拟合对象是两路布居差。
 
 图显示两路 recorded P1；diagnostic 拟合的是 preparation-channel contrast。触及 fit bound 不构成该上界 lifetime 的测量。
 
@@ -82,7 +82,7 @@
 
 **验证方向**：检查 cycle-resolved trace 与 residual；重复 acquisition；比较 fit window、envelope 与 echo。
 
-**读图条件**：Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。
+**读图条件**：对照也有复查项；虚线仅表示包络，不是完整振荡预测。
 
 Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal standard。模型条件、不同 runs 的 T1/T2 比较限制见主笔记。
 
@@ -102,7 +102,7 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 
 **验证方向**：检查 cycle-resolved trace 与 residual；重复 acquisition；比较 fit window、envelope 与 echo。
 
-**读图条件**：Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。
+**读图条件**：对照也有复查项；虚线仅表示包络，不是完整振荡预测。
 
 Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal standard。模型条件、不同 runs 的 T1/T2 比较限制见主笔记。
 
@@ -122,7 +122,7 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 
 **验证方向**：检查 cycle-resolved trace 与 residual；重复 acquisition；比较 fit window、envelope 与 echo。
 
-**读图条件**：Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。
+**读图条件**：对照也有复查项；虚线仅表示包络，不是完整振荡预测。
 
 Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal standard。模型条件、不同 runs 的 T1/T2 比较限制见主笔记。
 
@@ -142,7 +142,7 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 
 **验证方向**：检查 cycle-resolved trace 与 residual；重复 acquisition；比较 fit window、envelope 与 echo。
 
-**读图条件**：Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。
+**读图条件**：对照也有复查项；虚线仅表示包络，不是完整振荡预测。
 
 Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal standard。模型条件、不同 runs 的 T1/T2 比较限制见主笔记。
 
@@ -162,7 +162,7 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 
 **验证方向**：检查 cycle-resolved trace 与 residual；重复 acquisition；比较 fit window、envelope 与 echo。
 
-**读图条件**：Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。
+**读图条件**：对照也有复查项；虚线仅表示包络，不是完整振荡预测。
 
 Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal standard。模型条件、不同 runs 的 T1/T2 比较限制见主笔记。
 
@@ -182,7 +182,7 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 
 **验证方向**：检查 cycle-resolved trace 与 residual；重复 acquisition；比较 fit window、envelope 与 echo。
 
-**读图条件**：Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。
+**读图条件**：对照也有复查项；虚线仅表示包络，不是完整振荡预测。
 
 Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal standard。模型条件、不同 runs 的 T1/T2 比较限制见主笔记。
 
@@ -202,7 +202,7 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 
 **验证方向**：检查 cycle-resolved trace 与 residual；重复 acquisition；比较 fit window、envelope 与 echo。
 
-**读图条件**：Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。
+**读图条件**：对照也有复查项；虚线仅表示包络，不是完整振荡预测。
 
 Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal standard。模型条件、不同 runs 的 T1/T2 比较限制见主笔记。
 
@@ -222,7 +222,7 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 
 **验证方向**：检查 cycle-resolved trace 与 residual；重复 acquisition；比较 fit window、envelope 与 echo。
 
-**读图条件**：Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。
+**读图条件**：对照也有复查项；虚线仅表示包络，不是完整振荡预测。
 
 Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal standard。模型条件、不同 runs 的 T1/T2 比较限制见主笔记。
 
@@ -242,7 +242,7 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 
 **验证方向**：先验证 spectroscopy 与 readout，再重复 sweep；不能直接采用 fitted half-period 作为 pi amplitude。
 
-**读图条件**：IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。
+**读图条件**：IQ 投影独立标准化，符号与大小不可跨案例比较。
 
 Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。
 
@@ -262,7 +262,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：先验证 spectroscopy 与 readout，再重复 sweep；不能直接采用 fitted half-period 作为 pi amplitude。
 
-**读图条件**：IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。
+**读图条件**：IQ 投影独立标准化，符号与大小不可跨案例比较。
 
 Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。
 
@@ -282,7 +282,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
 
-**读图条件**：IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。
+**读图条件**：IQ 投影独立标准化，符号与大小不可跨案例比较。
 
 Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。
 
@@ -302,7 +302,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：检查完整 IQ trajectory 与重复 scan；独立验证 readout，必要时增加 leakage-sensitive measurement。
 
-**读图条件**：IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。
+**读图条件**：IQ 投影独立标准化，符号与大小不可跨案例比较。
 
 Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。
 
@@ -322,7 +322,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：检查完整 IQ trajectory 与重复 scan；独立验证 readout，必要时增加 leakage-sensitive measurement。
 
-**读图条件**：IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。
+**读图条件**：IQ 投影独立标准化，符号与大小不可跨案例比较。
 
 Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。
 
@@ -342,7 +342,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：在合适的控制范围内扩大 amplitude scan；观察 turning point 与 return；验证 pi endpoint。
 
-**读图条件**：IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。
+**读图条件**：IQ 投影独立标准化，符号与大小不可跨案例比较。
 
 Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。
 
@@ -362,7 +362,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：在合适的控制范围内扩大 amplitude scan；观察 turning point 与 return；验证 pi endpoint。
 
-**读图条件**：IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。
+**读图条件**：IQ 投影独立标准化，符号与大小不可跨案例比较。
 
 Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。
 
@@ -382,7 +382,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
 
-**读图条件**：IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。
+**读图条件**：IQ 投影独立标准化，符号与大小不可跨案例比较。
 
 Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。
 
@@ -402,7 +402,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
 
-**读图条件**：IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。
+**读图条件**：IQ 投影独立标准化，符号与大小不可跨案例比较。
 
 Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。
 
@@ -422,7 +422,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
 
-**读图条件**：IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。
+**读图条件**：IQ 投影独立标准化，符号与大小不可跨案例比较。
 
 Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。
 
@@ -442,7 +442,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
 
-**读图条件**：IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。
+**读图条件**：IQ 投影独立标准化，符号与大小不可跨案例比较。
 
 Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。
 
@@ -462,7 +462,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
 
-**读图条件**：IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。
+**读图条件**：IQ 投影独立标准化，符号与大小不可跨案例比较。
 
 Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。
 
@@ -482,7 +482,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
 
-**读图条件**：IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。
+**读图条件**：IQ 投影独立标准化，符号与大小不可跨案例比较。
 
 Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。
 
@@ -502,7 +502,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：在合适的控制范围内扩大 amplitude scan；观察 turning point 与 return；验证 pi endpoint。
 
-**读图条件**：IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。
+**读图条件**：IQ 投影独立标准化，符号与大小不可跨案例比较。
 
 Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。
 
@@ -522,7 +522,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：重复同一 scan；核对 drive frequency；比较不同 amplitude window 与 pulse envelope。
 
-**读图条件**：IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。
+**读图条件**：IQ 投影独立标准化，符号与大小不可跨案例比较。
 
 Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linear coefficients。IQ 几何异常不能单独证明 leakage。
 
@@ -542,7 +542,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：验证 probe 与 drive path；调整 scan window；重复局部 candidate frequency，检查 reproducibility。
 
-**读图条件**：图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。
+**读图条件**：图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。
 
 低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。
 
@@ -562,7 +562,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：重复并局部细扫；比较 drive strength；保留 IQ 和 phase，检查两侧 background。
 
-**读图条件**：图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。
+**读图条件**：图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。
 
 低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。
 
@@ -582,7 +582,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：在 feature 附近使用更小 frequency step，并重复采样；比较 peak / dip 的宽度与 reproducibility。
 
-**读图条件**：图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。
+**读图条件**：图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。
 
 低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。
 
@@ -602,7 +602,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：重复并局部细扫；比较 drive strength；保留 IQ 和 phase，检查两侧 background。
 
-**读图条件**：图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。
+**读图条件**：图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。
 
 低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。
 
@@ -622,7 +622,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：在 feature 附近使用更小 frequency step，并重复采样；比较 peak / dip 的宽度与 reproducibility。
 
-**读图条件**：图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。
+**读图条件**：图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。
 
 低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。
 
@@ -642,7 +642,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：扩大 frequency window 观察两侧；检查 candidate feature 的复现性与 drive-strength dependence。
 
-**读图条件**：图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。
+**读图条件**：图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。
 
 低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。
 
@@ -662,7 +662,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：在 feature 附近使用更小 frequency step，并重复采样；比较 peak / dip 的宽度与 reproducibility。
 
-**读图条件**：图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。
+**读图条件**：图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。
 
 低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。
 
@@ -682,7 +682,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：验证 probe 与 drive path；调整 scan window；重复局部 candidate frequency，检查 reproducibility。
 
-**读图条件**：图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。
+**读图条件**：图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。
 
 低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。
 
@@ -702,7 +702,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：扩大 frequency window 观察两侧；检查 candidate feature 的复现性与 drive-strength dependence。
 
-**读图条件**：图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。
+**读图条件**：图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。
 
 低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。
 
@@ -722,7 +722,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：重复并局部细扫；比较 drive strength；保留 IQ 和 phase，检查两侧 background。
 
-**读图条件**：图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。
+**读图条件**：图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。
 
 低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。
 
@@ -742,7 +742,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：验证 probe 与 drive path；调整 scan window；重复局部 candidate frequency，检查 reproducibility。
 
-**读图条件**：图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。
+**读图条件**：图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。
 
 低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。
 
@@ -762,7 +762,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：验证 probe 与 drive path；调整 scan window；重复局部 candidate frequency，检查 reproducibility。
 
-**读图条件**：图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。
+**读图条件**：图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。
 
 低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。
 
@@ -782,7 +782,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：重复并局部细扫；比较 drive strength；保留 IQ 和 phase，检查两侧 background。
 
-**读图条件**：图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。
+**读图条件**：图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。
 
 低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。
 
@@ -802,7 +802,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：重复并局部细扫；比较 drive strength；保留 IQ 和 phase，检查两侧 background。
 
-**读图条件**：图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。
+**读图条件**：图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。
 
 低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。
 
@@ -822,7 +822,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：在 feature 附近使用更小 frequency step，并重复采样；比较 peak / dip 的宽度与 reproducibility。
 
-**读图条件**：图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。
+**读图条件**：图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。
 
 低 whole-window fit score 不排除真实窄 feature；高 fit score 不能补足采样分辨率。图的 magnitude 与指标拟合的 IQ projection 是不同 observable。
 
@@ -842,7 +842,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：先验证 preparation / Rabi，再检查 probe frequency、integration window 和 demodulated time trace。
 
-**读图条件**：预测 nominal preparation labels；包含 preparation / relaxation 影响。
+**读图条件**：预测准备标签；包含状态准备与弛豫的影响。
 
 这里的 accuracy 来自 held-out linear classifier，不是原始 GMM fidelity。相同 qubit 仍不保证所有 settings 匹配。
 
@@ -862,7 +862,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：先验证 preparation / Rabi，再检查 probe frequency、integration window 和 demodulated time trace。
 
-**读图条件**：预测 nominal preparation labels；包含 preparation / relaxation 影响。
+**读图条件**：预测准备标签；包含状态准备与弛豫的影响。
 
 这里的 accuracy 来自 held-out linear classifier，不是原始 GMM fidelity。相同 qubit 仍不保证所有 settings 匹配。
 
@@ -882,7 +882,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：先验证 preparation / Rabi，再检查 probe frequency、integration window 和 demodulated time trace。
 
-**读图条件**：预测 nominal preparation labels；包含 preparation / relaxation 影响。
+**读图条件**：预测准备标签；包含状态准备与弛豫的影响。
 
 这里的 accuracy 来自 held-out linear classifier，不是原始 GMM fidelity。相同 qubit 仍不保证所有 settings 匹配。
 
@@ -902,7 +902,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：先验证 preparation / Rabi，再检查 probe frequency、integration window 和 demodulated time trace。
 
-**读图条件**：预测 nominal preparation labels；包含 preparation / relaxation 影响。
+**读图条件**：预测准备标签；包含状态准备与弛豫的影响。
 
 这里的 accuracy 来自 held-out linear classifier，不是原始 GMM fidelity。相同 qubit 仍不保证所有 settings 匹配。
 
@@ -922,7 +922,7 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：先验证 preparation / Rabi，再检查 probe frequency、integration window 和 demodulated time trace。
 
-**读图条件**：预测 nominal preparation labels；包含 preparation / relaxation 影响。
+**读图条件**：预测准备标签；包含状态准备与弛豫的影响。
 
 这里的 accuracy 来自 held-out linear classifier，不是原始 GMM fidelity。相同 qubit 仍不保证所有 settings 匹配。
 
@@ -942,6 +942,6 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **验证方向**：加入 settling 后重测首点；反向 sweep；扩大窗口并同时检查 phase / IQ。
 
-**读图条件**：Descriptive review；无 validated transfer-function fit。
+**读图条件**：此处为曲线观察，尚无经过验证的传输函数拟合。
 
 原 scaled magnitude 首点约 1728、次点约 66、后续 median 约 41；图显示除以 1000 后的相同数据。不同 case 的 scale / settings 独立；多个 features 本身不构成错误。

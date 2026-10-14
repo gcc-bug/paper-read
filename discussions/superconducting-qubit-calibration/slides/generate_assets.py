@@ -26,10 +26,11 @@ plt.rcParams.update({'font.family':'Open Sans', 'font.weight':'semibold',
 SLUG = {'T1 Visibility':'t1','T2 Ramsey':'ramsey','Rabi Oscillation':'rabi',
         'Qubit Spectroscopy':'spectroscopy','GMM Readout Clusters':'readout','Resonator Spectroscopy':'resonator'}
 ORDER = list(SLUG)
-MAIN = [('T1 Visibility','004'),('GMM Readout Clusters','008'),
-        ('Rabi Oscillation','003'),('Rabi Oscillation','007'),
+MAIN = [('Resonator Spectroscopy','006'),
         ('Qubit Spectroscopy','008'),('Qubit Spectroscopy','005'),
-        ('T2 Ramsey','008'),('Resonator Spectroscopy','006')]
+        ('Rabi Oscillation','003'),('Rabi Oscillation','007'),
+        ('T1 Visibility','004'),('T2 Ramsey','008'),
+        ('GMM Readout Clusters','008')]
 
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
 def esc(s):
@@ -201,43 +202,43 @@ def slide_content(fam,case,record):
     """Select visible evidence; retain complete interpretation in case-notes.md."""
     m=record['metrics'];flags=record['review_flags']
     if fam=='T1 Visibility':
-        title='Baseline 的选择影响 lifetime'
-        metric=rf"Contrast fit: $\tau_{{free}}={m['contrast_tau_us']:.2f}$ / $\tau_0={m['zero_offset_tau_us']:.2f}\,\mu s$"
+        title='基线的选择影响衰减时间'
+        metric=rf"两路布居差拟合： $\tau_{{free}}={m['contrast_tau_us']:.2f}$ / $\tau_0={m['zero_offset_tau_us']:.2f}\,\mu s$"
         if case=='004':
             title='平坦曲线无法确定 T1'
-            metric=r"0--100 $\mu s$: $P_1$ 0.956 $\to$ 0.950; fit reaches 10000 $\mu s$ bound"
-        caveat='Preparation 顺序为推断；diagnostic 拟合两路 contrast。'
+            metric=r"0--100 $\mu s$ 内 $P_1$ 从 0.956 变为 0.950；拟合触及 10000 $\mu s$ 上界"
+        caveat='准备顺序为推断；拟合对象是两路布居差。'
     elif fam=='GMM Readout Clusters':
-        title='Preparation groups 的区分仍需验证'
-        if case=='008':title='Preparation groups 明显重叠'
+        title='两组准备条件的区分仍需验证'
+        if case=='008':title='两组准备条件的 IQ 分布明显重叠'
         if case=='005':title='接近筛查阈值仍需结合数据判断'
-        metric=rf"Held-out linear balanced accuracy: ${100*m['heldout_balanced_accuracy']:.2f}\%$"
-        caveat='预测 nominal preparation labels；包含 preparation / relaxation 影响。'
+        metric=rf"线性分类器的留出评估平衡准确率： ${100*m['heldout_balanced_accuracy']:.2f}\%$"
+        caveat='预测准备标签；包含状态准备与弛豫的影响。'
     elif fam=='Rabi Oscillation':
-        title='单一 sinusoid 仍有未解释的结构'
+        title='单一正弦模型仍有未解释的结构'
         if 'LIMITED_OSCILLATION_COVERAGE' in flags:title='局部曲线不足以约束周期'
-        if case in ('001','003'):title='Noise-like trace 也会返回周期'
-        elif 'IQ_NOT_WELL_APPROXIMATED_BY_FIXED_TWO_STATE_LINE' in flags:title='IQ 几何超出固定两态连线'
-        metric=rf"IQ fit: $R^2={m['r2']:.3f}$; coverage ${m['cycles_in_scan']:.2f}$ cycles"
-        if case in ('001','003'):metric+=rf"; ${m['samples_per_cycle']:.2f}$ samples/cycle"
-        caveat='IQ projection 独立标准化；sign 与 scale 不可跨 case 比较。'
+        if case in ('001','003'):title='噪声状曲线也会返回拟合周期'
+        elif 'IQ_NOT_WELL_APPROXIMATED_BY_FIXED_TWO_STATE_LINE' in flags:title='IQ 分布偏离固定两态连线'
+        metric=rf"IQ 投影拟合： $R^2={m['r2']:.3f}$；扫描覆盖 ${m['cycles_in_scan']:.2f}$ 个周期"
+        if case in ('001','003'):metric+=rf"；每周期 ${m['samples_per_cycle']:.2f}$ 个采样点"
+        caveat='IQ 投影独立标准化，符号与大小不可跨案例比较。'
     elif fam=='Qubit Spectroscopy':
-        title='可见 feature 仍需检查线形模型'
-        if case in ('002','011','014','015'):title='Background 中的 candidate 仍需验证'
-        elif 'FEATURE_NEAR_SCAN_EDGE' in flags:title='Scan 边界限制了 center 的判断'
-        elif 'FEATURE_WIDTH_POORLY_SAMPLED' in flags:title='Frequency step 不能分辨拟合线宽'
-        metric=rf"IQ diagnostic: $R^2={m['r2']:.3f}$; step {1000*m['step']:.2f} / FWHM {1000*m['candidate_fwhm_GHz']:.2f} MHz"
-        caveat='图画 magnitude；指标来自 single-Lorentzian IQ diagnostic。'
+        title='可见响应仍需检查线形模型'
+        if case in ('002','011','014','015'):title='背景中的候选响应仍需验证'
+        elif 'FEATURE_NEAR_SCAN_EDGE' in flags:title='扫描边界限制了中心频率的判断'
+        elif 'FEATURE_WIDTH_POORLY_SAMPLED' in flags:title='频率步长不能分辨拟合线宽'
+        metric=rf"IQ 投影诊断： $R^2={m['r2']:.3f}$；步长 {1000*m['step']:.2f} / 半高全宽 {1000*m['candidate_fwhm_GHz']:.2f} MHz"
+        caveat='图示幅度；指标来自 IQ 投影的单洛伦兹线形拟合。'
     elif fam=='T2 Ramsey':
-        title='单一 envelope 仍有未解释的结构'
-        if case=='008':title='振荡结构超出单一 envelope'
-        if case in ('002','006'):title='较清晰振荡也留下 correlated residual'
-        metric=rf"Recorded fit: $R^2={m['r2']:.3f}$; residual correlation ${m['residual_lag1']:.2f}$"
-        caveat='Reference 也有 flag；虚线仅为 envelope，不是完整振荡预测。'
+        title='单一包络仍有未解释的结构'
+        if case=='008':title='振荡结构超出单一包络模型'
+        if case in ('002','006'):title='较清晰振荡也留下相关残差'
+        metric=rf"已有拟合： $R^2={m['r2']:.3f}$；相邻残差相关系数 ${m['residual_lag1']:.2f}$"
+        caveat='对照也有复查项；虚线仅表示包络，不是完整振荡预测。'
     else:
-        title='首点 spike 的来源仍未确定'
-        metric=r"Window: 6.000--6.130 GHz; no resolved interior resonance"
-        caveat='Descriptive review；无 validated transfer-function fit。'
+        title='首点尖峰的来源仍未确定'
+        metric=r"扫描范围 6.000--6.130 GHz；窗口内部未分辨出共振"
+        caveat='此处为曲线观察，尚无经过验证的传输函数拟合。'
     return title,metric,caveat
 
 def frame(fam,case,record):
@@ -250,12 +251,10 @@ def frame(fam,case,record):
         r'\begin{figure}',
         r'\centering',
         rf'\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{{figures/{slug}-{case}.pdf}}',
+        rf'\caption{{案例 {case} 与对照 {reference(fam,case)}。{metric}。{caveat}}}',
+        rf'\label{{fig-{slug}-{case}}}',
         r'\end{figure}',
         r'\endgroup',
-        r'\vspace{1mm}',
-        rf'{{\small {metric}\par}}',
-        r'\vspace{1mm}',
-        rf'{{\footnotesize\color{{Muted}}{caveat}\par}}',
         r'\end{frame}',
     ])
 

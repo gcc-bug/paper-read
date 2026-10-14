@@ -101,8 +101,12 @@ notes. Add a separate main-only export only when the reader requests it.
 Place all slide visuals in Beamer's nonfloating `figure` environment, including
 TikZ/Circuitikz diagrams and plots inside columns. Use `graphicx` for imported
 plots, TikZ for conceptual diagrams, PGFPlots for editable curve illustrations,
-and Circuitikz when electrical symbols are needed. Captions are optional; move
-extended explanations into the note. The preview curves are PGFPlots models;
+and Circuitikz when electrical symbols are needed. Use native numbered
+`\caption{...}` inside each figure for its description, interpretation conditions
+and relevant sources. The theme uses 10 pt captions with bold labels; do not
+imitate captions with detached footer text. Place a useful `\label{...}` after
+the caption. Keep the slide takeaway in the body and extended explanations in
+the note. The preview curves are PGFPlots models;
 the calibration deck imports its existing Matplotlib plots without changing
 values or preprocessing. Keep private filing labels in provenance notes and
 filenames; visible titles and labels should describe the audience's subject.

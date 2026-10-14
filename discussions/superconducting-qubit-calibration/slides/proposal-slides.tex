@@ -1,0 +1,37 @@
+% Research proposal; no agent-system results are reported here.
+\section[研究计划]{研究计划：自动校准软件系统}
+
+\begin{frame}{已有工作把语言模型接入校准流程}
+ \textbf{Vibe Calibration}\par
+ 将专家流程组织为 Skills，让智能体调用已有工具，完成多步表征与校准。
+ \par\vspace{2mm}
+ \textbf{NVIDIA 校准智能体蓝图}\par
+ 连接实验调用、结果分析、工作流和记录，提供自然语言校准接口。
+ \par\vspace{2mm}
+ \textbf{进一步关注：怎样把模型能力组织成可持续使用的校准软件系统？}
+ \src{\href{https://arxiv.org/abs/2606.22376}{Vibe Calibration}；
+ \href{https://github.com/NVIDIA/Quantum-Calibration-Agent-Blueprint/}{NVIDIA Blueprint（项目文档）}。}
+\end{frame}
+
+\begin{frame}{我的看法：harness 是值得研究的核心}
+ 我更倾向于从软件工程角度理解这个方向。模型提供推理、代码生成和信息理解能力。
+ \begin{block}{Harness：连接模型与校准任务的软件环境}
+ 将模型、实验工具、工作流程和结果连接起来。
+ \end{block}
+ \textbf{核心问题：怎样复用校准经验，并适应不同设备、工具和模型？}
+ \vspace{3mm}\par
+ 前面的数据分析帮助我们理解校准中的判断环节，为系统设计提供具体背景。
+\end{frame}
+
+\begin{frame}{研究路线：从单模型到多智能体协作}
+ \begin{enumerate}
+  \item \textbf{单模型与工具}\par
+  研究如何完成校准流程，明确模型与控制软件的职责。
+  \item \textbf{可复用的 harness}\par
+  组织实验操作、分析方法与校准经验，支持流程扩展和设备适配。
+  \item \textbf{不同模型与智能体协作}\par
+  低成本模型承担分类与常规处理，较强或专长模型负责复杂分析、代码和文献。
+ \end{enumerate}
+ \vspace{2mm}
+ \textbf{长期目标：通过合理分工，平衡校准效果与运行成本。}
+\end{frame}

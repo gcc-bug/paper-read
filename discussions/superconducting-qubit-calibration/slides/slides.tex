@@ -29,187 +29,107 @@
  drive/.style={draw=Orange,very thick},probe/.style={draw=Teal,very thick}}
 \title[校准数据解读]{从硬件到校准判断}
 \subtitle{实验流程、参考数据与复查案例}
-\author{报告人：待填写}
+\author{报告人：高丁超}
 \institute{弧光量子}
 \date{\today}
 
 \begin{document}
 \begin{frame}[plain]\titlepage\end{frame}
 \arclightagenda{报告目录}
-\section{超导量子硬件概览}
-\begin{frame}{校准连接控制、器件与测量记录}
+
+\section[控制与测量]{超导量子硬件概览}
+\begin{frame}{校准连接控制与测量}
+ 合适的控制参数需要通过实验确定：施加控制、记录响应，再根据结果调整参数。
  \begin{figure}
  \centering
  \begin{tikzpicture}[node distance=9mm]
-  \node[box,minimum width=34mm] (a) {控制信号\\Drive / probe};
-  \node[box,minimum width=34mm,right=of a] (b) {器件与量子态\\Qubit / resonator};
-  \node[box,minimum width=34mm,right=of b] (c) {测量记录\\IQ / population};
+  \node[box,minimum width=34mm] (a) {控制信号};
+  \node[box,minimum width=34mm,right=of a] (b) {器件与量子态};
+  \node[box,minimum width=34mm,right=of b] (c) {测量记录};
   \draw[flow] (a)--(b);\draw[flow] (b)--(c);
  \end{tikzpicture}
+ \caption{控制信号、器件响应与测量记录之间的概念关系\cite{krantz}。}
+ \label{fig-control-records}
  \end{figure}
- \vspace{6mm}
- \textbf{一个校准参数，必须回到它对应的实验与记录。}
- \src{概念示意；Krantz \cite{krantz}。完整解释与数据列映射见配套笔记。}
+ 理解一条校准记录，先要知道信号作用于什么器件，以及测量值如何产生。
 \end{frame}
 
-\begin{frame}{Transmon 的非等间隔能级允许选择性驱动}
- \begin{columns}[c,onlytextwidth]
- \column{.43\textwidth}\centering
- \begingroup
- \setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
- \begin{figure}
- \centering
- \begin{circuitikz}[scale=.82]
-  % Circuitikz's barrier supplies the cross symbol denoting the junction.
-  \draw[thick] (0,0) to[barrier,l=$E_J$] (0,2.6)
-    -- (3.2,2.6) to[C,l=$C_\Sigma$] (3.2,0) -- (0,0);
-  \node[align=center,font=\small] at (1.6,-.65) {Josephson junction\\+ capacitance};
- \end{circuitikz}
- \end{figure}
- \endgroup
- \column{.53\textwidth}\centering
- \begingroup
- \setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
+\begin{frame}{我们控制和读取的是什么}
+ Transmon 通常用最低两个能级编码量子比特。微波驱动改变它的状态，读出谐振腔获取状态信息，耦合器调节量子比特之间的相互作用。
  \begin{figure}
  \centering
  \begin{tikzpicture}[x=9mm,y=7mm]
-  \draw[flow] (0,0)--(0,4.2) node[above,font=\small] {Energy};
-  \foreach \y/\label in {.4/0,1.9/1,3.15/2}{
-   \draw[very thick,Teal] (.5,\y)--(3.6,\y);\node[right] at (3.6,\y) {$\ket{\label}$};}
-  \draw[<->,Orange,thick] (1,.4)--(1,1.9) node[midway,right] {$hf_{10}$};
-  \draw[<->,Orange,thick] (2.8,1.9)--(2.8,3.15) node[midway,left] {$hf_{21}$};
- \end{tikzpicture}
- \end{figure}
- \endgroup
- \end{columns}
- \vspace{3mm}\textbf{$f_{10}\ne f_{21}$；通常用最低两个能级编码 qubit。}
- \src{非按比例的概念示意；Krantz Fig. 1、Eq. (16) \cite{krantz}。}
-\end{frame}
-
-\begin{frame}{Resonator 与 coupler 的功能不同}
- \begin{figure}
- \centering
- \begin{tikzpicture}[x=9mm,y=9mm]
   \draw[probe] (0,3.2)--(12.8,3.2);
-  \node[above,font=\small,Teal] at (6.4,3.2) {Shared readout feedline};
+  \node[above,font=\small,Teal] at (6.4,3.2) {共享读出线};
   \foreach \x/\name in {2.5/A,9.4/B}{
-   \node[box,minimum width=29mm] (r\name) at (\x,2.1) {Readout resonator};
+   \node[box,minimum width=29mm] (r\name) at (\x,2.1) {读出谐振腔};
    \node[box,minimum width=23mm] (q\name) at (\x,.4) {Transmon \name};
    \draw[probe] (\x,3.2)--(r\name.north);
    \draw[thick,dashed] (r\name.south)--(q\name.north);
   }
-  \node[box,minimum width=25mm] (coupler) at (6,.4) {Coupler / bus};
+  \node[box,minimum width=25mm] (coupler) at (6,.4) {耦合器};
   \draw[thick] (qA.east)--(coupler.west) (coupler.east)--(qB.west);
   \draw[drive,-{Latex}] (.1,.4)--(qA.west);
   \draw[drive,-{Latex}] (12.3,.4)--(qB.east);
  \end{tikzpicture}
+ \caption{器件功能的通用结构示意，非本次设备接线图\cite{krantz,blais}。}
+ \label{fig-resonator-coupler}
  \end{figure}
- \textbf{Resonator 用于读出；coupler / bus 用于 qubit 间相互作用。}
- \src{通用结构示意，非实验设备 wiring；Krantz / Blais \cite{krantz,blais}。}
 \end{frame}
 
-\begin{frame}{弱微波响应经过测量链变成 IQ}
- \begin{figure}
- \centering
- \begin{tikzpicture}[font=\small]
-  \node[box,minimum width=32mm] (g) at (0,2.6) {Pulse electronics};
-  \node[box,minimum width=32mm] (at) at (4.3,2.6) {Attenuators / filters};
-  \node[box,minimum width=32mm] (chip) at (8.6,2.6) {Cold chip};
-  \node[box,minimum width=32mm] (amp) at (8.6,.5) {Isolation / amplifiers};
-  \node[box,minimum width=32mm] (mix) at (4.3,.5) {Mixer / digitization};
-  \node[box,minimum width=32mm] (iq) at (0,.5) {$I+iQ$};
-  \draw[flow] (g)--(at);\draw[flow] (at)--(chip);\draw[flow] (chip)--(amp);
-  \draw[flow] (amp)--(mix);\draw[flow] (mix)--(iq);
- \end{tikzpicture}
- \end{figure}
- \textbf{IQ 是电磁响应的记录，不是 qubit 的波函数系数。}
- \src{通用信号链；Blais Figs. 14、16；Krantz Fig. 22 \cite{blais,krantz}。}
-\end{frame}
-
-\begin{frame}{四个控制量共同决定一次驱动}
- \renewcommand{\arraystretch}{1.25}
+\begin{frame}{控制参数怎样影响量子态}
+ \renewcommand{\arraystretch}{1.2}
  \[V_d(t)=A(t)\cos(2\pi f_dt+\phi_d)\]
- \begin{tabularx}{\linewidth}{@{}p{27mm}X@{}}
+ \begin{tabularx}{\linewidth}{@{}p{36mm}X@{}}
   \toprule
-  Frequency & 选择目标 transition \\
-  Strength & 改变 rotation speed \\
-  Duration & 决定作用时间 \\
-  Phase & 选择 transverse rotation axis \\
+  频率 & 选择目标跃迁。 \\
+  幅度与持续时间 & 在共振近似下，共同决定旋转角。 \\
+  相位 & 决定旋转轴。 \\
   \bottomrule
- \end{tabularx}\par
- \vspace{3mm}\textbf{驱动频率对应能级差；强度与时间决定 pulse area。}
- \src{Resonant / two-level 近似下的控制图景；Krantz Eqs. (92)--(94) \cite{krantz}。}
+ \end{tabularx}
+ \vspace{2mm}\par
+ 校准逐步确定这些参数，使实际操作接近目标操作。
+ \src{共振、两能级近似下的控制图景；Krantz Eqs. (92)--(94)\cite{krantz}。}
 \end{frame}
 
-\begin{frame}{Dispersive readout 把 state 映射到不同响应}
- \[\omega_{r,0}=\omega_r-\chi,\qquad \omega_{r,1}=\omega_r+\chi\]
+\begin{frame}{量子态怎样变成测量记录}
+ 读出利用量子比特状态对谐振腔响应的影响。响应信号经放大、解调和采样，形成 IQ 数据。
  \begin{figure}
  \centering
- \begin{tikzpicture}[node distance=8mm]
-  \node[box,minimum width=28mm] (s) {$\ket0$ / $\ket1$};
-  \node[box,minimum width=44mm,right=of s] (r) {State-dependent\\resonator response};
-  \node[box,minimum width=28mm,right=of r] (z) {$z=I+iQ$};
-  \draw[flow] (s)--(r);\draw[flow] (r)--(z);
+ \begin{tikzpicture}[node distance=7mm]
+  \node[box,minimum width=27mm] (s) {量子比特状态};
+  \node[box,minimum width=36mm,right=of s] (r) {谐振腔响应};
+  \node[box,minimum width=22mm,right=of r] (z) {$I+iQ$};
+  \node[box,minimum width=25mm,right=of z] (a) {状态判别};
+  \draw[flow] (s)--(r);\draw[flow] (r)--(z);\draw[flow] (z)--(a);
  \end{tikzpicture}
+ \caption{色散读出及数据处理的概念流程\cite{blais,krantz}。IQ 是电磁响应的记录。}
+ \label{fig-readout-chain}
  \end{figure}
- \vspace{3mm}\textbf{Peak / dip 的方向取决于响应与 observable 的约定。}
- \src{$\sigma_z\ket0=-\ket0$，采用 dispersive 近似；Blais Eq. (107)、Fig. 19 \cite{blais}。}
+ IQ 数据还需经过处理和判别，才能得到状态标签或概率。解释读出指标，也需要理解它的计算方法。
 \end{frame}
 
-\section[流程与记录]{校准流程与记录}
-\begin{frame}{校准通过反馈反复修正控制与读出}
- \begin{figure}
- \centering
- \begin{tikzpicture}[font=\small]
-  \node[box,minimum width=33mm] (r) at (0,2.5) {Resonator scan};
-  \node[box,minimum width=33mm] (q) at (4.4,2.5) {Qubit scan};
-  \node[box,minimum width=33mm] (ra) at (8.8,2.5) {Rabi calibration};
-  \node[box,minimum width=33mm] (ro) at (8.8,.5) {Readout calibration};
-  \node[box,minimum width=33mm] (t) at (4.4,.5) {T1 / Ramsey};
-  \node[box,minimum width=33mm] (re) at (0,.5) {Refine / repeat};
-  \draw[flow] (r)--(q);\draw[flow] (q)--(ra);\draw[flow] (ra)--(ro);
-  \draw[flow] (ro)--(t);\draw[flow] (t)--(re);
-  \draw[flow,Orange,dashed] (ro.north west) to[bend left=15] (q.south east);
-  \draw[flow,Orange,dashed] (re.west) to[out=180,in=180,looseness=1.2] (r.west);
- \end{tikzpicture}
- \end{figure}
- \textbf{Pulse calibration 与 usable readout 相互依赖。}
- \src{通用 dependency map，非实际 acquisition 时间顺序；Krantz \cite{krantz}。}
-\end{frame}
-
-\begin{frame}{Frequency 与 amplitude scans 定位控制参数}
- \begin{tabularx}{\linewidth}{@{}p{43mm}p{38mm}X@{}}
+\section[校准实验]{校准实验回答什么问题}
+\begin{frame}{校准逐步确定控制参数并检查性能}
+ \renewcommand{\arraystretch}{1.2}
+ \begin{tabularx}{\linewidth}{@{}p{48mm}X@{}}
   \toprule
-  Measurement & 扫描量 & 目标 \\
+  实验 & 主要问题 \\
   \midrule
-  Resonator scan (6) & Probe frequency & Resonator response \\
-  Qubit scan (18) & Drive frequency & Candidate $f_{10}$ \\
-  Rabi scan (16) & Drive amplitude & Pulse rotation setting \\
+  谐振腔与量子比特扫描 & 选择什么读出与驱动频率？ \\
+  Rabi & 如何设置目标旋转的脉冲？ \\
+  T1 与 Ramsey & 状态与相位能保持多久？ \\
+  读出校准 & 不同准备条件的测量分布能否区分？ \\
   \bottomrule
- \end{tabularx}\par
- \vspace{5mm}\textbf{这三类记录保留 phase、magnitude 与 IQ。}
- \src{实验 numeric CSV；完整列映射、单位与处理约定见配套笔记。}
+ \end{tabularx}
+ \vspace{2mm}\par
+ 脉冲设置与可用读出相互依赖，往往需要反复调整。
+ \src{本报告使用六类实验的 64 份记录；列定义与单位见配套笔记。}
 \end{frame}
 
-\begin{frame}{Delay 与 preparation records 检查状态保持和区分}
- \begin{tabularx}{\linewidth}{@{}p{43mm}p{38mm}X@{}}
-  \toprule
-  Measurement & 控制 / 准备 & 记录 \\
-  \midrule
-  T1 Visibility (6) & Delay & 两路 $P_0,P_1$ \\
-  T2 Ramsey (8) & Delay & $P_0,P_1$ \\
-  GMM readout (10) & Without / with $\pi$ & 两组 single-shot IQ \\
-  \bottomrule
- \end{tabularx}\par
- \vspace{4mm}\textbf{六类共 64 cases；numeric rows 的含义随 family 改变。}
- \src{GMM = Gaussian Mixture Model。T1 preparation 顺序为推断；来源见配套笔记。}
-\end{frame}
-
-\begin{frame}{Rabi calibration 用 pulse area 控制旋转角}
+\begin{frame}{Rabi 用振荡确定脉冲设置}
  \begin{columns}[c,onlytextwidth]
- \column{.47\textwidth}\centering
- \begingroup
- \setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}
+ \column{.47\textwidth}
  \begin{figure}
  \centering
  \begin{tikzpicture}
@@ -224,78 +144,85 @@
    \node at (axis cs:3.5,1) {$\theta=\int\Omega(t)\,dt$};
   \end{axis}
  \end{tikzpicture}
+ \caption{共振、固定轴、两能级模型中的脉冲包络示意\cite{krantz}。}
+ \label{fig-rabi-envelope}
  \end{figure}
- \endgroup
  \column{.49\textwidth}
- \[P_1=\sin^2(\theta/2)\]
- 固定 duration，扫描 amplitude：\par
- \textbf{寻找可约束 $\pi$ pulse 的周期。}
+ 初态为 $\ket0$ 时：
+ \[P_1=\sin^2(\theta/2).\]
+ 固定持续时间，扫描驱动幅度，利用振荡周期确定 $\pi$ 脉冲设置。
  \end{columns}
- \vspace{3mm}\textbf{本组实验扫 drive-amplitude setting；magnitude 不直接等于 $P_1$。}
- \src{Initial $\ket0$、resonant、固定轴 two-level 近似；示意 envelope，非恢复的实际 pulse \cite{krantz}。}
+ \vspace{3mm}\par
+ 判断周期是否可信，需要看扫描是否覆盖足够的振荡。这里的 IQ 投影不直接等于 $P_1$。
 \end{frame}
 
-\begin{frame}{T1 测衰减；Ramsey 测相位保持}
+\begin{frame}{T1 与 Ramsey 检查状态和相位保持}
  \begin{columns}[T,onlytextwidth]
  \column{.47\textwidth}
- \textbf{T1}\par
- $\pi\ \to\ \mathrm{delay}\ t\ \to\ \mathrm{readout}$
+ \textbf{T1：观察激发态衰减}\par
+ $\pi\ \to\ \text{等待}\ t\ \to\ \text{读出}$
  \[P_1(t)=B+A e^{-t/T_1}\]
- 相对 baseline 的 excess\par
- 在 $T_1$ 后剩下 $1/e$。
+ 等待时间内需要出现可分辨的衰减，才能约束时间常数。
  \column{.50\textwidth}
- \textbf{Ramsey}\par
- $\pi/2\ \to\ t\ \to\ \pi/2\ \to\ \mathrm{readout}$
+ \textbf{Ramsey：观察相位演化}\par
+ $\pi/2\ \to\ t\ \to\ \pi/2\ \to\ \text{读出}$
  \[P_1(t)=B+A e^{-t/T_2^*}\cos(2\pi f_Rt+\phi)\]
- 第二个 pulse 将 phase\par
- 转成 population contrast。
+ 第二个脉冲将相位差转为布居差；振荡与包络共同提供信息。
  \end{columns}
- \src{Stationary exponential 模型；$f_R$ 为 fringe frequency。Krantz Fig. 5 \cite{krantz}。}
+ \src{单指数模型；$f_R$ 为干涉振荡频率，$B$ 为基线\cite{krantz}。}
 \end{frame}
 
-\begin{frame}{Preparation label 与真实 state、assignment 不同}
+\begin{frame}{读出指标还受到状态准备的影响}
  \begin{figure}
  \centering
  \begin{tikzpicture}[node distance=7mm]
-  \node[box,minimum width=37mm] (p) {Without / with $\pi$\\Nominal preparation};
-  \node[box,minimum width=25mm,right=of p] (iq) {Measured IQ};
-  \node[box,minimum width=37mm,right=of iq] (a) {Classifier\\Assignment 0 / 1};
+  \node[box,minimum width=37mm] (p) {未施加 / 施加 $\pi$\\准备操作};
+  \node[box,minimum width=25mm,right=of p] (iq) {测量 IQ};
+  \node[box,minimum width=37mm,right=of iq] (a) {分类器判别\\标签 0 / 1};
   \draw[flow] (p)--(iq);\draw[flow] (iq)--(a);
  \end{tikzpicture}
+ \caption{准备操作、IQ 与判别标签的关系；本报告采用留出评估的线性分类器，非原始 GMM 估计器。}
+ \label{fig-preparation-assignment}
  \end{figure}
- \vspace{5mm}\textbf{本报告的 accuracy 同时包含 preparation / relaxation 影响。}
- \src{Held-out linear classifier；不是原始 GMM fidelity estimator 的复现。复用 recorded audit。}
+ 准备操作不保证每次都得到目标状态。两组 IQ 的区分程度同时受到脉冲误差、弛豫与读出过程的影响。
 \end{frame}
 
-\section[数据判断]{从数据判断可信度}
-\begin{frame}{先观察，再检查模型，最后提出原因}
+\section[数据判断]{从数据判断校准结果}
+\begin{frame}{拟合参数是否得到数据支持}
+ 下面依次检查频率定位、脉冲设置、状态保持和读出。
+ \vspace{3mm}
  \begin{enumerate}
-  \item \textbf{Observation}：曲线、边界、采样、分布重叠。
-  \item \textbf{Diagnostic}：$R^2$、coverage、resolution、residual。
-  \item \textbf{Possible cause}：通过重复与干预区分解释。
+  \item 先观察曲线、扫描边界和分布重叠。
+  \item 再检查覆盖范围、采样分辨率与拟合残差。
+  \item 根据结果提出需要复测或进一步验证的问题。
  \end{enumerate}
- \vspace{3mm}\textbf{Reference 是相对清晰的对照；review flag 是复查起点。}
- \src{47 个案例 = 46 个 recorded flags + Resonator/006；不同 cases 通常不是 controlled pairs。}
+ \vspace{3mm}
+ \textbf{拟合提供判断线索；可信的参数还需要足够的数据约束。}
+ \src{对照案例用于帮助读图，通常不是控制条件完全匹配的实验。}
 \end{frame}
 
 \input{generated/main-cases.tex}
 
-\begin{frame}{校准参数需要六类检查共同支持}
+\begin{frame}{从返回参数到完成校准}
+ 程序返回一个参数，并不代表校准已经完成。还需要检查：
+ \vspace{2mm}
  \begin{columns}[T,onlytextwidth]
  \column{.47\textwidth}
- \textbf{Observable}\par 记录的量与模型是否一致？\par\vspace{2mm}
- \textbf{Coverage}\par 看到完整 feature / cycle / decay？\par\vspace{2mm}
- \textbf{Resolution}\par 采样间隔能分辨目标结构？
+ \textbf{测量含义}：记录量是否对应模型？\par\vspace{2mm}
+ \textbf{扫描范围}：目标结构是否完整？\par\vspace{2mm}
+ \textbf{采样分辨率}：结构是否可分辨？
  \column{.47\textwidth}
- \textbf{Model adequacy}\par Residual 是否仍有结构？\par\vspace{2mm}
- \textbf{Preparation / readout}\par 参考分布是否能区分？\par\vspace{2mm}
- \textbf{Reproducibility}\par 重复与改变 sweep 后是否一致？
+ \textbf{模型适用性}：残差是否仍有结构？\par\vspace{2mm}
+ \textbf{准备与读出}：参考分布能否区分？\par\vspace{2mm}
+ \textbf{重复性}：复测结果是否一致？
  \end{columns}
- \src{对 recorded evidence 的归纳；具体验证方向见配套笔记。}
+ \vspace{4mm}\par
+ 这些判断引出下一步：如何让智能体在软件系统的支持下完成校准流程？
 \end{frame}
+\input{proposal-slides.tex}
 
-\section[参考与来源]{References 与来源}
-\begin{frame}{理论依据：hardware、control 与 readout}
+\section[参考文献]{参考文献}
+\begin{frame}{理论依据：量子控制与读出}
  \begin{thebibliography}{B}
  \bibitem[K]{krantz} P. Krantz et al.\par
  \emph{A Quantum Engineer's Guide to Superconducting Qubits}.\par
@@ -308,27 +235,26 @@
  \end{thebibliography}
 \end{frame}
 
-\begin{frame}{记录、diagnostic 与因果解释分开判断}
- \begin{itemize}
-  \item \textbf{Measurements}：复用 64 份 numeric CSV。
-  \item \textbf{Diagnostics}：复用 recorded audit；未重新采集或执行 nonlinear audit。
-  \item \textbf{Interpretation}：可能原因仍需验证。
- \end{itemize}
- \vspace{4mm}\textbf{源文件与 hash 支持复现；模型与 acquisition 仍需单独评估。}
- \src{配套：notes.md、case-notes.md、evidence.json、coverage.md 与 data/。}
-\end{frame}
-
 \appendix
-\section[附录案例]{Appendix：完整案例}
+\section[附录案例]{附录：完整案例与分析条件}
 \input{generated/case-index.tex}
-\begin{frame}{附录对照图保留各 family 的解释条件}
+\begin{frame}{对照图的解释条件}
  \begin{itemize}
-  \item Ramsey reference 也有 flag；它是相对清晰的对照。
-  \item Spectroscopy 图画 magnitude；指标来自 IQ diagnostic。
-  \item Rabi projection 的 sign 与 scale 独立选择。
-  \item 同 qubit / family 不保证 settings 匹配；flags 不构成 failure rate。
+  \item Ramsey 对照也有复查项，只是振荡相对清晰。
+  \item 频谱图显示幅度，拟合指标来自 IQ 投影。
+  \item Rabi 的 IQ 投影独立标准化，符号与大小不可跨案例比较。
+  \item 同一量子比特的不同记录，也可能使用不同实验设置。
  \end{itemize}
- \src{每个 case 的观察、假设与验证方向：case-notes.md。}
+ \src{各案例的观察、假设与验证方向见配套案例笔记。}
+\end{frame}
+\begin{frame}{数据与分析来源}
+ \begin{itemize}
+  \item 测量记录来自既有的 64 份数值 CSV。
+  \item 诊断复用已有审计结果，未重新采集数据或执行非线性拟合。
+  \item 曲线与诊断提示复查方向，具体物理原因仍需实验区分。
+ \end{itemize}
+ \vspace{4mm}\par
+ 原始记录、处理约定与详细解释保存在配套笔记中。
 \end{frame}
 \input{generated/appendix-cases.tex}
 \end{document}
