@@ -4,6 +4,8 @@
 
 These sources were consulted by Codex for the 0918 calibration discussion and its hardware/readout continuation. The annotations record the passages used, source claims, and Codex explanations; they are not standalone paper-reading results or reader-confirmed understanding.
 
+2026-10-14 — Companion-note expansion added an introductory superconductivity reference and revisited selected local circuit/noise/measurement-chain passages. Exact additional coverage is recorded below. These additions support general explanations, not causal diagnoses of the local cases.
+
 2026-10-08 — Filing correction: consolidated the former two paper notes here as discussion reference annotations. Existing coverage, provenance, source caveats, and explanations are retained. No additional source reading was performed for this correction.
 
 ## A Quantum Engineer's Guide to Superconducting Qubits
@@ -62,6 +64,14 @@ Codex interpretation: these passages explain why carrier frequency, amplitude, d
 ### Open questions
 
 Codex: which original estimator defines the local figure's SNR and component errors? This source does not answer that; see [the provenance question](../../questions/0918-readout-estimator-provenance.md).
+
+### 2026-10-14 targeted continuation: circuit foundations and noise
+
+Locally extracted and consulted PDF pp. 4–5, Sec. II.A, including Fig. 1 and Eqs. (13)–(16), and pp. 18–19, Sec. III.C.1–4. Text extraction used `pypdf`; no visual audit or full-paper rereading was performed. Original PDF bytes were unchanged.
+
+Source claims: the LC model has equally spaced levels; the Josephson relations and cosine potential provide anharmonicity. A large shunt capacitance reduces charging energy and charge sensitivity in the transmon regime. The noise discussion covers interface/dielectric charge fluctuations, flux noise, residual resonator photon fluctuations, and quasiparticles, with relaxation or dephasing depending on the coupling and device. It also describes observed nonequilibrium quasiparticles at low refrigerator temperatures.
+
+Codex interpretation: these passages support the expanded [personal preparation notes](slides/notes.md), especially why an engineered circuit can encode a qubit, why superconductivity does not imply unlimited coherence, and how environment changes affect control or measurement. The 5 GHz / 20 mK two-level equilibrium example is a Codex calculation, not a reported temperature or population of the local device. No source mechanism is assigned as the established cause of a local anomaly.
 
 ## Circuit Quantum Electrodynamics
 
@@ -127,3 +137,23 @@ Codex interpretation: the response convention and chosen observable determine wh
 ### Open questions
 
 Codex: do the local fidelity and visibility use a shared threshold and the same input samples? The paper cannot answer this corpus-specific question. Recover the [original analysis provenance](../../questions/0918-readout-estimator-provenance.md).
+
+### 2026-10-14 targeted continuation: thermal protection and amplification
+
+Locally extracted and consulted PDF pp. 25–26, Sec. V opening and Sec. V.A, including Fig. 14 and surrounding explanations. Text extraction used `pypdf`; no new visual audit or full-paper rereading. Existing annotations on p. 27 and pp. 29–32 remain the basis for quadrature and dispersive-readout explanations.
+
+Source claims: distributed, thermally anchored attenuators absorb incoming room-temperature noise; circulators limit amplifier noise reaching the sample. The output is amplified, mixed, digitized, and processed. The measurement chain has finite bandwidth and added amplifier noise; qubit readout involves backaction even when energy exchange is inhibited in the dispersive regime.
+
+Codex interpretation: this supports explaining why low refrigerator temperature alone does not establish a cold, noise-free device or perfect readout. The simplified chain in the notes is generic, not a reconstruction of 0918 wiring or gain calibration.
+
+<a id="openstax-superconductivity"></a>
+
+## OpenStax: introductory superconductivity
+
+Source: *University Physics Volume 3*, §9.8, “Superconductivity,” [official online chapter](https://openstax.org/books/university-physics-volume-3/pages/9-8-superconductivity). Online consultation on 2026-10-14; the page text was retrieved and inspected locally. The temporary HTML/text extraction stays outside the repository; no local PDF or standalone paper-reading record was created. An edition or revision date was not verified.
+
+Coverage: the opening “Properties of Superconductors” discussion of zero resistance, the Meissner effect, critical temperature, and magnetic-field limits; selected “Theory of Superconductors” paragraphs introducing BCS theory and Cooper pairs. Exercises, numerical examples, applications, and the complete textbook were not studied for this task.
+
+Source claims: zero resistance and the Meissner response are distinct properties; superconductivity is subject to material-dependent critical conditions. The BCS introduction describes electron pairing through an effective attraction in a lattice and Cooper pairs.
+
+Codex interpretation: the textbook supplies elementary background before the Josephson-circuit explanation. The notes scope the pairing picture to conventional superconductors and avoid equating zero DC resistance with absence of microwave/device loss. The collective-phase variables and Josephson equations are grounded in the Krantz circuit passages rather than attributed to this introductory chapter. The notes do not use superconductivity to infer a temperature, material, or measured coherence of the local device.

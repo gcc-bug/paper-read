@@ -1,84 +1,465 @@
-# 0918 calibration：讲解与背景笔记
+# 从超导电路到校准判断：个人学习与备讲笔记
 
-2026-10-12 — 依据读者认可的 slide-writing skill 重写 slides。Slides 保留主线、图与关键诊断；本笔记保存讲解、背景、模型条件和出处。内容为 **Codex interpretation**；不代表读者确认了全部解释。没有新增 acquisition、完整 nonlinear audit 或文献全文阅读。
+2026-10-14 — 按读者确认的提纲扩充基础知识与推理解释。这份 notes 主要供读者自己学习、备讲和回顾，不按 slide 页数限制内容。Slides 面向听众，只选取报告主线所需的部分；两者不必逐页对应。
 
-[完整 PDF](0918-calibration-zh.pdf) · [47 个案例的详细笔记](case-notes.md) · [案例索引](coverage.md) · [构建与 provenance](README.md) · [原讨论](../note.md) · [来源注释](../references.md)
+[完整 PDF](0918-calibration-zh.pdf) · [47 个案例的详细笔记](case-notes.md) · [案例索引](coverage.md) · [早期工作笔记](early-control-work-notes.md) · [原讨论](../note.md) · [来源注释](../references.md)
 
-正文面向具有 Quantum Information / Computer Science 基础的听众，沿用中文叙述与 English technical terms。“0918”只作为本地 filing / provenance label，不出现在 slides 的标题、正文或页脚。封面保留读者设置的报告人和 `\today`；日期表示编译日期，不是 acquisition date。
+以下讲解属于 **Codex interpretation**：依据已注明的文献、既有分析和本轮补读组织解释，不表示读者已经确认全部物理理解。读者明确认可的研究方向在研究计划中单独说明。这里没有新增实验、重新运行完整非线性审计，也没有恢复尚缺失的原始读出估计器。
 
-## 1 — 从硬件到校准判断
+## 1. 先明确报告要回答的问题
 
-这份报告沿着 hardware → control/readout → measurement records → diagnostic interpretation 讲解。核心问题是：一个 calibration number 怎样从实际 pulse sequence 与 measured response 得到，又是否被数据约束？正文展示八个代表案例；完整版本保留所有 47 个复查目标。数量不是 acquisition 的 error rate，也不是所有可能问题的穷举。
+一条校准结果往往看起来只是一个频率、脉冲幅度或时间常数。然而，数字的含义依赖整个过程：器件具有什么能级，我们施加了什么信号，测量记录了什么，以及分析模型如何从记录中提取参数。这份报告要解释的是：**一个数字怎样成为可用的控制参数或可信的器件表征结果？**
 
-## 2 — 报告目录
+因此，学习顺序从超导与电路开始，接着理解控制和环境影响，再理解校准实验、读出与拟合，最后用案例练习判断。研究计划沿着同一问题继续：如果软件系统参与校准，它需要支持怎样的判断，哪些工作适合模型，哪些应由已有程序完成？
 
-目录由 Beamer 正文章节生成：超导量子硬件概览、校准实验、数据判断、研究计划与参考文献。原生 `miniframes` 圆点标记当前 frame；圆点不估计剩余讲述时间。附录使用独立 part。
+先区分四类对象。Transmon、读出谐振器和耦合器是**器件**；$|0\rangle$、$|1\rangle$ 和叠加态是**量子态**；驱动微波、读出探测信号和磁通偏置是**信号**；IQ 点、判别标签和估计布居是**记录与分析结果**。这些对象的“幅度”和“相位”可能有不同含义，后文会逐步建立它们之间的关系。
 
-当前版本（2026-10-14）正文为第 1–26 页，附录为第 27–69 页。第 3–8 页连接器件、控制与测量链；第 9–12 页介绍校准实验；第 13–22 页为判断方法、八个案例与总结；研究计划在第 23–25 页，第 26 页为参考文献。以下保留背景解释，未展示的推导标为背景补充。
+## 2. 超导是什么，为什么能用于量子电路？
 
-## 3 — 校准连接控制与测量
+### 2.1 超导态不只是普通金属变得更导电
 
-**Codex interpretation**：区分 device、state、signal 和 record。Transmon、resonator、coupler 是器件；$|0\rangle,|1\rangle$ 与 superposition 是 state；drive、probe、flux 是控制或探测信号；数字化 response 与 assigned population 是 records。它们的 amplitude 不是同一物理量。
+超导是某些材料在满足温度、磁场和电流条件时出现的物质状态。零直流电阻是其重要特征；迈斯纳效应则描述材料进入超导态时对磁场的排斥响应。后者不是从“电阻等于零”自动推出的性质。超导能否保持还受临界温度、磁场和电流等条件限制；不同材料和超导类型的具体边界不同，不能把所有情况下的磁场行为都简化成完全排斥。
 
-理想 $X_\pi:|0\rangle\mapsto|1\rangle$ 需要实际 pulse 实现。Measurement 则通过电路 response 推断 state。0918 是六类 measurements 的集合，不是存储 qubit wavefunction 的 tensor。Slide 的箭头是概念关系，不是恢复的具体 wiring。
+对于常见常规超导体，可以用巴丁–库珀–施里弗（BCS）理论中的库珀对理解电子配对和凝聚态。库珀对是两个电子的关联配对，凝聚态具有可以用于描述电路的集体相位。这里不用展开完整微观理论，但要知道：约瑟夫森电路中的相位变量来自这种超导凝聚态，它不是读出图上某个 IQ 点的极角。
 
-来源：Krantz control/readout 相关章节；既有 [calibration concepts](../../../concepts/superconducting-qubit-calibration.md)。
+这些基本概念参考 OpenStax *University Physics Volume 3*, §9.8 的“Properties of Superconductors”和“Theory of Superconductors”，[来源与选读范围](../references.md#openstax-superconductivity)。该教材给出入门解释；本报告的量子电路模型来自 Krantz 和 Blais 的综述。
 
-## 4 — Transmon 为什么能作为量子比特
+零直流电阻为低损耗电路提供基础，但真实器件仍有介质损耗、界面缺陷、环境耦合和非平衡激发。因此，“电极材料是超导的”不能推出“量子态永久保持”。超导性质与量子相干时间描述的是不同层面的事情。
 
-来源模型：$H_q=4E_C\hat n^2-E_J\cos\hat\varphi$，这里省略 offset charge；$E_C=e^2/(2C_\Sigma)$，$E_J$ 是 Josephson energy，$\hat n$ 是 Cooper-pair number operator，$\hat\varphi$ 是 junction phase operator。能级差 $E_1-E_0=hf_{10}$，$h$ 为 Planck constant。
+### 2.2 为什么已经超导了，还要冷到毫开尔文？
 
-**Codex interpretation**：Josephson junction 的 nonlinear response 使 transition spacing 不同，$f_{10}\ne f_{21}$。通常用最低两个 energy eigenstates 编码 qubit；higher levels 仍存在，误占据这些 levels 称为 leakage。选择性并非自动保证：实际 pulse 的频谱、强度与持续时间仍有影响。本页电路与能级图为非按比例的概念示意；公式和选择性限制保留在笔记中。电路使用 Circuitikz 的 capacitor 与 cross/barrier symbols；标有 $E_J$ 的 cross 表示 Josephson junction，连线和符号由该 package 生成。
+降温有两个相关但不同的目的：维持材料的超导态，以及减少量子电路和环境中的热激发。量子比特能级间隔对应的温度尺度是 $hf_{10}/k_B$，其中 $h$ 是普朗克常数，$k_B$ 是玻尔兹曼常数。只低于材料临界温度，并不保证热能远小于这个间隔。
 
-来源：Krantz 本地 arXiv v5，Fig. 1、Eq. (16)，PDF pp. 4–5。
+作为量级例子，若 $f_{10}=5\,\mathrm{GHz}$，则 $hf_{10}/k_B\approx0.24\,\mathrm K$。理想平衡二能级系统有
 
-## 5 — 我们控制和读取的是什么
+$$
+\frac{p_1}{p_0}=\exp\!\left(-\frac{hf_{10}}{k_BT}\right).
+$$
 
-Readout resonator 把 qubit state 编码到 microwave response；coupler / bus resonator 参与 qubit 间 interaction。多个 readout probe frequencies 可以共享 feedline。Drive 控制单 qubit transition；flux 可用于调节 tunable qubit frequency 或 coupling。Fixed-frequency 与 tunable transmon 的线路配置可能不同。
+在 $20\,\mathrm{mK}$ 下，这个比例约为 $6\times10^{-6}$。这是用假定频率和温度计算的背景例子，不是本数据的热布居测量。真实器件可能没有达到理想热平衡，输入线路会带来较热环境的噪声，也可能有非平衡准粒子或残余光子；制冷机温度读数不能直接证明量子比特处于同一有效温度。
 
-典型 chip 位于 dilution refrigerator，原讲解给出的典型温度约 10–20 mK。这个数值是背景描述，不是 0918 的测得温度。Slide 是 generic architecture，不能据此推断原设备 wiring、coupler 类型或器件数量。
+这也解释了为什么低温芯片之外还需要输入衰减、滤波、输出隔离和良好热化。只把芯片放入制冷机，并不能隔断连接室温电子学的所有噪声通路。测量链依据见 Blais Sec. V.A, PDF pp. 25–27；非平衡准粒子与残余光子见 Krantz Sec. III.C, pp. 18–19。
 
-来源：Krantz Sec. II；Blais review。更完整解释见 [hardware and signals](../../../concepts/superconducting-qubit-hardware-and-signals.md)。
+### 2.3 普通 LC 电路为什么还不够？
 
-## 6 — 控制参数怎样影响量子态
+LC 电路的能量在电容的电场和电感的磁场之间交换。经典模型中的共振频率为 $f_r=1/(2\pi\sqrt{LC})$。将电荷和磁通作为共轭变量量子化后，理想线性 LC 电路对应谐振子，其能级为
 
-$V_d(t)=A(t)\cos(2\pi f_dt+\phi_d)$，$\omega=2\pi f$。Frequency $f_d$ 接近目标 $f_{10}$ 才能有效驱动目标 transition；在线性 drive regime 中，envelope strength 改变 Rabi rotation speed。Duration 决定 drive 作用多久；strength 与 duration 共同决定 rotation angle。Carrier phase $\phi_d$ 决定 transverse rotation axis。
+$$
+E_n=\hbar\omega_r\left(n+\frac12\right),\qquad \omega_r=2\pi f_r.
+$$
 
-**Codex interpretation**：强度不是 energy-level spacing。Drive frequency、readout probe frequency、混频 local oscillator 和 parametric amplifier pump 各有不同作用；不能把所有 microwave signals 都解释成用于 flip qubit 的信号。
+相邻能级间隔都相同。若用频率 $f_r$ 的信号驱动 $|0\rangle\leftrightarrow|1\rangle$，同一频率也能驱动 $|1\rangle\leftrightarrow|2\rangle$ 等跃迁，因而难以只把最低两个能级作为可独立控制的二能级系统。
 
-来源：Krantz Sec. IV.D.1、Eqs. (92)–(94)，PDF p. 29；Blais Sec. V.A。
+这不表示线性谐振器不能存储量子信息。它可以作为量子存储或承载玻色编码，但需要额外的非线性资源和控制方法。这里要解释的是 transmon 的常规二能级编码为何需要非谐性。来源：Krantz Sec. II.A, Fig. 1、Eqs. (13)–(16), PDF pp. 4–5。
 
-## 7 — 不同状态怎样改变谐振腔响应
+### 2.4 约瑟夫森结提供了什么？
 
-来源模型：$H_{\mathrm{disp}}/\hbar=(\omega_r+\chi\sigma_z)a^\dagger a+(\omega_q/2)\sigma_z$。其中 $\omega_r,\omega_q$ 是 angular frequency；$a^\dagger a$ 是 photon number；$\chi$ 是 dispersive shift；$\hbar=h/(2\pi)$。采用 $\sigma_z|0\rangle=-|0\rangle$、$\sigma_z|1\rangle=+|1\rangle$ 的约定，得到两个状态对应的谐振频率 $\omega_r\mp\chi$；公式留在笔记中。Slide 用两条移频响应曲线说明固定 probe frequency 下的差异。
+约瑟夫森结是两个超导体之间的弱连接；常见隧穿结包含很薄的绝缘势垒。其电流和相位差满足 $I=I_c\sin\varphi$，其中 $I_c$ 是临界电流，$\varphi$ 是结两侧的规范不变相位差。这个关系不是线性电感的电流关系，因此结可以充当非线性电路元件。
 
-图中曲线采用归一化响应 $[1+((f-f_{r,s})/w)^2]^{-1/2}$，只是有相同示意宽度的两条移频曲线，不是本设备的 transfer-function fit。图中的 probe 频率仅用于显示响应不同，不代表最优读出点；真正的区分度依赖复响应、噪声、测量时间和 probe strength。
+在省略偏置电荷的简化 transmon 模型中，
 
-Probe 得到 state-dependent complex response $z=I+iQ$。若选择 linear scalar response $y$，理想 two-state reference 下有 $y=y_0+(y_1-y_0)P_1$。$y_0,y_1$ 为两 state 的 reference response。$y_1>y_0$ 时 excitation 可形成 peak；相反约定可形成 dip。Magnitude / phase 一般不保持这个简单线性关系。
+$$
+H_q=4E_C\hat n^2-E_J\cos\hat\varphi,
+\qquad E_C=\frac{e^2}{2C_\Sigma},\qquad E_J=\frac{\hbar I_c}{2e}.
+$$
 
-Resonance 是 circuit response 的性质；transmission interference 也可形成 dip。Polarity 本身不能确定 transition 方向。Dispersive approximation 有适用范围，过强 probe 可使近似失效。
+$C_\Sigma$ 是总电容，$\hat n$ 表示岛上过剩库珀对数，$\hat\varphi$ 是相位差算符；二者是共轭变量。第一项是充电能，第二项来自约瑟夫森结。余弦势能偏离谐振子的严格二次势，因此产生不等间隔的能级。
 
-来源：Blais Eq. (107)、Fig. 19，PDF pp. 29–31。通用模型不能识别 0918 unpublished plotting code 的 estimator。
+Transmon 用较大的并联电容降低 $E_C$，在 $E_J/E_C\gg1$ 的工作区间减弱对偏置电荷的敏感性，同时保留有限非谐性。这是设计上的权衡：提高抗电荷噪声能力，并不意味着高能级消失，也不意味着所有噪声都被消除。来源：Krantz Eq. (15)、Eq. (16) 及相邻文字，PDF p. 5。
 
-## 8 — 测量链怎样把响应转为 IQ
+### 2.5 量子比特的 0 和 1 实际是什么？
 
-输入链通过 attenuation / filtering 控制到达 cold chip 的信号与热噪声；衰减通常分布在多个温度层。输出链利用 isolation 与 cold/warm amplification 保护和放大 response。Mixer 与 reference local oscillator 做 downconversion，数字化后进行 demodulation / integration，得到 in-phase 与 quadrature components，即 IQ。
+在这里，$|0\rangle$ 和 $|1\rangle$ 是电路模式最低的两个能量本征态，$E_1-E_0=hf_{10}$。量子态可以写成 $\alpha|0\rangle+\beta|1\rangle$，其中 $|\alpha|^2+|\beta|^2=1$。编码并不是“超导态和正常态”，也不是“某一个电子处于两个位置”。
 
-本页将室温信号源、低温芯片、输出放大链、解调积分与判别串联起来；省略分布式衰减、滤波与隔离器件。Mixer、digitization 与 processing 是测量链中的不同步骤。AWG = Arbitrary Waveform Generator；DAC = Digital-to-Analog Converter；ADC = Analog-to-Digital Converter；FPGA = Field-Programmable Gate Array。AWG / DAC 合成 envelope；ADC / FPGA 用于采样与处理。
+理想计算基测量得到 1 的概率为 $P_1=|\beta|^2$，得到 0 的概率为 $|\alpha|^2$；单看这些概率不能恢复相对相位。例如 $(|0\rangle+|1\rangle)/\sqrt2$ 与 $(|0\rangle-|1\rangle)/\sqrt2$ 的计算基布居相同，但它们是不同的量子态。这个区别是理解 Ramsey 的基础。
 
-$I,Q$ 常用 arbitrary units，因为未恢复 absolute gain calibration。它们是测量信号的两个正交分量，不是 qubit wavefunction 的 coefficients。
+因为 $f_{10}\ne f_{21}$，可以用接近 $f_{10}$ 的微波选择性控制最低两个能级。但是强驱动或频谱过宽的短脉冲也可能激发更高能级，离开计算子空间，这称为泄漏。频谱选择性、操作速度和噪声敏感性都参与实际设计，不能只根据能级图判断脉冲一定正确。
 
-来源：Blais Figs. 14、16，PDF pp. 25、27；Krantz Fig. 22，PDF p. 45。
+这部分解释的是通用 transmon；当前资料不足以据此恢复原设备的电路布局、耦合器类型或全部线路。更完整的器件关系见[硬件与信号概念笔记](../../../concepts/superconducting-qubit-hardware-and-signals.md)。
 
-## 9 — 校准逐步确定控制参数并检查性能
+## 3. 怎样控制量子态，什么会影响器件？
 
-Resonator spectroscopy 定位 probe response；qubit spectroscopy 定位 candidate $f_{10}$；Rabi 用于估计 $\pi,\pi/2$ pulses；readout calibration 检查 preparation distributions；T1 / Ramsey 做 characterization；随后 refine / repeat 以跟踪 drift。
+### 3.1 微波脉冲怎样产生旋转？
 
-**Codex interpretation**：初始 spectroscopy / Rabi 可使用 averaged IQ，不要求最终 single-shot classifier。Readout calibration 依赖 approximate $\pi$ preparation；pulse calibration 又依赖 usable readout，因此需要反馈。当前 slide 将实验归纳为四组问题；这些依赖关系不代表已恢复的 0918 acquisition 顺序。
+驱动线路通过电场等方式耦合到电路的相应自由度。接近跃迁频率的交流信号能够在两个能级间驱动相干演化，因而改变布居和相位。可以把电压示意写成
 
-来源：既有解释与 Krantz Figs. 5、22。
+$$
+V_d(t)=A(t)\cos(2\pi f_dt+\phi_d).
+$$
 
-## 背景补充：频率与幅度扫描的列定义（对应第 9 页）
+$f_d$ 是载波频率，$A(t)$ 是包络，$\phi_d$ 是相对于控制参考的载波相位。在接近共振、二能级与旋波近似适用时，旋转参考系中的有效驱动可写成
+
+$$
+H_{\mathrm{rot}}/\hbar\simeq
+\frac{\Delta}{2}\sigma_z+
+\frac{\Omega(t)}{2}\bigl(\cos\phi\,\sigma_x+\sin\phi\,\sigma_y\bigr).
+$$
+
+这里取 $\Delta=\omega_q-\omega_d$，$\phi$ 是该参考系中的驱动相位，其与载波相位 $\phi_d$ 的符号关系取决于参考约定。$\sigma_x,\sigma_y,\sigma_z$ 是作用于二能级空间的泡利算符，$\Omega$ 是角 Rabi 频率。公式的用途是说明各参数的作用：失谐改变有效旋转轴，驱动强度改变旋转速度，驱动相位选择横向旋转轴。它不是本设备的完整控制模型。
+
+旋转参考系相当于以驱动的快速相位为参考来描述量子态，使接近共振时的较慢变化更清楚。旋波近似则忽略在当前时间尺度上快速振荡、平均贡献较小的项；强驱动等条件下，忽略这些项可能不再合适。知道这两个假设，才能理解为何一个简洁旋转模型会有适用范围。
+
+共振且旋转轴固定时，旋转角为 $\theta=\int\Omega(t)\,dt$。在弱驱动、线路响应稳定的近似下，$\Omega$ 与到达器件的包络幅度成比例。于是幅度和时长共同决定旋转角，不能把“幅度”理解成能级间隔。$\pi$ 脉冲是 $180^\circ$ 旋转；从 $|0\rangle$ 出发，理想情况下到达 $|1\rangle$。$\pi/2$ 脉冲产生等布居叠加，其相对相位由旋转轴决定。来源：Krantz Sec. IV.D.1, Eqs. (92)–(94), PDF p. 29。
+
+控制相位、量子态相对相位、读出微波的响应相位需要分别说明。驱动载波、读出探测频率、混频本振频率和放大器泵浦频率也具有不同功能，不能仅因都以 GHz 表示就互相替代。
+
+### 3.2 理想脉冲为什么到器件后会改变？
+
+软件通常设置生成器的采样波形，而电缆、滤波器、混频器和低温线路共同决定器件实际接收到的信号。有限带宽、相位延迟和暂态响应会改变包络；串扰则可能让一个通道影响另一器件。即使输入采样相同，不同线路的有效脉冲也可能不同。
+
+这与早期 QuantaCS 工作直接相连：读者把基于已提供响应参数的预失真计算接入编译流程，目的是在模型内补偿信号传输失真。信号补偿和后续量子门校准相关，但仅有补偿算法不能证明某次实验的门保真度已经提高。[早期工作笔记](early-control-work-notes.md) 补充了传输函数、脉冲尾部和边界处理的解释。
+
+### 3.3 器件和环境变化怎样变成实验中的误差？
+
+理解影响因素时，应沿着“变化的物理量 → 对量子态或信号的作用 → 可以观察的表现”来解释。
+
+| 来源 | 作用与可能表现 | 校准或诊断能做什么 |
+| --- | --- | --- |
+| 制造差异、工作点变化 | 电容或约瑟夫森能量不同，跃迁频率与响应各异 | 为各器件测定频率和脉冲设置；不能假设一套参数适用于所有器件 |
+| 介质与界面缺陷、准粒子、环境能量交换 | 可能导致激发态弛豫；具体机制取决于耦合和工作点 | 测量 $T_1$ 与重复性；单条衰减曲线一般不能唯一确定损耗来源 |
+| 磁通、电荷或残余光子涨落 | 可能引起频率涨落，重复实验中的相位逐渐分散 | 用 Ramsey 等表征相干；是否需要改偏置或环境须进一步判断 |
+| 线路失真、串扰、电子学漂移 | 实际脉冲幅度、相位、时序或读出增益偏离预期 | 调整控制设置、补偿响应、检查参考记录 |
+| 热激发和读出噪声、读出期间的状态跃迁 | 名义初态不纯、IQ 云重叠、判别结果偏离准备标签 | 检查准备和读出；优化参数时同时考虑测量时间和扰动 |
+
+弛豫是量子比特与环境交换能量造成的布居变化；退相干还包括相位信息的丢失。纯退相位可以在布居几乎不变时发生。例如，不同重复实验中的频率略有差异，累积相位便逐渐分散，平均干涉对比度降低。
+
+慢漂移与快速随机涨落也需要区别。跟踪慢漂移可以让设置继续匹配器件；对快速随机噪声，重新设置一个平均频率通常不能消除每次实验的随机误差。表中的机制是一般背景，不是对任一案例的确定归因。新增噪声背景依据：Krantz Sec. III.C.1–4, PDF pp. 18–19；测量链依据：Blais Sec. V.A, pp. 25–27。
+
+## 4. 为什么要校准，校准与表征有什么区别？
+
+### 4.1 从软件设置到物理操作存在未知映射
+
+目标可能是一个 $X_\pi$ 门，但设备接口接受的是频率、采样波形、幅度和时长。要实现目标，必须知道这些设置与实际旋转的对应关系。这种关系既受器件和线路差异影响，也会随时间和工作条件变化。校准就是通过实验调整这类可控设置，使操作满足目标。
+
+**表征**用于了解器件行为或性能，如测量 $T_1$、$T_2^*$；**校准**用于选择或更新设置，如驱动频率和 $\pi$ 脉冲幅度；**验证**检查更新后的操作是否达到目标。同一实验可以为多个环节提供信息，但三种问题不应混为一谈。例如，测出一个长 $T_1$，并不能证明脉冲相位正确或读出可靠。
+
+可操作的流程是：选择实验并采集记录，估计候选参数，检查它是否受数据约束，再用适当实验验证后决定是否采用。拟合软件能返回参数，只说明优化程序找到了一个解；它尚未回答这个解是否可信、是否对应正确跃迁、是否能实现目标操作。
+
+### 4.2 校准为什么需要迭代？
+
+读出谐振器扫描帮助找到可用的探测响应，量子比特频谱扫描帮助定位候选跃迁，Rabi 实验帮助确定脉冲旋转，读出校准再检查名义两种准备的区分度。后续表征和验证也可能要求回到上游调整设置。
+
+这里存在相互依赖：Rabi 需要能看到布居变化的读出，精细读出校准又需要近似可靠的 $\pi$ 脉冲。起步时可以使用平均 IQ 和粗略设置获得初步响应，随后逐步改进，无需假设一开始就有完美的单次判别器。
+
+这个顺序是通用解释，不是恢复的 0918 采集时序。现有六类记录可帮助讨论各环节，却不能证明整套门校准和验证已经完成。校准也有边界：设置调整可以减少系统性偏差，无法消除所有材料损耗、非平衡激发和随机噪声。
+
+## 5. 读出究竟测到了什么？
+
+### 5.1 读出谐振器为什么能够携带量子态信息？
+
+读出谐振器与量子比特耦合。在合适的失谐和探测强度下，可以使用色散近似：谐振器的有效共振频率随量子比特状态改变。以 $\sigma_z|0\rangle=-|0\rangle$ 的约定写成
+
+$$
+H_{\mathrm{disp}}/\hbar\simeq
+(\omega_r+\chi\sigma_z)a^\dagger a+
+\frac{\omega_q}{2}\sigma_z.
+$$
+
+$a^\dagger a$ 表示谐振器光子数，$\chi$ 是色散频移。于是两种状态对应的谐振器频率为 $\omega_r-\chi$ 和 $\omega_r+\chi$。在一个选定探测频率处，二者产生不同的复微波响应。测量这些响应，就能获取关于量子比特状态的信息。来源：Blais Eq. (107)、Eq. (110)、Fig. 19, PDF pp. 29–31。
+
+这里通常希望在读取布居时尽量避免交换量子比特能量，但测量仍有反作用。量子非破坏测量（QND）希望保持被测量量的本征值，使理想重复测量能够给出一致结果；它不表示未知叠加态的相干信息完全不受扰动。探测信号过强也可能使色散或近似 QND 条件失效。读出谐振器与用于量子比特间相互作用的耦合器或总线也不是同一角色。
+
+### 5.2 一次采集怎样得到一个 IQ 点？
+
+输出微波经过放大，与参考本振混频，然后由 ADC（模数转换器）采样。模拟或数字处理提取两个相差 $90^\circ$ 的分量，再在读出窗口内积分。用已经解调的信号示意为
+
+$$
+I=\int w_I(t)v_I(t)\,dt,\qquad
+Q=\int w_Q(t)v_Q(t)\,dt,
+\qquad z=I+iQ.
+$$
+
+$v_I,v_Q$ 是解调后的时间信号，$w_I,w_Q$ 是积分权重；具体正负、缩放和权重由实现决定。一次读出原本可以包含许多时间采样，积分后才成为一个点。改变积分时间或权重，也会改变这个点的统计分布。来源：Krantz Fig. 22, p. 45；Blais Fig. 16、Eq. (114), pp. 27、31。
+
+I 表示同相分量，Q 表示正交分量；它们可以为正也可以为负，通常以任意单位表示。它们描述测到的场响应，**不是**量子态 $\alpha|0\rangle+\beta|1\rangle$ 中的 $\alpha,\beta$。这两组复数即使形式相似，也不是同一个物理对象。
+
+AWG（任意波形发生器）和 DAC（数模转换器）负责生成信号；ADC 负责采样，FPGA（现场可编程门阵列）可以执行数字处理。这些硬件名称需要知道其作用，不必把实现细节都放到 slides。
+
+### 5.3 单次记录、平均 IQ、判别标签与布居概率
+
+重复同一准备和测量，会得到 IQ 点云。每个点是一次读出的结果，点云分布受到量子测量、准备情况、状态跃迁以及测量链噪声共同影响。将许多点取平均得到平均 IQ；把每个点送入判别器，则得到 0 或 1 的判别标签；标签中 1 的比例是观测到的判为 1 的频率。
+
+这几个量不能随意替换。在稳定的二态读出响应模型下，若两种状态的平均复响应为 $z_0,z_1$，则
+
+$$
+\mathbb E[z]=(1-P_1)z_0+P_1z_1.
+$$
+
+因此平均 IQ，或者它沿固定方向的线性投影，可以近似反映布居。可是 $|\mathbb E[z]|$ 和 $\arg\mathbb E[z]$ 都是非线性变换，一般不会与 $P_1$ 保持线性关系；先取幅度再平均也不等于先平均复响应再取幅度。这解释了为什么不能把任意幅度曲线直接当成布居概率。
+
+若读出有误判，判为 1 的概率 $q_1$ 与真实布居 $P_1$ 的关系，在固定二态判别模型下是
+
+$$
+q_1=e_0(1-P_1)+(1-e_1)P_1,
+$$
+
+其中 $e_0=P(\mathrm{assign}\ 1\mid\mathrm{true}\ 0)$、$e_1=P(\mathrm{assign}\ 0\mid\mathrm{true}\ 1)$。只有在相应误判概率已可靠估计、模型稳定且分母 $1-e_0-e_1$ 可用时，才可据此反推布居。当前数据中的名义准备标签不能直接提供每次实验的真实状态，所以这里只解释一般关系，不据此新增读出修正。
+
+### 5.4 为什么 IQ 云会重叠，测得的 fidelity 又表示什么？
+
+有限测量时间内的信号噪声使同一准备产生散点，而两种状态的平均响应可能分得不够远。准备错误、热激发和读出过程中的弛豫还可能把部分记录带到另一云附近。因此云的中心距离必须结合宽度、分布形状和测量条件判断；距离大并不自动保证整体读出误差小。
+
+名义 without-pi 和 with-pi 分别表示执行了不加或加 $\pi$ 脉冲的准备流程。它们是操作标签，不保证每次都得到 $|0\rangle$ 或 $|1\rangle$。高斯混合模型（GMM）可以描述或聚类分布，但仅凭聚类不能给云赋予真实量子态标签，需要准备参考。
+
+本地审计使用留出评估的线性判别器：一半记录训练，另一半评估，再交换。这里的
+
+$$
+F_0=P(\mathrm{assign}\ 0\mid\mathrm{nominal\ prepare}\ 0),\quad
+F_1=P(\mathrm{assign}\ 1\mid\mathrm{nominal\ prepare}\ 1)
+$$
+
+是相对于名义准备标签的正确判别率，平均值 $(F_0+F_1)/2$ 是平衡准确率。它包含准备、弛豫和测量的共同影响，不能直接称作隔离后的纯测量保真度，也不等于原始 GMM 图的估计器复现。
+
+延长积分时间可能积累更多信号，但也给弛豫、漂移或测量扰动更多机会；提高探测强度同样有权衡。来源：Krantz Sec. V.C, pp. 47–48；Blais Sec. V.C.1–2, pp. 31–32。原图 SNR、stateErr、sepErr 和着色定义仍见[估计器溯源问题](../../../questions/0918-readout-estimator-provenance.md)。
+
+## 6. 各个实验为什么能回答相应问题？
+
+先问每个实验改变什么、记录什么、据此想估计什么。频率扫描中的横轴是信号频率，Rabi 的横轴可以是脉冲幅度或时长，$T_1$ 与 Ramsey 的横轴则是等待时间。即使纵轴都写成响应或 $P_1$，它们也不是在做同一个实验。
+
+| 实验 | 改变的量 | 从响应中寻找的内容 | 支持的候选结果 |
+| --- | --- | --- | --- |
+| 读出谐振器频谱 | 读出探测频率 | 谐振响应及背景 | 可用的读出频段；还需优化状态区分度 |
+| 量子比特频谱 | 驱动频率 | 与激发相关的响应变化 | 候选跃迁频率；需验证信号来源和分辨率 |
+| Rabi | 固定时长扫幅度，或固定幅度扫时长 | 布居随旋转角的周期变化 | 候选 $\pi$、$\pi/2$ 设置 |
+| $T_1$ | 准备激发态后的等待时间 | 相对基线的衰减 | 弛豫时间 |
+| Ramsey | 两个 $\pi/2$ 脉冲间的等待时间 | 相位干涉振荡及其对比度衰减 | 失谐信息与 $T_2^*$ |
+| 读出准备对照 | 不加或加 $\pi$ 脉冲，重复采集 | 两组 IQ 分布及判别结果 | 在相应准备条件下的区分能力 |
+
+### 6.1 频谱扫描中的峰和谷说明什么？
+
+共振意味着电路对某个频率附近的输入具有显著响应；实际显示为峰还是谷，取决于透射或反射结构、干涉背景和所选响应量。对于量子比特频谱，驱动改变布居，再通过读出显示出来；它与直接测读出谐振器的频谱不同。
+
+若使用线性标量响应 $y=y_0+(y_1-y_0)P_1$，$y_1>y_0$ 时激发增加可形成峰，反之可以形成谷。单凭峰谷方向不能识别跃迁方向。一个可见特征也不保证其中心和线宽都被确定：它可能在窗口边缘，或比采样步长窄得多。
+
+### 6.2 Rabi 的振荡怎样给出脉冲设置？
+
+从理想 $|0\rangle$ 出发，共振驱动、固定旋转轴和二能级动力学下，$P_1=\sin^2(\theta/2)$。矩形脉冲有 $\theta=\Omega T$。从最小布居到第一次最大布居对应 $\theta=\pi$；再回到最小布居对应 $2\pi$。
+
+幅度 Rabi 固定时长并扫描强度；时间 Rabi 固定强度并扫描时长。将第一次最大响应作为候选设置，需要先确认读出方向、初态、失谐和振荡是否清晰。若读出不理想，响应极值和布居极值的关系也要检查。
+
+本报告的 Rabi 图使用 IQ 线性投影，且各记录独立标准化，不是绝对布居。拟合中的周期是对横轴设置的周期；它不是微波载波频率。图中正弦由记录的候选频率重建，没有重新做非线性频率拟合。
+
+### 6.3 $T_1$ 为什么要有长等待和基线？
+
+通常先用 $\pi$ 脉冲准备激发态，等待 $t$ 后读出。在单指数、稳定读出和准备条件下，响应可写成
+
+$$
+y(t)=B+A e^{-t/T_1}.
+$$
+
+$A$ 是相对长时基线的初始对比度，$B$ 是长等待后的响应。$t=T_1$ 时，超出基线的部分降为最初的 $1/e$，不意味着总响应一定等于 $1/e$。基线可以包含残余激发和读出偏差，不能无条件固定为零。
+
+如果整个窗口都远短于 $T_1$，看不到足够的衰减，便很难同时确定 $A,B,T_1$。长等待既能提供曲率，也帮助确定基线。交错测量参考准备可以检查读出是否在采集期间漂移。本地审计拟合的是两路准备通道的布居差，而图上显示两路 $P_1$；具体通道顺序仍是推断，应保留这个区别。
+
+### 6.4 Ramsey 为什么需要两个 $\pi/2$ 脉冲？
+
+第一个 $\pi/2$ 脉冲把初态转到赤道附近的叠加态。等待期间，量子态相对于驱动参考累积相位，近似为 $\Delta t$。此时两能级的布居可以仍然各占一半；直接做计算基读出无法区分这些相对相位。
+
+第二个 $\pi/2$ 脉冲把相位差转为布居差。扫描等待时间就能看到干涉振荡：它既反映参考与实际跃迁的频率差，也反映重复实验中相位保持的情况。单频、单指数模型为
+
+$$
+P_1(t)=B+A e^{-t/T_2^*}\cos(2\pi f_Rt+\phi).
+$$
+
+$f_R$ 是干涉条纹频率，不是 GHz 载波频率；其正负、是否叠加人为相位扫描，依赖实验约定。仅用余弦曲线的正频率拟合也不一定确定失谐符号。对比度衰减的时间记为 $T_2^*$，反映这类自由演化实验下的相干保持；回波实验能够抑制部分慢变化影响，因此其结果可能不同。
+
+平稳单指数弛豫与纯退相位模型下，$1/T_2=1/(2T_1)+1/T_\phi$。$T_\phi$ 是纯退相位时间。这个关系解释为什么能量弛豫本身也损害相干；不适合把无关运行的 $T_1$ 和 $T_2^*$ 随意代入，非指数衰减也需要不同描述。来源：Krantz Fig. 5、Sec. III.B.2–3, PDF pp. 13–16。
+
+### 6.5 准备成功与量子门正确有什么不同？
+
+一次把 $|0\rangle$ 转成 $|1\rangle$ 的检查，主要测试这一个输入下的布居转移。理想 $X_\pi$ 与 $Y_\pi$ 都能做到这一点，却对叠加态产生不同作用。因此，验证完整的目标门还需要能区分相位和旋转轴的输入或序列，并考虑读出误差与泄漏。这个二能级例子是解释性推理，不是新增设备测试。
+
+重复操作可以放大某些小偏差，不同轴的组合可以暴露只看布居时遗漏的相位问题。要给出整体门保真度，则还需要明确验证方法、参考操作与误差模型。当前 Rabi 记录支持讨论候选设置及其信息是否充分，不能替代这些完整验证。
+
+## 7. 好看的拟合为什么仍可能给出不可信的参数？
+
+### 7.1 拟合质量与参数可辨识性是两个问题
+
+拟合质量问模型能否描述已测数据；参数可辨识性问不同参数是否会产生足够不同的可观测响应，从而被数据区分。模型可以贴近数据，但某些参数仍有很大的不确定性。
+
+例如在 $t\ll T_1$ 时，
+
+$$
+B+A e^{-t/T_1}\approx(B+A)-\frac{A}{T_1}t.
+$$
+
+短窗口主要约束截距 $B+A$ 和斜率 $A/T_1$。多组 $A,B,T_1$ 可以给出几乎相同的局部直线，于是拟合器可能返回很长的时间常数，甚至触及人为上界。上界限制的是搜索范围，并不是测到了那个寿命。扩大等待窗口的价值在于获得原先缺少的衰减曲率和基线信息。
+
+周期拟合也类似：只看到短弧段时，偏置、幅度、初相位和周期可能互相补偿。增加同一短区间的点数可减少局部噪声，却不一定补足完整转折和回返的信息。因此“多采样”和“扩大覆盖”解决的是不同问题。
+
+### 7.2 覆盖、分辨率、模型和误差应分别检查
+
+**覆盖**问目标特征是否被完整扫描。峰在边缘时缺少另一侧，短时衰减缺少尾部，局部振荡缺少完整周期。**分辨率**问采样间隔能否分辨目标变化。即使窗口很大，粗步长仍可能漏掉窄峰。半高全宽（FWHM）表示特征达到半峰高时两侧位置的间距；使用哪种背景和响应模型会影响其估计。
+
+**模型适用性**问单峰、单指数或单频假设是否描述记录。残差 $r_i=y_i-\hat y_i$ 若仍有有序变化，说明模型或误差描述留下结构；这不自动识别失谐、拍频、漂移或其他原因。重复、改变扫描方向或增加参考通道，可以帮助区分某些解释，而非只改善图形外观。
+
+决定系数为
+
+$$
+R^2=1-\frac{\sum_i(y_i-\hat y_i)^2}{\sum_i(y_i-\bar y)^2}.
+$$
+
+它比较拟合误差与数据总变化，不能证明参数正确、模型物理解释正确或门操作已经完成。数据近乎平坦时，分母很小，也需要谨慎解释。低整窗 $R^2$ 不排除局部存在真实窄特征，高 $R^2$ 则不能补足不足的线宽分辨率。
+
+本地 $R^2<0.8$ 等阈值是探索性筛查规则，不是普遍物理定律，也不是严格显著性检验或设备验收标准。不同指标的定义、单位和计算对象要先一致，才适合比较。
+
+### 7.3 从观察到原因，再到下一步
+
+可以直接从图中说“首点尖峰”“两组云重叠”“衰减未分辨”；在注明模型后说“拟合触及上界”“残差有相关结构”。要进一步说“由某种硬件故障造成”，则需要能区分其他解释的证据。
+
+下一步测量应针对缺失的信息：边缘特征需要扩大范围，窄峰需要细扫，寿命未分辨需要检查实际等待并扩窗，准备云重叠需要先核对准备与信号链。重新换一个更复杂的拟合器，不会自动补上未测到的信息。
+
+## 8. 八个案例怎样练习这些判断？
+
+详细数值、配对与未验证原因保留在 [case-notes.md](case-notes.md)。这里解释判断链，让自己能回答“左边哪里有用，右边哪里不足，为什么下一步这样做”。对照是针对某项判断较清晰的记录，不是整体无误的标准；这些通常也不是只改变一个变量的受控比较。
+
+### 8.1 读出谐振器 / 006：首点不能确定共振位置
+
+[案例与图](case-notes.md#case-resonator-006)。左侧在窗口内有连续响应结构，提供可检查的频率变化；右侧主要变化集中在首点，内部没有分辨出的共振。单个极端值不足以确定共振中心或线宽，不能直接选它作为读出频率。
+
+复测首点、改变扫描方向，可以检查该异常是否与采集顺序相关；调整扫描窗口则帮助寻找被遗漏的响应。方向变化只提供诊断线索，仍不能仅据此断言是哪一个器件出了问题。
+
+### 8.2 量子比特频谱 / 008：边缘特征缺少另一侧
+
+[案例与图](case-notes.md#case-spectroscopy-008)。左侧响应及两侧背景在窗口内，便于判断特征位置；右侧的候选特征接近边缘。中心频率、背景和线形可以在缺少另一侧时互相补偿，所以可见响应还不等于中心已可靠确定。
+
+扩大范围并围绕候选位置复测，能补上另一侧和背景。若始终追随边界，则还要检查扫描设置和信号来源。左侧只能作为定位条件较清晰的对照，不意味着它的精密线宽也可信。
+
+### 8.3 量子比特频谱 / 005：高拟合分数不能补足分辨率
+
+[案例与图](case-notes.md#case-spectroscopy-005)。右侧频率步长大于候选线宽。少数点可以被很窄的模型曲线贴合，但这些点没有充分测到半高位置及附近形状，因此线宽仍缺少约束。
+
+在候选附近细扫是在测原先遗漏的线形。对照也不能作为精密线宽的无缺陷标准；本页图显示幅度，已有拟合指标来自 IQ 诊断，两者的计算对象需要区别。
+
+### 8.4 Rabi / 003：有周期输出不等于观察到振荡
+
+[案例与图](case-notes.md#case-rabi-003)。左侧转折与回返给出可辨认的周期结构；右侧散点没有充分支持返回的快速振荡。数值优化仍会寻找最优正弦解，所以“返回了周期”本身不证明存在可靠旋转关系。
+
+不能直接把该拟合半周期写成 $\pi$ 设置。应先核对驱动频率、读出响应和采样条件，再恢复清晰的振荡；当前记录不能唯一决定其中哪一环有问题。
+
+### 8.5 Rabi / 007：局部弧段不足以确定完整周期
+
+[案例与图](case-notes.md#case-rabi-007)。这与上一例不同：右侧可以有平滑、拟合较好的局部变化，但扫描没有覆盖完整周期。周期、幅度、初相位和偏置仍可能互相补偿。
+
+扩大幅度范围以看到转折和回返，能够加强周期约束；扩展必须遵守设备允许的驱动范围，不能仅为追求完整周期任意增加功率。这例说明高拟合分数与参数信息充足并不等价。
+
+### 8.6 $T_1$ / 004：拟合上界是限制，不是测量值
+
+[案例与图](case-notes.md#case-t1-004)。左侧的可分辨衰减约束了时间尺度；右侧在已有等待窗口内近乎平坦，拟合触及 $10000\,\mu\mathrm s$ 的上界。第 7 节的短窗口展开解释了为什么多种长寿命模型都可能近似相同。
+
+先核对实际执行的等待时间、时间单位和准备参考，再延长等待。前者检查设置是否真的落实，后者增加衰减信息。不能只根据平坦记录认定器件具有非常长的 $T_1$。
+
+### 8.7 Ramsey / 008：包络不能解释全部振荡结构
+
+[案例与图](case-notes.md#case-ramsey-008)。较清晰对照也留下相关残差，因此不是理想模型标准。右侧振荡结构不能由单一包络充分解释；图上的虚线只画已有拟合的上下包络，并非完整的逐点振荡预测。
+
+检查完整模型残差、采样和重复性，有助于判断是否需要重测或重新考虑单频假设。包络大致罩住曲线，不足以证明 $T_2^*$ 或条纹频率可信；结构可能有多种来源，当前记录尚未确定原因。
+
+### 8.8 读出 / 008：分开了两个标签吗，还是分开了两个真实状态？
+
+[案例与图](case-notes.md#case-readout-008)。左侧名义准备组较易区分，右侧两组 IQ 明显重叠。右侧首先说明“执行这两种准备后，当前读出难以区分”，不能单独确定是 $\pi$ 准备失败、状态弛豫，还是读出信噪比不足。
+
+核对准备、读出频率、幅度和时间，再观察参考分布，能逐步定位问题。同一量子比特的对照也可能使用不同设置，不能把左右差异直接归因于某一个变量。这里的留出判别准确率与原图 GMM fidelity 定义仍需区别。
+
+## 9. 怎样连接到自动校准软件的研究设想？
+
+<a id="calibration-agent-proposal"></a>
+
+### 9.1 已有工作分别支持什么？
+
+[Vibe Calibration](../../../papers/vibe-calibration-112-qubit-processor/note.md) 报告了智能体调用已有实验工具、按专家流程开展处理器初始表征与校准的实例。其流程含检查、重试和人工接管，说明模型需要在实际工具和工作流程中运行。已读范围支持这一实例，不应把精细单、双比特门校准或连续漂移跟踪等未来扩展写成已实现能力。
+
+[NVIDIA Quantum Calibration Agent Blueprint](https://github.com/NVIDIA/Quantum-Calibration-Agent-Blueprint/) 的已选读 README 展示工具发现与调用、分析、多步流程、状态跟踪和会话恢复；[QUAlibrate](https://qualibrate-docs.quantum-machines.co/) 提供可复用校准节点、依赖图和设备表示。这两项软件资料帮助理解系统组织方式，不能替代运行效果的实验验证。
+
+[SWE-agent](https://arxiv.org/abs/2405.15793) 把模型与软件环境交互的接口作为研究对象，支持从软件工程角度研究工具与执行环境。[RouteLLM](https://arxiv.org/abs/2406.18665) 在文本任务中研究强弱模型路由与成本、质量权衡，提供模型选择的相关思路。两者提供跨领域支持；物理校准中的收益仍需单独研究。更详细的既有咨询范围放在文末。
+
+### 9.2 Harness 是什么，它怎样与脚本和模型配合？
+
+这里将 harness 理解为连接模型、实验工具、状态、执行过程和结果的软件环境。它使模型知道有哪些可调用操作、当前设置与已有结果是什么，也让执行结果能够被检查和继续使用。它可以包含已有脚本、配置、工作流和记录机制，其研究价值需要用这些能力如何帮助任务来说明。
+
+用 $T_1$/004 举例：已有程序可以检查数据格式、计算拟合、报告上界状态；工作流可以记录这次结果尚未通过检查，并保留使用的时序与参数；模型可以结合记录提出“先查实际等待，再考虑扩窗”的解释。是否允许采用参数，应由明确的操作规则与验证过程共同决定。这个例子说明可能的分工，当前并未实现这样的系统。
+
+常规软件本来就能做分支、重试、依赖管理和阈值检查。模型的潜在价值在于理解较不规则的情况、组织不同工具、帮助改代码或利用文献，而不是把已有自动化能力全部算作 LLM 的贡献。
+
+> [!hypothesis]
+> Suggested by Codex; not yet verified. 将可重复的执行与检查保留为软件流程，同时让模型处理需要解释或适应新任务的部分，可能降低引入和维护校准流程的工作量。要检验这一点，应与拥有同等工具和流程知识的常规自动化比较，观察完成质量、专家投入与维护成本。
+
+### 9.3 模型路由与多智能体合作有什么区别？
+
+读者明确认可的长期方向是：不同能力和价格的模型及智能体共同工作，平衡成本与效果，并从软件工程视角组织可复用系统。便宜模型做分类与常规处理，较强或有专长的模型做复杂分析、写代码和读文献，是读者提出的分工例子。
+
+**模型路由**主要决定某项任务交给哪个模型；**多智能体协作**还涉及各参与者怎样分工、共享结果、处理分歧和完成交接。一次把问题交给强模型，不自动成为多智能体合作。角色也不宜仅由模型价格决定：分类错误可能导致昂贵重测，例行任务偶尔也需要升级处理。
+
+> [!hypothesis]
+> Suggested by Codex; not yet verified. 根据任务难度和已有检查结果，先由低成本模型处理常规任务，在信息不足或判断冲突时升级，可能降低总体成本。需要检查错误分流、重复讨论和额外实验是否抵消了模型调用的节省；RouteLLM 的文本任务结果不能证明这一收益。
+
+### 9.4 如何分阶段，又怎样理解效果与成本？
+
+当前讨论的是 proposal，不是原型实施承诺。可以沿用已确认的三阶段主线：先理解单模型与已有校准工具如何配合，再研究可复用 harness，最后研究不同模型和智能体协作。每一阶段都把前一阶段的流程与判断经验带入下一阶段，而不是同时承诺完整自动实验室。
+
+“效果”应与具体任务对应：参数是否受数据约束，操作验证是否通过，是否能发现需要复测的记录，或者能否及时把工具范围之外的问题交给人。系统恰当地报告“现有证据不足”也可能是有用结果，不能只统计返回参数的数量。
+
+“成本”包括模型调用费用，也包括实验机时、重复测量、整体延迟和专家修改流程的投入。便宜模型若导致更多重测，总成本可能更高。多智能体若只是重复回答，也未必更有效。核心研究问题是怎样组织软件与模型，使相同任务获得合适的完成质量和总成本；具体机制与收益仍是拟研究内容。
+
+## 10. 备讲时可能遇到的追问
+
+以下给出回答起点，详细解释在前文，不要求全部进入 slides。
+
+**超导为什么不等于不会退相干？** 零直流电阻是材料输运性质；量子电路仍与介质、缺陷和电磁环境耦合，能量与相位信息仍可能损失。见第 2、3 节。
+
+**0 和 1 是两种电流方向吗？** 本报告的 transmon 编码使用最低两个电路能量本征态。其他超导量子比特的物理描述可能不同，不能把某种电流图像套用于所有器件。
+
+**量子比特只有两个能级吗？** Transmon 有更高能级，我们选择其中两个作为计算空间。有限非谐性使选择性控制成为可能，也使泄漏成为需要检查的误差。
+
+**为什么相同脉冲在不同器件或不同时刻效果不同？** 跃迁频率、耦合、线路响应和工作点可能不同或漂移。软件输入相同，不保证器件接收到的有效驱动和旋转相同。
+
+**IQ 的相位是不是量子态相位？** IQ 相位是相对于测量参考的场响应相位。Ramsey 用第二个脉冲把量子态相对相位转成布居变化，再由读出观察；不能直接把 IQ 极角当作波函数相位。
+
+**测一次就能得到 $P_1$ 吗？** 理想计算基测量的一次结果只是 0 或 1。通过重复准备与测量估计概率；实际单次 IQ 还需要判别，而且准备与误判会影响估计。
+
+**读出时间越长、功率越大越好吗？** 更多信号可帮助区分，但同时可能增加状态弛豫、测量扰动或近似失效。需要在给定条件下优化，而不能只看云中心距离。
+
+**高 $R^2$ 为什么不能证明校准成功？** 它描述已测点的拟合误差；覆盖、分辨率、参数可辨识性和操作验证是另外的问题。短弧段 Rabi 或欠采样窄峰就是反例。
+
+**Rabi 最大响应是否就证明一个高保真 $X_\pi$ 门？** 它可以支持候选旋转设置，但还需检查相位、失谐、泄漏及适合目标的操作验证。当前资料没有完整门验证结果。
+
+**怎么判断左边正确、右边错误？** 应说清当前任务：左边在哪项参数判断上信息较充分，右边缺少什么。对照仍可能有其他问题；不能仅凭左右图给整次实验贴正确或错误标签。
+
+**校准能够修复硬件损耗吗？** 校准可调整设置和选择工作点，表征可帮助发现限制；不能通过一个拟合或频率更新消除所有材料缺陷和随机噪声。
+
+**已有脚本能自动校准，为什么还研究 LLM？** 常规流程适合可重复操作；拟研究的是模型在异常解释、工具组织和流程适应中是否有额外价值，以及 harness 怎样使这种价值可靠复用。比较对象应包括能力充分的常规自动化。
+
+**多模型合作一定便宜吗？** 不一定。需要把错误分流、沟通、重测和人工投入一起计算。这是拟研究的权衡，尚无当前项目的收益结论。
+
+**这组数据证明了什么，尚不能证明什么？** 它支持讨论这些记录中的参数约束和复查需求；没有确证每项异常的硬件原因，也没有证明读者的早期控制软件产生了这组数据，或证明完整自动校准系统已经实现。
+
+## 11. 与 slides、原始记录和来源的对应
+
+### 11.1 报告导航
+
+当前 PDF（2026-10-14）共 69 页，正文第 1–26 页，附录第 27–69 页。第 3–8 页为硬件与信号，第 9–12 页为校准实验，第 13–22 页为判断方法、案例和总结，第 23–25 页为研究计划，第 26 页为参考文献。Notes 的基础知识比 slides 更宽；前文标题按学习问题组织，不再把页码作为章节主线。
+
+| 正文页 | 详细案例 | 本笔记中的理解重点 |
+| --- | --- | --- |
+| 14 | [Resonator/006](case-notes.md#case-resonator-006) | 首点与连续响应、扫描窗口 |
+| 15 | [Spectroscopy/008](case-notes.md#case-spectroscopy-008) | 边缘特征与两侧背景 |
+| 16 | [Spectroscopy/005](case-notes.md#case-spectroscopy-005) | 步长与候选线宽 |
+| 17 | [Rabi/003](case-notes.md#case-rabi-003) | 数值周期与可见振荡 |
+| 18 | [Rabi/007](case-notes.md#case-rabi-007) | 局部拟合与周期约束 |
+| 19 | [T1/004](case-notes.md#case-t1-004) | 短窗口、基线与拟合上界 |
+| 20 | [Ramsey/008](case-notes.md#case-ramsey-008) | 完整振荡模型与残差 |
+| 21 | [GMM/008](case-notes.md#case-readout-008) | 名义准备与真实状态 |
+
+正文展示八个代表案例，附录补充其余 39 个。46 个已有筛查标记加一个 Resonator/006 描述性复查，共 47 个目标；这不是采集失败率，也不是所有可能问题的穷举。所有详细案例由既有生成器维护，本次没有改写其原始数值、配对和生成文件。
+
+### 11.2 本轮来源核对范围
+
+2026-10-14 — 为补充基础解释，本轮在本地提取 Krantz PDF pp. 4–5、18–19，以及 Blais pp. 25–26 的文字并核对所引内容；其余控制、读出和相干模型沿用已经记录的选择性阅读。新增选读 OpenStax §9.8 的超导性质和 BCS 入门段落。公式中的低温二能级例子、短窗口展开和案例教学解释是 Codex 的计算或推理，不是这些来源报告的本设备结果。详细新增注释见[来源记录](../references.md)。
+
+两篇综述均未全文重读；软件研究参考沿用此前记录的咨询范围。尚待解决的内容包括原始读出估计器、部分采集时序和设备细节、异常的物理原因，以及研究设想的实际收益。
+
+
+### 11.3 频率与幅度扫描的列定义
 
 0918 的 Resonator Spectroscopy 有 6 cases，扫 probe frequency；Qubit Spectroscopy 有 18 cases，扫 drive frequency；Rabi Oscillation 有 16 cases，扫 drive-amplitude setting。它们保留 frequency/amplitude setting、phase、magnitude、scaled magnitude、I、Q。
 
@@ -86,7 +467,7 @@ CSV 无 header；列号从 0 开始。Spectroscopy 的 0 列是 frequency (GHz)�
 
 Rabi 图使用去均值 IQ 的第一 principal direction，除以该 record 的 standard deviation。其 sign / scale 在每份 record 中独立选择，不是 population。Figure 的 sinusoid 使用 recorded candidate frequency，只通过 linear least squares 重建 offset/cosine/sine coefficients；没有新增 nonlinear frequency fit。
 
-## 背景补充：延迟与准备记录的列定义（对应第 9 页）
+### 11.4 延迟与准备记录的列定义
 
 T1 Visibility 有 6 cases；column 0 为 delay (μs)，1–2 为第一路 P0/P1，3–4 为第二路 P0/P1。图画 columns 2、4；将两路解释为 nominal with/no-pi **来自推断**。T2 Ramsey 有 8 cases；columns 0–2 为 delay、P0、P1；图画 P1 与 recorded-fit upper/lower envelope。
 
@@ -94,109 +475,34 @@ GMM Readout Clusters 有 10 cases；columns 0–4 为 record index、without-pi 
 
 六类共 64 cases、57,993 numeric rows。行的物理意义随 family 改变，不能把总行数当作 shots。文件标签“0918”不能单独确认 acquisition date。Source bytes、column mappings 与 recorded metrics 见 [evidence.json](evidence.json) 和 [README](README.md)。
 
-## 10 — Rabi 用振荡确定脉冲设置
+### 11.5 既有物理参考与版本
 
-Ideal initial $|0\rangle$、resonant drive、固定 rotation axis 与 two-level dynamics 下，$\theta=\int\Omega(t)dt$，$P_1=\sin^2(\theta/2)$。Rectangular pulse 时 $\theta=\Omega T$，$\Omega$ 是 angular Rabi frequency。Slide 的矩形 envelope 使用 PGFPlots 的 axis 与坐标曲线绘制，仍是示意；0918 的真实 envelope 未恢复。
-
-Amplitude Rabi 固定 duration、改变 strength；Time Rabi 固定 strength、改变 duration。$\pi$ pulse 对应 $180^\circ$ state rotation；$\pi/2$ pulse 可产生等 population superposition。稳定 two-state readout 下，averaged IQ 可近似沿 reference endpoints 连线，但 magnitude / phase 一般不再是简单 sinusoid。
-
-来源：Krantz Eqs. (92)–(94)，PDF p. 29；0918 Rabi CSV。
-
-## 11 — T1 与 Ramsey 检查状态和相位保持
-
-T1：$|0\rangle\xrightarrow{\pi}|1\rangle\xrightarrow{t}\mathrm{readout}$，模型 $P_1(t)=B+A e^{-t/T_1}$。$A$ 是 initial contrast，$B$ 是 long-delay baseline。$t=T_1$ 时，是相对 baseline 的 excess 变为原来的 $1/e$；不是全部 P1 必然降到 $1/e$。实际 audit 拟合两路 preparation-channel contrast，不能把图上的每一路 P1 都当作该 fit 的对象。
-
-Ramsey：$\pi/2\to t\to\pi/2\to\mathrm{readout}$。第二个 pulse 将 relative phase 转成 population contrast。单一 exponential / frequency 模型为 $P_1(t)=B+A e^{-t/T_2^*}\cos(2\pi f_Rt+\phi)$；$f_R$ 是 fringe frequency，不是 microwave carrier frequency。对照页只画 recorded-fit envelope，不是完整 oscillatory prediction。
-
-等 population superposition $(|0\rangle+e^{i\phi}|1\rangle)/\sqrt2$ 的 amplitudes 大小是 $1/\sqrt2$，probabilities 是 $1/2$。Stationary exponential relaxation / dephasing 下，$1/T_2=1/(2T_1)+1/T_\phi$；不能将无关 runs 的 T1 与 T2* 任意代入，非 exponential dephasing 也可能破坏这个简单 rate picture。
-
-来源：Krantz Fig. 5、Sec. III.B.2–3，PDF pp. 13–16。
-
-## 12 — 读出指标还受到状态准备的影响
-
-Without $\pi$ 名义上 prepare $|0\rangle$；with $\pi$ 名义上 prepare $|1\rangle$。Labels 记录执行的操作，不保证每个 shot 的真实 state。Classifier 根据 measured IQ 输出 assignment 0 或 1；GMM clustering 本身不能赋予 cluster 物理 state label，需要 preparation reference。
-
-本报告复用 recorded audit 的 held-out linear classifier：用一半 records 训练、另一半评估，再交换。$F_0=P(\mathrm{assign}\ 0\mid\mathrm{nominal\ prepare}\ 0)$，$F_1=P(\mathrm{assign}\ 1\mid\mathrm{nominal\ prepare}\ 1)$，balanced accuracy 为 $(F_0+F_1)/2$。
-
-该 accuracy 包含 preparation、relaxation 与 measurement 的影响；不是原始 GMM fidelity estimator 的复现，也不是 isolated measurement error。Source data 没有逐 shot 的真实 state labels。
-
-来源：recorded `audit_raw_physics.py` 的 readout diagnostic；Krantz Sec. V.C、Blais Sec. V.C.2。原图 estimator 的未解决问题保留在 [provenance question](../../../questions/0918-readout-estimator-provenance.md)。
-
-## 13 — 拟合参数是否得到数据支持
-
-Observation 是可见的 curve、overlap、edge、scatter 等；model diagnostic 是在明确 model / preprocessing 下的 fit score、coverage、resolution 和 residual；possible cause 需要重复或干预区分。
-
-$R^2=1-\sum_i(y_i-\hat y_i)^2/\sum_i(y_i-\bar y)^2$，即 coefficient of determination。$y_i$ 是观察、$\hat y_i$ 是 prediction、$\bar y$ 是 mean。Residual $r_i=y_i-\hat y_i$ 的相邻 correlation 表明 model 仍留下有序结构，但不能唯一识别其原因。FWHM = Full Width at Half Maximum；a.u. = arbitrary units。
-
-本地 $R^2<0.8$ 等 thresholds 是 exploratory screening policy；不是 universal physics laws、formal significance tests 或 acceptance criteria。46 个 recorded flagged cases 加一个 Resonator/006 descriptive review，共 47 个 targets。Reference 是相对清晰的对照，不等于 calibration certification；不同 cases 通常不是 matched controlled experiments。
-
-## 14–21 — 八个正文案例
-
-正文按下列顺序展示。图、完整诊断、观察、未验证原因和验证方向均在详细笔记中：
-
-| 正文页 | 案例与解释 | 核心问题 |
-| --- | --- | --- |
-| 14 | [Resonator/006](case-notes.md#case-resonator-006) | 首点尖峰与扫描窗口 |
-| 15 | [Spectroscopy/008](case-notes.md#case-spectroscopy-008) | 扫描边界 |
-| 16 | [Spectroscopy/005](case-notes.md#case-spectroscopy-005) | 步长与候选线宽 |
-| 17 | [Rabi/003](case-notes.md#case-rabi-003) | 噪声状曲线仍返回周期 |
-| 18 | [Rabi/007](case-notes.md#case-rabi-007) | 高拟合分数与有限周期覆盖 |
-| 19 | [T1/004](case-notes.md#case-t1-004) | 平坦曲线与拟合上界 |
-| 20 | [Ramsey/008](case-notes.md#case-ramsey-008) | 包络与残差结构 |
-| 21 | [GMM/008](case-notes.md#case-readout-008) | 两组准备条件的 IQ 重叠 |
-
-这些页展示 measured records 与 reused diagnostics。每页在图内标注左侧的有效信息和右侧的具体不足，在正文给出参数判断或下一步；正式 caption 保留指标与解释条件。对照仅在当前判断任务上提供较清晰信息，不等于左侧整体正确。Spectroscopy/001 的采样也不足以作为精密线宽标准，Ramsey/002 与 /006 本身有残差问题。Possible causes 移到详细笔记并标为 hypotheses。把解释移出 slide 不意味着这些解释已经被确认。
-
-## 22 — 从返回参数到完成校准
-
-依次确认 observable、coverage、resolution、model adequacy、preparation/readout 与 reproducibility。Rabi magnitude 不直接等于 P1；Rabi/007 没有完整 cycle；T1/004 没有 resolved decay；Spectroscopy/008 的 feature 在 boundary；Spectroscopy/005 的 step 不能分辨 candidate linewidth；Ramsey/008 留下结构；GMM/008 的 nominal groups overlap；Resonator/006 需要重测首点或改变 sweep direction。
-
-Fit 返回数字是分析的起点。Parameter 是否被数据约束、能否用于目标 operation，应结合这些检查判断。
-
-## 26 — 理论依据：量子控制与读出
-
-沿用既有 selective consultation，没有本次 full-paper rereading：
+以下保留此前记录的选择性阅读位置；本轮补读范围见第 11.2 节，没有全文重读：
 
 - P. Krantz et al., *A Quantum Engineer's Guide to Superconducting Qubits*, Applied Physics Reviews 6, 021318 (2019)，[DOI](https://doi.org/10.1063/1.5089550)。[本地 PDF](../references/krantz-quantum-engineers-guide-superconducting-qubits.pdf) 是 arXiv:1904.06560v5，2021 revision。使用 Fig. 1 / Eq. (16), pp. 4–5；Fig. 5, p. 15；Eqs. (92)–(94), p. 29；Fig. 22, p. 45。
 - A. Blais et al., *Circuit Quantum Electrodynamics*, Reviews of Modern Physics 93, 025005 (2021)，[DOI](https://doi.org/10.1103/RevModPhys.93.025005)。[本地 PDF](../references/blais-circuit-quantum-electrodynamics.pdf) 是 arXiv:2005.12667v1，2020 version。使用 Figs. 14/16, pp. 25/27；Eq. (107), p. 29；Fig. 19, p. 31。
 
-这些位置按本地 PDF 页码；版本不同可能变化。旧制作记录另说明曾重新提取两篇 p. 29 核对 control/dispersive models。本次重写复用这些已记录的解释和出处；论文不能恢复 0918 未发布 plotting code 的 estimator。
+这些位置按本地 PDF 页码；版本不同可能变化。旧制作记录另说明曾重新提取两篇 p. 29 核对 control/dispersive models。本轮继续沿用已记录的控制与读出解释，新增咨询范围见第 11.2 节；论文不能恢复 0918 未发布 plotting code 的 estimator。
 
-## 30 — 数据与分析来源（附录）
+### 11.6 数据与分析来源
 
-Measurements 来自 64 份原 bytes 保留的 numeric snapshots；diagnostics 来自已完成的 recorded audit；解释是 Codex interpretation。制作时原记录已经核对 input、report、audit script 的 SHA-256 (Secure Hash Algorithm 256-bit)。本次再次核对 packaged CSV 的 hashes，而没有执行完整 nonlinear audit。Rabi 仅在固定 recorded frequency 下重建 linear coefficients，并检查 R² 与记录值一致。
+Measurements 来自 64 份原 bytes 保留的 numeric snapshots；diagnostics 来自已完成的 recorded audit；解释是 Codex interpretation。此前制作时原记录已经核对 input、report、audit script 的 SHA-256 (Secure Hash Algorithm 256-bit)，并在固定 recorded frequency 下重建 Rabi linear coefficients、检查 R² 与记录值一致。本轮只再次核对 64 份 packaged CSV 的 hashes，没有重新生成曲线或执行完整 nonlinear audit。
 
 T1 metrics fit contrast；Rabi metrics fit projected IQ；spectroscopy R² / FWHM 来自 single-Lorentzian IQ diagnostic。低 whole-window R² 不排除存在真实 narrow feature；高 R² 也不能补足 resolution。Resonator/006 仅有 descriptive review，没有 validated transfer-function fit。Shot counts、noise covariance、absolute gain 与原始 estimator provenance 未完全恢复。
 
 Hash 一致支持输入与 recorded snapshot 的对应关系，不保证原 acquisition、model 或 causal interpretation 正确。说明文件、source annotations 与 byte-preserved data 仍是解释的一部分。
 
-## 27–29 — 附录导航与对照条件
+### 11.7 附录与对照条件
 
 完整版本增加两页可点击导航与一页使用约定，其后覆盖其余 39 个 cases。全部 47 个案例的数值、reference selection 与详细解释见 [case-notes.md](case-notes.md)。Case IDs 在每个 family 内独立编号。
 
 Ramsey 全部 cases 均有 flag，因此 reference 使用相对清晰的 002 或 006。GMM/002–005 用同为 q10 的 009；GMM/008 用同为 q12 的 007；相同 qubit 不保证所有 settings 相同。Spectroscopy 图是 magnitude，指标是 IQ diagnostic。Rabi standardized projection 不可跨 case 比较 sign / scale，也不是 population。Flag 数量不应解释为 error / failure rate。
 
-## Implementation revision — 2026-10-12
-
-读者指出缺少目录 / section progress、内部 label 不应出现在 slide content，并希望 figure 使用已有专业工具。本次修订采用原生 Beamer `\tableofcontents`、section navigation / page ranges；使用 Circuitikz 重画电路符号、PGFPlots 绘制示意 pulse envelope；案例图放入 Beamer `figure` 环境，继续导入既有 Matplotlib vector PDFs。数据、预处理与 recorded diagnostics 均未改变。全文的页码已按新增目录更新。
-
-## Native dot navigation and single PDF — 2026-10-12
-
-读者选择 Berlin 同款原生圆点导航、一份含附录的完整 PDF，以及所有 diagrams / plots 使用 `figure`。此次取代先前的 bar / fraction 与双 PDF 交付；历史修订说明保留。正文仍为第 1–26 页，附录为第 27–68 页；案例解释与 scientific caveats 不变。
-
-## Native figure captions — 2026-10-13
-
-读者指出图下说明应归入 figure caption。现将九个背景 figures 与全部 47 个案例对照图的描述、相关出处、指标和必要解释条件放入原生 `\caption{...}`，统一编号；正文结论和扩展讲解分别保留在 slide body 与笔记。同步修改 case generator。保留读者已填写的报告人；页码、案例配对、所有原指标及 caveats 不变。
-
-重新编译并渲染检查全部 68 页，无裁切或重叠，最终 log 无 overfull/underfull、missing-character 或 undefined-reference warnings。CSV、原始 plot PDFs、supporting PDFs 与 evidence JSON 经 SHA-256 核对保持不变；此次仅为排版修正，没有新增数据或物理验证。
-
-<a id="calibration-agent-proposal"></a>
-
-## 23–25 — 自动校准软件系统研究计划
+### 11.8 研究计划的既有来源与确认记录
 
 2026-10-14 — 根据读者审阅，替代前版五阶段、细架构的讲述。研究计划移入正文，在案例总结之后、参考文献之前。读者明确认可软件工程与 harness 视角，以及不同模型和智能体协作、平衡价格与效果的长期目标。以下是据此起草的解释；具体机制与收益属于拟研究内容。
 
-### 第 23 页：已有工作提供什么基础
+#### 第 23 页：已有工作提供什么基础
 
 [Vibe Calibration 阅读记录](../../../papers/vibe-calibration-112-qubit-processor/note.md) 提供专家流程 Skills 化、智能体调用现有实验工具开展多步表征与校准的实例。此处复用已有阅读记录，不增加全文阅读或性能比较。
 
@@ -207,13 +513,13 @@ Ramsey 全部 cases 均有 flag，因此 reference 使用相对清晰的 002 或
 - [QUAlibrate 官方文档](https://qualibrate-docs.quantum-machines.co/)：overview 介绍可复用的 `QualibrationNode`、校准库、`QualibrationGraph` 与 QUAM 设备表示。它提供常规校准软件的组织基础；属于具体软件平台文档，不是本研究设想的性能验证。未运行该平台。
 - [SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering](https://arxiv.org/abs/2405.15793)，2024：选读 arXiv v3 abstract 与[官方 README](https://github.com/SWE-agent/SWE-agent/)。论文研究模型操作代码仓库、编辑代码和执行测试的接口设计，支持“软件环境与模型接口值得研究”的视角。该证据来自软件工程任务，不能直接推出物理校准中的收益，也不意味着环境越复杂越好。
 
-### 第 24 页：读者的 harness 视角
+#### 第 24 页：读者的 harness 视角
 
 Harness 在此指连接模型、实验工具、工作流程与结果的软件环境。读者希望从软件工程角度研究：怎样复用校准经验，并适应不同设备、工具和模型。此次将问题进一步表述为“哪些能力应该由模型判断，哪些应该沉淀为可复用的软件流程？”这是研究问题，不是已经证明的设计结论。前面的案例分析为理解任务和判断环节提供背景，不被写成完整系统设计或已实现能力。
 
 建议转场：“已有工作展示了模型参与校准的可能性。我希望进一步研究，怎样把这些能力组织为能够复用和扩展的软件系统。”
 
-### 第 25 页：三个研究阶段
+#### 第 25 页：三个研究阶段
 
 依次研究单模型与现有工具的配合、可复用 harness、不同模型与智能体的协作。低成本模型承担分类与常规处理，较强或专长模型参与复杂分析、代码和文献，是拟研究的分工示例，不是固定角色架构或已测得的成本收益。阶段用于组织研究设想，没有承诺原型、时间表或实验结果。
 
@@ -221,11 +527,41 @@ Harness 在此指连接模型、实验工具、工作流程与结果的软件环
 
 [原 proposal](../proposal.md) 保留前期更详细的讨论与相关工作；报告采用本轮确认的简洁主线，其中此前以证据路由与状态契约为中心的表述不再代表本次汇报重点。
 
+### 11.9 Slides 中示意图的解释条件
 
-## 硬件、案例与研究依据修订 — 2026-10-14
+Transmon 的电路与能级图不是按比例绘制，标有 $E_J$ 的交叉符号表示约瑟夫森结。通用架构图不能用来推断原设备的线路数量、耦合器类型或实际温度；10–20 mK 是典型低温背景，并非 0918 温度测量。
+
+两条状态依赖响应示意使用 $[1+((f-f_{r,s})/w)^2]^{-1/2}$，其中 $f_{r,s}$ 是假定的状态相关中心，$w$ 是示意宽度参数。它们只展示相同形状移频后在某个探测频率产生不同响应，不是本设备传输函数拟合，所画探测点也不表示最优读出点。实际区分度依赖复响应、噪声、时间和探测强度。
+
+Rabi 的矩形包络同样是示意，原实验的真实包络尚未恢复。案例图复用真实记录与已有诊断，其物理含义需结合前述列定义；不能把示意图当成补充实验数据。封面的 `\today` 是编译日期，内部标签“0918”也不能单独确认采集日期。
+
+## 12. 制作与修订历史
+
+以下保留各次制作记录；其中页数、核验和“本次”均指该条所记的修订，不是本轮 notes 更新。构建方法见 [README](README.md)。本轮只更新笔记及来源注释，未改 slides、PDF、数据或诊断。
+
+### Implementation revision — 2026-10-12
+
+读者指出缺少目录 / section progress、内部 label 不应出现在 slide content，并希望 figure 使用已有专业工具。本次修订采用原生 Beamer `\tableofcontents`、section navigation / page ranges；使用 Circuitikz 重画电路符号、PGFPlots 绘制示意 pulse envelope；案例图放入 Beamer `figure` 环境，继续导入既有 Matplotlib vector PDFs。数据、预处理与 recorded diagnostics 均未改变。全文的页码已按新增目录更新。
+
+### Native dot navigation and single PDF — 2026-10-12
+
+读者选择 Berlin 同款原生圆点导航、一份含附录的完整 PDF，以及所有 diagrams / plots 使用 `figure`。此次取代先前的 bar / fraction 与双 PDF 交付；历史修订说明保留。正文仍为第 1–26 页，附录为第 27–68 页；案例解释与 scientific caveats 不变。
+
+### Native figure captions — 2026-10-13
+
+读者指出图下说明应归入 figure caption。现将九个背景 figures 与全部 47 个案例对照图的描述、相关出处、指标和必要解释条件放入原生 `\caption{...}`，统一编号；正文结论和扩展讲解分别保留在 slide body 与笔记。同步修改 case generator。保留读者已填写的报告人；页码、案例配对、所有原指标及 caveats 不变。
+
+重新编译并渲染检查全部 68 页，无裁切或重叠，最终 log 无 overfull/underfull、missing-character 或 undefined-reference warnings。CSV、原始 plot PDFs、supporting PDFs 与 evidence JSON 经 SHA-256 核对保持不变；此次仅为排版修正，没有新增数据或物理验证。
+
+
+### 硬件、案例与研究依据修订 — 2026-10-14
 
 按照读者确认的讨论扩充硬件概览为六页：恢复 Transmon 电路与能级示意，分别介绍状态依赖的谐振响应及测量链。三页研究计划增加 QUAlibrate、SWE-agent、RouteLLM 的支持，并保留 harness 与异构模型协作的研究设想。八个正文案例及 39 个附录案例补充任务相关的左右说明与校准判断；全部说明仍为 Codex interpretation，不把缺陷归因于未经验证的物理机制。保留读者对器件图 caption 与实验概览来源行的修改。
 
 此修订仅改变叙述、示意图与版面；原数据、既有 plot PDFs、evidence JSON 与指标不变。页码以上方当前目录为准；前面的历史制作记录保留当时页码。
 
 验证：重新编译两份报告，校准 PDF 共 69 页；渲染检查整份报告与新增页面，编译 log 无溢出、缺字或未定义引用。64 份 CSV 的 SHA-256、47 份原图及 evidence JSON 与原记录一致；47 个案例跳转与配套笔记链接检查通过。
+
+### 理解笔记扩充 — 2026-10-14
+
+按读者确认的讨论，改用个人学习主线组织解释，补充超导与低温、约瑟夫森非线性、控制与环境影响、校准与表征、IQ 与布居、实验原理、参数可辨识性、八个案例的判断原因、harness 与模型分工，以及备讲追问。将列定义、来源和制作记录集中到文末，保留原始诊断与历史依据。该更新不构成新实验、完整数据审计或研究设想验证。
