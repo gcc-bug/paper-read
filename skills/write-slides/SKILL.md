@@ -1,162 +1,159 @@
 ---
 name: write-slides
-description: Discuss presentation style and write or revise concise research slides with companion explanatory Markdown notes. Use for slide-writing preferences, presentation outlines, and reducing slide text while preserving the fuller explanation.
+description: Discuss presentation outlines and style, develop explanatory notes for the reader, and then create or revise audience-facing slides with maintainable source. Use for report preparation, companion notes, slide writing, and presentation revisions.
 ---
 
-# Write slides with companion notes
+# Write slides from explanatory notes
 
 Read [AGENTS.md](../../AGENTS.md) for authorship, evidence, and Git rules.
 
-## Confirmed starting preference
+Help the reader understand and organize a subject, then communicate it to an
+audience. Notes are primarily for the reader's own study, preparation, and later
+review. Slides serve the presentation audience. They share facts and a main
+argument, but their background needs, writing style, and coverage can differ.
 
-On 2026-10-12, the reader identified too much text and explanation in the
-calibration slides and proposed moving some explanation and background knowledge
-into a note about the slides. The reader also requested a basic Beamer style for
-presenting as a company member and supplied the 弧光量子 logo. Build on these
-preferences. The reader accepted the overall company style, then requested a
-font change for less clear screens. Exact text limits and a fixed storytelling
-structure have not been agreed.
+## Workflow: outline, notes, slides
 
-After reviewing the rewritten deck, the reader clarified that `0918` is a
-private filing label, not presentation content, and requested an agenda,
-section progress, and established tools for figures. The reader subsequently
-chose native Berlin-style dot navigation, consistent `figure` environments for
-both imported and drawn visuals, and one full PDF including the appendix.
-Apply these choices to this reader's substantial Beamer talks.
+Inspect the existing materials and confirmed decisions first. Establish the
+reader's preparation needs separately from the audience's prior knowledge,
+presentation purpose, available time, and live-talk or independent-reading use.
+Ask only for information that matters and cannot be inferred from context.
 
-On 2026-10-13, the reader requested formal figure captions: descriptions and
-comments about a figure belong in its `\caption{...}`, rather than detached
-small-text paragraphs or slide-footer macros.
+For a new substantial report, use the reader-confirmed staged workflow:
 
-## Discuss or write at the requested scope
+1. **Discuss the outline in plain text.** Identify the central message, what each
+   section contributes, why the sections follow that order, and what facts or
+   viewpoints remain unclear. Agree on the argument before allocating frames or
+   choosing layouts. Keep the outline in conversation unless saving it is useful
+   or requested.
+2. **Develop and discuss the notes.** After the outline is agreed, write the
+   explanation and supporting background. Resolve misunderstandings and gaps,
+   and discuss which information the audience needs to see. Notes should provide
+   a sound basis for the talk before slide compression begins.
+3. **Make the slides when the reader asks to proceed.** Select and reorganize the
+   agreed material into frames, then implement, compile, and inspect the output.
+   Maintain the notes alongside subsequent content changes.
 
-Inspect the existing deck and related notes before diagnosing its style. Use
-specific slides to discuss what feels excessive and show how a proposed change
-would work. During a style discussion, distinguish the reader's confirmed
-preferences from Codex suggestions; continue the discussion without treating
-every suggestion as an agreed rule or permission to rewrite the deck.
+Reuse approvals and decisions already given. For a local revision, use the
+confirmed structure and update the affected slides and notes directly. If the
+reader explicitly requests uninterrupted end-to-end delivery, follow this order
+within the authorized task without adding approval stops. During a discussion,
+keep suggestions distinct from confirmed preferences; discussion alone does not
+authorize rewriting the deck or skill.
 
-For a writing task, establish the audience, purpose, and whether the deck is
-primarily presented live or read independently, using available context. Choose
-the explanation's depth accordingly. A request to reduce slide text authorizes
-relocating useful explanations into the companion note, preserving their meaning
-and evidence. It does not authorize changing scientific conclusions.
+## Notes writing: for the reader's own understanding
 
-## Divide content between the slides and the note
+Write connected explanatory prose that the reader can understand independently
+of the slide deck. Include the background, definitions, derivations, worked
+examples, figure walkthroughs, alternative explanations, and open questions
+needed for their preparation. Explain why a claim follows, its evidence, and
+its limits. Possible audience questions and their explanations can also help.
 
-Slides carry what the audience needs to see at that moment: the key point or
-question, the relevant figure or example, and enough labels to interpret it.
-Prefer short statements and annotations placed beside the features they explain.
-Move extended background, definitions, derivations, detailed figure walkthroughs,
-alternative explanations, and follow-up reasoning into the note when they are
-useful but do not need to occupy the slide.
+Choose depth according to the reader's needs. Background familiar to the audience
+may still need explanation in the notes; knowledge familiar to the reader may
+still need introduction on a slide. A topic can belong only in the notes.
+Do not limit notes to material removed from slides, a slide transcript, or a
+speaking script. Do not infer comprehension merely from the reader's profession.
 
-Keep assumptions and qualifications visible when omitting them would change the
-meaning of a displayed claim. Retain legible units, comparison labels, and source
-attribution. The note can hold full references, provenance, and methodological
-details. Reduce text by selecting and relocating content, rather than shrinking
-fonts or turning explanations into unexplained fragments. Let the content decide
-whether a slide needs splitting; do not impose a universal word or bullet limit.
+Preserve personal text and separate source claims, the reader's confirmed views,
+and Codex interpretation. Distinguish observations and diagnostics from possible
+causes; retain unverified hypotheses and unresolved questions as such. Keep useful
+provenance and implementation evidence here when they support understanding or
+checking without contributing to the audience's message.
 
-Keep private dataset labels, task IDs, and file-management names in filenames
-and provenance notes. Use a descriptive topic or experiment name in visible
-titles, footers, captions, and claims unless that identifier is meaningful to
-the audience. Removing an internal label must preserve scientific attribution
-and the traceable source mapping in the companion notes.
+Reuse existing notes and concepts where useful. Otherwise keep `notes.md` beside
+the deck source and link its underlying discussions and sources. Organize by the
+subject and argument, with supplementary background as needed. Notes and slides
+need not correspond paragraph by paragraph or frame by frame. Add title or page
+references only where useful, and update them when the deck changes.
 
-## Figures and audience navigation
+## Slides writing: for the presentation audience
 
-Place slide visuals in Beamer's nonfloating `figure` environment, including
-diagrams drawn directly in LaTeX and figures inside columns. Use `graphicx`
-for imported plots, Circuitikz for electrical symbols, TikZ for conceptual
-diagrams, and PGFPlots or an existing scientific plotting script for curves.
-These drawing tools supply the contents of the figure environment. Reuse
-faithful existing data plots; adding a LaTeX package
-is not a reason to change preprocessing, values, models, or evidence. Prefer
-library symbols over hand-drawn approximations when the library supplies the
-needed symbol. Keep measured curves and illustrative models clearly identified.
-Use native `\caption{...}` inside the owning `figure` for its description,
-interpretation conditions and relevant source attribution. Use the company
-theme's numbered captions; place `\label{...}` after the caption when a reference
-is useful. For separate figures in columns, give each its own caption; when
-panels form one comparison, use one enclosing figure with a shared caption.
-Keep captions concise and legible, including units or the distinction between
-measurement and illustration when needed. Put extended explanations in the note.
+Give each frame a clear role in the argument: what question or information should
+the audience take from it, what supports that message, and how it connects to the
+adjacent frames? Use informative titles, natural short sentences, useful figures,
+and enough labels to interpret them. Define necessary technical terms before
+using them; keep terminology consistent and avoid needless language switching.
 
-Keep the slide's main conclusion in the body. A source-only citation for a
-nonfigure claim may use a separate reference line. Do not use `\src`, manual
-font-size paragraphs, or `\vfill` to imitate figure captions; relocating such
-text into a `figure` without `\caption` does not fix the semantic structure.
-Inspect the caption with its figure, including column width and reading order.
+Compress by selecting and reorganizing information. Preserve the reasoning links
+and prerequisite background that let the audience follow the claim. Keep units,
+sources, and assumptions visible when omitting them would change the meaning.
+Rewording and compression must preserve scientific claims and their qualifiers.
+Detailed explanation can remain in the notes. Let content and available time
+determine frame splits; there is no universal word or bullet limit. Fix density
+through content and layout choices before shrinking text.
 
-For substantial Beamer talks, provide an agenda near the beginning and visible
-section navigation using Beamer's native `miniframes` outer theme, as in Berlin.
-Use its default dots and current-frame highlighting rather than a custom bar
-or section fraction. Native sections, subsections, and navigation data should
-determine the displayed structure. Dots represent frames; overlays within one
-frame share a dot. They do not estimate remaining speaking time. Separate the
-appendix from the main talk using Beamer's appendix part so backup cases do not
-inflate main-section navigation. Check the first and last frames of sections,
-dot visibility, and links in the rendered PDF; update note page references when
-the deck changes. Keep navigation optional for a short preview where it adds
-more overhead than help.
+Adapt the narrative to the material:
 
-Deliver one full PDF containing the main talk and appendix by default, alongside
-editable source and companion notes. Create a separate main-only PDF only when
-the reader requests it. Keep the build script and current note links aligned
-with the selected delivery.
+- **Personal work:** explain the problem, the reader's responsibilities, and what
+  they accomplished. Verify ownership before polishing. Commit hashes and
+  function names used to check contributions usually belong in the notes.
+- **Cases and comparisons:** identify what each side shows, the task-specific
+  difference, and the resulting conclusion or next step. A reference can
+  have limitations of its own; state them when relevant. Preserve unmatched
+  conditions and avoid converting an uncertain mechanism into a diagnosis.
+- **Research plans:** explain what prior work established, what opportunity or
+  question it supports, the reader's perspective, and the proposed stages.
+  Keep mechanism detail proportional to what has been discussed. Present planned
+  capabilities and benefits as research aims.
 
-## Make the companion note useful for understanding
+Keep private filing labels, task IDs, and bookkeeping in filenames and provenance
+notes. Visible content should name the audience's subject. Maintain traceability
+when removing internal labels from the presentation.
 
-Reuse an existing slide-specific note when suitable; otherwise place `notes.md`
-beside the deck's source. Link the deck and its underlying discussion or reading
-notes using relative Markdown links. Organize explanations by slide title or
-section, adding slide numbers when useful and updating them if the deck changes.
+## Source structure and maintainability
 
-The note is a place for fuller explanation and background knowledge, not merely
-a transcript of what to say. Explain the reasoning behind a slide, how to read
-its figures, and any useful background omitted from it. Reuse existing knowledge
-through links where appropriate. Include unresolved questions and distinguish
-observations, source claims, and Codex interpretation. Preserve personal text;
-do not attribute assistant explanations to the reader.
+Choose environments by content semantics and layout needs. Prefer standard
+LaTeX/Beamer environments and established packages, starting with those already
+used by the project. The following are examples, not an exhaustive format list:
 
-## Review the pair together
+| Content | Suitable structures |
+| --- | --- |
+| Figures, diagrams, data tables | `figure`, `table`, appropriate panel structures; `tabular` / `tabularx` inside tables |
+| Equations and derivations | `equation`, `align`, or related mathematical environments |
+| Algorithms, pseudocode, source code | The project's established algorithm or code-listing environments |
+| Complex pages and progressive explanation | `columns`, blocks, lists, overlays, and suitable professional drawing environments |
 
-Check that each slide's message is easy to locate and that its essential meaning
-survives without the relocated paragraphs. Check that the note explains omitted
-reasoning coherently, matches the figures and claims, and remains navigable from
-the deck. For substantial changes, try representative slides and their notes
-before extending the approach across the presentation. Render and inspect changed
-slides in the actual output format; a successful build alone does not establish
-readability.
+Compose complex layouts from meaningful structures. Apply captions, numbering,
+and labels according to the object's role and reference needs. Layout containers,
+ordinary lists, and emphasis blocks do not acquire captions just because they
+use an environment. Keep figure/table descriptions and necessary interpretation
+conditions in their formal captions, local annotations near the relevant
+features, and the frame's main conclusion in the body.
 
-## Company Beamer presentations
+Centralize reusable typography, colors, spacing, and styles. Keep content readable
+in source; use descriptive labels and maintainable section files where helpful.
+Avoid accumulating per-frame style overrides, unexplained negative spacing, or
+custom replacements for structures that established environments already supply.
+Use manual positioning when the layout requires it, with a clear local purpose.
 
-When presenting as a member of 弧光量子, start from the reusable
-[company Beamer template](assets/company-beamer/README.md), its editable theme,
-and the supplied logo. Use this branding in the company context; other contexts
-should use their own affiliation and style. Keep the writing principles shared
-across themes. Read the template instructions when creating or changing a deck.
+Keep generated material's source of truth clear: edit its generator, regenerate,
+and verify that the output agrees. Do not independently hand-edit generated
+frames. A formatting change must preserve data, preprocessing, models, and
+reported values unless changing them is part of the authorized task.
 
-The accepted layout uses a white canvas, dark text, restrained red accents,
-consistent margins, a small company logo on content slides, and larger branding
-on the cover. These are proposed defaults, not an official company brand manual.
-For less clear screens, start with the template's bundled medium/semibold
-sans-serif body fonts and native bold headings. Prefer open, substantial strokes,
-larger readable text, and dark secondary labels. Keep captions legible; move
-their extended explanation into the companion note. Check the rendered deck at
-reduced resolution as well as full size, and adjust if the actual screen or room
-provides better evidence. A simulated preview is not a screen measurement.
+For Beamer work, read [Beamer conventions](references/beamer.md) for formal
+captions, drawing tools, native navigation, delivery, and company-template use.
 
-Preserve the supplied logo's proportions and artwork. Supply the actual speaker,
-affiliation, talk title, and date; leave unknown values as clearly marked
-placeholders. Keep detailed explanations in the companion Markdown note.
+## Review and delivery
 
-Changing a theme does not automatically redesign a deck's content. For an
-existing presentation, address its text density separately and inspect the
-rendered output after changing shared typography or layout.
+Before typesetting, check the argument: contribution scope, factual support,
+reader versus audience background needs, transitions, comparison meaning, and
+the boundary between findings and proposals. Discuss material gaps before
+turning uncertain content into polished slides.
 
-Apply [Automatic commits](../../AGENTS.md#automatic-commits) after a completed
-writing or maintenance task. When refining the skill itself, retain confirmed
-preferences and label open style choices accurately. Report changed paths,
-validation, and the local commit result.
+After typesetting, check the source structure and the actual output. Inspect
+environment choices, captions, unique useful labels, references, shared styles,
+and generator consistency. Compile and resolve content-related overflow, missing
+characters, and undefined references. Render and visually inspect the affected
+pages, including title length, graph labels, reading order, and navigation.
+Try representative layouts before extending a substantial layout change.
+For a substantial revision, inspect the whole deck for flow and consistency.
+A successful build alone does not establish readability.
+
+Review the notes and slides together for consistent facts, claims, and links,
+while retaining their different explanatory depth and coverage. Deliver editable
+source, the requested presentation output, and the companion notes. Report the
+changes, checks, and remaining content questions. Apply the repository's
+[automatic commit workflow](../../AGENTS.md#automatic-commits) to completed file
+changes; an ongoing discussion alone does not require a new artifact or commit.
