@@ -54,6 +54,33 @@
  理解一条校准记录，先要知道信号作用于什么器件，以及测量值如何产生。
 \end{frame}
 
+\begin{frame}{Transmon 为什么能作为量子比特}
+ Josephson 结产生非等间隔能级，最低两个能级编码量子比特。
+ \begin{figure}
+ \centering
+ \begin{tikzpicture}[x=1cm,y=.8cm]
+  \begin{scope}[shift={(0,.2)}]
+   \draw (0,0) to[C,l=$C_\Sigma$] (0,2) -- (2,2)
+     to[barrier,l=$E_J$] (2,0) -- (0,0);
+   \node[font=\small] at (1,-.45) {电容与 Josephson 结};
+  \end{scope}
+  \begin{scope}[shift={(6,0)}]
+   \foreach \y/\state in {0/0,1.5/1,2.6/2}{
+    \draw[very thick,Navy] (0,\y)--(2.8,\y);
+    \node[right] at (2.8,\y) {$\ket{\state}$};}
+   \draw[<->,very thick,Orange] (.7,.08)--(.7,1.42)
+      node[midway,left] {$hf_{10}$};
+   \draw[<->,thick,Teal] (1.9,1.58)--(1.9,2.52)
+      node[midway,right] {$hf_{21}$};
+   \node[font=\small] at (1.4,-.45) {$f_{10}\ne f_{21}$};
+  \end{scope}
+ \end{tikzpicture}
+ \caption{简化 Transmon 电路与非按比例的能级示意；高能级仍然存在\cite{krantz}。}
+ \label{fig-transmon-levels}
+ \end{figure}
+ 频谱扫描寻找 $f_{10}$；脉冲还需避免激发高能级。
+\end{frame}
+
 \begin{frame}{我们控制和读取的是什么}
  Transmon 通常用最低两个能级编码量子比特。微波驱动改变它的状态，读出谐振腔获取状态信息，耦合器调节量子比特之间的相互作用。
  \begin{figure}
@@ -72,7 +99,7 @@
   \draw[drive,-{Latex}] (.1,.4)--(qA.west);
   \draw[drive,-{Latex}] (12.3,.4)--(qB.east);
  \end{tikzpicture}
- \caption{器件功能的通用结构示意，非本次设备接线图\cite{krantz,blais}。}
+ \caption{器件功能的通用结构示意\cite{krantz,blais}。}
  \label{fig-resonator-coupler}
  \end{figure}
 \end{frame}
@@ -92,21 +119,51 @@
  \src{共振、两能级近似下的控制图景；Krantz Eqs. (92)--(94)\cite{krantz}。}
 \end{frame}
 
-\begin{frame}{量子态怎样变成测量记录}
- 读出利用量子比特状态对谐振腔响应的影响。响应信号经放大、解调和采样，形成 IQ 数据。
+\begin{frame}{不同状态怎样改变谐振腔响应}
+ 色散读出利用状态引起的谐振频率变化，区分两种响应。
+ \begin{figure}
+ \centering
+ \begin{tikzpicture}
+  \begin{axis}[width=104mm,height=33mm,xmin=-3,xmax=3,ymin=0,ymax=1.2,
+    axis lines=left,ytick={0,1},xtick={-1,1},xticklabels={$f_{r,0}$,$f_{r,1}$},
+    xlabel={探测频率（示意）},ylabel={归一化幅度},
+    label style={font=\small},tick label style={font=\small},
+    legend style={font=\small,draw=none,at={(1,1)},anchor=north east}]
+   \addplot[Teal,very thick,domain=-3:3,samples=100] {1/sqrt(1+((x+1)/.65)^2)};
+   \addlegendentry{$\ket0$}
+   \addplot[Orange,very thick,domain=-3:3,samples=100] {1/sqrt(1+((x-1)/.65)^2)};
+   \addlegendentry{$\ket1$}
+   \addplot[only marks,mark=*,Teal,forget plot] coordinates {(-.8,.956)};
+   \addplot[only marks,mark=*,Orange,forget plot] coordinates {(-.8,.340)};
+   \draw[dashed,thick] (axis cs:-.8,0)--(axis cs:-.8,1.08);
+   \node[font=\small,anchor=north west] at (axis cs:-.7,1.18) {$f_{\mathrm{probe}}$};
+  \end{axis}
+ \end{tikzpicture}
+ \caption{两个移频谐振响应的示意，非实测曲线；真实读出利用复响应的幅度与相位\cite{blais}。}
+ \label{fig-state-response}
+ \end{figure}
+ 选择读出频率时，需要同时考虑响应差异与测量噪声。
+\end{frame}
+
+\begin{frame}{测量链怎样把响应转为 IQ}
+ 器件响应经过线路和处理，才成为测量记录。
  \begin{figure}
  \centering
  \begin{tikzpicture}[node distance=7mm]
-  \node[box,minimum width=27mm] (s) {量子比特状态};
-  \node[box,minimum width=36mm,right=of s] (r) {谐振腔响应};
-  \node[box,minimum width=22mm,right=of r] (z) {$I+iQ$};
-  \node[box,minimum width=25mm,right=of z] (a) {状态判别};
-  \draw[flow] (s)--(r);\draw[flow] (r)--(z);\draw[flow] (z)--(a);
+  \node[box,minimum height=9mm,minimum width=31mm] (p) {室温信号源};
+  \node[box,minimum height=9mm,minimum width=31mm,right=of p] (c) {低温芯片};
+  \node[box,minimum height=9mm,minimum width=31mm,right=of c] (a) {输出放大链};
+  \node[box,minimum height=9mm,minimum width=31mm,below=7mm of a] (d) {解调与积分};
+  \node[box,minimum height=9mm,minimum width=31mm,left=of d] (iq) {$I+iQ$};
+  \node[box,minimum height=9mm,minimum width=31mm,left=of iq] (s) {状态判别};
+  \draw[flow] (p)--(c) node[midway,above,font=\scriptsize] {探测};
+  \draw[flow] (c)--(a) node[midway,above,font=\scriptsize] {响应};
+  \draw[flow] (a)--(d);\draw[flow] (d)--(iq);\draw[flow] (iq)--(s);
  \end{tikzpicture}
- \caption{色散读出及数据处理的概念流程\cite{blais,krantz}。IQ 是电磁响应的记录。}
+ \caption{读出测量链的简化流程，省略衰减、滤波与隔离器件；IQ 是电磁响应的两个正交分量\cite{blais,krantz}。}
  \label{fig-readout-chain}
  \end{figure}
- IQ 数据还需经过处理和判别，才能得到状态标签或概率。解释读出指标，也需要理解它的计算方法。
+ IQ 经判别得到标签或概率；解释指标需了解处理方法。
 \end{frame}
 
 \section[校准实验]{校准实验回答什么问题}
@@ -124,7 +181,7 @@
  \end{tabularx}
  \vspace{2mm}\par
  脉冲设置与可用读出相互依赖，往往需要反复调整。
- \src{本报告使用六类实验的 64 份记录；列定义与单位见配套笔记。}
+%  \src{本报告使用六类实验的 64 份记录；列定义与单位见配套笔记。}
 \end{frame}
 
 \begin{frame}{Rabi 用振荡确定脉冲设置}

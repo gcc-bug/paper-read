@@ -15,6 +15,8 @@
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Contrast fit: $R^2=0.972$; free / zero offset $\tau=55.94/77.48\,\mu s$。
 
+**Codex interpretation — 左右比较**：左侧基线选择下的时间常数较接近；右侧改变基线后时间常数变化。判断：衰减时间依赖基线假设；需延长等待并检查参考通道。
+
 **Codex interpretation — 观察**：Free-offset / zero-offset fit：55.94 / 77.48 us；检查 baseline 依赖。
 
 > [!hypothesis]
@@ -34,6 +36,8 @@
 [对照图](figures/t1-004.pdf) · [Target CSV](data/t1-004.csv) · [Reference / 002](data/t1-002.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Contrast fit: $R^2=0.008$; lifetime reaches $10000\,\mu s$ fit bound; lifetime unresolved。
+
+**Codex interpretation — 左右比较**：左侧可分辨的衰减约束时间常数；右侧几乎平坦，拟合触及上界。判断：T1 尚未分辨；拟合上界不是测量值，需核对时序并延长等待。
 
 **Codex interpretation — 观察**：Nominal with-pi P1：0.956 → 0.950（0–100 us）；几乎没有 resolved decay。
 
@@ -55,6 +59,8 @@
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Contrast fit: $R^2=0.909$; free / zero offset $\tau=33.01/44.48\,\mu s$。
 
+**Codex interpretation — 左右比较**：左侧基线选择下的时间常数较接近；右侧改变基线后时间常数变化。判断：衰减时间依赖基线假设；需延长等待并检查参考通道。
+
 **Codex interpretation — 观察**：Free-offset / zero-offset fit：33.01 / 44.48 us；检查 baseline 依赖。 Residual 还存在相邻关联。
 
 > [!hypothesis]
@@ -74,6 +80,8 @@
 [对照图](figures/ramsey-001.pdf) · [Target CSV](data/ramsey-001.csv) · [Reference / 002](data/ramsey-002.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Recorded Ramsey fit: $R^2=0.769$; candidate $T_2^*=36.11\,\mu s$; residual correlation $0.10$。
+
+**Codex interpretation — 左右比较**：左侧较清晰的振荡也有相关残差；右侧当前模型对记录的解释不足。判断：两侧均需复查；需比较拟合窗口与重复记录，不能只采纳时间常数。
 
 **Codex interpretation — 观察**：Single-frequency exponential fit：R2=0.769；residual correlation=0.10。
 
@@ -95,6 +103,8 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Recorded Ramsey fit: $R^2=0.878$; candidate $T_2^*=36.51\,\mu s$; residual correlation $0.32$。
 
+**Codex interpretation — 左右比较**：左侧较清晰的振荡也有相关残差；右侧当前模型仍留下相关残差。判断：两侧均需复查；需比较拟合窗口与重复记录，不能只采纳时间常数。
+
 **Codex interpretation — 观察**：可见 decaying oscillation，R2=0.878；residual correlation=0.32，仍需检查。
 
 > [!hypothesis]
@@ -114,6 +124,8 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 [对照图](figures/ramsey-003.pdf) · [Target CSV](data/ramsey-003.csv) · [Reference / 002](data/ramsey-002.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Recorded Ramsey fit: $R^2=0.700$; candidate $T_2^*=7.81\,\mu s$; residual correlation $0.48$。
+
+**Codex interpretation — 左右比较**：左侧较清晰的振荡也有相关残差；右侧当前模型仍留下相关残差。判断：两侧均需复查；需比较拟合窗口与重复记录，不能只采纳时间常数。
 
 **Codex interpretation — 观察**：Single-frequency exponential fit：R2=0.700；residual correlation=0.48。
 
@@ -135,6 +147,8 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Recorded Ramsey fit: $R^2=0.580$; candidate $T_2^*=20.56\,\mu s$; residual correlation $0.22$。
 
+**Codex interpretation — 左右比较**：左侧较清晰的振荡也有相关残差；右侧当前模型对记录的解释不足。判断：两侧均需复查；需比较拟合窗口与重复记录，不能只采纳时间常数。
+
 **Codex interpretation — 观察**：Single-frequency exponential fit：R2=0.580；residual correlation=0.22。
 
 > [!hypothesis]
@@ -154,6 +168,8 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 [对照图](figures/ramsey-005.pdf) · [Target CSV](data/ramsey-005.csv) · [Reference / 002](data/ramsey-002.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Recorded Ramsey fit: $R^2=0.642$; candidate $T_2^*=4.65\,\mu s$; residual correlation $0.17$。
+
+**Codex interpretation — 左右比较**：左侧较清晰的振荡也有相关残差；右侧当前模型对记录的解释不足。判断：两侧均需复查；需比较拟合窗口与重复记录，不能只采纳时间常数。
 
 **Codex interpretation — 观察**：Single-frequency exponential fit：R2=0.642；residual correlation=0.17。
 
@@ -175,6 +191,8 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Recorded Ramsey fit: $R^2=0.878$; candidate $T_2^*=36.74\,\mu s$; residual correlation $0.37$。
 
+**Codex interpretation — 左右比较**：左侧较清晰的振荡也有相关残差；右侧当前模型仍留下相关残差。判断：两侧均需复查；需比较拟合窗口与重复记录，不能只采纳时间常数。
+
 **Codex interpretation — 观察**：可见 decaying oscillation，R2=0.878；residual correlation=0.37，仍需检查。
 
 > [!hypothesis]
@@ -194,6 +212,8 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 [对照图](figures/ramsey-007.pdf) · [Target CSV](data/ramsey-007.csv) · [Reference / 002](data/ramsey-002.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Recorded Ramsey fit: $R^2=0.563$; candidate $T_2^*=17.65\,\mu s$; residual correlation $0.37$。
+
+**Codex interpretation — 左右比较**：左侧较清晰的振荡也有相关残差；右侧当前模型仍留下相关残差。判断：两侧均需复查；需比较拟合窗口与重复记录，不能只采纳时间常数。
 
 **Codex interpretation — 观察**：Single-frequency exponential fit：R2=0.563；residual correlation=0.37。
 
@@ -215,6 +235,8 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Recorded Ramsey fit: $R^2=0.328$; candidate $T_2^*=21.78\,\mu s$; residual correlation $0.38$。
 
+**Codex interpretation — 左右比较**：左侧衰减振荡较清晰，仍有残差；右侧约 40–50 μs 振荡重新变宽。判断：单一包络未解释全部结构；需检查模型与记录，不能唯一归因。
+
 **Codex interpretation — 观察**：Dense oscillation trace 在约 40–50 us 重新变宽；single-envelope fit 不能覆盖全部结构。
 
 > [!hypothesis]
@@ -234,6 +256,8 @@ Reference 002 或 006 也有 recorded flags；不作为无缺陷的 normal stand
 [对照图](figures/rabi-001.pdf) · [Target CSV](data/rabi-001.csv) · [Reference / 002](data/rabi-002.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ-projection fit: $R^2=0.160$; coverage $10.10$ cycles; $5.9$ samples/cycle。
+
+**Codex interpretation — 左右比较**：左侧转折与回返约束一个完整周期；右侧散点不支持拟合的快速振荡。判断：不能采用拟合半周期作为 $\pi$ 脉冲设置；需先恢复清晰振荡。
 
 **Codex interpretation — 观察**：没有清晰完整 cycle；R2=0.160；每个 fitted cycle 仅 5.94 个 samples。
 
@@ -255,6 +279,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ-projection fit: $R^2=0.130$; coverage $25.44$ cycles; $2.4$ samples/cycle。
 
+**Codex interpretation — 左右比较**：左侧转折与回返约束一个完整周期；右侧散点不支持拟合的快速振荡。判断：不能采用拟合半周期作为 $\pi$ 脉冲设置；需先恢复清晰振荡。
+
 **Codex interpretation — 观察**：没有清晰完整 cycle；R2=0.130；每个 fitted cycle 仅 2.36 个 samples。
 
 > [!hypothesis]
@@ -274,6 +300,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/rabi-004.pdf) · [Target CSV](data/rabi-004.csv) · [Reference / 002](data/rabi-002.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ-projection fit: $R^2=0.967$; coverage $1.08$ cycles; $55.8$ samples/cycle。
+
+**Codex interpretation — 左右比较**：左侧转折与回返约束一个完整周期；右侧正弦拟合仍留下结构性残差。判断：需复测并检查驱动与模型；单一正弦拟合尚不足以确认设置。
 
 **Codex interpretation — 观察**：IQ-projection sinusoid：R2=0.967；相邻 residual correlation=0.64。
 
@@ -295,6 +323,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ-projection fit: $R^2=0.798$; coverage $1.06$ cycles; $56.7$ samples/cycle。
 
+**Codex interpretation — 左右比较**：左侧转折与回返约束一个完整周期；右侧投影拟合未验证两态连线近似。判断：需检查完整 IQ 轨迹；投影与几何诊断尚不能确定物理原因。
+
 **Codex interpretation — 观察**：IQ-projection sinusoid：R2=0.798；相邻 residual correlation=0.24。 Orthogonal IQ variance fraction=0.13。
 
 > [!hypothesis]
@@ -314,6 +344,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/rabi-006.pdf) · [Target CSV](data/rabi-006.csv) · [Reference / 002](data/rabi-002.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ-projection fit: $R^2=0.689$; coverage $1.69$ cycles; $35.4$ samples/cycle。
+
+**Codex interpretation — 左右比较**：左侧转折与回返约束一个完整周期；右侧投影拟合未验证两态连线近似。判断：需检查完整 IQ 轨迹；投影与几何诊断尚不能确定物理原因。
 
 **Codex interpretation — 观察**：IQ-projection sinusoid：R2=0.689；相邻 residual correlation=0.52。 Orthogonal IQ variance fraction=0.11。
 
@@ -335,6 +367,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ-projection fit: $R^2=0.959$; coverage $0.22$ cycles; $159.7$ samples/cycle。
 
+**Codex interpretation — 左右比较**：左侧转折与回返约束一个完整周期；右侧扫描只覆盖局部曲线。判断：周期主要依赖外推；需扩大幅度范围，观察转折与回返。
+
 **Codex interpretation — 观察**：Scan 仅覆盖 candidate cycle 的 0.22；period 很大部分来自 extrapolation。
 
 > [!hypothesis]
@@ -354,6 +388,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/rabi-008.pdf) · [Target CSV](data/rabi-008.csv) · [Reference / 002](data/rabi-002.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ-projection fit: $R^2=0.996$; coverage $0.50$ cycles; $93.7$ samples/cycle。
+
+**Codex interpretation — 左右比较**：左侧转折与回返约束一个完整周期；右侧扫描只覆盖局部曲线。判断：周期主要依赖外推；需扩大幅度范围，观察转折与回返。
 
 **Codex interpretation — 观察**：Scan 仅覆盖 candidate cycle 的 0.50；period 很大部分来自 extrapolation。
 
@@ -375,6 +411,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ-projection fit: $R^2=0.824$; coverage $1.66$ cycles; $36.1$ samples/cycle。
 
+**Codex interpretation — 左右比较**：左侧转折与回返约束一个完整周期；右侧正弦拟合仍留下结构性残差。判断：需复测并检查驱动与模型；单一正弦拟合尚不足以确认设置。
+
 **Codex interpretation — 观察**：IQ-projection sinusoid：R2=0.824；相邻 residual correlation=0.95。
 
 > [!hypothesis]
@@ -394,6 +432,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/rabi-010.pdf) · [Target CSV](data/rabi-010.csv) · [Reference / 002](data/rabi-002.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ-projection fit: $R^2=0.480$; coverage $2.76$ cycles; $21.8$ samples/cycle。
+
+**Codex interpretation — 左右比较**：左侧转折与回返约束一个完整周期；右侧正弦拟合仍留下结构性残差。判断：需复测并检查驱动与模型；单一正弦拟合尚不足以确认设置。
 
 **Codex interpretation — 观察**：IQ-projection sinusoid：R2=0.480；相邻 residual correlation=0.94。
 
@@ -415,6 +455,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ-projection fit: $R^2=0.664$; coverage $3.00$ cycles; $20.0$ samples/cycle。
 
+**Codex interpretation — 左右比较**：左侧转折与回返约束一个完整周期；右侧正弦拟合仍留下结构性残差。判断：需复测并检查驱动与模型；单一正弦拟合尚不足以确认设置。
+
 **Codex interpretation — 观察**：IQ-projection sinusoid：R2=0.664；相邻 residual correlation=0.94。
 
 > [!hypothesis]
@@ -434,6 +476,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/rabi-012.pdf) · [Target CSV](data/rabi-012.csv) · [Reference / 002](data/rabi-002.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ-projection fit: $R^2=0.512$; coverage $4.70$ cycles; $10.4$ samples/cycle。
+
+**Codex interpretation — 左右比较**：左侧转折与回返约束一个完整周期；右侧正弦拟合仍留下结构性残差。判断：需复测并检查驱动与模型；单一正弦拟合尚不足以确认设置。
 
 **Codex interpretation — 观察**：IQ-projection sinusoid：R2=0.512；相邻 residual correlation=0.81。
 
@@ -455,6 +499,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ-projection fit: $R^2=0.432$; coverage $2.88$ cycles; $20.9$ samples/cycle。
 
+**Codex interpretation — 左右比较**：左侧转折与回返约束一个完整周期；右侧正弦拟合仍留下结构性残差。判断：需复测并检查驱动与模型；单一正弦拟合尚不足以确认设置。
+
 **Codex interpretation — 观察**：IQ-projection sinusoid：R2=0.432；相邻 residual correlation=0.95。
 
 > [!hypothesis]
@@ -474,6 +520,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/rabi-014.pdf) · [Target CSV](data/rabi-014.csv) · [Reference / 002](data/rabi-002.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ-projection fit: $R^2=0.594$; coverage $2.27$ cycles; $26.4$ samples/cycle。
+
+**Codex interpretation — 左右比较**：左侧转折与回返约束一个完整周期；右侧正弦拟合仍留下结构性残差。判断：需复测并检查驱动与模型；单一正弦拟合尚不足以确认设置。
 
 **Codex interpretation — 观察**：IQ-projection sinusoid：R2=0.594；相邻 residual correlation=0.96。
 
@@ -495,6 +543,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ-projection fit: $R^2=0.586$; coverage $0.10$ cycles; $599.9$ samples/cycle。
 
+**Codex interpretation — 左右比较**：左侧转折与回返约束一个完整周期；右侧扫描只覆盖局部曲线。判断：周期主要依赖外推；需扩大幅度范围，观察转折与回返。
+
 **Codex interpretation — 观察**：Scan 仅覆盖 candidate cycle 的 0.10；period 很大部分来自 extrapolation。
 
 > [!hypothesis]
@@ -514,6 +564,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/rabi-016.pdf) · [Target CSV](data/rabi-016.csv) · [Reference / 002](data/rabi-002.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ-projection fit: $R^2=0.894$; coverage $1.83$ cycles; $24.1$ samples/cycle。
+
+**Codex interpretation — 左右比较**：左侧转折与回返约束一个完整周期；右侧正弦拟合仍留下结构性残差。判断：需复测并检查驱动与模型；单一正弦拟合尚不足以确认设置。
 
 **Codex interpretation — 观察**：IQ-projection sinusoid：R2=0.894；相邻 residual correlation=0.69。
 
@@ -535,6 +587,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ single-line diagnostic: $R^2=0.016$; step $1.00$ MHz; FWHM $1.08$ MHz。
 
+**Codex interpretation — 左右比较**：左侧窗口内可见响应与两侧背景；右侧背景中的候选响应不够明确。判断：尚不能确认跃迁频率；需验证信号路径并复测候选响应。
+
 **Codex interpretation — 观察**：Whole-scan IQ fit 的 R2=0.016；缺少清晰可复现的 single feature 证据。
 
 > [!hypothesis]
@@ -554,6 +608,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/spectroscopy-004.pdf) · [Target CSV](data/spectroscopy-004.csv) · [Reference / 001](data/spectroscopy-001.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ single-line diagnostic: $R^2=0.682$; step $1.00$ MHz; FWHM $7.55$ MHz。
+
+**Codex interpretation — 左右比较**：左侧窗口内可见响应与两侧背景；右侧单线形拟合仍有未解释结构。判断：可见响应不保证单线形模型适用；需细扫并检查线形与背景。
 
 **Codex interpretation — 观察**：Single-Lorentzian IQ fit：R2=0.682；candidate FWHM=7.55 MHz。
 
@@ -575,6 +631,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ single-line diagnostic: $R^2=0.965$; step $1.00$ MHz; FWHM $0.50$ MHz。
 
+**Codex interpretation — 左右比较**：左侧窗口内可见响应与两侧背景；右侧步长大于候选线宽。判断：高拟合分数不能证明线宽已分辨；需局部细扫并复测。
+
 **Codex interpretation — 观察**：Frequency step=1.00 MHz，candidate FWHM=0.50 MHz；采样不足。
 
 > [!hypothesis]
@@ -594,6 +652,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/spectroscopy-006.pdf) · [Target CSV](data/spectroscopy-006.csv) · [Reference / 001](data/spectroscopy-001.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ single-line diagnostic: $R^2=0.545$; step $1.00$ MHz; FWHM $116.37$ MHz。
+
+**Codex interpretation — 左右比较**：左侧窗口内可见响应与两侧背景；右侧单线形拟合仍有未解释结构。判断：可见响应不保证单线形模型适用；需细扫并检查线形与背景。
 
 **Codex interpretation — 观察**：Single-Lorentzian IQ fit：R2=0.545；candidate FWHM=116.37 MHz。
 
@@ -615,6 +675,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ single-line diagnostic: $R^2=0.265$; step $1.00$ MHz; FWHM $1.57$ MHz。
 
+**Codex interpretation — 左右比较**：左侧窗口内可见响应与两侧背景；右侧候选线宽内采样点不足。判断：线宽缺乏采样约束；需局部细扫并复测。
+
 **Codex interpretation — 观察**：Frequency step=1.00 MHz，candidate FWHM=1.57 MHz；采样不足。
 
 > [!hypothesis]
@@ -634,6 +696,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/spectroscopy-008.pdf) · [Target CSV](data/spectroscopy-008.csv) · [Reference / 001](data/spectroscopy-001.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ single-line diagnostic: $R^2=0.312$; step $1.00$ MHz; FWHM $13.30$ MHz。
+
+**Codex interpretation — 左右比较**：左侧窗口内可见响应与两侧背景；右侧边缘响应未被完整覆盖。判断：中心频率缺乏两侧数据约束；需扩大扫描窗口。
 
 **Codex interpretation — 观察**：Candidate center=4.300 GHz 位于 scan 边界；不能完整观察两侧 response。
 
@@ -655,6 +719,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ single-line diagnostic: $R^2=0.948$; step $1.00$ MHz; FWHM $1.85$ MHz。
 
+**Codex interpretation — 左右比较**：左侧窗口内可见响应与两侧背景；右侧候选线宽内采样点不足。判断：线宽缺乏采样约束；需局部细扫并复测。
+
 **Codex interpretation — 观察**：Frequency step=1.00 MHz，candidate FWHM=1.85 MHz；采样不足。
 
 > [!hypothesis]
@@ -674,6 +740,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/spectroscopy-011.pdf) · [Target CSV](data/spectroscopy-011.csv) · [Reference / 001](data/spectroscopy-001.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ single-line diagnostic: $R^2=0.044$; step $1.00$ MHz; FWHM $2.11$ MHz。
+
+**Codex interpretation — 左右比较**：左侧窗口内可见响应与两侧背景；右侧背景中的候选响应不够明确。判断：尚不能确认跃迁频率；需验证信号路径并复测候选响应。
 
 **Codex interpretation — 观察**：Whole-scan IQ fit 的 R2=0.044；缺少清晰可复现的 single feature 证据。
 
@@ -695,6 +763,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ single-line diagnostic: $R^2=0.065$; step $1.00$ MHz; FWHM $782.41$ MHz。
 
+**Codex interpretation — 左右比较**：左侧窗口内可见响应与两侧背景；右侧边缘响应未被完整覆盖。判断：中心频率缺乏两侧数据约束；需扩大扫描窗口。
+
 **Codex interpretation — 观察**：Candidate center=4.400 GHz 位于 scan 边界；不能完整观察两侧 response。
 
 > [!hypothesis]
@@ -714,6 +784,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/spectroscopy-013.pdf) · [Target CSV](data/spectroscopy-013.csv) · [Reference / 010](data/spectroscopy-010.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ single-line diagnostic: $R^2=0.618$; step $1.00$ MHz; FWHM $8.93$ MHz。
+
+**Codex interpretation — 左右比较**：左侧窗口内可见响应与两侧背景；右侧单线形拟合仍有未解释结构。判断：可见响应不保证单线形模型适用；需细扫并检查线形与背景。
 
 **Codex interpretation — 观察**：Single-Lorentzian IQ fit：R2=0.618；candidate FWHM=8.93 MHz。
 
@@ -735,6 +807,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ single-line diagnostic: $R^2=0.033$; step $1.00$ MHz; FWHM $1.01$ MHz。
 
+**Codex interpretation — 左右比较**：左侧窗口内可见响应与两侧背景；右侧背景中的候选响应不够明确。判断：尚不能确认跃迁频率；需验证信号路径并复测候选响应。
+
 **Codex interpretation — 观察**：Whole-scan IQ fit 的 R2=0.033；缺少清晰可复现的 single feature 证据。
 
 > [!hypothesis]
@@ -754,6 +828,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/spectroscopy-015.pdf) · [Target CSV](data/spectroscopy-015.csv) · [Reference / 001](data/spectroscopy-001.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ single-line diagnostic: $R^2=0.054$; step $1.00$ MHz; FWHM $2.01$ MHz。
+
+**Codex interpretation — 左右比较**：左侧窗口内可见响应与两侧背景；右侧背景中的候选响应不够明确。判断：尚不能确认跃迁频率；需验证信号路径并复测候选响应。
 
 **Codex interpretation — 观察**：Whole-scan IQ fit 的 R2=0.054；缺少清晰可复现的 single feature 证据。
 
@@ -775,6 +851,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ single-line diagnostic: $R^2=0.392$; step $1.00$ MHz; FWHM $54.00$ MHz。
 
+**Codex interpretation — 左右比较**：左侧窗口内可见响应与两侧背景；右侧单线形拟合仍有未解释结构。判断：可见响应不保证单线形模型适用；需细扫并检查线形与背景。
+
 **Codex interpretation — 观察**：Single-Lorentzian IQ fit：R2=0.392；candidate FWHM=54.00 MHz。
 
 > [!hypothesis]
@@ -794,6 +872,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/spectroscopy-017.pdf) · [Target CSV](data/spectroscopy-017.csv) · [Reference / 001](data/spectroscopy-001.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ single-line diagnostic: $R^2=0.619$; step $1.00$ MHz; FWHM $30.87$ MHz。
+
+**Codex interpretation — 左右比较**：左侧窗口内可见响应与两侧背景；右侧单线形拟合仍有未解释结构。判断：可见响应不保证单线形模型适用；需细扫并检查线形与背景。
 
 **Codex interpretation — 观察**：Single-Lorentzian IQ fit：R2=0.619；candidate FWHM=30.87 MHz。
 
@@ -815,6 +895,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；IQ single-line diagnostic: $R^2=0.929$; step $1.00$ MHz; FWHM $1.05$ MHz。
 
+**Codex interpretation — 左右比较**：左侧窗口内可见响应与两侧背景；右侧候选线宽内采样点不足。判断：线宽缺乏采样约束；需局部细扫并复测。
+
 **Codex interpretation — 观察**：Frequency step=1.00 MHz，candidate FWHM=1.05 MHz；采样不足。
 
 > [!hypothesis]
@@ -834,6 +916,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/readout-002.pdf) · [Target CSV](data/readout-002.csv) · [Reference / 009](data/readout-009.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Held-out linear classifier: balanced accuracy $62.12\%$; not original GMM fidelity。
+
+**Codex interpretation — 左右比较**：左侧准备条件较易区分；右侧准备条件的分布仍有重叠。判断：区分程度不足；需分别验证准备与读出，不能单独归因于测量。
 
 **Codex interpretation — 观察**：Held-out linear balanced accuracy = 62.12%；nominal preparation groups 重叠。
 
@@ -855,6 +939,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Held-out linear classifier: balanced accuracy $59.67\%$; not original GMM fidelity。
 
+**Codex interpretation — 左右比较**：左侧准备条件较易区分；右侧准备条件的分布仍有重叠。判断：区分程度不足；需分别验证准备与读出，不能单独归因于测量。
+
 **Codex interpretation — 观察**：Held-out linear balanced accuracy = 59.67%；nominal preparation groups 重叠。
 
 > [!hypothesis]
@@ -874,6 +960,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/readout-004.pdf) · [Target CSV](data/readout-004.csv) · [Reference / 009](data/readout-009.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Held-out linear classifier: balanced accuracy $70.73\%$; not original GMM fidelity。
+
+**Codex interpretation — 左右比较**：左侧准备条件较易区分；右侧准备条件的分布仍有重叠。判断：区分程度不足；需分别验证准备与读出，不能单独归因于测量。
 
 **Codex interpretation — 观察**：Held-out linear balanced accuracy = 70.73%；nominal preparation groups 重叠。
 
@@ -895,6 +983,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Held-out linear classifier: balanced accuracy $74.48\%$; not original GMM fidelity。
 
+**Codex interpretation — 左右比较**：左侧准备条件较易区分；右侧准确率略低于本地筛查阈值。判断：需结合重复测量判断；筛查阈值本身不构成物理失败标准。
+
 **Codex interpretation — 观察**：Balanced accuracy = 74.48%，略低于本地 75% screen threshold；threshold 不是物理定律。
 
 > [!hypothesis]
@@ -915,6 +1005,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Held-out linear classifier: balanced accuracy $61.70\%$; not original GMM fidelity。
 
+**Codex interpretation — 左右比较**：左侧分布较分离：准确率 95.45%；右侧分布重叠：准确率 61.70%。判断：当前准备与读出组合区分不足；需分别检查准备操作与测量设置。
+
 **Codex interpretation — 观察**：Held-out linear balanced accuracy = 61.70%；nominal preparation groups 重叠。
 
 > [!hypothesis]
@@ -934,6 +1026,8 @@ Candidate frequency 来自 recorded audit；绘图只重建该频率下的 linea
 [对照图](figures/resonator-006.pdf) · [Target CSV](data/resonator-006.csv) · [Reference / 001](data/resonator-001.csv)
 
 **来源与诊断**：0918 packaged CSV 与 recorded audit；Descriptive screen only: window 6.000--6.130 GHz; no validated transfer-function fit。
+
+**Codex interpretation — 左右比较**：左侧窗口内可见连续响应结构；右侧主要变化集中于首点尖峰。判断：首点不能确定共振位置；需复测首点并调整扫描窗口。
 
 **Codex interpretation — 观察**：Scaled magnitude 首点约 1728，次点约 66，后续 median 约 41；窗口内无 resolved interior resonance。
 

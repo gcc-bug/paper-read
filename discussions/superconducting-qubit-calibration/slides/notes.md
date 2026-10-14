@@ -14,7 +14,8 @@
 
 目录由 Beamer 正文章节生成：超导量子硬件概览、校准实验、数据判断、研究计划与参考文献。原生 `miniframes` 圆点标记当前 frame；圆点不估计剩余讲述时间。附录使用独立 part。
 
-当前版本（2026-10-14）正文为第 1–24 页，附录为第 25–67 页。硬件与实验说明压缩为第 3–10 页；第 11–20 页为判断方法、八个案例与总结；研究计划在第 21–23 页，接着是参考文献。以下保留背景解释，未展示的推导标为背景补充。
+当前版本（2026-10-14）正文为第 1–26 页，附录为第 27–69 页。第 3–8 页连接器件、控制与测量链；第 9–12 页介绍校准实验；第 13–22 页为判断方法、八个案例与总结；研究计划在第 23–25 页，第 26 页为参考文献。以下保留背景解释，未展示的推导标为背景补充。
+
 ## 3 — 校准连接控制与测量
 
 **Codex interpretation**：区分 device、state、signal 和 record。Transmon、resonator、coupler 是器件；$|0\rangle,|1\rangle$ 与 superposition 是 state；drive、probe、flux 是控制或探测信号；数字化 response 与 assigned population 是 records。它们的 amplitude 不是同一物理量。
@@ -23,15 +24,15 @@
 
 来源：Krantz control/readout 相关章节；既有 [calibration concepts](../../../concepts/superconducting-qubit-calibration.md)。
 
-## 背景补充：Transmon 的非等间隔能级（对应第 4 页）
+## 4 — Transmon 为什么能作为量子比特
 
 来源模型：$H_q=4E_C\hat n^2-E_J\cos\hat\varphi$，这里省略 offset charge；$E_C=e^2/(2C_\Sigma)$，$E_J$ 是 Josephson energy，$\hat n$ 是 Cooper-pair number operator，$\hat\varphi$ 是 junction phase operator。能级差 $E_1-E_0=hf_{10}$，$h$ 为 Planck constant。
 
-**Codex interpretation**：Josephson junction 的 nonlinear response 使 transition spacing 不同，$f_{10}\ne f_{21}$。通常用最低两个 energy eigenstates 编码 qubit；higher levels 仍存在，误占据这些 levels 称为 leakage。选择性并非自动保证：实际 pulse 的频谱、强度与持续时间仍有影响。早期版本的能级与电路图为非按比例的概念示意；现将这部分细节保留为背景。电路使用 Circuitikz 的 capacitor 与 cross/barrier symbols；标有 $E_J$ 的 cross 表示 Josephson junction，连线和符号由该 package 生成。
+**Codex interpretation**：Josephson junction 的 nonlinear response 使 transition spacing 不同，$f_{10}\ne f_{21}$。通常用最低两个 energy eigenstates 编码 qubit；higher levels 仍存在，误占据这些 levels 称为 leakage。选择性并非自动保证：实际 pulse 的频谱、强度与持续时间仍有影响。本页电路与能级图为非按比例的概念示意；公式和选择性限制保留在笔记中。电路使用 Circuitikz 的 capacitor 与 cross/barrier symbols；标有 $E_J$ 的 cross 表示 Josephson junction，连线和符号由该 package 生成。
 
 来源：Krantz 本地 arXiv v5，Fig. 1、Eq. (16)，PDF pp. 4–5。
 
-## 4 — 我们控制和读取的是什么
+## 5 — 我们控制和读取的是什么
 
 Readout resonator 把 qubit state 编码到 microwave response；coupler / bus resonator 参与 qubit 间 interaction。多个 readout probe frequencies 可以共享 feedline。Drive 控制单 qubit transition；flux 可用于调节 tunable qubit frequency 或 coupling。Fixed-frequency 与 tunable transmon 的线路配置可能不同。
 
@@ -39,17 +40,7 @@ Readout resonator 把 qubit state 编码到 microwave response；coupler / bus r
 
 来源：Krantz Sec. II；Blais review。更完整解释见 [hardware and signals](../../../concepts/superconducting-qubit-hardware-and-signals.md)。
 
-## 背景补充：测量链怎样产生 IQ（对应第 6 页）
-
-输入链通过 attenuation / filtering 控制到达 cold chip 的信号与热噪声；衰减通常分布在多个温度层。输出链利用 isolation 与 cold/warm amplification 保护和放大 response。Mixer 与 reference local oscillator 做 downconversion，数字化后进行 demodulation / integration，得到 in-phase 与 quadrature components，即 IQ。
-
-当前 slide 仅保留状态到 IQ 再到判别的概念流程；mixer、digitization 与 processing 是测量链中的不同步骤。AWG = Arbitrary Waveform Generator；DAC = Digital-to-Analog Converter；ADC = Analog-to-Digital Converter；FPGA = Field-Programmable Gate Array。AWG / DAC 合成 envelope；ADC / FPGA 用于采样与处理。
-
-$I,Q$ 常用 arbitrary units，因为未恢复 absolute gain calibration。它们是测量信号的两个正交分量，不是 qubit wavefunction 的 coefficients。
-
-来源：Blais Figs. 14、16，PDF pp. 25、27；Krantz Fig. 22，PDF p. 45。
-
-## 5 — 控制参数怎样影响量子态
+## 6 — 控制参数怎样影响量子态
 
 $V_d(t)=A(t)\cos(2\pi f_dt+\phi_d)$，$\omega=2\pi f$。Frequency $f_d$ 接近目标 $f_{10}$ 才能有效驱动目标 transition；在线性 drive regime 中，envelope strength 改变 Rabi rotation speed。Duration 决定 drive 作用多久；strength 与 duration 共同决定 rotation angle。Carrier phase $\phi_d$ 决定 transverse rotation axis。
 
@@ -57,9 +48,11 @@ $V_d(t)=A(t)\cos(2\pi f_dt+\phi_d)$，$\omega=2\pi f$。Frequency $f_d$ 接近�
 
 来源：Krantz Sec. IV.D.1、Eqs. (92)–(94)，PDF p. 29；Blais Sec. V.A。
 
-## 6 — 量子态怎样变成测量记录
+## 7 — 不同状态怎样改变谐振腔响应
 
-来源模型：$H_{\mathrm{disp}}/\hbar=(\omega_r+\chi\sigma_z)a^\dagger a+(\omega_q/2)\sigma_z$。其中 $\omega_r,\omega_q$ 是 angular frequency；$a^\dagger a$ 是 photon number；$\chi$ 是 dispersive shift；$\hbar=h/(2\pi)$。采用 $\sigma_z|0\rangle=-|0\rangle$、$\sigma_z|1\rangle=+|1\rangle$ 的约定，得到两个状态对应的谐振频率 $\omega_r\mp\chi$；当前 slide 将该公式留在背景笔记。
+来源模型：$H_{\mathrm{disp}}/\hbar=(\omega_r+\chi\sigma_z)a^\dagger a+(\omega_q/2)\sigma_z$。其中 $\omega_r,\omega_q$ 是 angular frequency；$a^\dagger a$ 是 photon number；$\chi$ 是 dispersive shift；$\hbar=h/(2\pi)$。采用 $\sigma_z|0\rangle=-|0\rangle$、$\sigma_z|1\rangle=+|1\rangle$ 的约定，得到两个状态对应的谐振频率 $\omega_r\mp\chi$；公式留在笔记中。Slide 用两条移频响应曲线说明固定 probe frequency 下的差异。
+
+图中曲线采用归一化响应 $[1+((f-f_{r,s})/w)^2]^{-1/2}$，只是有相同示意宽度的两条移频曲线，不是本设备的 transfer-function fit。图中的 probe 频率仅用于显示响应不同，不代表最优读出点；真正的区分度依赖复响应、噪声、测量时间和 probe strength。
 
 Probe 得到 state-dependent complex response $z=I+iQ$。若选择 linear scalar response $y$，理想 two-state reference 下有 $y=y_0+(y_1-y_0)P_1$。$y_0,y_1$ 为两 state 的 reference response。$y_1>y_0$ 时 excitation 可形成 peak；相反约定可形成 dip。Magnitude / phase 一般不保持这个简单线性关系。
 
@@ -67,7 +60,17 @@ Resonance 是 circuit response 的性质；transmission interference 也可形�
 
 来源：Blais Eq. (107)、Fig. 19，PDF pp. 29–31。通用模型不能识别 0918 unpublished plotting code 的 estimator。
 
-## 7 — 校准逐步确定控制参数并检查性能
+## 8 — 测量链怎样把响应转为 IQ
+
+输入链通过 attenuation / filtering 控制到达 cold chip 的信号与热噪声；衰减通常分布在多个温度层。输出链利用 isolation 与 cold/warm amplification 保护和放大 response。Mixer 与 reference local oscillator 做 downconversion，数字化后进行 demodulation / integration，得到 in-phase 与 quadrature components，即 IQ。
+
+本页将室温信号源、低温芯片、输出放大链、解调积分与判别串联起来；省略分布式衰减、滤波与隔离器件。Mixer、digitization 与 processing 是测量链中的不同步骤。AWG = Arbitrary Waveform Generator；DAC = Digital-to-Analog Converter；ADC = Analog-to-Digital Converter；FPGA = Field-Programmable Gate Array。AWG / DAC 合成 envelope；ADC / FPGA 用于采样与处理。
+
+$I,Q$ 常用 arbitrary units，因为未恢复 absolute gain calibration。它们是测量信号的两个正交分量，不是 qubit wavefunction 的 coefficients。
+
+来源：Blais Figs. 14、16，PDF pp. 25、27；Krantz Fig. 22，PDF p. 45。
+
+## 9 — 校准逐步确定控制参数并检查性能
 
 Resonator spectroscopy 定位 probe response；qubit spectroscopy 定位 candidate $f_{10}$；Rabi 用于估计 $\pi,\pi/2$ pulses；readout calibration 检查 preparation distributions；T1 / Ramsey 做 characterization；随后 refine / repeat 以跟踪 drift。
 
@@ -75,7 +78,7 @@ Resonator spectroscopy 定位 probe response；qubit spectroscopy 定位 candida
 
 来源：既有解释与 Krantz Figs. 5、22。
 
-## 背景补充：频率与幅度扫描的列定义（对应第 7 页）
+## 背景补充：频率与幅度扫描的列定义（对应第 9 页）
 
 0918 的 Resonator Spectroscopy 有 6 cases，扫 probe frequency；Qubit Spectroscopy 有 18 cases，扫 drive frequency；Rabi Oscillation 有 16 cases，扫 drive-amplitude setting。它们保留 frequency/amplitude setting、phase、magnitude、scaled magnitude、I、Q。
 
@@ -83,7 +86,7 @@ CSV 无 header；列号从 0 开始。Spectroscopy 的 0 列是 frequency (GHz)�
 
 Rabi 图使用去均值 IQ 的第一 principal direction，除以该 record 的 standard deviation。其 sign / scale 在每份 record 中独立选择，不是 population。Figure 的 sinusoid 使用 recorded candidate frequency，只通过 linear least squares 重建 offset/cosine/sine coefficients；没有新增 nonlinear frequency fit。
 
-## 背景补充：延迟与准备记录的列定义（对应第 7 页）
+## 背景补充：延迟与准备记录的列定义（对应第 9 页）
 
 T1 Visibility 有 6 cases；column 0 为 delay (μs)，1–2 为第一路 P0/P1，3–4 为第二路 P0/P1。图画 columns 2、4；将两路解释为 nominal with/no-pi **来自推断**。T2 Ramsey 有 8 cases；columns 0–2 为 delay、P0、P1；图画 P1 与 recorded-fit upper/lower envelope。
 
@@ -91,7 +94,7 @@ GMM Readout Clusters 有 10 cases；columns 0–4 为 record index、without-pi 
 
 六类共 64 cases、57,993 numeric rows。行的物理意义随 family 改变，不能把总行数当作 shots。文件标签“0918”不能单独确认 acquisition date。Source bytes、column mappings 与 recorded metrics 见 [evidence.json](evidence.json) 和 [README](README.md)。
 
-## 8 — Rabi 用振荡确定脉冲设置
+## 10 — Rabi 用振荡确定脉冲设置
 
 Ideal initial $|0\rangle$、resonant drive、固定 rotation axis 与 two-level dynamics 下，$\theta=\int\Omega(t)dt$，$P_1=\sin^2(\theta/2)$。Rectangular pulse 时 $\theta=\Omega T$，$\Omega$ 是 angular Rabi frequency。Slide 的矩形 envelope 使用 PGFPlots 的 axis 与坐标曲线绘制，仍是示意；0918 的真实 envelope 未恢复。
 
@@ -99,7 +102,7 @@ Amplitude Rabi 固定 duration、改变 strength；Time Rabi 固定 strength、�
 
 来源：Krantz Eqs. (92)–(94)，PDF p. 29；0918 Rabi CSV。
 
-## 9 — T1 与 Ramsey 检查状态和相位保持
+## 11 — T1 与 Ramsey 检查状态和相位保持
 
 T1：$|0\rangle\xrightarrow{\pi}|1\rangle\xrightarrow{t}\mathrm{readout}$，模型 $P_1(t)=B+A e^{-t/T_1}$。$A$ 是 initial contrast，$B$ 是 long-delay baseline。$t=T_1$ 时，是相对 baseline 的 excess 变为原来的 $1/e$；不是全部 P1 必然降到 $1/e$。实际 audit 拟合两路 preparation-channel contrast，不能把图上的每一路 P1 都当作该 fit 的对象。
 
@@ -109,7 +112,7 @@ Ramsey：$\pi/2\to t\to\pi/2\to\mathrm{readout}$。第二个 pulse 将 relative 
 
 来源：Krantz Fig. 5、Sec. III.B.2–3，PDF pp. 13–16。
 
-## 10 — 读出指标还受到状态准备的影响
+## 12 — 读出指标还受到状态准备的影响
 
 Without $\pi$ 名义上 prepare $|0\rangle$；with $\pi$ 名义上 prepare $|1\rangle$。Labels 记录执行的操作，不保证每个 shot 的真实 state。Classifier 根据 measured IQ 输出 assignment 0 或 1；GMM clustering 本身不能赋予 cluster 物理 state label，需要 preparation reference。
 
@@ -119,7 +122,7 @@ Without $\pi$ 名义上 prepare $|0\rangle$；with $\pi$ 名义上 prepare $|1\r
 
 来源：recorded `audit_raw_physics.py` 的 readout diagnostic；Krantz Sec. V.C、Blais Sec. V.C.2。原图 estimator 的未解决问题保留在 [provenance question](../../../questions/0918-readout-estimator-provenance.md)。
 
-## 11 — 拟合参数是否得到数据支持
+## 13 — 拟合参数是否得到数据支持
 
 Observation 是可见的 curve、overlap、edge、scatter 等；model diagnostic 是在明确 model / preprocessing 下的 fit score、coverage、resolution 和 residual；possible cause 需要重复或干预区分。
 
@@ -127,30 +130,30 @@ $R^2=1-\sum_i(y_i-\hat y_i)^2/\sum_i(y_i-\bar y)^2$，即 coefficient of determi
 
 本地 $R^2<0.8$ 等 thresholds 是 exploratory screening policy；不是 universal physics laws、formal significance tests 或 acceptance criteria。46 个 recorded flagged cases 加一个 Resonator/006 descriptive review，共 47 个 targets。Reference 是相对清晰的对照，不等于 calibration certification；不同 cases 通常不是 matched controlled experiments。
 
-## 12–19 — 八个正文案例
+## 14–21 — 八个正文案例
 
 正文按下列顺序展示。图、完整诊断、观察、未验证原因和验证方向均在详细笔记中：
 
 | 正文页 | 案例与解释 | 核心问题 |
 | --- | --- | --- |
-| 12 | [Resonator/006](case-notes.md#case-resonator-006) | 首点尖峰与扫描窗口 |
-| 13 | [Spectroscopy/008](case-notes.md#case-spectroscopy-008) | 扫描边界 |
-| 14 | [Spectroscopy/005](case-notes.md#case-spectroscopy-005) | 步长与候选线宽 |
-| 15 | [Rabi/003](case-notes.md#case-rabi-003) | 噪声状曲线仍返回周期 |
-| 16 | [Rabi/007](case-notes.md#case-rabi-007) | 高拟合分数与有限周期覆盖 |
-| 17 | [T1/004](case-notes.md#case-t1-004) | 平坦曲线与拟合上界 |
-| 18 | [Ramsey/008](case-notes.md#case-ramsey-008) | 包络与残差结构 |
-| 19 | [GMM/008](case-notes.md#case-readout-008) | 两组准备条件的 IQ 重叠 |
+| 14 | [Resonator/006](case-notes.md#case-resonator-006) | 首点尖峰与扫描窗口 |
+| 15 | [Spectroscopy/008](case-notes.md#case-spectroscopy-008) | 扫描边界 |
+| 16 | [Spectroscopy/005](case-notes.md#case-spectroscopy-005) | 步长与候选线宽 |
+| 17 | [Rabi/003](case-notes.md#case-rabi-003) | 噪声状曲线仍返回周期 |
+| 18 | [Rabi/007](case-notes.md#case-rabi-007) | 高拟合分数与有限周期覆盖 |
+| 19 | [T1/004](case-notes.md#case-t1-004) | 平坦曲线与拟合上界 |
+| 20 | [Ramsey/008](case-notes.md#case-ramsey-008) | 包络与残差结构 |
+| 21 | [GMM/008](case-notes.md#case-readout-008) | 两组准备条件的 IQ 重叠 |
 
-这些页展示 measured records 与 reused diagnostics；possible causes 移到详细笔记并标为 hypotheses。把解释移出 slide 不意味着这些解释已经被确认。
+这些页展示 measured records 与 reused diagnostics。每页在图内标注左侧的有效信息和右侧的具体不足，在正文给出参数判断或下一步；正式 caption 保留指标与解释条件。对照仅在当前判断任务上提供较清晰信息，不等于左侧整体正确。Spectroscopy/001 的采样也不足以作为精密线宽标准，Ramsey/002 与 /006 本身有残差问题。Possible causes 移到详细笔记并标为 hypotheses。把解释移出 slide 不意味着这些解释已经被确认。
 
-## 20 — 从返回参数到完成校准
+## 22 — 从返回参数到完成校准
 
 依次确认 observable、coverage、resolution、model adequacy、preparation/readout 与 reproducibility。Rabi magnitude 不直接等于 P1；Rabi/007 没有完整 cycle；T1/004 没有 resolved decay；Spectroscopy/008 的 feature 在 boundary；Spectroscopy/005 的 step 不能分辨 candidate linewidth；Ramsey/008 留下结构；GMM/008 的 nominal groups overlap；Resonator/006 需要重测首点或改变 sweep direction。
 
 Fit 返回数字是分析的起点。Parameter 是否被数据约束、能否用于目标 operation，应结合这些检查判断。
 
-## 24 — 理论依据：量子控制与读出
+## 26 — 理论依据：量子控制与读出
 
 沿用既有 selective consultation，没有本次 full-paper rereading：
 
@@ -159,7 +162,7 @@ Fit 返回数字是分析的起点。Parameter 是否被数据约束、能否用
 
 这些位置按本地 PDF 页码；版本不同可能变化。旧制作记录另说明曾重新提取两篇 p. 29 核对 control/dispersive models。本次重写复用这些已记录的解释和出处；论文不能恢复 0918 未发布 plotting code 的 estimator。
 
-## 28 — 数据与分析来源（附录）
+## 30 — 数据与分析来源（附录）
 
 Measurements 来自 64 份原 bytes 保留的 numeric snapshots；diagnostics 来自已完成的 recorded audit；解释是 Codex interpretation。制作时原记录已经核对 input、report、audit script 的 SHA-256 (Secure Hash Algorithm 256-bit)。本次再次核对 packaged CSV 的 hashes，而没有执行完整 nonlinear audit。Rabi 仅在固定 recorded frequency 下重建 linear coefficients，并检查 R² 与记录值一致。
 
@@ -167,7 +170,7 @@ T1 metrics fit contrast；Rabi metrics fit projected IQ；spectroscopy R² / FWH
 
 Hash 一致支持输入与 recorded snapshot 的对应关系，不保证原 acquisition、model 或 causal interpretation 正确。说明文件、source annotations 与 byte-preserved data 仍是解释的一部分。
 
-## 25–27 — 附录导航与对照条件
+## 27–29 — 附录导航与对照条件
 
 完整版本增加两页可点击导航与一页使用约定，其后覆盖其余 39 个 cases。全部 47 个案例的数值、reference selection 与详细解释见 [case-notes.md](case-notes.md)。Case IDs 在每个 family 内独立编号。
 
@@ -189,24 +192,40 @@ Ramsey 全部 cases 均有 flag，因此 reference 使用相对清晰的 002 或
 
 <a id="calibration-agent-proposal"></a>
 
-## 21–23 — 自动校准软件系统研究计划
+## 23–25 — 自动校准软件系统研究计划
 
 2026-10-14 — 根据读者审阅，替代前版五阶段、细架构的讲述。研究计划移入正文，在案例总结之后、参考文献之前。读者明确认可软件工程与 harness 视角，以及不同模型和智能体协作、平衡价格与效果的长期目标。以下是据此起草的解释；具体机制与收益属于拟研究内容。
 
-### 第 21 页：已有工作提供什么基础
+### 第 23 页：已有工作提供什么基础
 
 [Vibe Calibration 阅读记录](../../../papers/vibe-calibration-112-qubit-processor/note.md) 提供专家流程 Skills 化、智能体调用现有实验工具开展多步表征与校准的实例。此处复用已有阅读记录，不增加全文阅读或性能比较。
 
 [NVIDIA Quantum Calibration Agent Blueprint](https://github.com/NVIDIA/Quantum-Calibration-Agent-Blueprint/) 是参考软件蓝图。此次选读其官方 README（2026-10-14）：项目介绍实验发现与调用、图与数据分析、多步工作流、JSON 工作流状态跟踪、结果存储与会话恢复。它支持“模型需要与工具和流程组成软件系统”的讲述。多个模型供应商接口不等于已经实现异构模型协同或自适应成本优化；README 不提供这里拟研究机制的效果结论。未运行该项目或进行设备实验。
 
-### 第 22 页：读者的 harness 视角
+**补充依据（2026-10-14 的此前讨论中选读，非全文阅读）**：
 
-Harness 在此指连接模型、实验工具、工作流程与结果的软件环境。读者希望从软件工程角度研究：怎样复用校准经验，并适应不同设备、工具和模型。前面的案例分析为理解任务和判断环节提供背景，不被写成完整系统设计或已实现能力。
+- [QUAlibrate 官方文档](https://qualibrate-docs.quantum-machines.co/)：overview 介绍可复用的 `QualibrationNode`、校准库、`QualibrationGraph` 与 QUAM 设备表示。它提供常规校准软件的组织基础；属于具体软件平台文档，不是本研究设想的性能验证。未运行该平台。
+- [SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering](https://arxiv.org/abs/2405.15793)，2024：选读 arXiv v3 abstract 与[官方 README](https://github.com/SWE-agent/SWE-agent/)。论文研究模型操作代码仓库、编辑代码和执行测试的接口设计，支持“软件环境与模型接口值得研究”的视角。该证据来自软件工程任务，不能直接推出物理校准中的收益，也不意味着环境越复杂越好。
+
+### 第 24 页：读者的 harness 视角
+
+Harness 在此指连接模型、实验工具、工作流程与结果的软件环境。读者希望从软件工程角度研究：怎样复用校准经验，并适应不同设备、工具和模型。此次将问题进一步表述为“哪些能力应该由模型判断，哪些应该沉淀为可复用的软件流程？”这是研究问题，不是已经证明的设计结论。前面的案例分析为理解任务和判断环节提供背景，不被写成完整系统设计或已实现能力。
 
 建议转场：“已有工作展示了模型参与校准的可能性。我希望进一步研究，怎样把这些能力组织为能够复用和扩展的软件系统。”
 
-### 第 23 页：三个研究阶段
+### 第 25 页：三个研究阶段
 
 依次研究单模型与现有工具的配合、可复用 harness、不同模型与智能体的协作。低成本模型承担分类与常规处理，较强或专长模型参与复杂分析、代码和文献，是拟研究的分工示例，不是固定角色架构或已测得的成本收益。阶段用于组织研究设想，没有承诺原型、时间表或实验结果。
 
+[RouteLLM: Learning to Route LLMs with Preference Data](https://arxiv.org/abs/2406.18665)，2024：此前讨论选读 arXiv v4 abstract，介绍用偏好数据学习强弱模型间的路由，以平衡成本与回答质量。这是文本任务中的模型选择依据；它不证明校准任务中的收益，也不等于已经实现多智能体协作。报告把模型路由作为长期分工的支持，把如何评价整个校准流程的效果与成本保留为开放问题。
+
 [原 proposal](../proposal.md) 保留前期更详细的讨论与相关工作；报告采用本轮确认的简洁主线，其中此前以证据路由与状态契约为中心的表述不再代表本次汇报重点。
+
+
+## 硬件、案例与研究依据修订 — 2026-10-14
+
+按照读者确认的讨论扩充硬件概览为六页：恢复 Transmon 电路与能级示意，分别介绍状态依赖的谐振响应及测量链。三页研究计划增加 QUAlibrate、SWE-agent、RouteLLM 的支持，并保留 harness 与异构模型协作的研究设想。八个正文案例及 39 个附录案例补充任务相关的左右说明与校准判断；全部说明仍为 Codex interpretation，不把缺陷归因于未经验证的物理机制。保留读者对器件图 caption 与实验概览来源行的修改。
+
+此修订仅改变叙述、示意图与版面；原数据、既有 plot PDFs、evidence JSON 与指标不变。页码以上方当前目录为准；前面的历史制作记录保留当时页码。
+
+验证：重新编译两份报告，校准 PDF 共 69 页；渲染检查整份报告与新增页面，编译 log 无溢出、缺字或未定义引用。64 份 CSV 的 SHA-256、47 份原图及 evidence JSON 与原记录一致；47 个案例跳转与配套笔记链接检查通过。

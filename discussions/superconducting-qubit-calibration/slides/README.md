@@ -2,7 +2,7 @@
 
 2026-10-12 — 按读者认可的 [slide-writing skill](../../../skills/write-slides/SKILL.md) 重写。使用弧光量子 company theme 与较粗的字体；slides 保留主线、图与必要限制，讲解和 possible causes 移至配套笔记。解释为 Codex interpretation；数据来自既有实验及 recorded audit，不表示读者认可所有解释。
 
-- [完整 PDF](0918-calibration-zh.pdf)：67 页：正文 24 页、附录 43 页。包含全部 47 个复查案例；三页研究计划位于正文总结之后。
+- [完整 PDF](0918-calibration-zh.pdf)：69 页：正文 26 页、附录 43 页。包含全部 47 个复查案例；三页研究计划位于正文总结之后。
 - [Beamer 源码](slides.tex)：中文叙述，保留 English technical terms；完整 definitions 在配套笔记。
 - [讲解与背景笔记](notes.md)：按正文页组织的解释、模型条件、definitions 与来源。
 - [详细案例笔记](case-notes.md)：47 个 targets 的完整诊断、观察、未验证原因与验证方向。
@@ -19,11 +19,11 @@
 
 ### 校准报告
 
-正文第 1–2 页为封面与目录，第 3–10 页介绍控制、测量及校准实验，第 11–20 页展示判断方法、八个代表案例与总结，第 21–23 页介绍研究计划，第 24 页为参考文献。研究计划按照“已有工作—harness 视角—三阶段路线”组织，强调软件工程与长期多智能体协作目标。
+正文第 1–2 页为封面与目录，第 3–8 页介绍器件、控制与测量链，第 9–12 页介绍校准实验，第 13–22 页展示判断方法、八个代表案例与总结，第 23–25 页介绍研究计划，第 26 页为参考文献。研究计划按照“已有工作—harness 视角—三阶段路线”组织，强调软件工程与长期多智能体协作目标。已有工作页连接 Vibe Calibration / NVIDIA 的校准工具与流程、QUAlibrate 的模块化软件基础、SWE-agent 的模型接口研究；RouteLLM 为成本与质量路由提供参考。这些支持不等于本设想已实现或在校准任务中得到验证。
 
-页眉使用原生 `miniframes` 圆点导航；附录为独立 part，不增加正文导航进度。第 25–26 页为案例导航，第 27–28 页为解释条件与数据来源，第 29–67 页覆盖其余 39 个案例。
+页眉使用原生 `miniframes` 圆点导航；附录为独立 part，不增加正文导航进度。第 27–28 页为案例导航，第 29–30 页为解释条件与数据来源，第 31–69 页覆盖其余 39 个案例。
 
-每个案例页只讨论一个 experiment family：短标题、较大的 paired plot、关键 diagnostic 与必要限制。完整 observation、possible causes 和验证方向在 [case-notes.md](case-notes.md)；候选原因明确标为未验证 hypotheses。Reference 不等于通过 calibration certification；不同 case 通常不是 matched controlled experiment。Ramsey reference 本身也有 residual flags，案例页保留说明。
+每个案例页只讨论一个 experiment family：短标题、paired plot、任务相关的左右标注、正式图注中的 diagnostic 与必要限制，以及正文的校准判断。完整 observation、possible causes 和验证方向在 [case-notes.md](case-notes.md)；候选原因明确标为未验证 hypotheses。Reference 不等于通过 calibration certification；不同 case 通常不是 matched controlled experiment。Ramsey reference 本身也有 residual flags，案例页保留说明。
 
 47 个案例包括既有 audit 的全部 46 个 flagged cases，以及另列的 Resonator Spectroscopy/006。并不声称这是 acquisition 所有可能问题的穷举。按 family 为 T1 3、Ramsey 8、Rabi 15、Qubit Spectroscopy 15、GMM 5、Resonator 1。
 

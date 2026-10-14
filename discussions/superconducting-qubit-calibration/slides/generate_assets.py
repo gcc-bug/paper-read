@@ -241,8 +241,70 @@ def slide_content(fam,case,record):
         caveat='此处为曲线观察，尚无经过验证的传输函数拟合。'
     return title,metric,caveat
 
+def comparison(fam,case,record):
+    """Task-specific comparison, not a global good/bad label or matched trial."""
+    flags=record['review_flags']
+    if fam=='Resonator Spectroscopy':
+        return ('窗口内可见连续响应结构','主要变化集中于首点尖峰',
+                '判断：首点不能确定共振位置；需复测首点并调整扫描窗口。')
+    if fam=='Qubit Spectroscopy':
+        left='窗口内可见响应与两侧背景'
+        if case in ('002','011','014','015'):
+            return (left,'背景中的候选响应不够明确',
+                    '判断：尚不能确认跃迁频率；需验证信号路径并复测候选响应。')
+        if 'FEATURE_NEAR_SCAN_EDGE' in flags:
+            return (left,'边缘响应未被完整覆盖',
+                    '判断：中心频率缺乏两侧数据约束；需扩大扫描窗口。')
+        if 'FEATURE_WIDTH_POORLY_SAMPLED' in flags:
+            if case=='005':
+                return (left,'步长大于候选线宽',
+                        '判断：高拟合分数不能证明线宽已分辨；需局部细扫并复测。')
+            return (left,'候选线宽内采样点不足',
+                    '判断：线宽缺乏采样约束；需局部细扫并复测。')
+        return (left,'单线形拟合仍有未解释结构',
+                '判断：可见响应不保证单线形模型适用；需细扫并检查线形与背景。')
+    if fam=='Rabi Oscillation':
+        left='转折与回返约束一个完整周期'
+        if case in ('001','003'):
+            return (left,'散点不支持拟合的快速振荡',
+                    '判断：不能采用拟合半周期作为 $\\pi$ 脉冲设置；需先恢复清晰振荡。')
+        if 'LIMITED_OSCILLATION_COVERAGE' in flags:
+            return (left,'扫描只覆盖局部曲线',
+                    '判断：周期主要依赖外推；需扩大幅度范围，观察转折与回返。')
+        if 'IQ_NOT_WELL_APPROXIMATED_BY_FIXED_TWO_STATE_LINE' in flags:
+            return (left,'投影拟合未验证两态连线近似',
+                    '判断：需检查完整 IQ 轨迹；投影与几何诊断尚不能确定物理原因。')
+        return (left,'正弦拟合仍留下结构性残差',
+                '判断：需复测并检查驱动与模型；单一正弦拟合尚不足以确认设置。')
+    if fam=='T1 Visibility':
+        if case=='004':
+            return ('可分辨的衰减约束时间常数','几乎平坦，拟合触及上界',
+                    '判断：T1 尚未分辨；拟合上界不是测量值，需核对时序并延长等待。')
+        return ('基线选择下的时间常数较接近','改变基线后时间常数变化',
+                '判断：衰减时间依赖基线假设；需延长等待并检查参考通道。')
+    if fam=='T2 Ramsey':
+        if case=='008':
+            return ('衰减振荡较清晰，仍有残差','约 40–50 μs 振荡重新变宽',
+                    '判断：单一包络未解释全部结构；需检查模型与记录，不能唯一归因。')
+        right=('当前模型仍留下相关残差'
+               if 'BASELINE_MODEL_CORRELATED_RESIDUALS' in flags
+               else '当前模型对记录的解释不足')
+        return ('较清晰的振荡也有相关残差',right,
+                '判断：两侧均需复查；需比较拟合窗口与重复记录，不能只采纳时间常数。')
+    if fam=='GMM Readout Clusters':
+        if case=='008':
+            return ('分布较分离：准确率 95.45%','分布重叠：准确率 61.70%',
+                    '判断：当前准备与读出组合区分不足；需分别检查准备操作与测量设置。')
+        if case=='005':
+            return ('准备条件较易区分','准确率略低于本地筛查阈值',
+                    '判断：需结合重复测量判断；筛查阈值本身不构成物理失败标准。')
+        return ('准备条件较易区分','准备条件的分布仍有重叠',
+                '判断：区分程度不足；需分别验证准备与读出，不能单独归因于测量。')
+    raise ValueError(fam)
+
 def frame(fam,case,record):
     slug=SLUG[fam];title,metric,caveat=slide_content(fam,case,record)
+    left,right,judgment=comparison(fam,case,record)
     return '\n'.join([
         rf'\begin{{frame}}[t,label=case-{slug}-{case}]{{{title}}}{{{fam} / {case}}}',
         r'\setlength{\parskip}{0pt}',
@@ -250,21 +312,28 @@ def frame(fam,case,record):
         r'\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}',
         r'\begin{figure}',
         r'\centering',
-        rf'\includegraphics[width=\linewidth,height=43mm,keepaspectratio]{{figures/{slug}-{case}.pdf}}',
-        rf'\caption{{案例 {case} 与对照 {reference(fam,case)}。{metric}。{caveat}}}',
+        r'{\small',
+        rf'\makebox[.49\linewidth][c]{{\textcolor{{Teal}}{{左：{esc(left)}}}}}%',
+        rf'\makebox[.49\linewidth][c]{{\textcolor{{Orange}}{{右：{esc(right)}}}}}\par',
+        r'}',
+        rf'\includegraphics[width=\linewidth,height=34mm,keepaspectratio]{{figures/{slug}-{case}.pdf}}',
+        rf'\caption{{左：对照 {reference(fam,case)}；右：案例 {case}。{metric}。{caveat}}}',
         rf'\label{{fig-{slug}-{case}}}',
         r'\end{figure}',
         r'\endgroup',
+        rf'{{\small\textbf{{{judgment}}}\par}}',
         r'\end{frame}',
     ])
 
 def case_note(fam,case,record):
     d=explanation(fam,case,record);ref=reference(fam,case);slug=SLUG[fam]
     metric=d['metric']
+    left,right,judgment=comparison(fam,case,record)
     lines=[f'<a id="case-{slug}-{case}"></a>',f'## {fam} / {case}','',
         f'**{d["title"]}**','',
         f'[对照图](figures/{slug}-{case}.pdf) · [Target CSV](data/{slug}-{case}.csv) · [Reference / {ref}](data/{slug}-{ref}.csv)','',
         f'**来源与诊断**：0918 packaged CSV 与 recorded audit；{metric}。','',
+        f'**Codex interpretation — 左右比较**：左侧{left}；右侧{right}。{judgment}','',
         f'**Codex interpretation — 观察**：{d["observation"]}','',
         '> [!hypothesis]',
         f'> Suggested by Codex; not yet verified. {d["cause"]}','',
