@@ -73,6 +73,14 @@ Source claims: the LC model has equally spaced levels; the Josephson relations a
 
 Codex interpretation: these passages support the expanded [personal preparation notes](slides/notes.md), especially why an engineered circuit can encode a qubit, why superconductivity does not imply unlimited coherence, and how environment changes affect control or measurement. The 5 GHz / 20 mK two-level equilibrium example is a Codex calculation, not a reported temperature or population of the local device. No source mechanism is assigned as the established cause of a local anomaly.
 
+### 2026-10-15 targeted continuation: IQ and parameter variation
+
+Locally extracted and consulted PDF pp. 5–6 (Secs. II.A–B.1 circuit model and frequency tuning), pp. 18–19 (Sec. III.C charge/flux noise, resonator photons and quasiparticles), p. 29 (Sec. IV.D.1 drive model), and p. 45 (Fig. 22 and heterodyne detection). This is selective text consultation, not a full rereading or new experimental evidence; original source bytes were preserved.
+
+Source claims: circuit energies and drive coupling enter the qubit frequency and rotation; sensitivity to flux depends on device and bias point. Low-frequency fluctuations, residual photons and quasiparticles can affect coherence or population. Fig. 22 follows one received microwave signal through quadrature mixing, ADC sampling and processing to an IQ point.
+
+Codex interpretation: the updated [companion notes](slides/notes.md) separate variation between devices, changes over time and changes with operating conditions. Changes in a control or readout transfer function can change the implemented rotation or recorded IQ without establishing intrinsic qubit drift. The ideal demodulation derivation, illustrative IQ values, and calibration-starting-point explanation are teaching synthesis; no local drift rate, cause or original demodulation convention was recovered.
+
 ## Circuit Quantum Electrodynamics
 
 Authors: Alexandre Blais, Arne L. Grimsmo, S. M. Girvin, Andreas Wallraff. Publication year: 2021.
@@ -145,6 +153,10 @@ Locally extracted and consulted PDF pp. 25–26, Sec. V opening and Sec. V.A, in
 Source claims: distributed, thermally anchored attenuators absorb incoming room-temperature noise; circulators limit amplifier noise reaching the sample. The output is amplified, mixed, digitized, and processed. The measurement chain has finite bandwidth and added amplifier noise; qubit readout involves backaction even when energy exchange is inhibited in the dispersive regime.
 
 Codex interpretation: this supports explaining why low refrigerator temperature alone does not establish a cold, noise-free device or perfect readout. The simplified chain in the notes is generic, not a reconstruction of 0918 wiring or gain calibration.
+
+### 2026-10-15 targeted continuation: two quadratures of one received signal
+
+Locally extracted and consulted PDF p. 27, especially Fig. 16 and the IQ mixer description. The figure splits one received RF signal into two branches and mixes them against LO references shifted by pi/2; this supports explaining that I and Q are two components of the same received signal. The companion notes provide a classical voltage derivation with an explicit Q-sign convention. That derivation and its illustrative numbers do not identify the local acquisition hardware, gains, offsets or integration weights. No full-paper rereading or new measurement was performed; original source bytes were preserved.
 
 <a id="openstax-superconductivity"></a>
 

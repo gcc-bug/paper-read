@@ -2,9 +2,9 @@
 
 2026-10-12 — 按读者认可的 [slide-writing skill](../../../skills/write-slides/SKILL.md) 重写。使用弧光量子 company theme 与较粗的字体；slides 保留主线、图与必要限制，讲解和 possible causes 移至配套笔记。解释为 Codex interpretation；数据来自既有实验及 recorded audit，不表示读者认可所有解释。
 
-- [完整 PDF](0918-calibration-zh.pdf)：69 页：正文 26 页、附录 43 页。包含全部 47 个复查案例；三页研究计划位于正文总结之后。
+- [完整 PDF](0918-calibration-zh.pdf)：70 页：正文 27 页、附录 43 页。包含全部 47 个复查案例；三页研究计划位于正文总结之后。
 - [Beamer 源码](slides.tex)：中文叙述，保留 English technical terms；完整 definitions 在配套笔记。
-- [讲解与背景笔记](notes.md)：按正文页组织的解释、模型条件、definitions 与来源。
+- [讲解与背景笔记](notes.md)：按学习问题组织的解释、模型条件、definitions 与来源。
 - [详细案例笔记](case-notes.md)：47 个 targets 的完整诊断、观察、未验证原因与验证方向。
 - [全部案例索引](coverage.md)：每个 target、reference 及所在部分。
 - [返回讨论](../note.md)；[论文与来源注释](../references.md)。
@@ -19,9 +19,9 @@
 
 ### 校准报告
 
-正文第 1–2 页为封面与目录，第 3–8 页介绍器件、控制与测量链，第 9–12 页介绍校准实验，第 13–22 页展示判断方法、八个代表案例与总结，第 23–25 页介绍研究计划，第 26 页为参考文献。研究计划按照“已有工作—harness 视角—三阶段路线”组织，强调软件工程与长期多智能体协作目标。已有工作页连接 Vibe Calibration / NVIDIA 的校准工具与流程、QUAlibrate 的模块化软件基础、SWE-agent 的模型接口研究；RouteLLM 为成本与质量路由提供参考。这些支持不等于本设想已实现或在校准任务中得到验证。
+正文第 1–2 页为封面与目录，第 3–8 页介绍器件、控制与测量链，第 9 页解释参数差异与漂移，第 10–13 页介绍校准实验，第 14–23 页展示判断方法、八个代表案例与总结，第 24–26 页介绍研究计划，第 27 页为参考文献。研究计划按照“已有工作—harness 视角—三阶段路线”组织，强调软件工程与长期多智能体协作目标。已有工作页连接 Vibe Calibration / NVIDIA 的校准工具与流程、QUAlibrate 的模块化软件基础、SWE-agent 的模型接口研究；RouteLLM 为成本与质量路由提供参考。这些支持不等于本设想已实现或在校准任务中得到验证。
 
-页眉使用原生 `miniframes` 圆点导航；附录为独立 part，不增加正文导航进度。第 27–28 页为案例导航，第 29–30 页为解释条件与数据来源，第 31–69 页覆盖其余 39 个案例。
+页眉使用原生 `miniframes` 圆点导航；附录为独立 part，不增加正文导航进度。第 28–29 页为案例导航，第 30–31 页为解释条件与数据来源，第 32–70 页覆盖其余 39 个案例。
 
 每个案例页只讨论一个 experiment family：短标题、paired plot、任务相关的左右标注、正式图注中的 diagnostic 与必要限制，以及正文的校准判断。完整 observation、possible causes 和验证方向在 [case-notes.md](case-notes.md)；候选原因明确标为未验证 hypotheses。Reference 不等于通过 calibration certification；不同 case 通常不是 matched controlled experiment。Ramsey reference 本身也有 residual flags，案例页保留说明。
 
@@ -133,3 +133,10 @@ Spectroscopy 图展示 magnitude；页内 R²/FWHM 来自 audit 的 **IQ-project
 同步案例 generator、生成文本与笔记页码；统一两份报告的编译入口为 `bash compile.sh`。图注继续使用 figure 环境内的正式 caption。历史交付记录中的页码对应当时版本。
 
 两份 PDF 重新编译为 67 页和 8 页；全部 75 页、修正后的表格与相关工作页，以及共享主题六页预览已渲染检查。最终日志无 overfull/underfull、missing-character 或 undefined-reference warnings。验证 47 个案例跳转、205 个配套本地链接和生成文本一致性；64 份 CSV、47 份底层图、两篇参考 PDF 与 evidence JSON 共 114 份保护文件与提交前基线一致。slide-writing skill validator 通过。
+
+
+## IQ 与参数变化说明 — 2026-10-15
+
+正文第 8 页明确 I/Q 来自同一路输出微波的正交解调，两个分量均为实数；第 9 页新增器件间差异、随时间变化与工作条件变化的对照，解释共享校准起点与逐器件确认的关系。配套笔记补充解调推导、复数表示、实际 CSV 列的含义和漂移机制的适用范围，来源选读范围记录在上一级 `references.md`。
+
+验证：校准 PDF 共 70 页；第 8–10 页已渲染并逐页检查，最终编译日志无 overfull/underfull、缺字或未定义引用。新增页之后的 61 页与原版文字一致（页码顺延除外）；数据、底层图、evidence、两篇参考 PDF 与早期工作 PDF 共 115 份保护文件字节保持不变。

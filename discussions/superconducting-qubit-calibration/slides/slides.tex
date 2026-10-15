@@ -146,7 +146,7 @@
 \end{frame}
 
 \begin{frame}{测量链怎样把响应转为 IQ}
- 器件响应经过线路和处理，才成为测量记录。
+ 同一路微波解调为两个实数 $I,Q$，对应相差 $90^\circ$ 的参考。
  \begin{figure}
  \centering
  \begin{tikzpicture}[node distance=7mm]
@@ -163,10 +163,32 @@
  \caption{读出测量链的简化流程，省略衰减、滤波与隔离器件；IQ 是电磁响应的两个正交分量\cite{blais,krantz}。}
  \label{fig-readout-chain}
  \end{figure}
- IQ 经判别得到标签或概率；解释指标需了解处理方法。
+ $z=I+iQ$：$i^2=-1$。复坐标表示保留响应的幅度与相位。
 \end{frame}
 
 \section[校准实验]{校准实验回答什么问题}
+\begin{frame}{为什么参数不能一次设定、处处通用}
+ 相同的软件设置，实际操作与响应可能不同。
+ \begin{table}
+ \centering
+ \small
+ \renewcommand{\arraystretch}{1.12}
+ \begin{tabularx}{\linewidth}{@{}p{28mm}X@{}}
+  \toprule
+  差异来自哪里 & 怎样影响实验 \\
+  \midrule
+  器件间差异 & 结参数、电容与线路不同，频率和脉冲幅度需逐比特确定。 \\
+  随时间变化 & 慢磁通涨落、电子学漂移，可改变频率、旋转或 IQ 分布。 \\
+  工作条件变化 & 偏置、读出功率与并行操作，可改变当前有效设置。 \\
+  \bottomrule
+ \end{tabularx}
+ \caption{通用影响路径\cite{krantz,blais}，非本数据的原因诊断。}
+ \label{tab-parameter-variation}
+ \end{table}
+ \textbf{设计值与历史参数提供起点；逐器件校准，并随使用复查。}
+ \par\small 慢漂移可跟踪；快速随机噪声不能靠更新一个常数完全消除。
+\end{frame}
+
 \begin{frame}{校准逐步确定控制参数并检查性能}
  \renewcommand{\arraystretch}{1.2}
  \begin{tabularx}{\linewidth}{@{}p{48mm}X@{}}
