@@ -87,7 +87,7 @@
    \node[font=\small] at (1.4,-.45) {$f_{10}\ne f_{21}$};
   \end{scope}
  \end{tikzpicture}
- \caption{简化 Transmon 电路与非按比例的能级示意；高能级仍然存在\cite{krantz}。}
+ \caption{简化 Transmon 电路与非按比例的能级示意；能级表示电路系统总能量；高能级仍然存在\cite{krantz}。}
  \label{fig-transmon-levels}
  \end{figure}
  $\ket0$、$\ket1$ 都属于超导电路的量子态；低温帮助减少热激发。
@@ -124,10 +124,10 @@
 \end{frame}
 
 \begin{frame}{我们控制和读取的是什么}
- Transmon 通常用最低两个能级编码量子比特。微波驱动改变它的状态，读出谐振腔获取状态信息，耦合器调节量子比特之间的相互作用。
+%  Transmon 通常用最低两个能级编码量子比特。
  \begin{figure}
  \centering
- \begin{tikzpicture}[x=9mm,y=7mm]
+ \begin{tikzpicture}[x=9mm,y=8mm]
   \draw[probe] (0,3.2)--(12.8,3.2);
   \node[above,font=\small,Teal] at (6.4,3.2) {共享读出线};
   \foreach \x/\name in {2.5/A,9.4/B}{
@@ -144,6 +144,7 @@
  \caption{器件功能的通用结构示意\cite{krantz,blais}。}
  \label{fig-resonator-coupler}
  \end{figure}
+ \src{能级表示量子电路允许的能量本征值。不容易直接测量。我们可以通过共振频谱确定能级之间的能量差，再利用色散读出等方法，将量子态信息转化为可测的微波响应。微波驱动改变它的状态，读出谐振腔获取状态信息，耦合器调节量子比特之间的相互作用。}
 \end{frame}
 
 \begin{frame}{控制参数怎样影响量子态}
@@ -187,7 +188,7 @@
  选择读出频率时，需要同时考虑响应差异与测量噪声。
 \end{frame}
 
-\begin{frame}{测量链怎样把响应转为 IQ}
+\begin{frame}{测量链怎样把响应转为状态}
  探测微波携带器件响应；接收端将响应转为坐标，再进行状态判别。
  \begin{figure}
  \centering
@@ -234,7 +235,7 @@
  两路同时处理同一返回信号；$I,Q$ 为实数，$I+iQ$ 是复坐标。
 \end{frame}
 
-\section[校准实验]{校准实验回答什么问题}
+\section[校准实验]{为什么需要校准实验}
 \begin{frame}{为什么参数不能一次设定、处处通用}
  相同的软件设置，实际操作与响应可能不同。
  \begin{table}
