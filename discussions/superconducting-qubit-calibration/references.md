@@ -169,3 +169,75 @@ Coverage: the opening “Properties of Superconductors” discussion of zero res
 Source claims: zero resistance and the Meissner response are distinct properties; superconductivity is subject to material-dependent critical conditions. The BCS introduction describes electron pairing through an effective attraction in a lattice and Cooper pairs.
 
 Codex interpretation: the textbook supplies elementary background before the Josephson-circuit explanation. The notes scope the pairing picture to conventional superconductors and avoid equating zero DC resistance with absence of microwave/device loss. The collective-phase variables and Josephson equations are grounded in the Krantz circuit passages rather than attributed to this introductory chapter. The notes do not use superconductivity to infer a temperature, material, or measured coherence of the local device.
+
+
+<a id="calibration-software-sources"></a>
+
+## 自动校准软件研究的既有来源与确认记录
+
+2026-10-15 — 从 slides/notes.md 迁入，保留 2026-10-14 的来源咨询范围和读者确认记录；本次迁移未增加文献阅读或软件运行。以下叙述中的“此次”“本轮”指原记录的修订。
+
+2026-10-14 — 根据读者审阅，替代前版五阶段、细架构的讲述。研究计划移入正文，在案例总结之后、参考文献之前。读者明确认可软件工程与 harness 视角，以及不同模型和智能体协作、平衡价格与效果的长期目标。以下是据此起草的解释；具体机制与收益属于拟研究内容。
+
+### 已有工作与支持范围
+
+[Vibe Calibration 阅读记录](../../papers/vibe-calibration-112-qubit-processor/note.md) 提供专家流程 Skills 化、智能体调用现有实验工具开展多步表征与校准的实例。此处复用已有阅读记录，不增加全文阅读或性能比较。
+
+[NVIDIA Quantum Calibration Agent Blueprint](https://github.com/NVIDIA/Quantum-Calibration-Agent-Blueprint/) 是参考软件蓝图。此次选读其官方 README（2026-10-14）：项目介绍实验发现与调用、图与数据分析、多步工作流、JSON 工作流状态跟踪、结果存储与会话恢复。它支持“模型需要与工具和流程组成软件系统”的讲述。多个模型供应商接口不等于已经实现异构模型协同或自适应成本优化；README 不提供这里拟研究机制的效果结论。未运行该项目或进行设备实验。
+
+**补充依据（2026-10-14 的此前讨论中选读，非全文阅读）**：
+
+- [QUAlibrate 官方文档](https://qualibrate-docs.quantum-machines.co/)：overview 介绍可复用的 `QualibrationNode`、校准库、`QualibrationGraph` 与 QUAM 设备表示。它提供常规校准软件的组织基础；属于具体软件平台文档，不是本研究设想的性能验证。未运行该平台。
+- [SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering](https://arxiv.org/abs/2405.15793)，2024：选读 arXiv v3 abstract 与[官方 README](https://github.com/SWE-agent/SWE-agent/)。论文研究模型操作代码仓库、编辑代码和执行测试的接口设计，支持“软件环境与模型接口值得研究”的视角。该证据来自软件工程任务，不能直接推出物理校准中的收益，也不意味着环境越复杂越好。
+
+### 研究视角的确认记录
+
+Harness 在此指连接模型、实验工具、工作流程与结果的软件环境。读者希望从软件工程角度研究：怎样复用校准经验，并适应不同设备、工具和模型。此次将问题进一步表述为“哪些能力应该由模型判断，哪些应该沉淀为可复用的软件流程？”这是研究问题，不是已经证明的设计结论。前面的案例分析为理解任务和判断环节提供背景，不被写成完整系统设计或已实现能力。
+
+建议转场：“已有工作展示了模型参与校准的可能性。我希望进一步研究，怎样把这些能力组织为能够复用和扩展的软件系统。”
+
+### 路线与模型路由的支持范围
+
+依次研究单模型与现有工具的配合、可复用 harness、不同模型与智能体的协作。低成本模型承担分类与常规处理，较强或专长模型参与复杂分析、代码和文献，是拟研究的分工示例，不是固定角色架构或已测得的成本收益。阶段用于组织研究设想，没有承诺原型、时间表或实验结果。
+
+[RouteLLM: Learning to Route LLMs with Preference Data](https://arxiv.org/abs/2406.18665)，2024：此前讨论选读 arXiv v4 abstract，介绍用偏好数据学习强弱模型间的路由，以平衡成本与回答质量。这是文本任务中的模型选择依据；它不证明校准任务中的收益，也不等于已经实现多智能体协作。报告把模型路由作为长期分工的支持，把如何评价整个校准流程的效果与成本保留为开放问题。
+
+[原 proposal](proposal.md) 保留前期更详细的讨论与相关工作；报告采用本轮确认的简洁主线，其中此前以证据路由与状态契约为中心的表述不再代表本次汇报重点。
+
+
+### 笔记来源范围的迁移说明
+
+2026-10-14 — 为补充基础解释，本轮在本地提取 Krantz PDF pp. 4–5、18–19，以及 Blais pp. 25–26 的文字并核对所引内容；其余控制、读出和相干模型沿用已经记录的选择性阅读。新增选读 OpenStax §9.8 的超导性质和 BCS 入门段落。公式中的低温二能级例子、短窗口展开和案例教学解释是 Codex 的计算或推理，不是这些来源报告的本设备结果。详细新增注释见[本文件](references.md)。
+
+两篇综述均未全文重读；软件研究参考沿用此前记录的咨询范围。尚待解决的内容包括原始读出估计器、部分采集时序和设备细节、异常的物理原因，以及研究设想的实际收益。
+
+
+2026-10-15 — 为 IQ 与参数变化的补充解释，选读 Krantz PDF pp. 5–6、18–19、29、45，以及 Blais PDF p. 27；详细范围与解释边界见[本文件](references.md)。本轮没有新增本设备的测量或恢复原始解调实现。
+
+以下保留此前记录的选择性阅读位置；本轮补读范围见本文件相应日期的咨询记录，没有全文重读：
+
+- P. Krantz et al., *A Quantum Engineer's Guide to Superconducting Qubits*, Applied Physics Reviews 6, 021318 (2019)，[DOI](https://doi.org/10.1063/1.5089550)。[本地 PDF](references/krantz-quantum-engineers-guide-superconducting-qubits.pdf) 是 arXiv:1904.06560v5，2021 revision。使用 Fig. 1 / Eq. (16), pp. 4–5；Fig. 5, p. 15；Eqs. (92)–(94), p. 29；Fig. 22, p. 45。
+- A. Blais et al., *Circuit Quantum Electrodynamics*, Reviews of Modern Physics 93, 025005 (2021)，[DOI](https://doi.org/10.1103/RevModPhys.93.025005)。[本地 PDF](references/blais-circuit-quantum-electrodynamics.pdf) 是 arXiv:2005.12667v1，2020 version。使用 Figs. 14/16, pp. 25/27；Eq. (107), p. 29；Fig. 19, p. 31。
+
+这些位置按本地 PDF 页码；版本不同可能变化。旧制作记录另说明曾重新提取两篇 p. 29 核对 control/dispersive models。本轮继续沿用已记录的控制与读出解释，新增咨询范围见本文件相应日期的咨询记录；论文不能恢复 0918 未发布 plotting code 的 estimator。
+
+<a id="fan-surface-trap-poster"></a>
+
+## Fan et al.: 3D-printed surface-trap poster
+
+- **Title:** *3D Printed Surface Trap designed for QCCD-based large-scale quantum computation using 174Yb+ and 138Ba+*.
+- **Authors:** Xuan Fan, Pengfei Wang, Yuan Chai, Zexin Wu, Wenhan Hua, Dingchao Gao, Honghua Fang, Hongbo Sun, Kihwan Kim. Dingchao Gao's listed affiliation is Beijing Zhongke Arclight Quantum Software Technology Co., Ltd.
+- **Year/event:** not verified. Original filename contains `v1.0`; PDF metadata is not used to infer an event or publication date.
+- **Local source:** [preserved poster PDF](references/fan-3d-printed-surface-trap-qccd-poster.pdf).
+- **Original filename and provenance:** `3_合肥海报-范宣v1.0.pdf`, supplied by the reader from `/Users/coldcat/Downloads/` on 2026-10-15. Copied byte-for-byte; original retained. SHA-256: `bb432e5de5593b8a427132b0d587be4815259712fcb802df0ab53ab1aaac6cd1`.
+- **Role:** supporting reference for the early quantum-control software presentation, not a standalone paper-reading intake. Reader states the poster work was supported by sion; the poster itself does not name sion / sion-exper or specify individual software responsibilities.
+
+**Consultation, 2026-10-15:** locally extracted and visually inspected the complete one-page poster, including title/authors, abstract, Figs. 1–8 and their captions, and bibliography. Closely checked Figs. 2, 7 and 8 for electrode counts, simulation/experiment categories, and image interpretation. The cited bibliography was not followed or independently read. Extraction repeats the title block; isotope notation and captions were checked visually. Embedded plot labels have the poster's finite image resolution; no numerical digitization or raw data recovery was attempted.
+
+**Source claims used:** Fig. 2 describes a nine-wire surface trap with 22 pairs of segmented DC electrodes. Fig. 7 is theoretical ion-transport simulation using shortcuts to adiabaticity (STA); plot title “Optimized Voltages V1–V22 over Time,” time in μs and voltage in V. Fig. 8 reports one 138Ba+ ion transported across one electrode in 100 discrete steps. Its time-lapsed CCD image shows that same ion at two stationary endpoints, held for millisecond durations to enhance visibility. The abstract describes fundamental shuttling as a demonstrated step toward a future hundred-qubit system, not an achieved hundred-qubit processor.
+
+**Limits and Codex interpretation:** Fig. 7's claimed average error below 10^-16 is not sufficiently defined on this poster to support a hardware-accuracy or fidelity statement. Fig. 8 does not demonstrate two simultaneous ions, two wells moving toward one another, or well merging. The poster does not establish that the displayed simulation curves were the exact experimental waveforms. The 22 electrode pairs, 22 plotted voltage labels, independent DAC channels and electrodes active in a given operation must not be equated without a mapping. Fig. 6's heating discussion and contamination attribution are outside the claims used in the slides; no independent diagnosis was made. Authorship does not establish who performed physical experiments.
+
+**Reader clarification history:** before providing the poster, the reader confirmed “15 electrodes total; two wells move toward the middle.” Asked how that relates to the poster's 22 pairs, the reader replied “maybe i make mistake.” Accordingly the slides withdraw the 15 count and use generic electrode blocks; the original statement and subsequent uncertainty remain in the [companion notes](slides/early-control-work-notes.md). The actual driven subset and relation between the two descriptions remain unresolved.
+
+**Slide assets:** [voltage plot crop](slides/figures/poster-transport-voltages.png) and [transport image crop](slides/figures/poster-transport-endpoints.png), reproduced by [crop script](slides/crop_transport_poster.py). Both use unchanged regions of the original page render, omit the original captions in favor of attributed Chinese slide captions, and do not include personal contact details. The complete original source is preserved for checking.

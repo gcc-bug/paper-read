@@ -1,4 +1,3 @@
-% !TeX program = xelatex
 \documentclass[aspectratio=169,12pt,fontset=none]{ctexbeamer}
 \makeatletter
 \def\input@path{{../../../skills/write-slides/assets/company-beamer/}}
@@ -19,7 +18,10 @@
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \tikzset{box/.style={draw=ArclightRule,line width=.8pt,fill=ArclightPale,
  align=center,minimum height=13mm,font=\small},
- flow/.style={-{Latex[length=2.4mm]},line width=1pt,draw=ArclightInk}}
+ flow/.style={-{Latex[length=2.4mm]},line width=1pt,draw=ArclightInk},
+ pipeline/.style={box,minimum height=12mm,text width=17mm,inner xsep=1mm,font=\small},
+ contribution/.style={draw=ArclightRed,line width=1.3pt,fill=ArclightRed!7},
+ contributionflow/.style={flow,draw=ArclightRed}}
 \title[量子控制软件]{过去工作介绍}
 \subtitle{波形预失真编译与离子输运控制}
 \author{报告人：高丁超}
@@ -51,55 +53,99 @@
  \begin{figure}
  \centering
  \begin{tikzpicture}
-  \begin{axis}[width=112mm,height=34mm,xmin=0,xmax=4,ymin=.65,ymax=1.65,
+  \begin{axis}[width=100mm,height=34mm,xmin=0,xmax=2,ymin=,ymax=1.65,
     xlabel={$t/\tau$},ylabel={归一化幅度},
-    axis lines=left,xtick={0,1,2,3,4},ytick={.75,1,1.25},
+    axis lines=left,xtick={0,1,2},ytick={.75,1,1.25},
     tick label style={font=\footnotesize},label style={font=\footnotesize},
     legend columns=3,
-    legend style={font=\fontsize{9}{11}\selectfont,draw=none,at={(.5,.98)},anchor=north},
-    samples=120,domain=0:4]
-   \addplot[ArclightInk,thick,dashed] {1};\addlegendentry{目标输出}
-   \addplot[Teal,very thick] {1-.25*exp(-x)};\addlegendentry{未补偿输出}
-   \addplot[ArclightRed,very thick] {1+exp(-x/.75)/3};\addlegendentry{预失真输入}
+    legend style={font=\fontsize{9}{11}\selectfont,draw=none,at={(.5,1.1)},anchor=north},
+    samples=120,domain=0:2]
+  \addplot[ArclightInk,thick,dashed]
+  coordinates {(0,0) (0.2,0) (0.2,1) (2,1)};
+    \addlegendentry{目标输出}
+   \addplot[Teal,very thick] {1-.25*exp(-5*x)};\addlegendentry{未补偿输出}
+   \addplot[ArclightRed,very thick] {1+exp(-5*x)/3};\addlegendentry{预失真输入}
   \end{axis}
  \end{tikzpicture}
- \caption{单指数阶跃模型示意（$p=-0.25$），非实测；精确模型下补偿输出与目标重合。}
+ \caption{单指数阶跃模型示意，非实测；理想情况下预失真处理后输出与目标输出重合。}
  \label{fig-predistortion-step}
  \end{figure}
 \end{frame}
 
 \begin{frame}{我负责把波形补偿接入编译流程}
- 编译器根据各端口的响应参数，对生成的波形进行补偿，再生成相应的输出指令。
  \begin{figure}
  \centering
- \begin{tikzpicture}[node distance=7mm]
-  \node[box,minimum width=32mm] (a) {组合端口波形};
-  \node[box,minimum width=39mm,right=of a] (b) {计算预失真波形};
-  \node[box,minimum width=32mm,right=of b] (c) {生成输出指令};
-  \node[align=center,text=Teal,below=9mm of b] (p) {各端口的响应参数};
-  \draw[flow] (a)--(b);\draw[flow] (b)--(c);\draw[flow,Teal] (p)--(b);
+ \begin{tikzpicture}[x=1mm,y=1mm]
+  \node[pipeline] (program) at (0,0) {控制程序\\目标波形};
+  \node[pipeline] (compose) at (23,0) {组合\\端口波形};
+  \node[pipeline,contribution] (pre) at (46,0) {计算\\预失真};
+  \node[pipeline] (instructions) at (69,0) {生成\\回放指令};
+  \node[pipeline] (chain) at (92,0) {发生器\\与信号链};
+  \node[pipeline] (chip) at (115,0) {芯片端\\实际波形};
+  \node[align=center,font=\small,text=Teal,above=3mm of pre] (parameters)
+    {各端口响应参数\\具体实验人员测试后提供};
+  \draw[flow] (program)--(compose);
+  \draw[contributionflow] (compose)--(pre);
+  \draw[contributionflow] (pre)--(instructions);
+  \draw[flow] (instructions)--(chain);\draw[flow] (chain)--(chip);
+  \draw[flow,Teal] (parameters)--(pre);
+  \node[below=3mm of pre,anchor=north west,xshift=-20mm,
+    font=\small\bfseries,text=ArclightRed] {我的工作：补偿功能及其编译集成};
  \end{tikzpicture}
- \caption{QuantaCS 中的波形预失真编译流程。}
+ \caption{QuantaCS 的控制信号全流程示意；红色标出本人实现的补偿及编译衔接位置。}
  \label{fig-predistortion-compilation}
  \end{figure}
- \textbf{响应参数由同事提供；我实现补偿功能及其编译集成。}
+ 补偿作用于生成器的输入，目标是让传输后的芯片端波形接近预期。
 \end{frame}
 
 \section[离子输运]{sion / sion-exper：离子输运}
-\begin{frame}{通过电极电压控制离子输运}
- 离子输运需要随时间改变各电极的电压，使离子按照目标过程移动。
+\begin{frame}{从输运目标到电极电压控制}
  \begin{figure}
  \centering
- \begin{tikzpicture}[node distance=7mm]
-  \node[box,minimum width=32mm] (a) {目标输运过程};
-  \node[box,minimum width=39mm,right=of a] (b) {计算电极电压序列\\$V_1(t),\ldots,V_m(t)$};
-  \node[box,minimum width=32mm,right=of b] (c) {ARTIQ 输出控制};
-  \draw[flow] (a)--(b);\draw[flow] (b)--(c);
+ \begin{tikzpicture}[x=1mm,y=1mm]
+  \node[pipeline,text width=21mm] (goal) at (0,13) {目标\\输运过程};
+  \node[pipeline,text width=21mm,contribution] (voltage) at (28,13)
+    {电极电压\\序列计算};
+  \node[pipeline,text width=21mm,contribution] (artiq) at (56,13) {ARTIQ\\输出控制};
+  \node[pipeline,text width=21mm] (hardware) at (84,13) {输出硬件\\分段电极};
+  \node[pipeline,text width=21mm] (wells) at (112,13) {改变电势\\移动势阱};
+  \draw[flow] (goal)--(voltage);
+  \draw[contributionflow] (voltage)--(artiq);
+  \draw[flow] (artiq)--(hardware);\draw[flow] (hardware)--(wells);
+  % Generic segmented electrodes; no experimental channel count is implied.
+  \foreach \n in {0,...,9}{
+    \draw[draw=ArclightRule,fill=ArclightPale] (18+8*\n,-12) rectangle ++(7,4);}
+  \node[font=\small,text=Teal] at (30,3) {起点};
+  \node[font=\small,text=ArclightMuted] at (86,3) {终点};
+  \draw[very thick,Teal] (24,1) .. controls (27,-6) and (31,-6) .. (34,1);
+  \draw[very thick,dashed,ArclightMuted] (80,1) .. controls (83,-6) and (87,-6) .. (90,1);
+  \draw[contributionflow] (40,-2)--(73,-2);
  \end{tikzpicture}
- \caption{离子输运中电压序列计算与输出控制的软件流程示意。}
+ \caption{电极电压改变势阱位置；实线与虚线表示起点和终点，电极数量与排列为示意。}
  \label{fig-ion-control}
  \end{figure}
- 我负责电压序列计算和 ARTIQ 控制代码，将计算结果转化为按时执行的电压输出。参与范围是软件开发。
+ \textbf{我的工作：电压序列计算与 ARTIQ 输出控制代码（红框）。}
+ \par 将计算结果转化为按时执行的电压输出。
+\end{frame}
+
+\begin{frame}{团队展示：电压序列模拟与单离子输运}
+ \begin{figure}
+ \centering
+ \begin{columns}[T,onlytextwidth]
+  \begin{column}{.48\linewidth}
+   \centering
+   {\small\bfseries 电压序列：理论模拟}\par\smallskip
+   \includegraphics[width=\linewidth,height=34mm,keepaspectratio]{figures/poster-transport-voltages.png}
+  \end{column}
+  \begin{column}{.48\linewidth}
+   \centering
+   {\small\bfseries 单离子输运：实验图像}\par\smallskip
+   \includegraphics[width=\linewidth,height=34mm,keepaspectratio]{figures/poster-transport-endpoints.png}
+  \end{column}
+ \end{columns}
+ \caption{Fan 等海报图 7、8（裁剪）。右图为单个 $^{138}\mathrm{Ba}^{+}$ 离子以 100 步跨越一个电极的延时成像；两亮点对应其两个端点。}
+ \label{fig-ion-poster-transport}
+ \end{figure}
 \end{frame}
 
 \section[接续校准]{从控制执行到校准判断}
